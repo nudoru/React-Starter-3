@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import {TextStyles} from '../components/mocks/textstyles';
 
 class TemplatePage extends React.Component {
 
@@ -22,11 +23,7 @@ class TemplatePage extends React.Component {
   }
 
   render () {
-    return (
-      <div>
-        <h1>Header</h1>
-        <p>Text</p>
-      </div>);
+    return <TextStyles/>;
   }
 }
 
