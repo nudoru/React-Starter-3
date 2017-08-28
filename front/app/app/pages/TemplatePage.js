@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import {TextStyles} from '../components/mocks/textstyles';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { TextStyles } from "../components/mocks/textstyles";
+import { StyledComponents } from "../components/mocks/styledcomponents";
 
 class TemplatePage extends React.Component {
-
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {};
   }
@@ -18,17 +18,23 @@ class TemplatePage extends React.Component {
   this.props.match
      - isExact, params, path, url passed from React-Router
    */
-  componentDidMount () {
-    console.log('Template page, ', this.props);
+  componentDidMount() {
+    console.log("Template page, ", this.props);
   }
 
-  render () {
-    return <TextStyles/>;
+  render() {
+    return (
+      <div>
+        <StyledComponents />
+        <hr />
+        <TextStyles />
+      </div>
+    );
   }
 }
 
 TemplatePage.defaultProps = {};
-TemplatePage.propTypes    = {};
+TemplatePage.propTypes = {};
 
 const mapStateToProps = state => {
   return {

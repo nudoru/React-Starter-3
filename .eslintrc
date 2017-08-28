@@ -56,7 +56,8 @@
     "react-native/split-platform-components": 1,
     "react/display-name": 0,
     "react/prop-types": 0,
-    "react/no-danger": 0
+    "react/no-danger": 0,
+    "react/no-unescaped-entities":0
   },
   "env": {
     "browser": true,

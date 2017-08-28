@@ -40,6 +40,7 @@ module.exports = env => {
       // 'use' is the preferred syntax but some of these aren't updated to support it
       loaders: [
         {
+          // TODO use happypack
           test  : /\.(s?)(a|c)ss$/,
           loader: ExtractTextPlugin.extract({
             fallback: 'style-loader',
@@ -75,6 +76,7 @@ module.exports = env => {
           test   : /\.jsx?$/,
           loader : 'happypack/loader',
           exclude: ['/node_modules/'],
+          // TODO pass these to babel-loader
           query  : {
             presets: removeEmpty(['es2015', 'react', isProd ? undefined : 'react-hmre']),
             compact: true
