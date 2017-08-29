@@ -28,6 +28,8 @@ class TemplatePage extends React.Component {
     return (
       <div>
         <WFoo />
+        <WFoo />
+        <WFoo />
       </div>
     );
   }

@@ -9,11 +9,11 @@ export const withCommonCallbacks = Wrapped => {
       this.state = {};
     }
 
-    _onMouseOver(e) {
+    _onMouseEnter(e) {
       console.log('HOC mouse OVER',e);
     }
 
-    _onMouseOut(e) {
+    _onMouseLeave(e) {
       console.log('HOC mouse OUT');
     }
 
@@ -25,9 +25,18 @@ export const withCommonCallbacks = Wrapped => {
       console.log('HOC change',e);
     }
 
+    _onFocus(e) {
+      console.log('HOC focus', e);
+    }
+  
+    _onBlur(e) {
+      console.log('HOC blur', e);
+    }
+
     render() {
+      //onMouseEnter={(e) => this._onMouseEnter(e)}
       return (
-        <Wrapped onMouseOver={(e) => this._onMouseOver(e)} {...this.props} />
+        <Wrapped  cid={getNextId()} {...this.props} />
       );
     }
   };
