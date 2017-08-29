@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { TextStyles } from '../components/mocks/textstyles';
 import { StyledComponents } from '../components/mocks/styledcomponents';
 
+import { WFoo } from '../components/controls/Controls';
+
 class TemplatePage extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +27,7 @@ class TemplatePage extends React.Component {
   render() {
     return (
       <div>
-        <StyledComponents />
+        <WFoo />
       </div>
     );
   }
