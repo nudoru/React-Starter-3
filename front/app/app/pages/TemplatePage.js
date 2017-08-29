@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { TextStyles } from "../components/mocks/textstyles";
-import { StyledComponents } from "../components/mocks/styledcomponents";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { TextStyles } from '../components/mocks/textstyles';
+import { StyledComponents } from '../components/mocks/styledcomponents';
 
 class TemplatePage extends React.Component {
   constructor(props) {
@@ -19,15 +19,13 @@ class TemplatePage extends React.Component {
      - isExact, params, path, url passed from React-Router
    */
   componentDidMount() {
-    console.log("Template page, ", this.props);
+    console.log('Template page, ', this.props);
   }
 
   render() {
     return (
       <div>
         <StyledComponents />
-        <hr />
-        <TextStyles />
       </div>
     );
   }

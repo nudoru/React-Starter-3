@@ -2,7 +2,7 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
 
-import RHUTheme from "../theme/rh.js";
+import RHUTheme from "../controls/theme/rh";
 
 // https://www.npmjs.com/package/styled-components-theme
 
