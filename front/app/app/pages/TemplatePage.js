@@ -4,7 +4,15 @@ import { connect } from 'react-redux';
 import { TextStyles } from '../components/mocks/textstyles';
 import { StyledComponents } from '../components/mocks/styledcomponents';
 
-import { WFoo } from '../components/controls/Controls';
+import Foo from '../components/controls/interactive/Foo';
+
+import {  Card,
+  CardBody,
+  CardTitle,
+  CardSubTitle,
+  CardText,
+  CardLink
+} from '../components/controls/presentational/Card';
 
 class TemplatePage extends React.Component {
   constructor(props) {
@@ -27,9 +35,15 @@ class TemplatePage extends React.Component {
   render() {
     return (
       <div>
-        <WFoo />
-        <WFoo />
-        <WFoo />
+        <Foo />
+        <Card width="500px">
+          <CardBody>
+            <CardTitle>This is a card!</CardTitle>
+            <CardSubTitle>Subtitles are cool</CardSubTitle>
+            <CardText>Card! Card! Card! Card! </CardText>
+            <CardLink href='http://www.google.com'>Link text</CardLink>
+          </CardBody>
+        </Card>
       </div>
     );
   }
