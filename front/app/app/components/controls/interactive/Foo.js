@@ -84,7 +84,7 @@ class Foo extends React.Component {
     /*
     const children = React.Children.map(this.props.children, (child, index) => {
       return React.cloneElement(child, {
-        newProp: value, // Pass down props
+        newProp: value, // Pass down new implicit props
         onSelect: onClick  // Pass down handlers
       });
     });
@@ -133,7 +133,9 @@ Foo.propTypes = {
   isOpen: PropTypes.bool,
   width: PropTypes.number,
   number: PropTypes.number,
-  appearance: PropTypes.string
+  appearance: PropTypes.string,
+  legend: PropTypes.string
+
 };
 
 export default withCommonCallbacks(Foo);

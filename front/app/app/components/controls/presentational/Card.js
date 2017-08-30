@@ -9,20 +9,19 @@ const BCard = styled.div.attrs({ className: 'card' })`
   background-color: ${props => props.theme.colorList.blue};
   width: ${props => props.width ? props.width : props.theme.cards.defaultWidth}
 `;
-
+const BCardHeader = styled.div.attrs({className:'card-header'})``;
+const BCardFooter = styled.div.attrs({className:'card-footer'})``;
 const BCardBody = styled.div.attrs({ className: 'card-body' })`
   padding: ${props => props.theme.metrics.spacing};
 `;
-
 const BCardTitle = styled.h4.attrs({ className: 'card-title' })``;
-
 const BCardSubTitle = styled.h6.attrs({ className: 'card-subtitle mb-2 text-muted' })``;
-
 const BCardText = styled.p.attrs({ className: 'card-text' })``;
-
 const BCardLink = styled.a.attrs({ className: 'card-link' })``;
 
 export const Card = withCommonCallbacks(BCard);
+export const CardHeader = withCommonCallbacks(BCardHeader);
+export const CardFooter = withCommonCallbacks(BCardFooter);
 export const CardBody = withCommonCallbacks(BCardBody);
 export const CardTitle = withCommonCallbacks(BCardTitle);
 export const CardSubTitle = withCommonCallbacks(BCardSubTitle);
