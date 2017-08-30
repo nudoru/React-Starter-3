@@ -84,7 +84,8 @@ class Foo extends React.Component {
     /*
     const children = React.Children.map(this.props.children, (child, index) => {
       return React.cloneElement(child, {
-        newProp: value
+        newProp: value, // Pass down props
+        onSelect: onClick  // Pass down handlers
       });
     });
     */
