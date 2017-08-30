@@ -27,6 +27,8 @@ export const Col = ({ size, width, children, className, ...rest }) => {
   if (width) {
     modifier.push(width);
   }
+
+  // TODO any reasons to use a styled component here?
   return (
     <div className={modifier.join('-') + ' ' + className} {...rest}>
       {children}

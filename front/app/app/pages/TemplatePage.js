@@ -26,7 +26,10 @@ import {
   ColBreak
 } from '../components/controls/presentational/Grid';
 
-import {ListGroup, ListGroupItem} from '../components/controls/presentational/ListGroup';
+import {
+  ListGroup,
+  ListGroupItem
+} from '../components/controls/presentational/ListGroup';
 
 class TemplatePage extends React.Component {
   constructor(props) {
@@ -47,23 +50,23 @@ class TemplatePage extends React.Component {
   }
 
   render() {
-
-console.log('col',<Col/>)
+    console.log('col', <Col />);
 
     return (
       <div>
         <Foo />
         <ListGroup flush>
-        <ListGroupItem>Foo</ListGroupItem>
-        <ListGroupItem>Bar</ListGroupItem>
+          <ListGroupItem>Foo</ListGroupItem>
+          <ListGroupItem>Bar</ListGroupItem>
         </ListGroup>
         <GridFluid>
-        <RowNG className='debug-container'>
-        <Col>1</Col>
-        <Col className='debug-container'>2</Col>
-        <Col className='debug-container'>3</Col>
-        <Col className='debug-container'>4</Col>
-        </RowNG></GridFluid>
+          <RowNG className="debug-container">
+            <Col>1</Col>
+            <Col className="debug-container">2</Col>
+            <Col className="debug-container">3</Col>
+            <Col className="debug-container">4</Col>
+          </RowNG>
+        </GridFluid>
         <Card width="500px">
           <CardHeader>Header</CardHeader>
           <CardBody>

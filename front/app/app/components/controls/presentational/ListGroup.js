@@ -1,11 +1,10 @@
 import React from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
+import { withCommonCallbacks } from '../shared/simpleHOC';
 
-
-
-export const ListGroup = ({ flush, children, className = '', ...rest }) => {
+const BListGroup = ({ flush, children, className = '', ...rest }) => {
   // flush toggle
-  let cls = ['list-group'];
+  let cls = ['list-group'], List;
 
   if (flush) {
     cls.push('list-group-flush');
@@ -13,16 +12,24 @@ export const ListGroup = ({ flush, children, className = '', ...rest }) => {
 
   cls.push(className);
 
+  List = styled.ul.attrs({ className: cls.join(' ') })``;
+
   return (
-    <ul className={cls.join(' ')} {...rest}>
+    <List {...rest}>
       {children}
-    </ul>
+    </List>
   );
 };
-export const ListGroupItem = ({ children, className = '', ...rest }) => {
+
+const BListGroupItem = ({ children, className = '', ...rest }) => {
+  let Item = styled.li.attrs({ className: 'list-group-item '+className })``;
+
   return (
-    <li className={'list-group-item ' + className} {...rest}>
+    <Item {...rest}>
       {children}
-    </li>
+    </Item>
   );
 };
+
+export const ListGroup = withCommonCallbacks(BListGroup);
+export const ListGroupItem = withCommonCallbacks(BListGroupItem);
