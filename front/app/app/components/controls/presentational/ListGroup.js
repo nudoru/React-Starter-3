@@ -3,13 +3,10 @@ import styled from 'styled-components';
 import { withCommonCallbacks } from '../shared/simpleHOC';
 
 const BListGroup = ({ flush, children, className = '', ...rest }) => {
-  // flush toggle
-  let cls = ['list-group'], List;
-
+  let cls = ['list-group'], List, nChildren;
   if (flush) {
     cls.push('list-group-flush');
   }
-
   cls.push(className);
 
   List = styled.ul.attrs({ className: cls.join(' ') })``;

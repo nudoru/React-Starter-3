@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import TemplatePage from '../pages/TemplatePage';
+import Components from '../pages/Components';
 
 const RouteMessage = ({children}) =>
   <div>
@@ -14,7 +15,7 @@ export const AppRouter = ({config}) =>
     <div className="application-container">
       <div className="application-content">
         <Switch>
-          <Route exact path="/" component={TemplatePage}/>
+          <Route exact path="/" component={Components}/>
           <Route path="/404" render={() => <RouteMessage>There&apos;s nothing
             here.</RouteMessage>}/>
           <Route render={() => <RouteMessage>There&apos;s nothing
