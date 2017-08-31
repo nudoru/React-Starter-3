@@ -18,6 +18,7 @@ const BListGroup = ({ flush, children, className = '', ...rest }) => {
   );
 };
 
+// TODO additional styles https://getbootstrap.com/docs/4.0/components/list-group/
 const BListGroupItem = ({ children, className = '', ...rest }) => {
   let Item = styled.li.attrs({ className: 'list-group-item '+className })``;
 

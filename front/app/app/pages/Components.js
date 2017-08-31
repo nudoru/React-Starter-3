@@ -54,11 +54,16 @@ class Components extends React.Component {
 
     return (
       <div>
+      <h3>Testing a foo</h3>
         <Foo />
+        <hr/>
+        <h3>List Group</h3>
         <ListGroup flush>
           <ListGroupItem>Foo</ListGroupItem>
           <ListGroupItem>Bar</ListGroupItem>
         </ListGroup>
+        <hr/>
+        <h3>Grid</h3>
         <GridFluid>
           <RowNG className="debug-container">
             <Col>1</Col>
@@ -67,6 +72,8 @@ class Components extends React.Component {
             <Col className="debug-container">4</Col>
           </RowNG>
         </GridFluid>
+        <hr/>
+        <h3>Card</h3>
         <Card width="500px">
           <CardHeader>Header</CardHeader>
           <CardBody>
@@ -77,6 +84,7 @@ class Components extends React.Component {
           </CardBody>
           <CardFooter>Footer</CardFooter>
         </Card>
+        <hr/>
         <Card width="500px">
           <CardBody>
             <CardTitle>This is a card!</CardTitle>

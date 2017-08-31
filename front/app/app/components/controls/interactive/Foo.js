@@ -13,12 +13,13 @@ const ControlContainer = styled.div`
   width: 250px;
 `;
 
+class Foo extends React.PureComponent {
+  // constructor(props) {
+  //   super(props);
+  // }
 
-class Foo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  state = {};
+  
 
   // Determine we're in a user or programmer controlled state as determined by passed props values
   // If controlled, use props. If not, use state
@@ -48,11 +49,21 @@ class Foo extends React.Component {
     }
   };
 
+  // Also fires for enter press when focused
   _onClick = e => {
     e.preventDefault();
+    // isDiabled? e.stopPropagation();
     console.log('mouse CLICK!', e);
     if (this.props.onClick) {
       this.props.onClick(e);
+    }
+  };
+
+  _onKeyDown = e => {
+    e.preventDefault();
+    console.log('key DOWN', e.key, e);
+    if (this.props._onKeyDown) {
+      this.props.onKeyDown(e);
     }
   };
 
@@ -91,21 +102,27 @@ class Foo extends React.Component {
     */
 
     return (
-        <ControlContainer>
-          <p
-            onMouseEnter={this._onMouseEnter}
-            onMouseLeave={this._onMouseLeave}
-            onClick={this._onClick}
-          >
-            Foo! {this.props.cid}
-          </p>
-          <input
-            onFocus={this._onFocus}
-            onBlur={this._onBlur}
-            onChange={this._onChange}
-            defaultValue="Whatever"
-          />
-        </ControlContainer>
+      <ControlContainer>
+        <p
+          onMouseEnter={this._onMouseEnter}
+          onMouseLeave={this._onMouseLeave}
+          onClick={this._onClick}
+        >
+          Foo! {this.props.cid}
+        </p>
+        <p>
+          <a href="#" onClick={this._onClick} onKeyDown={this._onOnKeyDown} onFocus={this._onFocus}
+          onBlur={this._onBlur} >
+            Test clicks and keydowns
+          </a>
+        </p>
+        <input
+          onFocus={this._onFocus}
+          onBlur={this._onBlur}
+          onChange={this._onChange}
+          defaultValue="Whatever"
+        />
+      </ControlContainer>
     );
   }
 }
@@ -118,6 +135,7 @@ Foo.propTypes = {
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
   onClick: PropTypes.func,
+  onKeyDown: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
@@ -125,17 +143,24 @@ Foo.propTypes = {
   defaultValue: PropTypes.string,
   activeIndex: PropTypes.number,
   defaultActiveIndex: PropTypes.number,
-  status: PropTypes.string,
+  bsClass: PropTypes.string, // btn
+  bsStyle: PropTypes.string, // primary
+  bsSize: PropTypes.string, // sm
+  bsModifier: PropTypes.string, // block
+  status: PropTypes.string, // Needed?
   isDisabled: PropTypes.bool,
   isActive: PropTypes.bool,
   isSelected: PropTypes.bool,
   isVisible: PropTypes.bool,
+  isCollapsed: PropTypes.bool, // Accordion
   isOpen: PropTypes.bool,
   width: PropTypes.number,
   number: PropTypes.number,
   appearance: PropTypes.string,
-  legend: PropTypes.string
-
+  legend: PropTypes.string,
+  role: PropTypes.string, // Aria
+  href: PropTypes.string,
+  tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
 export default withCommonCallbacks(Foo);
