@@ -75,7 +75,8 @@ module.exports = env => {
         {
           test   : /\.jsx?$/,
           loader : 'happypack/loader',
-          exclude: ['/node_modules/'],
+          // exclude: ['/node_modules/'],
+          exclude: resolve(__dirname, 'node_modules/'),
           // TODO pass these to babel-loader
           query  : {
             presets: removeEmpty(['es2015', 'react', isProd ? undefined : 'react-hmre']),
