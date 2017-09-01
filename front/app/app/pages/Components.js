@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { TextStyles } from '../components/mocks/textstyles';
 import { StyledComponents } from '../components/mocks/styledcomponents';
 
-import Foo from '../components/controls/interactive/Foo';
-
 import {
   Card,
   CardBody,
@@ -53,16 +51,16 @@ class Components extends React.Component {
     console.log('col', <Col />);
 
     return (
-      <div>
-      <h3>Testing a foo</h3>
-        <Foo />
-        <hr/>
+      <div className="container mt-1">
         <h3>List Group</h3>
-        <ListGroup flush>
+        <ListGroup>
           <ListGroupItem>Foo</ListGroupItem>
           <ListGroupItem>Bar</ListGroupItem>
+          <ListGroupItem>Bazz</ListGroupItem>
+          <ListGroupItem>This</ListGroupItem>
+          <ListGroupItem>That</ListGroupItem>
         </ListGroup>
-        <hr/>
+        <hr />
         <h3>Grid</h3>
         <GridFluid>
           <RowNG className="debug-container">
@@ -72,32 +70,37 @@ class Components extends React.Component {
             <Col className="debug-container">4</Col>
           </RowNG>
         </GridFluid>
-        <hr/>
+        <hr />
         <h3>Card</h3>
-        <Card width="500px">
-          <CardHeader>Header</CardHeader>
-          <CardBody>
-            <CardTitle>This is a card!</CardTitle>
-            <CardSubTitle>Subtitles are cool</CardSubTitle>
-            <CardText>Card! Card! Card! Card! </CardText>
-            <CardLink href="http://www.google.com">Link text</CardLink>
-          </CardBody>
-          <CardFooter>Footer</CardFooter>
-        </Card>
-        <hr/>
-        <Card width="500px">
-          <CardBody>
-            <CardTitle>This is a card!</CardTitle>
-            <CardSubTitle>Subtitles are cool</CardSubTitle>
-            <CardText>Card! Card! Card! Card! </CardText>
-            <CardLink href="http://www.google.com">Link text</CardLink>
-            <CardLink href="http://www.google.com">Link text</CardLink>
-          </CardBody>
-          <ListGroup flush>
-            <ListGroupItem>Foo</ListGroupItem>
-            <ListGroupItem>Bar</ListGroupItem>
-          </ListGroup>
-        </Card>
+        <GridFluid>
+          <Row>
+            <Col><Card>
+            <CardHeader>Header</CardHeader>
+            <CardBody>
+              <CardTitle>This is a card!</CardTitle>
+              <CardSubTitle>Subtitles are cool</CardSubTitle>
+              <CardText>Card! Card! Card! Card! </CardText>
+              <CardLink href="http://www.google.com">Link text</CardLink>
+            </CardBody>
+            <CardFooter>Footer</CardFooter>
+          </Card></Col>
+            <Col><Card>
+            <CardBody>
+              <CardTitle>This is a card!</CardTitle>
+              <CardSubTitle>Subtitles are cool</CardSubTitle>
+              <CardText>Card! Card! Card! Card! </CardText>
+              <CardLink href="http://www.google.com">Link text</CardLink>
+              <CardLink href="http://www.google.com">Link text</CardLink>
+            </CardBody>
+            <ListGroup flush>
+              <ListGroupItem>Foo</ListGroupItem>
+              <ListGroupItem>Bar</ListGroupItem>
+            </ListGroup>
+          </Card></Col>
+          </Row>
+        </GridFluid>
+        
+        
       </div>
     );
   }

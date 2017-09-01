@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withCommonCallbacks } from '../shared/simpleHOC';
+import { withBootStrap } from '../shared/bsHOC';
 
 // Theme passed via HOC Wrapper
 
@@ -19,11 +19,11 @@ const BCardSubTitle = styled.h6.attrs({ className: 'card-subtitle mb-2 text-mute
 const BCardText = styled.p.attrs({ className: 'card-text' })``;
 const BCardLink = styled.a.attrs({ className: 'card-link' })``;
 
-export const Card = withCommonCallbacks(BCard);
-export const CardHeader = withCommonCallbacks(BCardHeader);
-export const CardFooter = withCommonCallbacks(BCardFooter);
-export const CardBody = withCommonCallbacks(BCardBody);
-export const CardTitle = withCommonCallbacks(BCardTitle);
-export const CardSubTitle = withCommonCallbacks(BCardSubTitle);
-export const CardText = withCommonCallbacks(BCardText);
-export const CardLink = withCommonCallbacks(BCardLink);
+export const Card = withBootStrap(BCard);
+export const CardHeader = withBootStrap(BCardHeader);
+export const CardFooter = withBootStrap(BCardFooter);
+export const CardBody = withBootStrap(BCardBody);
+export const CardTitle = withBootStrap(BCardTitle);
+export const CardSubTitle = withBootStrap(BCardSubTitle);
+export const CardText = withBootStrap(BCardText);
+export const CardLink = withBootStrap(BCardLink);

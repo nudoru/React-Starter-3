@@ -173,7 +173,7 @@ const buttons = {};
 const tables = {};
 
 const cards = {
-  defaultWidth: '250px'
+  defaultWidth: '100%'
 };
 
 export default {
