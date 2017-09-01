@@ -1,8 +1,9 @@
-import Enum from '../../utils/Enum';
+import Enum from '../../../utils/Enum';
 
 // Refer 
 // http://a11yproject.com/posts/getting-started-aria/
 // https://www.w3.org/TR/wai-aria/roles
+// https://www.w3.org/TR/wai-aria/states_and_properties
 
 export const ARIA_WIDGETS = Enum('alert','alertdialog','button','checkbox','dialog','gridcell','link','log','marquee','menuitem','menuitemcheckbox','menuitemradio','option','progressbar','radio','scrollbar','slider','spinbutton','status','tab','tabpanel','textbox','timer','tooltip','treeitem');
 

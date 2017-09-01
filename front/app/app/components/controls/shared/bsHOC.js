@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import RHUTheme from '../theme/rh';
 import Enum from '../../../utils/Enum';
 import { getNextId } from '../../../utils/ElementIDCreator';
 
-export const withBootStrap = (Wrapped, bsClass='') => {
-   class HOC extends React.Component {
+// bsClass -> BootStrap CSS control class, btn, badge, etc.
+export const withBootStrap = (Comp, bsClass='') => {
+   class HOC extends Component {
     constructor(props) {
       super(props);
       this.state = {};
@@ -15,7 +16,7 @@ export const withBootStrap = (Wrapped, bsClass='') => {
     render() {
       return (
         <ThemeProvider theme={RHUTheme}>
-          <Wrapped cid={getNextId()} {...this.props} />
+          <Comp cid={getNextId()} {...this.props} />
         </ThemeProvider>
       );
     }
