@@ -27,7 +27,7 @@ Bar.propTypes = {
   ariaRole: PropTypes.string // Aria
 };
 
-export default withBootStrap(Bar);
+export default withBootStrap('bscls')(Bar);
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
@@ -165,4 +165,4 @@ Foo.propTypes = {
   tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
-export default withBootStrap(Foo);
+export default withBootStrap('bscls')(Foo);

@@ -19,20 +19,8 @@ class BListGroup extends React.PureComponent {
     return <List {...this.props}>{this.props.children}</List>;
   }
 }
-// BListGroup.defaultProps = {
-//   bsClass: 'list-group'
-// };
 
-// BListGroup.propTypes = {
-//   flush: PropTypes.bool,
-//   bsClass: PropTypes.string, // btn
-//   bsStatus: PropTypes.string, // primary
-//   bsSize: PropTypes.string, // sm
-//   bsModifier: PropTypes.string, // block
-//   ariaRole: PropTypes.string // Aria
-// };
-
-export const ListGroup = withBootStrap(BListGroup,'list-group');
+export const ListGroup = withBootStrap('list-group')(BListGroup);
 
 
 class BListGroupItem extends React.PureComponent {
@@ -43,18 +31,5 @@ class BListGroupItem extends React.PureComponent {
     return <Item {...this.props}>{this.props.children}</Item>;
   }
 }
-// BListGroupItem.defaultProps = {
-//   bsClass: 'list-group-item'
-// };
 
-// BListGroupItem.propTypes = {
-//   flush: PropTypes.bool,
-//   bsClass: PropTypes.string, // btn
-//   bsStatus: PropTypes.string, // primary
-//   bsSize: PropTypes.string, // sm
-//   bsModifier: PropTypes.string, // block
-//   ariaRole: PropTypes.string // Aria
-// };
-
-
-export const ListGroupItem = withBootStrap(BListGroupItem,'list-group-item');
+export const ListGroupItem = withBootStrap('list-group-item')(BListGroupItem);

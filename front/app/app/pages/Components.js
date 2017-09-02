@@ -54,10 +54,10 @@ class Components extends React.Component {
       <div className="container mt-1">
         <h3>List Group</h3>
         <ListGroup>
-          <ListGroupItem>Foo</ListGroupItem>
-          <ListGroupItem>Bar</ListGroupItem>
-          <ListGroupItem>Bazz</ListGroupItem>
-          <ListGroupItem>This</ListGroupItem>
+          <ListGroupItem active>Foo</ListGroupItem>
+          <ListGroupItem success>Bar</ListGroupItem>
+          <ListGroupItem danger >Bazz</ListGroupItem>
+          <ListGroupItem disabled>This</ListGroupItem>
           <ListGroupItem>That</ListGroupItem>
         </ListGroup>
         <hr />
