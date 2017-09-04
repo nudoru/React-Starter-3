@@ -16,8 +16,8 @@ class BTabs extends React.PureComponent {
 
   getChildContext() {
     return {
-      activeIndex: this.state.activeIndex ,
-      onSelectTab: this.onSelectTab      
+      activeIndex: this.state.activeIndex,
+      onSelectTab: this.onSelectTab
     };
   }
 
@@ -26,7 +26,9 @@ class BTabs extends React.PureComponent {
   };
 
   render() {
-    const TabsEl = styled.div.attrs({ className: getBsClassName('', this.props) })`
+    const TabsEl = styled.div.attrs({
+      className: getBsClassName('', this.props)
+    })`
 
     `;
     return <TabsEl>{this.props.children}</TabsEl>;
@@ -40,7 +42,7 @@ class BTabList extends React.PureComponent {
   };
 
   render() {
-    const {activeIndex, onSelectTab} = this.context;
+    const { activeIndex, onSelectTab } = this.context;
 
     const children = React.Children.map(this.props.children, (child, idx) => {
       return React.cloneElement(child, {
@@ -49,7 +51,9 @@ class BTabList extends React.PureComponent {
       });
     });
 
-    const TabListEl = styled.div.attrs({ className: getBsClassName('', this.props) })`
+    const TabListEl = styled.div.attrs({
+      className: getBsClassName('', this.props)
+    })`
 
     `;
     return <TabListEl>{children}</TabListEl>;
@@ -59,7 +63,11 @@ class BTabList extends React.PureComponent {
 class BTab extends React.PureComponent {
   render() {
     const { onSelect } = this.props;
-    const TabEl = styled.button.attrs({ className: getBsClassName('', this.props) })``;
+    const TabEl = styled.button.attrs({
+      className: getBsClassName('', this.props)
+    })`
+
+    `;
 
     return <TabEl onClick={onSelect}>{this.props.children}</TabEl>;
   }
@@ -71,9 +79,11 @@ class BTabPanels extends React.PureComponent {
   };
 
   render() {
-    const { children } = this.props;
     const { activeIndex } = this.context;
-    const TabPanelsEl = styled.div.attrs({ className: getBsClassName('', this.props) })`
+    const TabPanelsEl = styled.div.attrs({
+      className: getBsClassName('', this.props)
+    })`
+
     `;
     return <TabPanelsEl>{this.props.children[activeIndex]}</TabPanelsEl>;
   }
@@ -81,7 +91,10 @@ class BTabPanels extends React.PureComponent {
 
 class BTabPanel extends React.PureComponent {
   render() {
-    const TabPanelEl = styled.div.attrs({ className: getBsClassName('', this.props) })`
+    const TabPanelEl = styled.div.attrs({
+      className: getBsClassName('', this.props)
+    })`
+
     `;
     return <TabPanelEl>{this.props.children}</TabPanelEl>;
   }
@@ -92,64 +105,3 @@ export const TabList = withBootStrap('')(BTabList);
 export const Tab = withBootStrap('btn')(BTab);
 export const TabPanels = withBootStrap('')(BTabPanels);
 export const TabPanel = withBootStrap('')(BTabPanel);
-
-/*
-class BTabs extends React.PureComponent {
-  state = { activeIndex: 0 };
-
-  _onSelect = i => {
-    this.setState({ activeIndex: i });
-  };
-
-  render() {
-    const children = React.Children.map(this.props.children, (child, idx) => {
-      return React.cloneElement(child, {
-        activeIndex: this.state.activeIndex,
-        onSelect: this._onSelect
-      });
-    });
-
-    const el = styled.div.attrs({ className: getBsClassName(this.props) })``;
-    return <el>{children}}</el>;
-  }
-}
-
-class BTabList extends React.PureComponent {
-  render() {
-    const { activeIndex, onSelect } = this.props;
-
-    const children = React.Children.map(this.props.children, (child, idx) => {
-      return React.cloneElement(child, {
-        active: activeIndex === idx,
-        onSelectTab: () => onSelect(idx)
-      });
-    });
-
-    const el = styled.div.attrs({ className: getBsClassName(this.props) })``;
-    return <el>{children}}</el>;
-  }
-}
-
-class BTab extends React.PureComponent {
-  render() {
-    const { onSelectTab } = this.props;
-    const el = styled.a.attrs({ className: getBsClassName(this.props) })``;
-
-    return <el onClick={onSelectTab}>{this.props.children}}</el>;
-  }
-}
-
-class BTabPanels extends React.PureComponent {
-  render() {
-    const el = styled.div.attrs({ className: getBsClassName(this.props) })``;
-    return <el>{this.props.children[this.props.activeIndex]}}</el>;
-  }
-}
-
-class BTabPanel extends React.PureComponent {
-  render() {
-    const el = styled.div.attrs({ className: getBsClassName(this.props) })``;
-    return <el>{this.props.children}}</el>;
-  }
-}
-*/
