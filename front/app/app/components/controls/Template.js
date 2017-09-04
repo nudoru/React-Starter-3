@@ -7,7 +7,7 @@ import { SIZE, SIZE_MAP, DEVICE_SIZES, STYLE, STATE } from '../shared/BsStyles';
 
 class Bar extends React.PureComponent {
   render() {
-    const el = styled.div.attrs({className:getBsClassName(this.props)})``
+    const el = styled.div.attrs({className:getBsClassName('',this.props)})``
 
     return (
       <el>Template component</el>
@@ -98,7 +98,7 @@ class Foo extends React.PureComponent {
   };
 
   render() {
-    const el = styled.div.attrs({className:getBsClassName(this.props)})``
+    const el = styled.div.attrs({className:getBsClassName('',this.props)})``
 
     /*
     const children = React.Children.map(this.props.children, (child, index) => {

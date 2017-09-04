@@ -29,6 +29,14 @@ import {
   ListGroupItem
 } from '../components/controls/presentational/ListGroup';
 
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel
+} from '../components/controls/presentational/Tabs';
+
 class Components extends React.Component {
   constructor(props) {
     super(props);
@@ -48,15 +56,26 @@ class Components extends React.Component {
   }
 
   render() {
-    console.log('col', <Col />);
-
     return (
       <div className="container mt-1">
+        <h3>Tabs</h3>
+        <Tabs>
+          <TabList>
+            <Tab>One</Tab>
+            <Tab>Two</Tab>
+            <Tab>Three</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>One panel</TabPanel>
+            <TabPanel>Two panel</TabPanel>
+            <TabPanel>Three panel</TabPanel>
+          </TabPanels>
+        </Tabs>
         <h3>List Group</h3>
         <ListGroup>
           <ListGroupItem active>Foo</ListGroupItem>
           <ListGroupItem success>Bar</ListGroupItem>
-          <ListGroupItem danger >Bazz</ListGroupItem>
+          <ListGroupItem danger>Bazz</ListGroupItem>
           <ListGroupItem disabled>This</ListGroupItem>
           <ListGroupItem>That</ListGroupItem>
         </ListGroup>
@@ -74,33 +93,35 @@ class Components extends React.Component {
         <h3>Card</h3>
         <GridFluid>
           <Row>
-            <Col><Card>
-            <CardHeader>Header</CardHeader>
-            <CardBody>
-              <CardTitle>This is a card!</CardTitle>
-              <CardSubTitle>Subtitles are cool</CardSubTitle>
-              <CardText>Card! Card! Card! Card! </CardText>
-              <CardLink href="http://www.google.com">Link text</CardLink>
-            </CardBody>
-            <CardFooter>Footer</CardFooter>
-          </Card></Col>
-            <Col><Card>
-            <CardBody>
-              <CardTitle>This is a card!</CardTitle>
-              <CardSubTitle>Subtitles are cool</CardSubTitle>
-              <CardText>Card! Card! Card! Card! </CardText>
-              <CardLink href="http://www.google.com">Link text</CardLink>
-              <CardLink href="http://www.google.com">Link text</CardLink>
-            </CardBody>
-            <ListGroup flush>
-              <ListGroupItem>Foo</ListGroupItem>
-              <ListGroupItem>Bar</ListGroupItem>
-            </ListGroup>
-          </Card></Col>
+            <Col>
+              <Card>
+                <CardHeader>Header</CardHeader>
+                <CardBody>
+                  <CardTitle>This is a card!</CardTitle>
+                  <CardSubTitle>Subtitles are cool</CardSubTitle>
+                  <CardText>Card! Card! Card! Card! </CardText>
+                  <CardLink href="http://www.google.com">Link text</CardLink>
+                </CardBody>
+                <CardFooter>Footer</CardFooter>
+              </Card>
+            </Col>
+            <Col>
+              <Card>
+                <CardBody>
+                  <CardTitle>This is a card!</CardTitle>
+                  <CardSubTitle>Subtitles are cool</CardSubTitle>
+                  <CardText>Card! Card! Card! Card! </CardText>
+                  <CardLink href="http://www.google.com">Link text</CardLink>
+                  <CardLink href="http://www.google.com">Link text</CardLink>
+                </CardBody>
+                <ListGroup flush>
+                  <ListGroupItem>Foo</ListGroupItem>
+                  <ListGroupItem>Bar</ListGroupItem>
+                </ListGroup>
+              </Card>
+            </Col>
           </Row>
         </GridFluid>
-        
-        
       </div>
     );
   }

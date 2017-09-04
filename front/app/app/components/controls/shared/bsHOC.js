@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
+import hoistNonReactStatic from 'hoist-non-react-statics';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import RHUTheme from '../theme/rh';
 import Enum from '../../../utils/Enum';
 import { getNextId } from '../../../utils/ElementIDCreator';
 
-// TODO https://www.npmjs.com/package/hoist-non-react-statics
-
 // bsClass -> BootStrap CSS control class, btn, badge, etc.
 export const withBootStrap = (bsClass = '') => Comp => {
   class HOC extends Component {
+    
     static WrappedComponent = Comp;
 
     render() {
@@ -43,6 +43,8 @@ export const withBootStrap = (bsClass = '') => Comp => {
     light: PropTypes.bool,
     dark: PropTypes.bool
   };
+
+  hoistNonReactStatic(HOC, Comp);
 
   return HOC;
 };
