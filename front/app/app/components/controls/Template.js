@@ -14,18 +14,6 @@ class Bar extends React.PureComponent {
     );
   }
 }
-Bar.defaultProps = {
-  bsClass: '',
-
-};
-
-Bar.propTypes = {
-  bsClass: PropTypes.string, // btn
-  bsStatus: PropTypes.string, // primary
-  bsSize: PropTypes.string, // sm
-  bsModifier: PropTypes.string, // block
-  ariaRole: PropTypes.string // Aria
-};
 
 export default withBootStrap('bscls')(Bar);
 
@@ -127,9 +115,7 @@ class Foo extends React.PureComponent {
   }
 }
 
-Foo.defaultProps = {
-  bsClass: ''
-};
+Foo.defaultProps = {};
 
 // what would be defaultValue props
 // what would trigger explicit controlled value props, and their change handlers?
@@ -145,10 +131,6 @@ Foo.propTypes = {
   defaultValue: PropTypes.string,
   activeIndex: PropTypes.number,
   defaultActiveIndex: PropTypes.number,
-  bsClass: PropTypes.string, // btn
-  bsStatus: PropTypes.string, // primary
-  bsSize: PropTypes.string, // sm
-  bsModifier: PropTypes.string, // block
   status: PropTypes.string, // Needed?
   isDisabled: PropTypes.bool,
   isActive: PropTypes.bool,

@@ -5,13 +5,12 @@ import RHUTheme from '../theme/rh';
 import Enum from '../../../utils/Enum';
 import { getNextId } from '../../../utils/ElementIDCreator';
 
+// TODO https://www.npmjs.com/package/hoist-non-react-statics
+
 // bsClass -> BootStrap CSS control class, btn, badge, etc.
 export const withBootStrap = (bsClass = '') => Comp => {
   class HOC extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {};
-    }
+    static WrappedComponent = Comp;
 
     render() {
       return (
@@ -32,7 +31,7 @@ export const withBootStrap = (bsClass = '') => Comp => {
     bsClass: PropTypes.string, // btn
     bsSize: PropTypes.string, // sm
     bsModifier: PropTypes.string, // block
-    ariaRole: PropTypes.string, // Aria
+    ariaRole: PropTypes.string,
     active: PropTypes.bool,
     disabled: PropTypes.bool,
     primary: PropTypes.bool,
