@@ -46,13 +46,16 @@ class BTabList extends React.PureComponent {
 
     const children = React.Children.map(this.props.children, (child, idx) => {
       return React.cloneElement(child, {
-        primary: activeIndex === idx,
+        active: activeIndex === idx,
         onSelect: () => onSelectTab(idx)
       });
     });
 
-    const TabListEl = styled.div.attrs({
-      className: getBsClassName('', this.props)
+    const styleProps = Object.assign({}, this.props);
+    styleProps.bsModifier = 'nav-tabs';
+
+    const TabListEl = styled.ul.attrs({
+      className: getBsClassName('', styleProps)
     })`
 
     `;
@@ -62,14 +65,15 @@ class BTabList extends React.PureComponent {
 
 class BTab extends React.PureComponent {
   render() {
-    const { onSelect } = this.props;
-    const TabEl = styled.button.attrs({
-      className: getBsClassName('', this.props)
-    })`
+    const { onSelect, active } = this.props;
 
-    `;
+    // TODO custom styles here?
+    // const TabEl = styled.li.attrs({
+    //   className: getBsClassName('nav-item', this.props)
+    // })``;
 
-    return <TabEl onClick={onSelect}>{this.props.children}</TabEl>;
+    // TODO safe anchor?
+    return <li className='nav-item'><a href="#" onClick={onSelect} className={'nav-link' + (active ? ' active' : '')}>{this.props.children}</a></li>;
   }
 }
 
@@ -101,7 +105,7 @@ class BTabPanel extends React.PureComponent {
 }
 
 export const Tabs = withBootStrap('card')(BTabs);
-export const TabList = withBootStrap('')(BTabList);
-export const Tab = withBootStrap('btn')(BTab);
+export const TabList = withBootStrap('nav')(BTabList);
+export const Tab = withBootStrap('nav-item')(BTab);
 export const TabPanels = withBootStrap('')(BTabPanels);
 export const TabPanel = withBootStrap('')(BTabPanel);
