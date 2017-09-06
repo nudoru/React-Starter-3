@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withBootStrap } from '../shared/bsHOC';
-import { getBsClassName } from '../shared/utils';
+import { getBsClassName, removeEmpty } from '../shared/utils';
 import Link from './Link';
 
 /*
@@ -11,41 +11,59 @@ vertical: flex-column or flex-sm-column
 tabs: nav-tabs
 pills: nav-pills
 fill: nav-fill
-justify: nav-justified
+justified: nav-justified
 */
 
 class BNavigation extends React.PureComponent {
   render() {
-    return <ul className="nav">{this.props.children}</ul>;
+    let cls = ['nav'];
+    const { tabs, pills, fill, justified, vertical, alignment } = this.props;
+
+    cls.push(alignment.length ? 'justify-content-'+alignment : null);
+    cls.push(tabs ? 'nav-tabs' : null);
+    cls.push(pills ? 'nav-pills' : null);
+    cls.push(fill ? 'nav-fill' : null);
+    cls.push(justified ? 'nav-justified' : null);
+    cls.push(justified ? 'nav-justified' : null);
+    cls.push(vertical ? 'flex-column' : null);
+
+    const El = styled.ul.attrs({ className: removeEmpty(cls).join(' ') })``;
+
+    return <El>{this.props.children}</El>;
   }
 }
 
-BNavigation.defaultProps = {};
+BNavigation.defaultProps = {
+  alignment: ''
+};
 
 BNavigation.propTypes = {
   tabs: PropTypes.bool,
   pills: PropTypes.bool,
   fill: PropTypes.bool,
-  justify: PropTypes.bool,
+  justified: PropTypes.bool,
   alignment: PropTypes.string
 };
 
 // Possible drop down
 class BNavigationItem extends React.PureComponent {
   render() {
-    // active or disabled
     const { className, onClick, active, disabled, ...rest } = this.props;
 
+    const El = styled.li.attrs({ className: 'nav-item' })``;
+
     return (
-      <li className="nav-item" {...rest}>
+      <El>
         <Link
           href="#"
           onClick={onClick}
-          className={'nav-link' + (active ? ' active' : '')}
+          active={active}
+          disabled={disabled}
+          className={'nav-link' + (active ? ' active' : '') + (disabled ? ' disabled' : '')}
         >
           {this.props.children}
         </Link>
-      </li>
+      </El>
     );
   }
 }

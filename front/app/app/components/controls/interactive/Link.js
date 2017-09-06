@@ -9,7 +9,7 @@ import { getBsClassName } from '../shared/utils';
 
 const isTrivial = href => !href || href.trim() === '#';
 
-class Link extends React.PureComponent {
+export default class Link extends React.PureComponent {
   handleClick = e => {
     const { disabled, href, onClick } = this.props;
 
@@ -35,7 +35,8 @@ class Link extends React.PureComponent {
   };    
 
   render() {
-    const Anchor = styled.a.attrs({ className: getBsClassName('a', this.props) })``;
+    //Removed duplicate .attrs({ className: getBsClassName('a', this.props) })
+    const Anchor = styled.a``;
     const { onClick, onKeyDown=(e)=>e, ...rest } = this.props;
     let { ariaRole, tabIndex } = this.props;
 
@@ -62,4 +63,4 @@ class Link extends React.PureComponent {
   }
 }
 
-export default withBootStrap('')(Link);
+// export default withBootStrap('')(Link);

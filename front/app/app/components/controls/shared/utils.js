@@ -11,7 +11,7 @@ export const bsAriaMap = {
   btn: ARIA_WIDGETS.button
 };
 
-const removeEmpty = array => array.filter(i => !!i);
+export const removeEmpty = array => array.filter(i => !!i);
 
 /* 
 Big ol' block of imperative string mashup
