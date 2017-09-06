@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withBootStrap } from '../shared/bsHOC';
 import { getBsClassName } from '../shared/utils';
+import Link from '../interactive/Link';
 
 // TODO
+// ARIA
 // hooks for panelWillChange, panelDidChange, panelWillRemove, panelDidRemove
 class BTabs extends React.PureComponent {
   state = { activeIndex: 0 };
@@ -72,8 +74,17 @@ class BTab extends React.PureComponent {
     //   className: getBsClassName('nav-item', this.props)
     // })``;
 
-    // TODO safe anchor?
-    return <li className='nav-item'><a href="#" onClick={onSelect} className={'nav-link' + (active ? ' active' : '')}>{this.props.children}</a></li>;
+    return (
+      <li className="nav-item">
+        <Link
+          href="#"
+          onClick={onSelect}
+          className={'nav-link' + (active ? ' active' : '')}
+        >
+          {this.props.children}
+        </Link>
+      </li>
+    );
   }
 }
 

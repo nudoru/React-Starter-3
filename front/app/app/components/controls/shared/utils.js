@@ -18,6 +18,10 @@ Big ol' block of imperative string mashup
 
 Exceptions: btn btn-outline-[status]
 */
+
+/* TODO
+- Need a modifier for tabs: nav nav-tabs, pills, fill
+*/
 export const getBsClassName = (tag, props, others) => {
   let {
       className,
