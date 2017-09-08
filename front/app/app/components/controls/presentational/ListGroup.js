@@ -11,7 +11,6 @@ class BListGroup extends React.PureComponent {
     console.log('listgroup props',this.props)
     const List = styled.ul.attrs({
       className: getBsClassName(
-        '',
         this.props,
         this.props.flush ? 'list-group-flush' : null
       )
@@ -26,7 +25,7 @@ export const ListGroup = withBootStrap('list-group')(BListGroup);
 class BListGroupItem extends React.PureComponent {
   render() {
     let Item = styled.li.attrs({
-      className: getBsClassName('', this.props)
+      className: getBsClassName(this.props)
     })``;
     return <Item {...this.props}>{this.props.children}</Item>;
   }

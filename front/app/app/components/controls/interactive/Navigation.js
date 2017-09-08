@@ -2,55 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withBootStrap } from '../shared/bsHOC';
-import { getBsClassName, removeEmpty } from '../shared/utils';
+import { getBsClassName } from '../shared/utils';
 import Link from './Link';
 
-/*
-alignment justify-content-* : start, center, end
-vertical: flex-column or flex-sm-column
-tabs: nav-tabs
-pills: nav-pills
-fill: nav-fill
-justified: nav-justified
-*/
+// TODO
+// Aria https://getbootstrap.com/docs/4.0/components/navs/#regarding-accessibility
 
 class BNavigation extends React.PureComponent {
-  render() {
-    let cls = ['nav'];
-    const { tabs, pills, fill, justified, vertical, alignment } = this.props;
-
-    cls.push(alignment.length ? 'justify-content-'+alignment : null);
-    cls.push(tabs ? 'nav-tabs' : null);
-    cls.push(pills ? 'nav-pills' : null);
-    cls.push(fill ? 'nav-fill' : null);
-    cls.push(justified ? 'nav-justified' : null);
-    cls.push(justified ? 'nav-justified' : null);
-    cls.push(vertical ? 'flex-column' : null);
-
-    const El = styled.ul.attrs({ className: removeEmpty(cls).join(' ') })``;
-
-    return <El>{this.props.children}</El>;
+  render () {
+    const El = styled.ul.attrs({className: getBsClassName(this.props)})``;
+    return (<nav role='navigation'><El>{this.props.children}</El></nav>);
   }
 }
 
-BNavigation.defaultProps = {
-  alignment: ''
-};
+BNavigation.defaultProps = {};
 
 BNavigation.propTypes = {
-  tabs: PropTypes.bool,
-  pills: PropTypes.bool,
-  fill: PropTypes.bool,
+  tabs     : PropTypes.bool,
+  pills    : PropTypes.bool,
+  fill     : PropTypes.bool,
   justified: PropTypes.bool,
-  alignment: PropTypes.string
+  stacked  : PropTypes.bool,
+  center   : PropTypes.bool,
+  pullRight: PropTypes.bool
 };
 
 // Possible drop down
 class BNavigationItem extends React.PureComponent {
-  render() {
-    const { className, onClick, active, disabled, ...rest } = this.props;
+  render () {
+    const {className, onClick, active, disabled, ...rest} = this.props;
 
-    const El = styled.li.attrs({ className: 'nav-item' })``;
+    const El = styled.li.attrs({className: 'nav-item'})``;
 
     return (
       <El>
@@ -59,7 +41,8 @@ class BNavigationItem extends React.PureComponent {
           onClick={onClick}
           active={active}
           disabled={disabled}
-          className={'nav-link' + (active ? ' active' : '') + (disabled ? ' disabled' : '')}
+          className={'nav-link' + (active ? ' active' : '') + (disabled ? ' disabled' : '') + (className ? ' ' + className : '')}
+          {...rest}
         >
           {this.props.children}
         </Link>
@@ -68,5 +51,5 @@ class BNavigationItem extends React.PureComponent {
   }
 }
 
-export const Nav = withBootStrap('nav')(BNavigation);
+export const Nav     = withBootStrap('nav')(BNavigation);
 export const NavItem = withBootStrap('nav-item')(BNavigationItem);

@@ -35,7 +35,7 @@ export default class Link extends React.PureComponent {
   };    
 
   render() {
-    //Removed duplicate .attrs({ className: getBsClassName('a', this.props) })
+    //Removed duplicate .attrs({ className: getBsClassName(this.props) })
     const Anchor = styled.a``;
     const { onClick, onKeyDown=(e)=>e, ...rest } = this.props;
     let { ariaRole, tabIndex } = this.props;

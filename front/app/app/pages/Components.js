@@ -38,8 +38,16 @@ import {
   TabPanels,
   TabPanel
 } from '../components/controls/presentational/Tabs';
+
+import Button from '../components/controls/interactive/Button';
+
+import {
+  ButtonGroup,
+  ButtonToolBar
+} from '../components/controls/presentational/ButtonGroup';
+
 class Components extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {};
   }
@@ -52,7 +60,7 @@ class Components extends React.Component {
   this.props.match
      - isExact, params, path, url passed from React-Router
    */
-  componentDidMount() {
+  componentDidMount () {
     console.log('Template page, ', this.props);
   }
 
@@ -60,51 +68,59 @@ class Components extends React.Component {
     console.log('You clicked on something!', e);
   };
 
-  render() {
+  render () {
     return (
       <div className="container mt-1">
         <div className="pb-5">
-          <h3 className="pb-3">Navigation</h3>
-          <Card className="mb-3">
-            <CardBody>
-              <h5>Default</h5>
-              <Nav alignment="end">
-                <NavItem active>Navigation Item 1</NavItem>
-                <NavItem onClick={this.handleClick}>Navigation Item 2</NavItem>
-                <NavItem disabled>Navigation Item 3</NavItem>
-              </Nav>
-            </CardBody>
-          </Card>
-          <Card className="mb-3">
-            <CardBody>
-              <h5>Tabs</h5>
-              <Nav tabs alignment="center">
-                <NavItem active>Navigation Item 1</NavItem>
-                <NavItem>Navigation Item 2</NavItem>
-                <NavItem disabled>Navigation Item 3</NavItem>
-              </Nav>
-            </CardBody>
-          </Card>
-          <Card className="mb-3">
-            <CardBody>
-              <h5>Pills</h5>
-              <Nav pills justified >
-                <NavItem active>Navigation Item 1</NavItem>
-                <NavItem>Navigation Item 2</NavItem>
-                <NavItem disabled>Navigation Item 3</NavItem>
-              </Nav>
-            </CardBody>
-          </Card>
-          <Card className="mb-3">
-            <CardBody>
-              <h5>Vetical</h5>
-              <Nav vertical pills>
-                <NavItem active>Navigation Item 1</NavItem>
-                <NavItem>Navigation Item 2</NavItem>
-                <NavItem disabled>Navigation Item 3</NavItem>
-              </Nav>
-            </CardBody>
-          </Card>
+          <h3 className="pb-3">Buttons</h3>
+          <div className="pb-2">
+            <Button primary>Hiya</Button>
+            <Button secondary>Hiya</Button>
+            <Button success>Hiya</Button>
+            <Button danger>Hiya</Button>
+            <Button warning>Hiya</Button>
+            <Button info>Hiya</Button>
+            <Button light>Hiya</Button>
+            <Button dark>Hiya</Button>
+            <Button link>Hiya</Button>
+          </div>
+          <div className="pb-2">
+            <Button outline primary>Hiya</Button>
+            <Button outline secondary>Hiya</Button>
+            <Button outline success>Hiya</Button>
+            <Button outline danger>Hiya</Button>
+            <Button outline warning>Hiya</Button>
+            <Button outline info>Hiya</Button>
+            <Button outline light>Hiya</Button>
+            <Button outline dark>Hiya</Button>
+          </div>
+          <div className="pb-2">
+            <Button sm primary>Small</Button>
+            <Button primary>Regular</Button>
+            <Button lg primary>Large</Button>
+          </div>
+          <div className="pb-2">
+            <Button block primary>Block</Button>
+          </div>
+          <div className="pb-2">
+            <Button primary active>Active</Button>
+            <Button primary disabled>Disabled</Button>
+            <Button primary secondary>Toggle</Button>
+          </div>
+          <div className="pb-2">
+            <ButtonToolBar>
+              <ButtonGroup className='pr-3'>
+                <Button primary>Active</Button>
+                <Button primary>Disabled</Button>
+                <Button primary>Toggle</Button>
+              </ButtonGroup>
+              <ButtonGroup>
+                <Button primary>Active</Button>
+                <Button primary>Disabled</Button>
+                <Button primary>Toggle</Button>
+              </ButtonGroup>
+            </ButtonToolBar>
+          </div>
         </div>
         <div className="pb-5">
           <h3 className="pb-3">Tabs</h3>
@@ -120,6 +136,49 @@ class Components extends React.Component {
               <TabPanel>Three panel</TabPanel>
             </TabPanels>
           </Tabs>
+        </div>
+        <div className="pb-5">
+          <h3 className="pb-3">Navigation</h3>
+          <Card className="mb-3">
+            <CardBody>
+              <h5>Default</h5>
+              <Nav pullRight>
+                <NavItem active>Navigation Item 1</NavItem>
+                <NavItem onClick={this.handleClick}>Navigation Item 2</NavItem>
+                <NavItem disabled>Navigation Item 3</NavItem>
+              </Nav>
+            </CardBody>
+          </Card>
+          <Card className="mb-3">
+            <CardBody>
+              <h5>Tabs</h5>
+              <Nav tabs center>
+                <NavItem active>Navigation Item 1</NavItem>
+                <NavItem>Navigation Item 2</NavItem>
+                <NavItem disabled>Navigation Item 3</NavItem>
+              </Nav>
+            </CardBody>
+          </Card>
+          <Card className="mb-3">
+            <CardBody>
+              <h5>Pills</h5>
+              <Nav pills justified>
+                <NavItem active>Navigation Item 1</NavItem>
+                <NavItem>Navigation Item 2</NavItem>
+                <NavItem disabled>Navigation Item 3</NavItem>
+              </Nav>
+            </CardBody>
+          </Card>
+          <Card className="mb-3">
+            <CardBody>
+              <h5>Stacked</h5>
+              <Nav stacked pills>
+                <NavItem active>Navigation Item 1</NavItem>
+                <NavItem>Navigation Item 2</NavItem>
+                <NavItem disabled>Navigation Item 3</NavItem>
+              </Nav>
+            </CardBody>
+          </Card>
         </div>
         <div className="pb-5">
           <h3 className="pb-3">List Group</h3>
@@ -182,7 +241,7 @@ class Components extends React.Component {
 }
 
 Components.defaultProps = {};
-Components.propTypes = {};
+Components.propTypes    = {};
 
 const mapStateToProps = state => {
   return {

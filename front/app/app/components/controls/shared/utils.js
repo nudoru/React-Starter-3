@@ -1,64 +1,69 @@
-import { SIZE, SIZE_MAP, DEVICE_SIZES, STYLE, STATE } from './BsStyles';
-import {
-  ARIA_WIDGETS,
-  ARIA_COMPOSITE_WIDGETS,
-  ARIA_LANDMARK,
-  ARIA_DOCUMENT
-} from './Aria';
-
+//import { SIZE, SIZE_MAP, DEVICE_SIZES, STYLE, STATE } from './BsStyles';
+//import {
+//  ARIA_WIDGETS,
+//  ARIA_COMPOSITE_WIDGETS,
+//  ARIA_LANDMARK,
+//  ARIA_DOCUMENT
+//} from './Aria';
 // bootstrap class -> aria role
-export const bsAriaMap = {
-  btn: ARIA_WIDGETS.button
-};
-
-export const removeEmpty = array => array.filter(i => !!i);
-
-/* 
-Big ol' block of imperative string mashup
-
-Exceptions: btn btn-outline-[status]
-*/
+//export const bsAriaMap = {
+//  btn: ARIA_WIDGETS.button
+//};
 
 /* TODO
 - Need a modifier for tabs: nav nav-tabs, pills, fill
 */
-export const getBsClassName = (tag, props, others) => {
-  let {
-      className,
-      bsClass, // alert, btn, badge, etc.
-      bsSize, // sm, lg, md, xl
-      bsModifier, // .block
-      active, // .active
-      disabled, // .disabled
-      primary,
-      secondary,
-      success,
-      danger,
-      warning,
-      info,
-      light,
-      dark
-    } = props,
-    cls = [className];
 
-  if (bsClass) {
-    cls.push(bsClass);
-    cls.push(primary ? `${bsClass}-primary` : null);
-    cls.push(secondary ? `${bsClass}-secondary` : null);
-    cls.push(success ? `${bsClass}-success` : null);
-    cls.push(danger ? `${bsClass}-danger` : null);
-    cls.push(warning ? `${bsClass}-warning` : null);
-    cls.push(info ? `${bsClass}-info` : null);
-    cls.push(light ? `${bsClass}-light` : null);
-    cls.push(dark ? `${bsClass}-dark` : null);
-    cls.push(bsSize ? `${bsClass}-${bsSize}` : null);
+// TODO how can this work as a template literal?
+let map = {
+  active   : 'active',
+  disabled : 'disabled',
+  primary  : '${cls}-primary',    // eslint-disable-line no-undef
+  secondary: '${cls}-secondary',  // eslint-disable-line no-undef
+  success  : '${cls}-success',    // eslint-disable-line no-undef
+  danger   : '${cls}-danger',     // eslint-disable-line no-undef
+  warning  : '${cls}-warning',    // eslint-disable-line no-undef
+  info     : '${cls}-info',       // eslint-disable-line no-undef
+  light    : '${cls}-light',      // eslint-disable-line no-undef
+  dark     : '${cls}-dark',       // eslint-disable-line no-undef
+  link     : '${cls}-link',       // eslint-disable-line no-undef
+  lg       : '${cls}-lg',         // eslint-disable-line no-undef
+  sm       : '${cls}-sm',         // eslint-disable-line no-undef
+  block    : '${cls}-block',      // eslint-disable-line no-undef
+  tabs     : 'nav-tabs',
+  pills    : 'nav-pills',
+  fill     : 'nav-fill',
+  justified: 'nav-justified',
+  stacked  : 'flex-column',
+  pullRight: 'justify-content-end',
+  center   : 'justify-content-center'
+};
+
+export const getBsClassName = (props, additional) => {
+  let {
+        className,
+        bsClass,
+        bsClassAlt,
+        bsModifier,
+        outline
+      }                = props,
+      origionalRootCls = bsClass,
+      extendedRootCls  = origionalRootCls;
+
+  if (outline) {
+    extendedRootCls = origionalRootCls + '-outline';
   }
 
-  cls.push(bsModifier ? bsModifier : null);
-  cls.push(others ? others : null);
-  cls.push(active ? 'active' : null);
-  // Other el's need disabled bool attr on the node, not CSS
-  cls.push(disabled ? 'disabled' : null);
-
-  return removeEmpty(cls).join(' ');
+  return Object.keys(props)
+    .reduce((acc, key) => {
+      if (map[key]) {
+        acc.push(map[key].replace(/\${cls}/, extendedRootCls));
+      }
+      return acc;
+    }, [origionalRootCls])
+    .concat(bsModifier ? bsModifier : null)
+    .concat(additional ? additional : null)
+    .concat(className)
+    .filter(i => !!i)
+    .join(' ');
 };

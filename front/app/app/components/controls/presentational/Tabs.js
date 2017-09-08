@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withBootStrap } from '../shared/bsHOC';
 import { getBsClassName } from '../shared/utils';
-import Link from '../interactive/Link';
+import { Nav, NavItem } from '../interactive/Navigation';
 
 // TODO
 // ARIA
 // hooks for panelWillChange, panelDidChange, panelWillRemove, panelDidRemove
 class BTabs extends React.PureComponent {
-  state = { activeIndex: 0 };
+  state = {activeIndex: 0};
 
   static childContextTypes = {
     activeIndex: PropTypes.number.isRequired,
     onSelectTab: PropTypes.func.isRequired
   };
 
-  getChildContext() {
+  getChildContext () {
     return {
       activeIndex: this.state.activeIndex,
       onSelectTab: this.onSelectTab
@@ -24,12 +24,12 @@ class BTabs extends React.PureComponent {
   }
 
   onSelectTab = i => {
-    this.setState({ activeIndex: i });
+    this.setState({activeIndex: i});
   };
 
-  render() {
+  render () {
     const TabsEl = styled.div.attrs({
-      className: getBsClassName('', this.props)
+      className: getBsClassName(this.props)
     })`
 
     `;
@@ -43,48 +43,26 @@ class BTabList extends React.PureComponent {
     onSelectTab: PropTypes.func.isRequired
   };
 
-  render() {
-    const { activeIndex, onSelectTab } = this.context;
+  render () {
+    const {activeIndex, onSelectTab} = this.context;
 
     const children = React.Children.map(this.props.children, (child, idx) => {
       return React.cloneElement(child, {
-        active: activeIndex === idx,
+        active  : activeIndex === idx,
         onSelect: () => onSelectTab(idx)
       });
     });
 
-    const styleProps = Object.assign({}, this.props);
-    styleProps.bsModifier = 'nav-tabs';
-
-    const TabListEl = styled.ul.attrs({
-      className: getBsClassName('', styleProps)
-    })`
-
-    `;
-    return <TabListEl>{children}</TabListEl>;
+    return <Nav tabs>{children}</Nav>;
   }
 }
 
 class BTab extends React.PureComponent {
-  render() {
-    const { onSelect, active } = this.props;
+  render () {
+    const {onSelect, active} = this.props;
 
-    // TODO custom styles here?
-    // const TabEl = styled.li.attrs({
-    //   className: getBsClassName('nav-item', this.props)
-    // })``;
-
-    return (
-      <li className="nav-item">
-        <Link
-          href="#"
-          onClick={onSelect}
-          className={'nav-link' + (active ? ' active' : '')}
-        >
-          {this.props.children}
-        </Link>
-      </li>
-    );
+    return <NavItem active={active}
+                    onClick={onSelect}>{this.props.children}</NavItem>;
   }
 }
 
@@ -93,10 +71,10 @@ class BTabPanels extends React.PureComponent {
     activeIndex: PropTypes.number.isRequired
   };
 
-  render() {
-    const { activeIndex } = this.context;
-    const TabPanelsEl = styled.div.attrs({
-      className: getBsClassName('', this.props)
+  render () {
+    const {activeIndex} = this.context;
+    const TabPanelsEl   = styled.div.attrs({
+      className: getBsClassName(this.props)
     })`
 
     `;
@@ -105,9 +83,9 @@ class BTabPanels extends React.PureComponent {
 }
 
 class BTabPanel extends React.PureComponent {
-  render() {
+  render () {
     const TabPanelEl = styled.div.attrs({
-      className: getBsClassName('', this.props)
+      className: getBsClassName(this.props)
     })`
 
     `;
@@ -115,8 +93,8 @@ class BTabPanel extends React.PureComponent {
   }
 }
 
-export const Tabs = withBootStrap('card')(BTabs);
-export const TabList = withBootStrap('nav')(BTabList);
-export const Tab = withBootStrap('nav-item')(BTab);
+export const Tabs      = withBootStrap('card')(BTabs);
+export const TabList   = withBootStrap('nav')(BTabList);
+export const Tab       = withBootStrap('nav-item')(BTab);
 export const TabPanels = withBootStrap('')(BTabPanels);
-export const TabPanel = withBootStrap('')(BTabPanel);
+export const TabPanel  = withBootStrap('')(BTabPanel);

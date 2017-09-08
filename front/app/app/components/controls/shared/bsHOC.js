@@ -23,12 +23,12 @@ export const withBootStrap = (bsClass = '') => Comp => {
 
   HOC.defaultProps = {
     bsClass: bsClass,
-    active: false,
-    disabled: false
+    bsClassAlt: ''
   };
 
   HOC.propTypes = {
     bsClass: PropTypes.string, // btn
+    bsClassAlt: PropTypes.string, // outline
     bsSize: PropTypes.string, // sm
     bsModifier: PropTypes.string, // block
     ariaRole: PropTypes.string,

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withBootStrap } from '../shared/bsHOC';
+import Link from '../interactive/Link';
 
 // Theme passed via HOC Wrapper
 
@@ -17,7 +18,10 @@ const BCardBody = styled.div.attrs({ className: 'card-body' })`
 const BCardTitle = styled.h4.attrs({ className: 'card-title' })``;
 const BCardSubTitle = styled.h6.attrs({ className: 'card-subtitle mb-2 text-muted' })``;
 const BCardText = styled.p.attrs({ className: 'card-text' })``;
-const BCardLink = styled.a.attrs({ className: 'card-link' })``;
+
+// TODO replace with Link
+// const BCardLink = styled.a.attrs({ className: 'card-link' })``;
+const BCardLink = ({children, ...rest}) => <Link className='card-link' {...rest}>{children}</Link>;
 
 export const Card = withBootStrap('card')(BCard);
 export const CardHeader = withBootStrap('card-header')(BCardHeader);
