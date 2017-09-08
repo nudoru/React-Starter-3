@@ -4,20 +4,18 @@ import { Container, ContainerFluid } from './Container';
 
 // https://getbootstrap.com/docs/4.0/layout/grid/
 
-export const Grid = ({ children, ...rest }) => (
-  <Container {...rest}>{children}</Container>
-);
-export const GridFluid = ({ children, ...rest }) => (
-  <ContainerFluid {...rest}>{children}</ContainerFluid>
-);
-export const Row = styled.div.attrs({ className: 'row' })``;
-export const RowNG = styled.div.attrs({ className: 'row no-gutters' })``;
+export const Grid      = ({children, ...rest}) =>
+  <Container {...rest}>{children}</Container>;
+export const GridFluid = ({children, ...rest}) =>
+  <ContainerFluid {...rest}>{children}</ContainerFluid>;
+export const Row       = styled.div.attrs({className: 'row'})``;
+export const RowNG     = styled.div.attrs({className: 'row no-gutters'})``;
 
-export const ColBreak = styled.div.attrs({ className: 'w-100' })``;
+export const ColBreak = styled.div.attrs({className: 'w-100'})``;
 
-export const Col = ({ size, width, children, className, ...rest }) => {
+export const Col = ({size, width, children, className, ...rest}) => {
   let modifier = ['col'],
-    el;
+      el;
   if (size && !width) {
     console.warn('<Col> needs a width if it has a size!');
   }

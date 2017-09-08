@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withBootStrap } from '../shared/bsHOC';
 
-// Theme passed via HOC Wrapper
+// Theme passed via Bootstrapped Wrapper
 const ControlContainer = styled.div`
   margin: ${props => props.theme.metrics.spacing};
   padding: ${props => props.theme.metrics.spacing};
@@ -146,7 +146,6 @@ Foo.propTypes = {
   bsClass: PropTypes.string, // btn
   bsStatus: PropTypes.string, // primary
   bsSize: PropTypes.string, // sm
-  bsModifier: PropTypes.string, // block
   status: PropTypes.string, // Needed?
   isDisabled: PropTypes.bool,
   isActive: PropTypes.bool,

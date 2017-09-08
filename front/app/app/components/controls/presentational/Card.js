@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { withBootStrap } from '../shared/bsHOC';
 import Link from '../interactive/Link';
 
-// Theme passed via HOC Wrapper
+// Theme passed via Bootstrapped Wrapper
 
 const BCard = styled.div.attrs({ className: 'card' })`
   background-color: ${props => props.theme.colorList.blue};

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withBootStrap } from '../shared/bsHOC';
-import { getBsClassName } from '../shared/utils';
+import { withBootStrap, generateClassName } from '../shared/bsHOC';
 import Link from './Link';
 
 // TODO
@@ -10,7 +9,7 @@ import Link from './Link';
 
 class BNavigation extends React.PureComponent {
   render () {
-    const El = styled.ul.attrs({className: getBsClassName(this.props)})``;
+    const El = styled.ul.attrs({className: generateClassName(this.props)})``;
     return (<nav role='navigation'><El>{this.props.children}</El></nav>);
   }
 }
@@ -20,18 +19,13 @@ BNavigation.defaultProps = {};
 BNavigation.propTypes = {
   tabs     : PropTypes.bool,
   pills    : PropTypes.bool,
-  fill     : PropTypes.bool,
-  justified: PropTypes.bool,
-  stacked  : PropTypes.bool,
-  center   : PropTypes.bool,
-  pullRight: PropTypes.bool
+  fill     : PropTypes.bool
 };
 
-// Possible drop down
+// TODO handle drop down
 class BNavigationItem extends React.PureComponent {
   render () {
     const {className, onClick, active, disabled, ...rest} = this.props;
-
     const El = styled.li.attrs({className: 'nav-item'})``;
 
     return (

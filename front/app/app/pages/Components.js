@@ -74,7 +74,7 @@ class Components extends React.Component {
         <div className="pb-5">
           <h3 className="pb-3">Buttons</h3>
           <div className="pb-2">
-            <Button primary>Hiya</Button>
+            <Button primary onClick={this.handleClick}>Hiya</Button>
             <Button secondary>Hiya</Button>
             <Button success>Hiya</Button>
             <Button danger>Hiya</Button>
@@ -108,18 +108,21 @@ class Components extends React.Component {
             <Button primary secondary>Toggle</Button>
           </div>
           <div className="pb-2">
-            <ButtonToolBar>
+              <ButtonGroup className='pr-3' sm vertical>
+                <Button primary>Active</Button>
+                <Button primary>Disabled</Button>
+                <Button primary>Toggle</Button>
+              </ButtonGroup>
               <ButtonGroup className='pr-3'>
                 <Button primary>Active</Button>
                 <Button primary>Disabled</Button>
                 <Button primary>Toggle</Button>
               </ButtonGroup>
-              <ButtonGroup>
+              <ButtonGroup className='pr-3' lg>
                 <Button primary>Active</Button>
                 <Button primary>Disabled</Button>
                 <Button primary>Toggle</Button>
               </ButtonGroup>
-            </ButtonToolBar>
           </div>
         </div>
         <div className="pb-5">

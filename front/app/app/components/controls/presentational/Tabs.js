@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withBootStrap } from '../shared/bsHOC';
-import { getBsClassName } from '../shared/utils';
+import { withBootStrap, generateClassName } from '../shared/bsHOC';
 import { Nav, NavItem } from '../interactive/Navigation';
 
 // TODO
@@ -29,10 +28,8 @@ class BTabs extends React.PureComponent {
 
   render () {
     const TabsEl = styled.div.attrs({
-      className: getBsClassName(this.props)
-    })`
-
-    `;
+      className: generateClassName(this.props)
+    })``;
     return <TabsEl>{this.props.children}</TabsEl>;
   }
 }
@@ -74,10 +71,8 @@ class BTabPanels extends React.PureComponent {
   render () {
     const {activeIndex} = this.context;
     const TabPanelsEl   = styled.div.attrs({
-      className: getBsClassName(this.props)
-    })`
-
-    `;
+      className: generateClassName(this.props)
+    })``;
     return <TabPanelsEl>{this.props.children[activeIndex]}</TabPanelsEl>;
   }
 }
@@ -85,10 +80,8 @@ class BTabPanels extends React.PureComponent {
 class BTabPanel extends React.PureComponent {
   render () {
     const TabPanelEl = styled.div.attrs({
-      className: getBsClassName(this.props)
-    })`
-
-    `;
+      className: generateClassName(this.props)
+    })``;
     return <TabPanelEl>{this.props.children}</TabPanelEl>;
   }
 }
