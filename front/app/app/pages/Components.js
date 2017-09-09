@@ -1,8 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { TextStyles } from '../components/mocks/textstyles';
-import { StyledComponents } from '../components/mocks/styledcomponents';
 
 import {
   Card,
@@ -46,6 +43,10 @@ import {
   ButtonToolBar
 } from '../components/controls/presentational/ButtonGroup';
 
+import {withLoading} from '../components/controls/shared/IsLoadingHOC';
+
+const LoadingCard = withLoading(Card);
+
 class Components extends React.Component {
   constructor (props) {
     super(props);
@@ -71,6 +72,27 @@ class Components extends React.Component {
   render () {
     return (
       <div className="container mt-1">
+        <div className="pb-5">
+          <h3 className="pb-3">Loading HOC</h3>
+          <LoadingCard loading>
+            <CardBody>
+              <CardTitle>Done loading</CardTitle>
+              <CardText>Whew! Glad we got that loading out of the way</CardText>
+            </CardBody>
+          </LoadingCard>
+          <LoadingCard pending>
+            <CardBody>
+              <CardTitle>Done loading</CardTitle>
+              <CardText>Whew! Glad we got that loading out of the way</CardText>
+            </CardBody>
+          </LoadingCard>
+          <LoadingCard error>
+            <CardBody>
+              <CardTitle>Done loading</CardTitle>
+              <CardText>Whew! Glad we got that loading out of the way</CardText>
+            </CardBody>
+          </LoadingCard>
+        </div>
         <div className="pb-5">
           <h3 className="pb-3">Buttons</h3>
           <div className="pb-2">

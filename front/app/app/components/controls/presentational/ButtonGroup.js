@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { withBootStrap, generateClassName } from '../shared/bsHOC';
+import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 
 export const ButtonToolBar = ({children, className='', ...rest}) =>
   <div role='toolbar' className={'btn-toolbar '+className} {...rest}>{children}</div>;

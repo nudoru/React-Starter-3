@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withBootStrap } from '../shared/bsHOC';
+import { withBootStrap } from '../shared/BootStrapHOC';
 
-// Theme passed via Bootstrapped Wrapper
+// Theme passed via Loading Wrapper
 const ControlContainer = styled.div`
   margin: ${props => props.theme.metrics.spacing};
   padding: ${props => props.theme.metrics.spacing};

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withBootStrap } from '../shared/bsHOC';
+import { withBootStrap } from '../shared/BootStrapHOC';
 import Link from '../interactive/Link';
 
-// Theme passed via Bootstrapped Wrapper
+// Theme passed via Loading Wrapper
 
 const BCard = styled.div.attrs({ className: 'card' })`
   background-color: ${props => props.theme.colorList.blue};

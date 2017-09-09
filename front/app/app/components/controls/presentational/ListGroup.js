@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { withBootStrap, generateClassName } from '../shared/bsHOC';
+import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 
 // TODO https://getbootstrap.com/docs/4.0/components/list-group/#links-and-buttons
 
