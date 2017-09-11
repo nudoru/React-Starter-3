@@ -74,19 +74,19 @@ class Components extends React.Component {
       <div className="container mt-1">
         <div className="pb-5">
           <h3 className="pb-3">Loading HOC</h3>
-          <LoadingCard loading>
+          <LoadingCard loading message='Fetching the data'>
             <CardBody>
               <CardTitle>Done loading</CardTitle>
               <CardText>Whew! Glad we got that loading out of the way</CardText>
             </CardBody>
           </LoadingCard>
-          <LoadingCard pending>
+          <LoadingCard pending message='Reticulating splines'>
             <CardBody>
               <CardTitle>Done loading</CardTitle>
               <CardText>Whew! Glad we got that loading out of the way</CardText>
             </CardBody>
           </LoadingCard>
-          <LoadingCard error>
+          <LoadingCard error message='Call to reset flux capacitor encountered a temporal error!'>
             <CardBody>
               <CardTitle>Done loading</CardTitle>
               <CardText>Whew! Glad we got that loading out of the way</CardText>
