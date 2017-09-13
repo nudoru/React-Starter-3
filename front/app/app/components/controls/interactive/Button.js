@@ -3,18 +3,22 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 
-const BasicButtonEl = styled.button`
+// TODO how to apply this AFTER the bootstrap styles?
+// TODO   font-weight: 600;
+export const BasicButtonEl = styled.button`
   text-transform: uppercase;
   background-image: ${props => props.theme.gradients.light};
   padding: ${props => props.theme.buttons.paddingTB} ${props => props.theme.buttons.paddingLR};
   text-shadow: ${props => props.theme.shadows.textDark};
   border-width: 0px;
+  transition: all ${props => props.theme.transitions.transition};
+  transition-timing-function: ${props => props.theme.transitions.timingFunction};
   &:active {
     box-shadow: ${props => props.theme.shadows.buttonPress};
   }
 `;
 
-const OutlineButtonEl = BasicButtonEl.extend`
+export const OutlineButtonEl = BasicButtonEl.extend`
   background-image: none;
   text-shadow: none;
   border-width: 1px;

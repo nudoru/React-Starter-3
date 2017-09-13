@@ -72,27 +72,7 @@ class Components extends React.Component {
   render () {
     return (
       <div className="container mt-1">
-        <div className="pb-5">
-          <h3 className="pb-3">Loading HOC</h3>
-          <LoadingCard loading message='Fetching the data'>
-            <CardBody>
-              <CardTitle>Done loading</CardTitle>
-              <CardText>Whew! Glad we got that loading out of the way</CardText>
-            </CardBody>
-          </LoadingCard>
-          <LoadingCard pending message='Reticulating splines'>
-            <CardBody>
-              <CardTitle>Done loading</CardTitle>
-              <CardText>Whew! Glad we got that loading out of the way</CardText>
-            </CardBody>
-          </LoadingCard>
-          <LoadingCard error message='Call to reset flux capacitor encountered a temporal error!'>
-            <CardBody>
-              <CardTitle>Done loading</CardTitle>
-              <CardText>Whew! Glad we got that loading out of the way</CardText>
-            </CardBody>
-          </LoadingCard>
-        </div>
+
         <div className="pb-5">
           <h3 className="pb-3">Buttons</h3>
           <div className="pb-2">
@@ -164,7 +144,7 @@ class Components extends React.Component {
         </div>
         <div className="pb-5">
           <h3 className="pb-3">Navigation</h3>
-          <Card className="mb-3">
+          <Card className="mb-3" dropShadow='m'>
             <CardBody>
               <h5>Default</h5>
               <Nav pullRight>
@@ -174,7 +154,7 @@ class Components extends React.Component {
               </Nav>
             </CardBody>
           </Card>
-          <Card className="mb-3">
+          <Card className="mb-3" dropShadow='xs'>
             <CardBody>
               <h5>Tabs</h5>
               <Nav tabs center>
@@ -184,7 +164,7 @@ class Components extends React.Component {
               </Nav>
             </CardBody>
           </Card>
-          <Card className="mb-3">
+          <Card className="mb-3" dropShadow='xl'>
             <CardBody>
               <h5>Pills</h5>
               <Nav pills justified>
@@ -259,6 +239,27 @@ class Components extends React.Component {
               </Col>
             </Row>
           </GridFluid>
+        </div>
+        <div className="pb-5">
+          <h3 className="pb-3">Loading HOC</h3>
+          <LoadingCard loading message='Fetching the data'>
+            <CardBody>
+              <CardTitle>Done loading</CardTitle>
+              <CardText>Whew! Glad we got that loading out of the way</CardText>
+            </CardBody>
+          </LoadingCard>
+          <LoadingCard pending message='Reticulating splines'>
+            <CardBody>
+              <CardTitle>Done loading</CardTitle>
+              <CardText>Whew! Glad we got that loading out of the way</CardText>
+            </CardBody>
+          </LoadingCard>
+          <LoadingCard error message='Call to reset flux capacitor encountered a temporal error!'>
+            <CardBody>
+              <CardTitle>Done loading</CardTitle>
+              <CardText>Whew! Glad we got that loading out of the way</CardText>
+            </CardBody>
+          </LoadingCard>
         </div>
       </div>
     );

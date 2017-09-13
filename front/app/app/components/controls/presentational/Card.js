@@ -1,33 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withBootStrap } from '../shared/BootStrapHOC';
+import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 import Link from '../interactive/Link';
 
 // Theme passed via Loading Wrapper
 
-const BCard = styled.div.attrs({ className: 'card' })`
-  background-color: ${props => props.theme.colorList.blue};
+const BCard = props => {
+  const El = styled.div.attrs({className: generateClassName(props)})`
   width: ${props => props.width ? props.width : props.theme.cards.defaultWidth}
-`;
-const BCardHeader = styled.div.attrs({className:'card-header'})``;
-const BCardFooter = styled.div.attrs({className:'card-footer'})``;
-const BCardBody = styled.div.attrs({ className: 'card-body' })`
-  padding: ${props => props.theme.metrics.spacing};
-`;
-const BCardTitle = styled.h4.attrs({ className: 'card-title' })``;
-const BCardSubTitle = styled.h6.attrs({ className: 'card-subtitle mb-2 text-muted' })``;
-const BCardText = styled.p.attrs({ className: 'card-text' })``;
+  `;
+  return <El {...props} />;
+};
 
-// TODO replace with Link
-// const BCardLink = styled.a.attrs({ className: 'card-link' })``;
-const BCardLink = ({children, ...rest}) => <Link className='card-link' {...rest}>{children}</Link>;
+const BCardHeader = props => {
+  const El = styled.div.attrs({className: generateClassName(props)})``;
+  return <El {...props} />;
+};
 
-export const Card = withBootStrap('card')(BCard);
-export const CardHeader = withBootStrap('card-header')(BCardHeader);
-export const CardFooter = withBootStrap('card-footer')(BCardFooter);
-export const CardBody = withBootStrap('card-body')(BCardBody);
-export const CardTitle = withBootStrap('card-title')(BCardTitle);
+const BCardFooter = props => {
+  const El = styled.div.attrs({className: generateClassName(props)})``;
+  return <El {...props} />;
+};
+
+const BCardBody = props => {
+  const El = styled.div.attrs({className: 'card-body'})`
+  padding: ${props => props.theme.metrics.spacing};`;
+  return <El {...props} />;
+};
+
+const BCardTitle = props => {
+  const El = styled.h4.attrs({className: 'card-title'})``;
+  return <El {...props} />;
+};
+
+const BCardSubTitle = props => {
+  const El = styled.h6.attrs({className: 'card-subtitle mb-2 text-muted'})``;
+  return <El {...props} />;
+};
+
+const BCardText = props => {
+  const El = styled.p.attrs({className: 'card-text'})``;
+  return <El {...props} />;
+};
+
+export const CardLink = ({className = '', ...rest}) => {
+  return <Link className={`card-link ${className}`} {...rest}/>;
+};
+
+export const Card         = withBootStrap('card')(BCard);
+export const CardHeader   = withBootStrap('card-header')(BCardHeader);
+export const CardFooter   = withBootStrap('card-footer')(BCardFooter);
+export const CardBody     = withBootStrap('card-body')(BCardBody);
+export const CardTitle    = withBootStrap('card-title')(BCardTitle);
 export const CardSubTitle = withBootStrap('card-subtitle')(BCardSubTitle);
-export const CardText = withBootStrap('card-text')(BCardText);
-export const CardLink = withBootStrap('card-link')(BCardLink);
+export const CardText     = withBootStrap('card-text')(BCardText);

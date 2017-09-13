@@ -56,6 +56,8 @@ $theme-colors: (
         dark: $gray-800
 );
 
+$component-active-bg: theme-color("primary");
+
 $enable-gradients: true;
 
 $spacer: $ms-1;
@@ -105,14 +107,19 @@ $btn-border-radius: $border-radius;
 $btn-border-radius-lg: $border-radius;
 $btn-border-radius-sm: $border-radius;
 
-$nav-link-padding-y:            .5rem;
-$nav-link-padding-x:            2rem;
+$nav-link-padding-y: .5rem;
+$nav-link-padding-x: 2rem;
 
 $nav-pills-border-radius: $border-radius;
 $nav-tabs-border-radius: $border-radius;
 $navbar-toggler-border-radius: $btn-border-radius;
+$nav-pills-link-active-bg: $component-active-bg;
 
 $card-border-radius: $border-radius;
 $card-inner-border-radius: $border-radius;
 
 $list-group-border-radius: $border-radius;
+$list-group-active-bg: $component-active-bg;
+
+$dropdown-link-active-bg: $component-active-bg;
+

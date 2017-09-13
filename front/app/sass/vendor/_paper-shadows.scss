@@ -95,7 +95,7 @@ $paper-card-border: 1px solid #eee !default;
  * @param {Number} $level - depth level
  * @param {List} $sides - border sides
  */
-@mixin card($level: 0, $sides: null) {
+@mixin paper-card($level: 0, $sides: null) {
   @include paper-shadow($level);
   @include paper-border();
 }
@@ -106,27 +106,27 @@ $paper-card-border: 1px solid #eee !default;
  * @param {Number} $width
  * @param {Number} $height ($width)
  */
-@mixin size($width, $height: $width) {
-  width: $width;
-  height: $height;
-}
+//@mixin size($width, $height: $width) {
+//  width: $width;
+//  height: $height;
+//}
 
 /**
  * Example
  */
-.card {
-  @include size(15em);
-  margin: 2em;
-  background: white;
-  display: inline-block;
-}
+//.card {
+//  @include size(15em);
+//  margin: 2em;
+//  background: white;
+//  display: inline-block;
+//}
 
-.paper-card--z-0 { @include card(0); }
-.paper-card--z-1 { @include card(1); }
-.paper-card--z-2 { @include card(2); }
-.paper-card--z-3 { @include card(3); }
-.paper-card--z-4 { @include card(4); }
-.paper-card--z-5 { @include card(5); }
+.paper-shadow-xs { @include paper-card(0); }
+.paper-shadow-sm { @include paper-card(1); }
+.paper-shadow-m { @include paper-card(2); }
+//.paper-card--z-3 { @include paper-card(3); }
+.paper-shadow-lg { @include paper-card(4); }
+.paper-shadow-xl { @include paper-card(5); }
 
 //.card--animated {
 //  animation: paper-card 5s infinite alternate;

@@ -1,7 +1,7 @@
 {
-  "name": "react-starter-2-app",
+  "name": "react-starter-3-app",
   "version": "0.1.0",
-  "description": "Starting point for React 15, Babel 6 and Webpack beta 2 projects",
+  "description": "Starting point for React 15.6, Babel 6 and Webpack 2 projects",
   "engines": {
     "node": ">=4"
   },
@@ -21,14 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nudoru/React-Starter-2.git"
+    "url": "git+https://github.com/nudoru/React-Starter-3.git"
   },
   "author": "Matt Perkins <hello@mattperkins.me> (http://mattperkins.me)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nudoru/React-Starter-2/issues"
+    "url": "https://github.com/nudoru/React-Starter-3/issues"
   },
-  "homepage": "https://github.com/nudoru/React-Starter-2#readme",
+  "homepage": "https://github.com/nudoru/React-Starter-3#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
@@ -78,6 +78,7 @@
     "lodash": "^4.15.0",
     "moment": "^2.17.0",
     "node-sass": "^4.5.0",
+    "polished": "^1.7.0",
     "postcss-loader": "^2.0.6",
     "prop-types": "^15.5.10",
     "purifycss-webpack-plugin": "^2.0.3",

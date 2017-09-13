@@ -22,7 +22,8 @@ export const withBootStrap = (bsClass = null) => Comp => {
 
   Bootstrapped.defaultProps = {
     bsClass   : bsClass,
-    bsClassAlt: ''
+    bsClassAlt: '',
+    dropShadow    : ''
   };
 
   Bootstrapped.propTypes = {
@@ -48,7 +49,8 @@ export const withBootStrap = (bsClass = null) => Comp => {
     pullRight : PropTypes.bool,
     sm        : PropTypes.bool,
     lg        : PropTypes.bool,
-    flush     : PropTypes.bool
+    flush     : PropTypes.bool,
+    dropShadow    : PropTypes.string
   };
 
   hoistNonReactStatic(Bootstrapped, Comp);
@@ -99,7 +101,8 @@ export const generateClassName = (props, additional) => {
   let {
         className,
         bsClass,
-        outline
+        outline,
+        dropShadow
       }                = props,
       origionalRootCls = bsClass || null,
       extendedRootCls  = origionalRootCls;
@@ -118,6 +121,7 @@ export const generateClassName = (props, additional) => {
       return acc;
     }, [origionalRootCls])
     .concat(additional ? additional : null)
+    .concat(dropShadow.length ? `paper-shadow-${dropShadow}` : null)
     .concat(className)
     .filter(i => !!i)
     .join(' ');
