@@ -46,7 +46,10 @@ class BTabList extends React.PureComponent {
     const children = React.Children.map(this.props.children, (child, idx) => {
       return React.cloneElement(child, {
         active  : activeIndex === idx,
-        onSelect: () => onSelectTab(idx)
+        onSelect: (e) => {
+          e.preventDefault();
+          onSelectTab(idx);
+        }
       });
     });
 
