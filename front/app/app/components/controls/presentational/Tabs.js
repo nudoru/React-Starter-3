@@ -89,7 +89,7 @@ class BTabPanel extends React.PureComponent {
   }
 }
 
-export const Tabs      = withBootStrap('card')(BTabs);
+export const Tabs      = withBootStrap('')(BTabs);
 export const TabList   = withBootStrap('nav')(BTabList);
 export const Tab       = withBootStrap('nav-item')(BTab);
 export const TabPanels = withBootStrap('')(BTabPanels);
