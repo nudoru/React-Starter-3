@@ -1,7 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withBootStrap,  generateClassName} from '../shared/BootStrapHOC';
+import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
+
+const BasicButtonEl = styled.button`
+  text-transform: uppercase;
+  background-image: ${props => props.theme.gradients.light};
+  padding: ${props => props.theme.buttons.paddingTB} ${props => props.theme.buttons.paddingLR};
+  text-shadow: ${props => props.theme.shadows.textDark};
+  border-width: 0px;
+  &:active {
+    box-shadow: ${props => props.theme.shadows.buttonPress};
+  }
+`;
+
+const OutlineButtonEl = BasicButtonEl.extend`
+  background-image: none;
+  text-shadow: none;
+  border-width: 1px;
+`;
 
 // TODO
 // toggle
@@ -24,10 +41,14 @@ class BButton extends React.PureComponent {
     }
   };
 
-
   render () {
-    let {type, tabIndex, ariaRole, ...rest} = this.props;
-    const El = styled.button.attrs({className: generateClassName(this.props)})``;
+    let {type, tabIndex, ariaRole, ...rest} = this.props, El;
+
+    if (this.props.outline) {
+      El = OutlineButtonEl.extend.attrs({className: generateClassName(this.props)})``;
+    } else {
+      El = BasicButtonEl.extend.attrs({className: generateClassName(this.props)})``;
+    }
 
     type = type || 'button';
 
@@ -47,6 +68,6 @@ class BButton extends React.PureComponent {
 }
 
 BButton.defaultProps = {};
-BButton.propTypes = {};
+BButton.propTypes    = {};
 
 export default withBootStrap('btn')(BButton);

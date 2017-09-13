@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withBootStrap } from '../shared/BootStrapHOC';
+import { withBootStrap } from './shared/BootStrapHOC';
 
 // Theme passed via Loading Wrapper
 const ControlContainer = styled.div`

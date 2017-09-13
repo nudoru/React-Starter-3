@@ -1,5 +1,7 @@
 @import "overpass";
 
+$font-family-base: 'Overpass', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
 $ms-10: 11.089rem;
 $ms-9: 8.755rem;
 $ms-8: 6.854rem;
@@ -16,78 +18,101 @@ $ms--2: 0.382rem;
 $ms--3: 0.236rem;
 $ms--4: 0.146rem;
 
-$font-family-base: 'Overpass', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-$blue:    rgb(22, 185, 225);
-$indigo:  #6610f2;
-$purple:  rgb(58, 1, 127);
-$pink:    #e83e8c;
-$red:     rgb(202, 6, 18);
-$orange:  rgb(235, 122, 40);
-$yellow:  rgb(239, 171, 50);
-$green:   rgb(148, 212, 56);
-$teal:    rgb(57, 149, 157);
-$cyan:    #17a2b8;
+$blue: rgb(27, 191, 248);
+$indigo: #6610f2;
+$purple: rgb(58, 1, 127);
+$pink: #e83e8c;
+$red: rgb(202, 6, 18);
+$orange: rgb(235, 122, 40);
+$yellow: rgb(239, 171, 50);
+$green: rgb(148, 212, 56);
+$teal: rgb(57, 149, 157);
+$cyan: #17a2b8;
 
 $colors: (
-  blue: $blue,
-  indigo: $indigo,
-  purple: $purple,
-  pink: $pink,
-  red: $red,
-  orange: $orange,
-  yellow: $yellow,
-  green: $green,
-  teal: $teal,
-  cyan: $cyan,
-  white: $white,
-  gray: $gray-600,
-  gray-dark: $gray-800
+        blue: $blue,
+        indigo: $indigo,
+        purple: $purple,
+        pink: $pink,
+        red: $red,
+        orange: $orange,
+        yellow: $yellow,
+        green: $green,
+        teal: $teal,
+        cyan: $cyan,
+        white: $white,
+        gray: $gray-600,
+        gray-dark: $gray-800
 );
 
 $theme-colors: (
-  primary: $blue,
-  secondary: $gray-600,
-  success: $green,
-  info: $cyan,
-  warning: $yellow,
-  danger: $red,
-  light: $gray-100,
-  dark: $gray-800
+        primary: $blue,
+        secondary: $gray-600,
+        success: $green,
+        info: $cyan,
+        warning: $yellow,
+        danger: $red,
+        light: $gray-100,
+        dark: $gray-800
 );
+
+$enable-gradients: true;
 
 $spacer: $ms-1;
 $spacers: (
-  0: 0,
-  1: ($spacer * .25),
-  2: ($spacer * .5),
-  3: $spacer,
-  4: ($spacer * 1.5),
-  5: ($spacer * 3)
+        0: 0,
+        1: ($spacer * .25),
+        2: ($spacer * .5),
+        3: $spacer,
+        4: ($spacer * 1.5),
+        5: ($spacer * 3)
 );
 
-$border-radius:          5px;
-$border-radius-lg:       10px;
-$border-radius-sm:       3px;
-
-$link-color:            $blue;
-$link-decoration:       none;
-$link-hover-color:      $blue;
+$link-color: $blue;
+$link-decoration: none;
+$link-hover-color: $blue;
 $link-hover-decoration: underline;
 
 $font-size-base: $ms-0; // Assumes the browser default, typically `16px`
-$font-size-lg:   $ms-2;
-$font-size-sm:   $ms--1;
+$font-size-lg: $ms-2;
+$font-size-sm: $ms--1;
 
-$h1-font-size: 4.2rem;
-$h2-font-size: 2.2rem;
-$h3-font-size: 1.8rem;
-$h4-font-size: 1.6rem;
-$h5-font-size: 1.25rem;
-$h6-font-size: 1rem;
+//$h1-font-size: 4.2rem;
+//$h2-font-size: 2.2rem;
+//$h3-font-size: 1.8rem;
+//$h4-font-size: 1.6rem;
+//$h5-font-size: 1.25rem;
+//$h6-font-size: 1rem;
+//
+//$headings-margin-bottom: ($spacer / 2);
+//$headings-font-weight:   600;
+//$headings-line-height:   2.4rem;
 
-$headings-margin-bottom: ($spacer / 2);
-$headings-font-weight:   600;
-$headings-line-height:   2.4rem;
+$border-radius: 0px;
+$border-radius-lg: 5px;
+$border-radius-sm: 0px;
 
+$input-btn-padding-y: .5rem;
 $input-btn-padding-x: 2rem;
+
+$input-btn-padding-y-sm: .25rem;
+$input-btn-padding-x-sm: 1rem;
+
+$input-btn-padding-y-lg: .5rem;
+$input-btn-padding-x-lg: 3rem;
+
+$btn-border-radius: $border-radius;
+$btn-border-radius-lg: $border-radius;
+$btn-border-radius-sm: $border-radius;
+
+$nav-link-padding-y:            .5rem;
+$nav-link-padding-x:            2rem;
+
+$nav-pills-border-radius: $border-radius;
+$nav-tabs-border-radius: $border-radius;
+$navbar-toggler-border-radius: $btn-border-radius;
+
+$card-border-radius: $border-radius;
+$card-inner-border-radius: $border-radius;
+
+$list-group-border-radius: $border-radius;

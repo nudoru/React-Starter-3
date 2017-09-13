@@ -140,7 +140,8 @@ const shadows = {
   boxSmall: '1px 1px 3px rgba(0,0,0,.2)',
   boxMedium: '2px 2px 7px rgba(0,0,0,.2)',
   boxLarge: '5px 5px 15px rgba(0,0,0,.2)',
-  boxXLarge: '5px 5px 30px rgba(0,0,0,.2)'
+  boxXLarge: '5px 5px 30px rgba(0,0,0,.2)',
+  buttonPress: 'inset 0px 2px 7px rgba(0,0,0,.2)'
 };
 
 const gradients = {
@@ -152,7 +153,7 @@ const gradients = {
 
 const metrics = {
   spacing: modularScale.ms0,
-  borderRadiusSmall: '3px',
+  borderRadiusSmall: '0px',
   borderRadius: modularScale.ms0,
   fontSizeTiny: modularScale['ms-1'],
   fontSizeSmall: modularScale.ms0,
@@ -163,13 +164,16 @@ const metrics = {
 const grids = {};
 
 const forms = {
-  elHeight: '4rem',
-  elBorder: `1px solid ${colorList.grey3}`,
-  elBorderFocus: `1px solid ${colorList.infoColor}`,
-  elBorderError: `1px solid ${colorList.dangerColor}`
+  height: '4rem',
+  border: `1px solid ${colorList.grey3}`,
+  borderFocus: `1px solid ${colorList.infoColor}`,
+  borderError: `1px solid ${colorList.dangerColor}`
 };
 
-const buttons = {};
+const buttons = {
+  paddingTB: modularScale['ms-2'],
+  paddingLR: modularScale.ms1
+};
 const tables = {};
 
 const cards = {
