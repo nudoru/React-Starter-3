@@ -46,10 +46,7 @@ class BTabList extends React.PureComponent {
     const children = React.Children.map(this.props.children, (child, idx) => {
       return React.cloneElement(child, {
         active  : activeIndex === idx,
-        onSelect: (e) => {
-          e.preventDefault();
-          onSelectTab(idx);
-        }
+        onSelect: () => onSelectTab(idx)
       });
     });
 
@@ -58,11 +55,16 @@ class BTabList extends React.PureComponent {
 }
 
 class BTab extends React.PureComponent {
+  handleClick = e => {
+    e.preventDefault();
+    this.props.onSelect();
+  };
+
   render () {
-    const {onSelect, active} = this.props;
+    const {active} = this.props;
 
     return <NavItem active={active}
-                    onClick={onSelect}>{this.props.children}</NavItem>;
+                    onClick={this.handleClick}>{this.props.children}</NavItem>;
   }
 }
 
