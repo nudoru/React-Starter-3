@@ -13,9 +13,9 @@ export const RowNG     = styled.div.attrs({className: 'row no-gutters'})``;
 
 export const ColBreak = styled.div.attrs({className: 'w-100'})``;
 
-export const Col = ({size, width, children, className, ...rest}) => {
-  let modifier = ['col'],
-      el;
+export const Col = ({size, width, className='', ...rest}) => {
+  let modifier = ['col'];
+
   if (size && !width) {
     console.warn('<Col> needs a width if it has a size!');
   }
@@ -28,8 +28,6 @@ export const Col = ({size, width, children, className, ...rest}) => {
 
   // TODO any reasons to use a styled component here?
   return (
-    <div className={modifier.join('-') + ' ' + className} {...rest}>
-      {children}
-    </div>
+    <div className={modifier.join('-') + ' ' + className} {...rest} />
   );
 };

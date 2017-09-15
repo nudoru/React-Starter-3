@@ -78,6 +78,7 @@ class BNavigationItem extends React.PureComponent {
           onClick={onClick}
           active={active}
           disabled={disabled}
+          underline={false}
           className={'nav-link' + (active ? ' active' : '') + (disabled ? ' disabled' : '') + (className ? ' ' + className : '')}
           {...rest}
         >

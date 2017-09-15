@@ -7,12 +7,12 @@ import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 
 const BListGroup = props => {
   const List = styled.ul.attrs({className: generateClassName(props)})``;
-  return <List {...props}>{props.children}</List>;
+  return <List {...props}/>;
 };
 
 const BListGroupItem = props => {
   let Item = styled.li.attrs({className: generateClassName(props)})``;
-  return <Item {...props}>{props.children}</Item>;
+  return <Item {...props}/>;
 };
 
 export const ListGroup     = withBootStrap('list-group')(BListGroup);

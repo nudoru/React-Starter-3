@@ -1,141 +1,22 @@
-/*
-http://codepen.io/HugoGiraudel/pen/qBgoh
-*/
+// TODO https://codepen.io/haibnu/pen/FxGsI
 
-/**
- * Default border for card effect
- *
- * @type List
- */
-$paper-card-border: 1px solid #eee !default;
-
-/**
- * Clamp `$value` between `$min` and `$max`
- *
- * @param {Number} $value
- * @param {Number} $min
- * @param {Number} $max
- *
- * @return {Number}
- */
-@function clamp($value, $min, $max) {
-  @return if($value > $max, $max, if($value < $min, $min, $value));
+//https://codepen.io/sdthornton/pen/wBZdXq?q=shadow&limit=all&type=type-pens
+.paper-shadow-xs {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-/**
- * Return a paper bottom-shadow
- *
- * @param {Number} $level - depth level
- *
- * @return {List}
- */
-@function paper-shadow-bottom($level) {
-  $primary-offset: nth(2 8 12 16 27, $level) * 1px;
-  $blur: nth(5 17 15 28 24, $level) * 1px;
-  $color: rgba(black, nth(.26 .20 .24 .22 .20, $level));
-
-  @return 0 $primary-offset $blur $color;
+.paper-shadow-sm {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-/**
- * Return a paper top-shadow
- *
- * @param {Number} $level - depth level
- *
- * @return {List}
- */
-@function paper-shadow-top($level) {
-  $primary-offset: nth(2 6 17 25 40, $level) * 1px;
-  $blur: nth(10 20 50 55 77, $level) * 1px;
-  $color: rgba(black, nth(.16 .19 .19 .21 .22, $level));
-
-  @return 0 $primary-offset $blur $color;
+.paper-shadow-m {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
-/**
- * Define a paper-like shadow
- *
- * @param {Number} $level (0) - depth level
- *
- * @requires {function} clamp
- * @requires {function} paper-shadow-top
- * @requires {function} paper-shadow-bottom
- */
-@mixin paper-shadow($level: 0) {
-  @if $level != 0 {
-    $level: clamp($level, 1, 5);
-    box-shadow: paper-shadow-top($level), paper-shadow-bottom($level);
-  }
+.paper-shadow-lg {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-/**
- * Define a paper border
- *
- * @param {List} $sides (())
- *
- * @requires {variable} $paper-card-border
- */
-@mixin paper-border($sides: ()) {
-  @if length($sides) > 0 and length($sides) < 4 {
-    @each $side in $sides {
-      @if index('top' 'right' 'bottom' 'left', $side) {
-        border-#{$side}: $paper-card-border;
-      }
-    }
-  }
-
-  @else {
-    border: $paper-card-border;
-  }
+.paper-shadow-xl {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
-
-/**
- * Create a card effect
- *
- * @param {Number} $level - depth level
- * @param {List} $sides - border sides
- */
-@mixin paper-card($level: 0, $sides: null) {
-  @include paper-shadow($level);
-  @include paper-border();
-}
-
-/**
- * Size an element
- *
- * @param {Number} $width
- * @param {Number} $height ($width)
- */
-//@mixin size($width, $height: $width) {
-//  width: $width;
-//  height: $height;
-//}
-
-/**
- * Example
- */
-//.card {
-//  @include size(15em);
-//  margin: 2em;
-//  background: white;
-//  display: inline-block;
-//}
-
-.paper-shadow-xs { @include paper-card(0); }
-.paper-shadow-sm { @include paper-card(1); }
-.paper-shadow-m { @include paper-card(2); }
-//.paper-card--z-3 { @include paper-card(3); }
-.paper-shadow-lg { @include paper-card(4); }
-.paper-shadow-xl { @include paper-card(5); }
-
-//.card--animated {
-//  animation: paper-card 5s infinite alternate;
-//}
-//
-//@keyframes paper-card {
-//  20%  { @include paper-shadow(1); }
-//  40%  { @include paper-shadow(2); }
-//  60%  { @include paper-shadow(3); }
-//  80%  { @include paper-shadow(4); }
-//  100% { @include paper-shadow(5); }
-//}

@@ -43,7 +43,7 @@ import {
   ButtonToolBar
 } from '../components/controls/presentational/ButtonGroup';
 
-import {withLoading} from '../components/controls/shared/IsLoadingHOC';
+import { withLoading } from '../components/controls/shared/IsLoadingHOC';
 
 const LoadingCard = withLoading(Card);
 
@@ -110,21 +110,21 @@ class Components extends React.Component {
             <Button primary secondary>Toggle</Button>
           </div>
           <div className="pb-2">
-              <ButtonGroup className='pr-3' sm vertical>
-                <Button primary>Active</Button>
-                <Button primary>Disabled</Button>
-                <Button primary>Toggle</Button>
-              </ButtonGroup>
-              <ButtonGroup className='pr-3'>
-                <Button primary>Active</Button>
-                <Button primary>Disabled</Button>
-                <Button primary>Toggle</Button>
-              </ButtonGroup>
-              <ButtonGroup className='pr-3' lg>
-                <Button primary>Active</Button>
-                <Button primary>Disabled</Button>
-                <Button primary>Toggle</Button>
-              </ButtonGroup>
+            <ButtonGroup className='pr-3' sm vertical>
+              <Button primary>Active</Button>
+              <Button primary>Disabled</Button>
+              <Button primary>Toggle</Button>
+            </ButtonGroup>
+            <ButtonGroup className='pr-3'>
+              <Button primary>Active</Button>
+              <Button primary>Disabled</Button>
+              <Button primary>Toggle</Button>
+            </ButtonGroup>
+            <ButtonGroup className='pr-3' lg>
+              <Button primary>Active</Button>
+              <Button primary>Disabled</Button>
+              <Button primary>Toggle</Button>
+            </ButtonGroup>
           </div>
         </div>
         <div className="pb-5">
@@ -228,13 +228,52 @@ class Components extends React.Component {
                     <CardTitle>This is a card!</CardTitle>
                     <CardSubTitle>Subtitles are cool</CardSubTitle>
                     <CardText>Card! Card! Card! Card! </CardText>
-                    <CardLink href="http://www.google.com">Link text</CardLink>
+                    <CardLink href="http://www.google.com">Link gggtextjjj</CardLink>
                     <CardLink href="http://www.google.com">Link text</CardLink>
                   </CardBody>
                   <ListGroup flush>
                     <ListGroupItem>Foo</ListGroupItem>
                     <ListGroupItem>Bar</ListGroupItem>
                   </ListGroup>
+                </Card>
+              </Col>
+            </Row>
+          </GridFluid>
+          <GridFluid className='pt-3'>
+            <Row>
+              <Col>
+                <Card dropShadow='xs'>
+                  <CardBody>
+                    <p>Shadow XS</p>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col>
+                <Card dropShadow='sm'>
+                  <CardBody>
+                    <p>Shadow SM</p>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col>
+                <Card dropShadow='m'>
+                  <CardBody>
+                    <p>Shadow M</p>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col>
+                <Card dropShadow='lg'>
+                  <CardBody>
+                    <p>Shadow LG</p>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col>
+                <Card dropShadow='xl'>
+                  <CardBody>
+                    <p>Shadow XL</p>
+                  </CardBody>
                 </Card>
               </Col>
             </Row>
@@ -254,7 +293,8 @@ class Components extends React.Component {
               <CardText>Whew! Glad we got that loading out of the way</CardText>
             </CardBody>
           </LoadingCard>
-          <LoadingCard error message='Call to reset flux capacitor encountered a temporal error!'>
+          <LoadingCard error
+                       message='Call to reset flux capacitor encountered a temporal error!'>
             <CardBody>
               <CardTitle>Done loading</CardTitle>
               <CardText>Whew! Glad we got that loading out of the way</CardText>
