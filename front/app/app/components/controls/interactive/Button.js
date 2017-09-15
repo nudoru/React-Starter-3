@@ -24,11 +24,10 @@ export const OutlineButtonEl = BasicButtonEl.extend`
   border-width: 1px;
 `;
 
-// TODO
-// toggle
-// Aria
-// Support checkbox and radio types
-// Support tags: a, input
+// TODO toggle
+// TODO Aria 
+// TODO Support checkbox and radio types
+// TODO Support tags: a, input
 class BButton extends React.PureComponent {
 
   handleClick = e => {
