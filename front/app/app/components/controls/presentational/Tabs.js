@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 import { Nav, NavItem } from '../interactive/Navigation';
 
-// TODO
-// ARIA
-// hooks for panelWillChange, panelDidChange, panelWillRemove, panelDidRemove
+// TODO ARIA
+// TODO hooks for panelWillChange, panelDidChange, panelWillRemove, panelDidRemove
 class BTabs extends React.PureComponent {
   state = {activeIndex: 0};
 
@@ -30,7 +29,7 @@ class BTabs extends React.PureComponent {
     const TabsEl = styled.div.attrs({
       className: generateClassName(this.props)
     })``;
-    return <TabsEl>{this.props.children}</TabsEl>;
+    return <TabsEl {...this.props}/>;
   }
 }
 
@@ -61,10 +60,10 @@ class BTab extends React.PureComponent {
   };
 
   render () {
-    const {active} = this.props;
+    const {active, ...rest} = this.props;
 
     return <NavItem active={active}
-                    onClick={this.handleClick}>{this.props.children}</NavItem>;
+                    onClick={this.handleClick} {...rest}/>;
   }
 }
 
@@ -87,7 +86,7 @@ class BTabPanel extends React.PureComponent {
     const TabPanelEl = styled.div.attrs({
       className: generateClassName(this.props)
     })``;
-    return <TabPanelEl>{this.props.children}</TabPanelEl>;
+    return <TabPanelEl {...this.props}/>;
   }
 }
 
