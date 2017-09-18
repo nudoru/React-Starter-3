@@ -32,12 +32,24 @@ const PillsNavULEl = NavULEl.extend`
 `;
 
 const TabbedNavULEl = NavULEl.extend`
+    border-bottom: 1px solid ${props => props.theme.colorList.blue}; 
+
     .nav-item {
       .nav-link.active {
         font-weight: 600;
         background-color: #fff;
+        border-left: 1px solid ${props => props.theme.colorList.blue};
         border-top: 1px solid ${props => props.theme.colorList.blue};
+        border-right: 1px solid ${props => props.theme.colorList.blue};
         box-shadow: 0px 3px -5px rgba(0,0,0,.5);
+      }
+      .nav-link:hover {
+        border: 1px solid rgba(0,0,0,0);
+      }
+      .nav-link.active:hover {
+        border-left: 1px solid ${props => props.theme.colorList.blue};
+        border-top: 1px solid ${props => props.theme.colorList.blue};
+        border-right: 1px solid ${props => props.theme.colorList.blue};
       }
   }
 `;
