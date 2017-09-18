@@ -24,7 +24,7 @@ module.exports = env => {
     entry: {
       app   : appEntryFile,
       // Removed 'moment' - only include in app file if it's used
-      vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-router-dom', 'ramda']
+      vendor: ['react', 'react-dom', 'react-router-dom', 'ramda', 'gsap']
     },
 
     output: {

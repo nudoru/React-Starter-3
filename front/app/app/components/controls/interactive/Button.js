@@ -6,13 +6,16 @@ import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 // TODO how to apply this AFTER the bootstrap styles?
 // TODO   font-weight: 600;
 export const BasicButtonEl = styled.button`
+  position: relative;
   text-transform: uppercase;
   background-image: ${props => props.theme.gradients.light};
-  padding: ${props => props.theme.buttons.paddingTB} ${props => props.theme.buttons.paddingLR};
+  padding: ${props => props.theme.buttons.paddingTB}
+    ${props => props.theme.buttons.paddingLR};
   text-shadow: ${props => props.theme.shadows.textDark};
   border-width: 0px;
   transition: all ${props => props.theme.transitions.transition};
-  transition-timing-function: ${props => props.theme.transitions.timingFunction};
+  transition-timing-function: ${props =>
+    props.theme.transitions.timingFunction};
   &:active {
     box-shadow: ${props => props.theme.shadows.buttonPress};
   }
@@ -25,13 +28,12 @@ export const OutlineButtonEl = BasicButtonEl.extend`
 `;
 
 // TODO toggle
-// TODO Aria 
+// TODO Aria
 // TODO Support checkbox and radio types
 // TODO Support tags: a, input
 class BButton extends React.PureComponent {
-
   handleClick = e => {
-    const {disabled, onClick} = this.props;
+    const { disabled, onClick } = this.props;
 
     if (disabled) {
       e.preventDefault();
@@ -44,13 +46,18 @@ class BButton extends React.PureComponent {
     }
   };
 
-  render () {
-    let {type, tabIndex, ariaRole, ...rest} = this.props, El;
+  render() {
+    let { type, tabIndex, ariaRole, ...rest } = this.props,
+      El;
 
     if (this.props.outline) {
-      El = OutlineButtonEl.extend.attrs({className: generateClassName(this.props)})``;
+      El = OutlineButtonEl.extend.attrs({
+        className: generateClassName(this.props)
+      })``;
     } else {
-      El = BasicButtonEl.extend.attrs({className: generateClassName(this.props)})``;
+      El = BasicButtonEl.extend.attrs({
+        className: generateClassName(this.props)
+      })``;
     }
 
     type = type || 'button';
@@ -61,16 +68,20 @@ class BButton extends React.PureComponent {
     }
 
     return (
-      <El type={type}
-          role={ariaRole || 'button'}
-          tabIndex={tabIndex}
-          onClick={this.handleClick}
-          {...rest}>{this.props.children}</El>
+      <El
+        type={type}
+        role={ariaRole || 'button'}
+        tabIndex={tabIndex}
+        onClick={this.handleClick}
+        {...rest}
+      >
+        {this.props.children}
+      </El>
     );
   }
 }
 
 BButton.defaultProps = {};
-BButton.propTypes    = {};
+BButton.propTypes = {};
 
 export default withBootStrap('btn')(BButton);
