@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
 
 class TemplatePage extends React.Component {
   constructor(props) {
@@ -29,14 +27,4 @@ class TemplatePage extends React.Component {
 TemplatePage.defaultProps = {};
 TemplatePage.propTypes = {};
 
-const mapStateToProps = state => {
-  return {
-    config: state.config
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TemplatePage);
+export default TemplatePage;

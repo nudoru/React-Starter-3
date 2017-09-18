@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import {StyledComponents} from '../components/mocks/styledcomponents'
 import {TextStyles} from '../components/mocks/textstyles'
 
@@ -31,14 +30,4 @@ class Styles extends React.Component {
 Styles.defaultProps = {};
 Styles.propTypes = {};
 
-const mapStateToProps = state => {
-  return {
-    config: state.config
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Styles);
+export default Styles;

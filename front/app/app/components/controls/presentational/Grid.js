@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Container, ContainerFluid } from './Container';
 
-// https://getbootstrap.com/docs/4.0/layout/grid/
-
 export const Grid      = ({children, ...rest}) =>
   <Container {...rest}>{children}</Container>;
 export const GridFluid = ({children, ...rest}) =>

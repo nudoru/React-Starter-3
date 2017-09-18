@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import {
   Card,
@@ -309,14 +308,4 @@ class Components extends React.Component {
 Components.defaultProps = {};
 Components.propTypes    = {};
 
-const mapStateToProps = state => {
-  return {
-    config: state.config
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Components);
+export default Components;
