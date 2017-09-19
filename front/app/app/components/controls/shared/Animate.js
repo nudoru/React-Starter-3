@@ -3,16 +3,11 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { TweenMax, Expo } from 'gsap';
 
-// https://ihatetomatoes.net/wp-content/uploads/2016/07/GreenSock-Cheatsheet-4.pdf
+// Borrowed ideas from react-gsap-enhancer https://github.com/azazdeaz/react-gsap-enhancer
 
 // TODO leverage transition group
 //https://github.com/aholachek/react-animation-comparison/blob/master/src/react-transition-group-example.js
 
-// TODO Save styles between prop changes and rerenders
-// https://github.com/azazdeaz/react-gsap-enhancer/blob/master/src/gsap-enhancer.js
-// https://github.com/azazdeaz/react-gsap-enhancer/blob/master/src/utils.js
-
-// Filter out nulls, was a bug .filter(i => !!i)
 const getDOMElements = a => a.map(ReactDOM.findDOMNode); //eslint-disable-line react/no-find-dom-node
 
 export class Stagger extends React.PureComponent {
@@ -22,10 +17,6 @@ export class Stagger extends React.PureComponent {
     this.originalStyle = [];
     this.tweenTargets = [];
     this.activeTweens = [];
-  }
-
-  componentWillReceiveProps(props) {
-    this._stopAnimation();
   }
 
   componentDidMount() {
@@ -51,31 +42,40 @@ export class Stagger extends React.PureComponent {
   }
 
   _restoreStyles() {
-    this.tweenTargets.forEach((c,i) => {
+    this.tweenTargets.forEach((c, i) => {
       c.style = this.originalStyle[i];
     });
   }
 
   _performAnimation() {
     if (this.props.go) {
-      // console.log('Animating...', this.tweenTargets);
-      // console.log(this.tweenTargets);
+      if (this.activeTweens.length) {
+        this.activeTweens.forEach(tween => {
+          let time = tween.time();
+          let paused = tween.paused();
+          let reversed = tween.reversed();
 
-      //https://greensock.com/docs/TweenMax/static.staggerTo()
-      this.activeTweens = TweenMax.staggerTo(
-        getDOMElements(this.tweenTargets),
-        this.props.duration,
-        this.props.staggerTween,
-        this.props.staggerDelay
-      );
+          tween
+            .invalidate()
+            .restart(false, true)
+            .time(time, true);
+
+          if (paused) {
+            tween.pause(null, true);
+          }
+          if (reversed) {
+            tween.reverse(null, true);
+          }
+        });
+      } else {
+        this.activeTweens = TweenMax.staggerTo(
+          getDOMElements(this.tweenTargets),
+          this.props.duration,
+          this.props.staggerTween,
+          this.props.staggerDelay
+        );
+      }
     }
-  }
-
-  _stopAnimation() {
-    // console.log('Stopping tweens ...');
-    this.activeTweens.forEach(a => {
-      a.kill();
-    });
   }
 
   render() {
@@ -92,9 +92,6 @@ export class Stagger extends React.PureComponent {
       staggerDelay,
       ...rest
     } = this.props;
-
-    this.tweenTargets = [];
-    this.activeTweens = [];
 
     const children = React.Children.map(originalChildren, (child, idx) => {
       let comp,

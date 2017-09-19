@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { TweenMax, Expo } from 'gsap';
+import { TweenMax, Expo, Bounce } from 'gsap';
 import styled from 'styled-components';
 
 import { Stagger } from '../components/controls/shared/Animate';
@@ -19,14 +19,17 @@ class Animations extends React.Component {
   constructor(props) {
     super(props);
     this.state = { anim: true };
+    this.counter = 1;
     this.animEls = [];
   }
 
   _onMouseEnter = e => {
+    this.counter++;
     this.setState(prevState => ({ anim: !prevState.anim }));
   };
 
   _onMouseLeave = e => {
+    this.counter++;
     this.setState(prevState => ({ anim: !prevState.anim }));
   };
 
@@ -42,31 +45,22 @@ class Animations extends React.Component {
           Move it!
         </Button>
         <Stagger
-          go={this.state.anim}
-          duration={0.5}
+          go={true}
+          duration={2}
           staggerTween={{
             x: 500,
             yoyo: true,
             repeat: -1,
-            ease: Expo.easeOut
+            repeatDelay: 1,
+            ease: Bounce.easeOut
           }}
           className="pt-5"
         >
-          <h1>One</h1>
-          <Stagger
-            duration={2}
-            staggerTween={{
-              y: 500,
-              yoyo: true,
-              repeat: -1,
-              ease: Expo.easeOut
-            }}
-          >
-            <h3>Three</h3>
-            <h3>Three</h3>
-            <h3>Three</h3>
-          </Stagger>
-          <h1>One</h1>
+          <h1>{this.counter}</h1>
+          <h1>{this.counter}</h1>
+          <h1>{this.counter}</h1>
+          <h1>{this.counter}</h1>
+          <h1>{this.counter}</h1>
         </Stagger>
       </Container>
     );
