@@ -6,7 +6,9 @@ import { TweenMax, Expo } from 'gsap';
 // Borrowed ideas from react-gsap-enhancer https://github.com/azazdeaz/react-gsap-enhancer
 
 // TODO leverage transition group
-//https://github.com/aholachek/react-animation-comparison/blob/master/src/react-transition-group-example.js
+// https://github.com/aholachek/react-animation-comparison/blob/master/src/react-transition-group-example.js
+
+// TODO paused not working
 
 const getDOMElements = a => a.map(ReactDOM.findDOMNode); //eslint-disable-line react/no-find-dom-node
 
@@ -48,41 +50,44 @@ export class Stagger extends React.PureComponent {
   }
 
   _performAnimation() {
-    if (this.props.go) {
-      if (this.activeTweens.length) {
-        this.activeTweens.forEach(tween => {
-          let time = tween.time();
-          let paused = tween.paused();
-          let reversed = tween.reversed();
+    if (this.activeTweens.length) {
+      this.activeTweens.forEach(tween => {
+        let time = tween.time();
+        let paused = tween.paused() && this.props.paused;
+        let reversed = tween.reversed();
 
-          tween
-            .invalidate()
-            .restart(false, true)
-            .time(time, true);
+        tween
+          .invalidate()
+          .restart(false, true)
+          .time(time, true);
 
-          if (paused) {
-            tween.pause(null, true);
-          }
-          if (reversed) {
-            tween.reverse(null, true);
-          }
-        });
-      } else {
-        this.activeTweens = TweenMax.staggerTo(
-          getDOMElements(this.tweenTargets),
-          this.props.duration,
-          this.props.staggerTween,
-          this.props.staggerDelay
-        );
-      }
+        if (paused) {
+          tween.pause(null, true);
+        }
+        if (reversed) {
+          tween.reverse(null, true);
+        }
+      });
+    } else {
+      this.activeTweens = TweenMax.staggerTo(
+        getDOMElements(this.tweenTargets),
+        this.props.duration,
+        this.props.staggerTween,
+        // this._propsToTween(this.props, this.props.staggerTween),
+        this.props.staggerDelay
+      );
     }
+  }
+
+  _propsToTween(props, tweenObj) {
+    return Object.assign(tweenObj, { paused: props.paused });
   }
 
   render() {
     const {
       children: originalChildren,
       parent,
-      go,
+      paused,
       duration,
       staggerTween,
       inTween,
@@ -116,7 +121,7 @@ export class Stagger extends React.PureComponent {
 }
 
 Stagger.defaultProps = {
-  go: false,
+  paused: false,
   duration: 0.5,
   delay: 0.5,
   staggerDelay: 0.25,
@@ -124,7 +129,7 @@ Stagger.defaultProps = {
 };
 
 Stagger.propTypes = {
-  go: PropTypes.bool,
+  paused: PropTypes.bool,
   duration: PropTypes.number,
   staggerTween: PropTypes.object,
   inTween: PropTypes.object,

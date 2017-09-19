@@ -42,23 +42,38 @@ class Animations extends React.Component {
           onMouseLeave={this._onMouseLeave}
           primary
         >
-          Move it!
+          Do something
         </Button>
         <Stagger
-          go={true}
           duration={2}
           staggerTween={{
             x: 500,
             yoyo: true,
             repeat: -1,
             repeatDelay: 1,
-            ease: Bounce.easeOut
+            ease: Expo.easeOut
           }}
           className="pt-5"
         >
           <h1>{this.counter}</h1>
           <h1>{this.counter}</h1>
           <h1>{this.counter}</h1>
+          <Stagger
+            duration={0.5}
+            staggerTween={{
+              x: 200,
+              yoyo: true,
+              repeat: -1,
+              ease: Expo.easeOut
+            }}
+            className="pt-5"
+          >
+            <h6>{this.counter}</h6>
+            <h6>{this.counter}</h6>
+            <h6>{this.counter}</h6>
+            <h6>{this.counter}</h6>
+            <h6>{this.counter}</h6>
+          </Stagger>
           <h1>{this.counter}</h1>
           <h1>{this.counter}</h1>
         </Stagger>
