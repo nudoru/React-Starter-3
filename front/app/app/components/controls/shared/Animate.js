@@ -3,130 +3,84 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { TweenMax, Expo } from 'gsap';
 
-//----------------------------------------------------------------------------------------------------------------------
-//https://github.com/azazdeaz/react-gsap-enhancer/blob/master/src/utils.js
+// https://ihatetomatoes.net/wp-content/uploads/2016/07/GreenSock-Cheatsheet-4.pdf
 
-const walkItemTree = (itemTree, callback) => {
-  function walk(map) {
-    map.forEach(item => {
-      if (item.node) {
-        callback(item)
-        if (item.children) {
-          walk(item.children)
-        }
-      }
-    })
-  }
-  walk(itemTree)
-}
+// TODO leverage transition group
+//https://github.com/aholachek/react-animation-comparison/blob/master/src/react-transition-group-example.js
 
-const restoreRenderedStyles = (itemTree) => {
-  walkItemTree(itemTree, item => {
-    const savedAttributeNames = Object.keys(item.savedAttributes || {})
-    //restore the original attribute values
-    savedAttributeNames.forEach(name => {
-      item.node.setAttribute(name, item.savedAttributes[name])
-    })
-    //remove the attributes added after the render
-    for (let i = 0; i < item.node.attributes.length; ++i) {
-      const name = item.node.attributes[i].name
-      if (savedAttributeNames.indexOf(name) === -1) {
-        item.node.removeAttribute(name)
-        --i
-      }
-    }
-  })
-}
+// TODO Save styles between prop changes and rerenders
+// https://github.com/azazdeaz/react-gsap-enhancer/blob/master/src/gsap-enhancer.js
+// https://github.com/azazdeaz/react-gsap-enhancer/blob/master/src/utils.js
 
-const saveRenderedStyles = (itemTree) => {
-  walkItemTree(itemTree, item => {
-    item.savedAttributes = {}
-    for (let i = 0; i < item.node.attributes.length; ++i) {
-      const attribute = item.node.attributes[i]
-      const name = attribute.name
-      const value = attribute.value
-      item.savedAttributes[name] = value
-    }
-    //item.node._gsTransform = null
-    //item.node._gsTweenID = null
-  })
-}
+// Filter out nulls, was a bug .filter(i => !!i)
+const getDOMElements = a => a.map(ReactDOM.findDOMNode); //eslint-disable-line react/no-find-dom-node
 
-// const reattachAll(itemTree, runningAnimations) {
-//   restoreRenderedStyles(itemTree)
-//   attachAll(runningAnimations)
-// }
-
-// const attachAll(runningAnimations) {
-//   runningAnimations.forEach(animation => animation.attach())
-// }
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-
-
-export class Animate extends React.PureComponent {
+export class Stagger extends React.PureComponent {
   constructor(props) {
     super(props);
+    // TODO merge these into one object
+    this.originalStyle = [];
     this.tweenTargets = [];
     this.activeTweens = [];
   }
 
   componentWillReceiveProps(props) {
-    this.tweenTargets = [];
-    if (this.activeTweens) {
-      this._stopAnimation();
-    }
-  }
-
-  _stopAnimation() {
-    console.log('Stopping tweens ...');
-    this.activeTweens.forEach(a => {
-      a.kill();
-      //a.pause();
-      //a.time(0);
-    });
-    this.activeTweens = [];
-  }
-
-  componentDidUpdate() {
-    this._performAnimation();
+    this._stopAnimation();
   }
 
   componentDidMount() {
+    this._saveStyles();
     this._performAnimation();
   }
 
-  _getDOMElements(arry) {
-    return arry.filter(i => !!i).map(ReactDOM.findDOMNode); //eslint-disable-line react/no-find-dom-node
+  componentWillUpdate() {
+    this._restoreStyles();
+  }
+
+  componentDidUpdate() {
+    this._saveStyles();
+    this._performAnimation();
+  }
+
+  _saveStyles() {
+    this.originalStyle = this.tweenTargets.map(c => c.style);
+    this.tweenTargets.forEach(c => {
+      c._gsTransform = null;
+      c._gsTweenID = null;
+    });
+  }
+
+  _restoreStyles() {
+    this.tweenTargets.forEach((c,i) => {
+      c.style = this.originalStyle[i];
+    });
   }
 
   _performAnimation() {
     if (this.props.go) {
-      console.log('Animating...');
-      // console.log(this.tweenElements);
-      // TODO why do I have nulls in the array?
-      const targets = this._getDOMElements(this.tweenTargets);
-
-      console.log(targets, this.props.staggerTween, this.props.staggerDelay);
+      // console.log('Animating...', this.tweenTargets);
+      // console.log(this.tweenTargets);
 
       //https://greensock.com/docs/TweenMax/static.staggerTo()
       this.activeTweens = TweenMax.staggerTo(
-        targets,
+        getDOMElements(this.tweenTargets),
         this.props.duration,
         this.props.staggerTween,
         this.props.staggerDelay
       );
-
-      console.log(this.activeTweens);
     }
+  }
+
+  _stopAnimation() {
+    // console.log('Stopping tweens ...');
+    this.activeTweens.forEach(a => {
+      a.kill();
+    });
   }
 
   render() {
     const {
-      children,
+      children: originalChildren,
       parent,
       go,
       duration,
@@ -140,21 +94,31 @@ export class Animate extends React.PureComponent {
     } = this.props;
 
     this.tweenTargets = [];
+    this.activeTweens = [];
 
-    const tweenChildren = React.Children.map(children, (child, idx) => {
-      const el = React.cloneElement(child, {
+    const children = React.Children.map(originalChildren, (child, idx) => {
+      let comp,
+        exists = this.tweenTargets[idx] !== null,
+        style = exists ? this.originalStyle[idx] : null;
+
+      comp = React.cloneElement(child, {
         key: idx,
-        ref: el => this.tweenTargets.push(el)
+        ref: comp => {
+          this.tweenTargets[idx] = comp;
+        }
       });
-      return el;
+
+      return comp;
     });
 
-    // TODO allow parent to be something other than a div
-    return <div {...rest} children={tweenChildren} />; //eslint-disable-line react/no-children-prop
+    return React.cloneElement(this.props.parent, {
+      children,
+      ...rest
+    });
   }
 }
 
-Animate.defaultProps = {
+Stagger.defaultProps = {
   go: false,
   duration: 0.5,
   delay: 0.5,
@@ -162,7 +126,7 @@ Animate.defaultProps = {
   parent: <div />
 };
 
-Animate.propTypes = {
+Stagger.propTypes = {
   go: PropTypes.bool,
   duration: PropTypes.number,
   staggerTween: PropTypes.object,

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { TweenMax, Expo } from 'gsap';
 import styled from 'styled-components';
 
-import { Animate } from '../components/controls/shared/Animate';
+import { Stagger } from '../components/controls/shared/Animate';
 
 import Button from '../components/controls/interactive/Button';
 
@@ -41,20 +41,33 @@ class Animations extends React.Component {
         >
           Move it!
         </Button>
-        <Animate
+        <Stagger
           go={this.state.anim}
-          staggerTween={({
+          duration={0.5}
+          staggerTween={{
             x: 500,
             yoyo: true,
             repeat: -1,
             ease: Expo.easeOut
-          })}
+          }}
           className="pt-5"
         >
           <h1>One</h1>
-          <h2>Two</h2>
-          <h3>Three</h3>
-        </Animate>
+          <Stagger
+            duration={2}
+            staggerTween={{
+              y: 500,
+              yoyo: true,
+              repeat: -1,
+              ease: Expo.easeOut
+            }}
+          >
+            <h3>Three</h3>
+            <h3>Three</h3>
+            <h3>Three</h3>
+          </Stagger>
+          <h1>One</h1>
+        </Stagger>
       </Container>
     );
   }
