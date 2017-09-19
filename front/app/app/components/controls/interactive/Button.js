@@ -6,7 +6,7 @@ import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 // TODO how to apply this AFTER the bootstrap styles?
 // TODO   font-weight: 600;
 export const BasicButtonEl = styled.button`
-  position: relative;
+  cursor: pointer;
   text-transform: uppercase;
   background-image: ${props => props.theme.gradients.light};
   padding: ${props => props.theme.buttons.paddingTB}
@@ -18,6 +18,9 @@ export const BasicButtonEl = styled.button`
     props.theme.transitions.timingFunction};
   &:active {
     box-shadow: ${props => props.theme.shadows.buttonPress};
+  }
+  &:disabled {
+    cursor: not-allowed;
   }
 `;
 
