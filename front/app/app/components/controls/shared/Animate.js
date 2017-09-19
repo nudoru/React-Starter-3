@@ -1,16 +1,62 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import Transition from 'react-transition-group/Transition';
 import { TweenMax, Expo } from 'gsap';
 
-// Borrowed ideas from react-gsap-enhancer https://github.com/azazdeaz/react-gsap-enhancer
+// Borrowed ideas
+// react-gsap-enhancer https://github.com/azazdeaz/react-gsap-enhancer
+// this blog post https://www.freshtilledsoil.com/whats-the-most-developer-friendly-react-animation-library/
 
-// TODO leverage transition group
-// https://github.com/aholachek/react-animation-comparison/blob/master/src/react-transition-group-example.js
-
+// BUGS
 // TODO paused not working
 
 const getDOMElements = a => a.map(ReactDOM.findDOMNode); //eslint-disable-line react/no-find-dom-node
+
+//https://reactcommunity.org/react-transition-group/
+export class Stagger2 extends React.PureComponent {
+  _onEnter = () => {
+    console.log('enter');
+  };
+
+  _onEntering = () => {
+    console.log('entering');
+  };
+
+  _onEntered = () => {
+    console.log('entered');
+  };
+
+  _onExit = () => {
+    console.log('exit');
+  };
+
+  _onExiting = () => {
+    console.log('exiting');
+  };
+
+  _onExited = () => {
+    console.log('exited');
+  };
+
+  render() {
+    return (
+      <Transition
+        appear={true}
+        timeout={1000}
+        in={true}
+        onEnter={this._onEnter}
+        onEntering={this._onEntering}
+        onEntered={this._onEntered}
+        onExit={this._onExit}
+        onExiting={this._onExiting}
+        onExited={this._onExited}
+      >
+        <Stagger {...this.props}>{this.props.children}</Stagger>
+      </Transition>
+    );
+  }
+}
 
 export class Stagger extends React.PureComponent {
   constructor(props) {
@@ -84,19 +130,21 @@ export class Stagger extends React.PureComponent {
   }
 
   render() {
-    const {
-      children: originalChildren,
-      parent,
-      paused,
-      duration,
-      staggerTween,
-      inTween,
-      outTween,
-      onComplete,
-      delay,
-      staggerDelay,
-      ...rest
-    } = this.props;
+    // TODO instead of doing this, use delete.propName for extra props
+    const { children: originalChildren, parent, ...childProps } = this.props;
+
+    delete childProps.paused;
+    delete childProps.duration;
+    delete childProps.staggerTween;
+    delete childProps.inTween;
+    delete childProps.outTween;
+    delete childProps.onComplete;
+    delete childProps.delay;
+    delete childProps.staggerDelay;
+    delete childProps.onExited;
+    delete childProps.appear;
+    delete childProps.enter;
+    delete childProps.exit;
 
     const children = React.Children.map(originalChildren, (child, idx) => {
       let comp,
@@ -113,9 +161,9 @@ export class Stagger extends React.PureComponent {
       return comp;
     });
 
-    return React.cloneElement(this.props.parent, {
+    return React.cloneElement(parent, {
       children,
-      ...rest
+      ...childProps
     });
   }
 }
