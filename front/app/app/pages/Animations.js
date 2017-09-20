@@ -8,6 +8,17 @@ import { Animate } from '../components/controls/shared/Animate';
 
 import Button from '../components/controls/interactive/Button';
 
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubTitle,
+  CardText,
+  CardLink,
+  CardHeader,
+  CardFooter
+} from '../components/controls/presentational/Card';
+
 const Container = styled.div`
   position: absolute;
   width: 100%;
@@ -34,7 +45,7 @@ class Animations extends React.Component {
   };
 
   render() {
-    console.log('app state',this.state)
+    console.log('app state', this.state);
 
     return (
       <Container>
@@ -46,13 +57,36 @@ class Animations extends React.Component {
         >
           Do something
         </Button>
+
         <Animate
+          paused={!this.state.anim}
+          staggerTween={{
+            x: 300,
+            rotate: 60,
+            yoyo: true,
+            repeat: -1
+          }}
+          className="pt-5 debug-container"
+        >
+          <h5 className="debug-container">Blah! {this.counter}</h5>
+        </Animate>
+      </Container>
+    );
+  }
+}
+
+/**<Animate
           paused={!this.state.anim}
           duration={2}
           staggerTween={{
             x: 500,
+            alpha: 1,
             yoyo: true,
             repeat: -1
+          }}
+          start={{
+            x: 0,
+            alpha: 0
           }}
           className="pt-5"
         >
@@ -75,11 +109,7 @@ class Animations extends React.Component {
           </Animate>
           <h1>{this.counter}</h1>
           <h1>{this.counter}</h1>
-        </Animate>
-      </Container>
-    );
-  }
-}
+        </Animate> */
 
 Animations.defaultProps = {};
 Animations.propTypes = {};

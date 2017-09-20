@@ -3,22 +3,22 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Transition from 'react-transition-group/Transition';
 import { TweenMax, Expo } from 'gsap';
-import {mergeDeepLeft} from 'ramda';
+import { mergeDeepLeft } from 'ramda';
+
+//https://greensock.com/get-started-js
 
 // Borrowed ideas
 // react-gsap-enhancer https://github.com/azazdeaz/react-gsap-enhancer
 // this blog post https://www.freshtilledsoil.com/whats-the-most-developer-friendly-react-animation-library/
 
 // BUGS
-// TODO paused not working
+// Components buttons, cards, need to wrapped in a div to work
+// After several pause restart, padding shrinks
 
 /*
- - Paused
- - default transform point to center of element
  - use r-t-g-+
- - Single element
- - start from - set initial conditions
  - appear / leave transitions
+ - better name for starting conditions than "starting"
 */
 
 const getDOMElements = a => a.map(ReactDOM.findDOMNode); //eslint-disable-line react/no-find-dom-node
@@ -91,6 +91,12 @@ class Stagger extends React.PureComponent {
     this._performAnimation();
   }
 
+  componentWillUnmount() {
+    this.activeTweens.forEach(t => {
+      t.kill();
+    });
+  }
+  
   _saveStyles() {
     this.originalStyle = this.tweenTargets.map(c => c.style);
     this.tweenTargets.forEach(c => {
@@ -106,55 +112,38 @@ class Stagger extends React.PureComponent {
   }
 
   _performAnimation() {
-    //console.log('perform', this.props.paused);
-    //if (!this.props.paused) {
-      if (this.activeTweens.length) {
-        this.activeTweens.forEach(tween => {
-          let time = tween.time();
-          //let paused = tween.paused();
-          let reversed = tween.reversed();
+    if (this.activeTweens.length) {
+      this.activeTweens.forEach(tween => {
+        let time = tween.time();
+        let reversed = tween.reversed();
 
-          tween
-            .invalidate()
-            .restart(false, true)
-            .time(time, true);
+        tween
+          .invalidate()
+          .restart(false, true)
+          .time(time, true);
 
-          if (this.props.paused) {
-            console.log('PAUSING')
-            tween.pause(null, true);
-          }
-          if (reversed) {
-            tween.reverse(null, true);
-          }
-        });
-      } else {
-        // TODO add paused here
-        // TODO conditional, 1 or 2+ children
-        // TODO active tweens needs to always be array
-        this.activeTweens = TweenMax.staggerTo(
-          getDOMElements(this.tweenTargets),
-          this.props.duration,
-          // this.props.staggerTween,
-          this._propsToTween(this.props, this.props.staggerTween),
-          this.props.staggerDelay
-        );
+        if (this.props.paused) {
+          tween.pause(null, true);
+        }
+        if (reversed) {
+          tween.reverse(null, true);
+        }
+      });
+    } else {
+      let domEls = getDOMElements(this.tweenTargets);
 
-        console.log(this._propsToTween(this.props, this.props.staggerTween))
+      if (this.props.start) {
+        console.log('start condition', this.props.start);
+        TweenMax.set(domEls, this.props.start);
       }
-    // } else {
-    //   // REMOVE this
-    //   if (this.activeTweens.length) {
-    //     console.log('PAUSING');
-    //     this.activeTweens.forEach(tween => {
-    //       let time = tween.time();
-    //       tween
-    //         .invalidate()
-    //         .restart(false, true)
-    //         .time(time, true)
-    //         .pause();
-    //     });
-    //   }
-    // }
+
+      this.activeTweens = TweenMax.staggerTo(
+        domEls,
+        this.props.duration,
+        this._propsToTween(this.props, this.props.staggerTween),
+        this.props.staggerDelay
+      );
+    }
   }
 
   // Add defaults to the tween object if they aren't specified
@@ -204,22 +193,18 @@ class Stagger extends React.PureComponent {
 Stagger.defaultProps = {
   paused: false,
   duration: 0.5,
-  delay: 0.5,
-  staggerDelay: 0.25,
+  staggerDelay: 0,
   parent: <div />,
   transformOrigin: '0% 0%',
   ease: Expo.easeInOut
 };
 
 Stagger.propTypes = {
-  paused: PropTypes.bool,
-  duration: PropTypes.number,
   staggerTween: PropTypes.object,
-  inTween: PropTypes.object,
-  outTween: PropTypes.object,
-  onComplete: PropTypes.object,
-  delay: PropTypes.number,
+  duration: PropTypes.number,
   staggerDelay: PropTypes.number,
+  start: PropTypes.object,
+  paused: PropTypes.bool,
   parent: PropTypes.object,
   transformOrigin: PropTypes.string,
   ease: PropTypes.object
