@@ -19,11 +19,10 @@ import {
   CardFooter
 } from '../components/controls/presentational/Card';
 
-const Container = styled.div`
+const Container = styled.div.attrs({ className: 'glass_water' })`
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #eee;
 `;
 
 class Animations extends React.Component {
@@ -57,36 +56,18 @@ class Animations extends React.Component {
         >
           Do something
         </Button>
-
         <Animate
           paused={!this.state.anim}
-          staggerTween={{
-            x: 300,
-            rotate: 60,
-            yoyo: true,
-            repeat: -1
-          }}
-          className="pt-5 debug-container"
-        >
-          <h5 className="debug-container">Blah! {this.counter}</h5>
-        </Animate>
-      </Container>
-    );
-  }
-}
-
-/**<Animate
-          paused={!this.state.anim}
           duration={2}
-          staggerTween={{
+          staggerDelay={0.25}
+          tween={{
             x: 500,
             alpha: 1,
             yoyo: true,
             repeat: -1
           }}
           start={{
-            x: 0,
-            alpha: 0
+            alpha: 0.25
           }}
           className="pt-5"
         >
@@ -94,7 +75,8 @@ class Animations extends React.Component {
           <h1>{this.counter}</h1>
           <h1>{this.counter}</h1>
           <Animate
-            staggerTween={{
+            staggerDelay={0.1}
+            tween={{
               x: 200,
               yoyo: true,
               repeat: -1
@@ -109,7 +91,13 @@ class Animations extends React.Component {
           </Animate>
           <h1>{this.counter}</h1>
           <h1>{this.counter}</h1>
-        </Animate> */
+        </Animate>
+      </Container>
+    );
+  }
+}
+
+/** */
 
 Animations.defaultProps = {};
 Animations.propTypes = {};
