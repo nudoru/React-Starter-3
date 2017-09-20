@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import Transition from 'react-transition-group/Transition';
+// import Transition from 'react-transition-group/Transition';
+import TransitionGroupPlus from 'react-transition-group-plus';
 import { TweenMax, Expo } from 'gsap';
 import { mergeDeepLeft } from 'ramda';
 
@@ -50,20 +51,19 @@ export class Animate extends React.PureComponent {
   // };
 
   render() {
+    // appear={true}
+    // timeout={1000}
+    // in={true}
+    // onEnter={this._onEnter}
+    // onEntering={this._onEntering}
+    // onEntered={this._onEntered}
+    // onExit={this._onExit}
+    // onExiting={this._onExiting}
+    // onExited={this._onExited}
     return (
-      <Transition
-        appear={true}
-        timeout={1000}
-        in={true}
-        onEnter={this._onEnter}
-        onEntering={this._onEntering}
-        onEntered={this._onEntered}
-        onExit={this._onExit}
-        onExiting={this._onExiting}
-        onExited={this._onExited}
-      >
+      <TransitionGroupPlus>
         <Stagger {...this.props}>{this.props.children}</Stagger>
-      </Transition>
+      </TransitionGroupPlus>
     );
   }
 }
