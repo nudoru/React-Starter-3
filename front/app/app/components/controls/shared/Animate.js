@@ -72,7 +72,8 @@ Animate.propTypes = {
 class Stagger extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { isEntering: false, isLeaving: false };
+    this.isEntering = false;
+    this.isLeaving = false;
     // TODO merge these into one object
     this.originalStyle = [];
     this.tweenTargets = [];
@@ -81,18 +82,39 @@ class Stagger extends React.PureComponent {
     this.leaveTweens = [];
   }
 
+  componentDidMount() {
+    // Animation starts in didAppear and didEnter
+    //console.log('Did mount');
+  }
+
   // This is called at the same time as componentDidMount() for components that are initially mounted in a TransitionGroup. It will block other animations from occurring until callback is called. It is only called on the initial render of a TransitionGroup.
   componentWillAppear(cb) {
-    console.log('will appear');
-    // TODO animate 'enter' and call cb at end
-    cb();
+    if (this.props.enter) {
+      this.isEntering = true;
+
+      let tween = mergeDeepLeft({}, this.props.enter);
+
+      this.enterTweens = TweenMax.staggerFrom(
+        getDOMElements(this.tweenTargets),
+        this.props.enterDuration,
+        tween,
+        this.props.enterStaggerDuration,
+        cb
+      );
+    } else {
+      cb();
+    }
   }
 
   //This is called after the callback function that was passed to componentWillAppear is called.
   componentDidAppear() {
-    console.log('did appear');
-    // TODO kill enter animations
-    // TODO start main animation?
+    if (this.enterTweens.length) {
+      this.enterTweens.forEach(t => t.kill());
+      this.enterTweens = [];
+    }
+    this.isEntering = false;
+
+    this._startTween();
   }
 
   //This is called at the same time as componentDidMount() for components added to an existing TransitionGroup. It will block other animations from occurring until callback is called. It will not be called on the initial render of a TransitionGroup.
@@ -109,9 +131,25 @@ class Stagger extends React.PureComponent {
     // TODO start main animation?
   }
 
+  componentWillUpdate() {
+    this._restoreStyles();
+  }
+
+  componentDidUpdate() {
+    this._startTween();
+  }
+
+  componentWillUnmount() {
+    console.log('Will unmount')
+    this.activeTweens.forEach(t => {
+      t.kill();
+    });
+  }
+
   //This is called when the child has been removed from the ReactTransitionGroup. Though the child has been removed, ReactTransitionGroup will keep it in the DOM until callback is called.
   componentWillLeave(cb) {
     console.log('will leave');
+    this.isLeaving = true;
     // TODO animate 'leave' and call cb at end
     cb();
   }
@@ -120,30 +158,11 @@ class Stagger extends React.PureComponent {
   componentDidLeave() {
     console.log('did leave');
     // TODO kill leave animations
-  }
-
-  componentDidMount() {
-    if (this.props.start) {
-      TweenMax.set(getDOMElements(this.tweenTargets), this.props.start);
+    if (this.leaveTweens.length) {
+      this.leaveTweens.forEach(t => t.kill());
+      this.leaveTweens = [];
     }
-
-    this._saveStyles();
-    this._performAnimation();
-  }
-
-  componentWillUpdate() {
-    this._restoreStyles();
-  }
-
-  componentDidUpdate() {
-    this._saveStyles();
-    this._performAnimation();
-  }
-
-  componentWillUnmount() {
-    this.activeTweens.forEach(t => {
-      t.kill();
-    });
+    this.isLeaving = false;
   }
 
   _saveStyles() {
@@ -160,7 +179,23 @@ class Stagger extends React.PureComponent {
     });
   }
 
+  _startTween() {
+    if (this.props.start) {
+      if (this.props.start && this.props.enter) {
+        console.warn('Animation with starting props and enter transition!');
+      }
+      TweenMax.set(getDOMElements(this.tweenTargets), this.props.start);
+    }
+    this._saveStyles();
+    this._performAnimation();
+  }
+
   _performAnimation() {
+    if (this.isEntering) {
+      console.log('is entering');
+      return;
+    }
+
     if (this.activeTweens.length) {
       this.activeTweens.forEach(tween => {
         let time = tween.time();
@@ -178,7 +213,7 @@ class Stagger extends React.PureComponent {
           tween.reverse(null, true);
         }
       });
-    } else {
+    } else if (this.props.tween) {
       this.activeTweens = TweenMax.staggerTo(
         getDOMElements(this.tweenTargets),
         this.props.duration,
@@ -231,12 +266,14 @@ class Stagger extends React.PureComponent {
 Stagger.defaultProps = {
   paused: false,
   duration: 0.5,
-  staggerDelay: 0,
+  staggerDelay: 0.25,
   parent: <div />,
   transformOrigin: '0% 0%',
   ease: Expo.easeInOut,
   enterDuration: 0.5,
-  leaveDuration: 0.5
+  leaveDuration: 0.5,
+  enterStaggerDuration: 0.25,
+  leaveStaggerDuration: 0.25
 };
 
 Stagger.propTypes = {
@@ -244,7 +281,9 @@ Stagger.propTypes = {
   duration: PropTypes.number,
   staggerDelay: PropTypes.number,
   start: PropTypes.object,
+  enterStaggerDuration: PropTypes.number,
   enterDuration: PropTypes.number,
+  leaveStaggerDuration: PropTypes.number,
   leaveDuration: PropTypes.number,
   enter: PropTypes.object,
   leave: PropTypes.object,

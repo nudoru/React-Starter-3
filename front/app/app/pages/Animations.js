@@ -28,7 +28,7 @@ const Container = styled.div.attrs({ className: 'glass_water' })`
 class Animations extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { anim: true };
+    this.state = { anim: true, stop: false };
     this.counter = 1;
     this.animEls = [];
   }
@@ -43,38 +43,67 @@ class Animations extends React.Component {
     this.setState(prevState => ({ anim: !prevState.anim }));
   };
 
+  _onStopClick = e => {
+    this.setState(prevState => ({ stop: true }));
+  };
+
   render() {
     console.log('app state', this.state);
 
     return (
       <Container>
         <Button
-          ref={button => (this.buttonRef = button)}
           onMouseEnter={this._onMouseEnter}
           onMouseLeave={this._onMouseLeave}
           primary
         >
           Do something
         </Button>
-        <Animate
-          paused={!this.state.anim}
-          duration={2}
-          staggerDelay={0.25}
-          tween={{
-            x: 500,
-            alpha: 1,
-            yoyo: true,
-            repeat: -1
-          }}
-          start={{
-            alpha: 0.25
-          }}
-          className="pt-5"
-        >
-          <h1>{this.counter}</h1>
-          <h1>{this.counter}</h1>
-          <h1>{this.counter}</h1>
-          <Animate
+        <Button secondary outline className="ml-5" onClick={this._onStopClick}>
+          Stop it!
+        </Button>
+        {!this.state.stop ? this.renderTestAnimations() : null}
+      </Container>
+    );
+  }
+
+  renderTestAnimations() {
+    return (
+      <Animate
+        paused={!this.state.anim}
+        duration={2}
+        staggerDelay={0.25}
+        enter={{
+          x: 100,
+          alpha: 0,
+          skewX: 50
+        }}
+        enterDuration={1}
+        tween={{
+          x: 500,
+          alpha: 1,
+          skewX: -50,
+          yoyo: true,
+          repeat: -1
+        }}
+        className="pt-5"
+      >
+        <h1>{this.counter}</h1>
+        <h1>{this.counter}</h1>
+        <h1>{this.counter}</h1>
+        <h1>{this.counter}</h1>
+        <h1>{this.counter}</h1>
+        <h1>{this.counter}</h1>
+      </Animate>
+    );
+  }
+}
+
+/** 
+
+
+
+<Animate
             staggerDelay={0.1}
             tween={{
               x: 200,
@@ -89,15 +118,8 @@ class Animations extends React.Component {
             <h6>{this.counter}</h6>
             <h6>{this.counter}</h6>
           </Animate>
-          <h1>{this.counter}</h1>
-          <h1>{this.counter}</h1>
-        </Animate>
-      </Container>
-    );
-  }
-}
 
-/** */
+*/
 
 Animations.defaultProps = {};
 Animations.propTypes = {};
