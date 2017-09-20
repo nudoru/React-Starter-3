@@ -17,9 +17,8 @@ import { mergeDeepLeft } from 'ramda';
 // After several pause restart, padding shrinks
 
 /*
- - use r-t-g-+
- - appear / leave transitions
- - better name for starting conditions than "starting"
+ - leave transitions
+ - how to trigger a leave transition? remove it from the dom doesn't do it
 */
 
 // TODO MOAR functional
@@ -51,7 +50,7 @@ export class Animate extends React.PureComponent {
         transitionMode={transitionMode}
         deferLeavingComponentRemoval={deferLeavingComponentRemoval}
       >
-        <Stagger {...cleanedProps}>{children}</Stagger>
+        <AniComponent {...cleanedProps}>{children}</AniComponent>
       </TransitionGroupPlus>
     );
   }
@@ -69,9 +68,10 @@ Animate.propTypes = {
   deferLeavingComponentRemoval: PropTypes.bool
 };
 
-class Stagger extends React.PureComponent {
+class AniComponent extends React.PureComponent {
   constructor(props) {
     super(props);
+    // Don't want these on state so a render is't triggered
     this.isEntering = false;
     this.isLeaving = false;
     // TODO merge these into one object
@@ -239,7 +239,7 @@ class Stagger extends React.PureComponent {
     const { children: originalChildren, parent, ...childProps } = this.props;
 
     // Remove props and prevent warning on DOM el
-    let cleanedProps = cleanProps(Stagger.propTypes, childProps);
+    let cleanedProps = cleanProps(AniComponent.propTypes, childProps);
 
     const children = React.Children.map(originalChildren, (child, idx) => {
       let comp,
@@ -263,7 +263,7 @@ class Stagger extends React.PureComponent {
   }
 }
 
-Stagger.defaultProps = {
+AniComponent.defaultProps = {
   paused: false,
   duration: 0.5,
   staggerDelay: 0.25,
@@ -276,7 +276,7 @@ Stagger.defaultProps = {
   leaveStaggerDuration: 0.25
 };
 
-Stagger.propTypes = {
+AniComponent.propTypes = {
   tween: PropTypes.object,
   duration: PropTypes.number,
   staggerDelay: PropTypes.number,
