@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Transition from 'react-transition-group/Transition';
 import { TweenMax, Expo } from 'gsap';
+import {mergeDeepLeft} from 'ramda';
 
 // Borrowed ideas
 // react-gsap-enhancer https://github.com/azazdeaz/react-gsap-enhancer
@@ -11,33 +12,42 @@ import { TweenMax, Expo } from 'gsap';
 // BUGS
 // TODO paused not working
 
+/*
+ - Paused
+ - default transform point to center of element
+ - use r-t-g-+
+ - Single element
+ - start from - set initial conditions
+ - appear / leave transitions
+*/
+
 const getDOMElements = a => a.map(ReactDOM.findDOMNode); //eslint-disable-line react/no-find-dom-node
 
 //https://reactcommunity.org/react-transition-group/
-export class Stagger2 extends React.PureComponent {
-  _onEnter = () => {
-    console.log('enter');
-  };
+export class Animate extends React.PureComponent {
+  // _onEnter = () => {
+  //   console.log('enter');
+  // };
 
-  _onEntering = () => {
-    console.log('entering');
-  };
+  // _onEntering = () => {
+  //   console.log('entering');
+  // };
 
-  _onEntered = () => {
-    console.log('entered');
-  };
+  // _onEntered = () => {
+  //   console.log('entered');
+  // };
 
-  _onExit = () => {
-    console.log('exit');
-  };
+  // _onExit = () => {
+  //   console.log('exit');
+  // };
 
-  _onExiting = () => {
-    console.log('exiting');
-  };
+  // _onExiting = () => {
+  //   console.log('exiting');
+  // };
 
-  _onExited = () => {
-    console.log('exited');
-  };
+  // _onExited = () => {
+  //   console.log('exited');
+  // };
 
   render() {
     return (
@@ -58,7 +68,7 @@ export class Stagger2 extends React.PureComponent {
   }
 }
 
-export class Stagger extends React.PureComponent {
+class Stagger extends React.PureComponent {
   constructor(props) {
     super(props);
     // TODO merge these into one object
@@ -96,55 +106,78 @@ export class Stagger extends React.PureComponent {
   }
 
   _performAnimation() {
-    if (this.activeTweens.length) {
-      this.activeTweens.forEach(tween => {
-        let time = tween.time();
-        let paused = tween.paused() && this.props.paused;
-        let reversed = tween.reversed();
+    //console.log('perform', this.props.paused);
+    //if (!this.props.paused) {
+      if (this.activeTweens.length) {
+        this.activeTweens.forEach(tween => {
+          let time = tween.time();
+          //let paused = tween.paused();
+          let reversed = tween.reversed();
 
-        tween
-          .invalidate()
-          .restart(false, true)
-          .time(time, true);
+          tween
+            .invalidate()
+            .restart(false, true)
+            .time(time, true);
 
-        if (paused) {
-          tween.pause(null, true);
-        }
-        if (reversed) {
-          tween.reverse(null, true);
-        }
-      });
-    } else {
-      this.activeTweens = TweenMax.staggerTo(
-        getDOMElements(this.tweenTargets),
-        this.props.duration,
-        this.props.staggerTween,
-        // this._propsToTween(this.props, this.props.staggerTween),
-        this.props.staggerDelay
-      );
-    }
+          if (this.props.paused) {
+            console.log('PAUSING')
+            tween.pause(null, true);
+          }
+          if (reversed) {
+            tween.reverse(null, true);
+          }
+        });
+      } else {
+        // TODO add paused here
+        // TODO conditional, 1 or 2+ children
+        // TODO active tweens needs to always be array
+        this.activeTweens = TweenMax.staggerTo(
+          getDOMElements(this.tweenTargets),
+          this.props.duration,
+          // this.props.staggerTween,
+          this._propsToTween(this.props, this.props.staggerTween),
+          this.props.staggerDelay
+        );
+
+        console.log(this._propsToTween(this.props, this.props.staggerTween))
+      }
+    // } else {
+    //   // REMOVE this
+    //   if (this.activeTweens.length) {
+    //     console.log('PAUSING');
+    //     this.activeTweens.forEach(tween => {
+    //       let time = tween.time();
+    //       tween
+    //         .invalidate()
+    //         .restart(false, true)
+    //         .time(time, true)
+    //         .pause();
+    //     });
+    //   }
+    // }
   }
 
+  // Add defaults to the tween object if they aren't specified
   _propsToTween(props, tweenObj) {
-    return Object.assign(tweenObj, { paused: props.paused });
+    return mergeDeepLeft(
+      {
+        transformOrigin: this.props.transformOrigin,
+        ease: this.props.ease,
+        paused: this.props.paused
+      },
+      tweenObj
+    );
   }
 
   render() {
-    // TODO instead of doing this, use delete.propName for extra props
     const { children: originalChildren, parent, ...childProps } = this.props;
 
-    delete childProps.paused;
-    delete childProps.duration;
-    delete childProps.staggerTween;
-    delete childProps.inTween;
-    delete childProps.outTween;
-    delete childProps.onComplete;
-    delete childProps.delay;
-    delete childProps.staggerDelay;
-    delete childProps.onExited;
-    delete childProps.appear;
-    delete childProps.enter;
-    delete childProps.exit;
+    // Remove props and prevent warning on DOM el
+    Object.keys(Stagger.propTypes).forEach(p => {
+      if (childProps.hasOwnProperty(p)) {
+        delete childProps[p];
+      }
+    });
 
     const children = React.Children.map(originalChildren, (child, idx) => {
       let comp,
@@ -173,7 +206,9 @@ Stagger.defaultProps = {
   duration: 0.5,
   delay: 0.5,
   staggerDelay: 0.25,
-  parent: <div />
+  parent: <div />,
+  transformOrigin: '0% 0%',
+  ease: Expo.easeInOut
 };
 
 Stagger.propTypes = {
@@ -185,5 +220,7 @@ Stagger.propTypes = {
   onComplete: PropTypes.object,
   delay: PropTypes.number,
   staggerDelay: PropTypes.number,
-  parent: PropTypes.object
+  parent: PropTypes.object,
+  transformOrigin: PropTypes.string,
+  ease: PropTypes.object
 };
