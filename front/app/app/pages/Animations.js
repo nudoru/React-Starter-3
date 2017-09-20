@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import { TweenMax, Expo, Bounce } from 'gsap';
 import styled from 'styled-components';
 
-import { Animate } from '../components/controls/shared/Animate';
+import {
+  Animate,
+  AnimationController
+} from '../components/controls/shared/Animate';
 
 import Button from '../components/controls/interactive/Button';
 
@@ -62,14 +65,16 @@ class Animations extends React.Component {
         <Button secondary outline className="ml-5" onClick={this._onStopClick}>
           Stop it!
         </Button>
-        {!this.state.stop ? this.renderTestAnimations() : null}
+        <Animate>
+          {!this.state.stop ? this.renderTestAnimations() : null}
+        </Animate>
       </Container>
     );
   }
 
   renderTestAnimations() {
     return (
-      <Animate
+      <AnimationController
         paused={!this.state.anim}
         duration={2}
         staggerDelay={0.25}
@@ -92,9 +97,7 @@ class Animations extends React.Component {
         <h1>{this.counter}</h1>
         <h1>{this.counter}</h1>
         <h1>{this.counter}</h1>
-        <h1>{this.counter}</h1>
-        <h1>{this.counter}</h1>
-      </Animate>
+      </AnimationController>
     );
   }
 }

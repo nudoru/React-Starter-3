@@ -17,8 +17,10 @@ import { mergeDeepLeft } from 'ramda';
 // After several pause restart, padding shrinks
 
 /*
+  - extract code from appear and reuse for enter
  - leave transitions
- - how to trigger a leave transition? remove it from the dom doesn't do it
+ - create an individual AnimationTarget class? Just wraps it in a div?
+ - Use imperative components to define enter/leave/steady tweens?
 */
 
 // TODO MOAR functional
@@ -33,7 +35,7 @@ const cleanProps = (propTypes, childProps) => {
 
 const getDOMElements = a => a.map(ReactDOM.findDOMNode); //eslint-disable-line react/no-find-dom-node
 
-//https://reactcommunity.org/react-transition-group/
+// Provides enter/leave hooks
 export class Animate extends React.PureComponent {
   render() {
     const {
@@ -45,12 +47,13 @@ export class Animate extends React.PureComponent {
     let cleanedProps = cleanProps(Animate.propTypes, childProps);
 
     // TODO add key to children?
+    //{React.Children.count(children) ? <AnimationController {...cleanedProps}>{children}</AnimationController> : null}
     return (
       <TransitionGroupPlus
         transitionMode={transitionMode}
         deferLeavingComponentRemoval={deferLeavingComponentRemoval}
       >
-        <AniComponent {...cleanedProps}>{children}</AniComponent>
+        {children}
       </TransitionGroupPlus>
     );
   }
@@ -68,13 +71,12 @@ Animate.propTypes = {
   deferLeavingComponentRemoval: PropTypes.bool
 };
 
-class AniComponent extends React.PureComponent {
+export class AnimationController extends React.PureComponent {
   constructor(props) {
     super(props);
-    // Don't want these on state so a render is't triggered
+    // Don't want these on state so a render isn't triggered
     this.isEntering = false;
     this.isLeaving = false;
-    // TODO merge these into one object
     this.originalStyle = [];
     this.tweenTargets = [];
     this.activeTweens = [];
@@ -239,7 +241,7 @@ class AniComponent extends React.PureComponent {
     const { children: originalChildren, parent, ...childProps } = this.props;
 
     // Remove props and prevent warning on DOM el
-    let cleanedProps = cleanProps(AniComponent.propTypes, childProps);
+    let cleanedProps = cleanProps(AnimationController.propTypes, childProps);
 
     const children = React.Children.map(originalChildren, (child, idx) => {
       let comp,
@@ -263,7 +265,7 @@ class AniComponent extends React.PureComponent {
   }
 }
 
-AniComponent.defaultProps = {
+AnimationController.defaultProps = {
   paused: false,
   duration: 0.5,
   staggerDelay: 0.25,
@@ -276,7 +278,7 @@ AniComponent.defaultProps = {
   leaveStaggerDuration: 0.25
 };
 
-AniComponent.propTypes = {
+AnimationController.propTypes = {
   tween: PropTypes.object,
   duration: PropTypes.number,
   staggerDelay: PropTypes.number,
