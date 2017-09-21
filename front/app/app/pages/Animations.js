@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { TweenMax, Expo, Bounce } from 'gsap';
 import styled from 'styled-components';
+import { range } from 'lodash';
 
 import {
   Animate,
@@ -31,128 +32,137 @@ const Container = styled.div.attrs({ className: 'glass_water' })`
 class Animations extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { anim: true, stop: false };
-    this.counter = 1;
-    this.animEls = [];
+    this.state = { anim: true, stop: false, counter: 1 };
   }
 
-  _onMouseEnter = e => {
-    this.counter++;
+  _onPauseClick = e => {
     this.setState(prevState => ({ anim: !prevState.anim }));
   };
 
-  _onMouseLeave = e => {
-    this.counter++;
-    this.setState(prevState => ({ anim: !prevState.anim }));
+  _onIncrementClick = e => {
+    this.setState(prevState => ({ counter: ++prevState.counter }));
   };
 
-  _onStopClick = e => {
-    this.setState(prevState => ({ stop: true }));
+  _onAddMoreClick = e => {
+    this.setState(prevState => ({ counter: prevState.counter+=10 }));
   };
 
-  render() {
-    console.log('app state', this.state);
+  _onDecrementClick = e => {
+    this.setState(prevState => ({ counter: --prevState.counter }));
+  };
 
-    return (
-      <Container>
-        <Button
-          onMouseEnter={this._onMouseEnter}
-          onMouseLeave={this._onMouseLeave}
-          primary
-        >
-          Do something
-        </Button>
-        <Button secondary outline className="ml-5" onClick={this._onStopClick}>
-          Stop it!
-        </Button>
-        <Animate>
-          {!this.state.stop ? this.renderTestAnimations() : null}
-        </Animate>
-      </Container>
-    );
-  }
+  _onRemoveClick = e => {
+    this.setState(prevState => ({ stop: true, counter: 0 }));
+  };
 
   _enterTweenFunc = ({ target, props, callBack }) => {
-    return TweenMax.staggerFrom(target, 2, {
-      x: 100,
-      alpha: 0,
-      skewX: 300
-    }, 0.25, callBack);
-  }
+    return TweenMax.staggerFrom(
+      target,
+      0.5,
+      {
+        x: 100,
+        alpha: 0,
+        skewX: 300
+      },
+      0.1,
+      callBack
+    );
+  };
 
   _startTweenFunc = ({ target, props, callBack }) => {
     console.log('start tween func');
     return TweenMax.set(target, {
       x: 50
     });
-  }
+  };
 
   _tweenFunc = ({ target, props, callBack }) => {
-    return TweenMax.staggerTo(target, 2, {
-      x: 500,
-      alpha: 0,
-      skewX: 50,
-      skewY: 0,
-      scale: 1,
-      yoyo: true,
-      repeat: -1
-    }, 0.25);
+    return TweenMax.staggerTo(
+      target,
+      2,
+      {
+        x: 500,
+        skewX: 0,
+        skewY: 0,
+        scale: 1,
+        yoyo: true,
+        repeat: -1
+      },
+      0.25
+    );
   };
 
   _leaveTweenFunc = ({ target, props, callBack }) => {
-    return TweenMax.staggerTo(target, 5, {
-      x: 100,
-      alpha: 0,
-      skewX: 300,
-      skewY: 300
-    }, 0.25, callBack);
-  }
+    return TweenMax.staggerTo(
+      target,
+      5,
+      {
+        y: 500,
+        alpha: 0
+      },
+      0.25,
+      callBack
+    );
+  };
 
-  renderTestAnimations() {
+  render() {
     return (
-      <TweenController
-        paused={!this.state.anim}
-        enter={this._enterTweenFunc}
-        start={this._startTweenFunc}
-        tween={this._tweenFunc}
-        leave={this._leaveTweenFunc}
-        className="pt-5"
+      <Container>
+        <Button secondary outline className="ml-2" onClick={this._onPauseClick}>
+          Pause
+        </Button>
+        <Button
+          secondary
+          outline
+          className="ml-2"
+          onClick={this._onIncrementClick}
+        >
+          Inc
+        </Button>
+        <Button
+          secondary
+          outline
+          className="ml-2"
+          onClick={this._onDecrementClick}
+        >
+          Dec
+        </Button>
+        <Button
+          secondary
+          outline
+          className="ml-2"
+          onClick={this._onRemoveClick}
+        >
+          Remove all!
+        </Button>
+        <Button
+        secondary
+        outline
+        className="ml-2"
+        onClick={this._onAddMoreClick}
       >
-        <h1>{this.counter}</h1>
-        <h1>{this.counter}</h1>
-        <h1>{this.counter}</h1>
-        <h1>{this.counter}</h1>
-      </TweenController>
+        Add more ...
+      </Button>
+        <Animate>
+          {range(this.state.counter).map((e, i) => {
+            return (
+              <TweenController
+                key={i}
+                tweenID={i}
+                paused={!this.state.anim}
+                enter={this._enterTweenFunc}
+                tween={this._tweenFunc}
+                leave={this._leaveTweenFunc}
+              >
+                <p>{this.state.counter}</p>
+              </TweenController>
+            );
+          })}
+        </Animate>
+      </Container>
     );
   }
 }
-
-/** 
-
-enter={{
-          x: 100,
-          alpha: 0,
-          skewX: 50
-        }}
-        enterDuration={1}
-
-<Animate
-            staggerDelay={0.1}
-            tween={{
-              x: 200,
-              yoyo: true,
-              repeat: -1
-            }}
-            className="pt-5"
-          >
-            <h6>{this.counter}</h6>
-            <h6>{this.counter}</h6>
-            <h6>{this.counter}</h6>
-            <h6>{this.counter}</h6>
-            <h6>{this.counter}</h6>
-          </Animate>
-
-*/
 
 Animations.defaultProps = {};
 Animations.propTypes = {};

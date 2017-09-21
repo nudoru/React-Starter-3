@@ -2,22 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import TransitionGroupPlus from 'react-transition-group-plus';
-import { mergeDeepLeft } from 'ramda';
-
-// Borrowed ideas
-// react-gsap-enhancer https://github.com/azazdeaz/react-gsap-enhancer
-// this blog post https://www.freshtilledsoil.com/whats-the-most-developer-friendly-react-animation-library/
-
-// BUGS
-// Components buttons, cards, need to wrapped in a div to work
-// After several pause restart, padding shrinks
 
 /*
-- rename "tween" to steadyTween?
- - create an individual AnimationTarget class? Just wraps it in a div?
+Borrowed ideas from https://github.com/azazdeaz/react-gsap-enhancer
+
+TODO
+
+- create an individual AnimationTarget class? Just wraps it in a div?
+- support componentWillEnter in TweenController not working due to nesting
+
+BUGS
+
+- Components buttons, cards, need to wrapped in a div to work
+- After several pause restart, padding shrinks
+
 */
 
-// TODO MOAR functional
 const cleanProps = (propTypes, childProps) => {
   Object.keys(propTypes).forEach(p => {
     if (childProps.hasOwnProperty(p)) {
@@ -40,8 +40,6 @@ export class Animate extends React.PureComponent {
     } = this.props;
     let cleanedProps = cleanProps(Animate.propTypes, childProps);
 
-    // TODO add key to children?
-    //{React.Children.count(children) ? <TweenController {...cleanedProps}>{children}</TweenController> : null}
     return (
       <TransitionGroupPlus
         transitionMode={transitionMode}
@@ -69,7 +67,8 @@ export class TweenController extends React.PureComponent {
   constructor(props) {
     super(props);
     // Don't want these on state so a render isn't triggered
-    this.originalStyle = [];
+    this.didAppear = false;
+    this.cachedStyles = [];
     this.tweenTargets = [];
     // Tween*.stagger* returns an array of tweens so support arrays by default
     this.activeTweens = [];
@@ -77,51 +76,39 @@ export class TweenController extends React.PureComponent {
     this.leaveTweens = [];
   }
 
-  componentDidMount() {
-    // Animation starts in didAppear and didEnter
-    //console.log('Did mount');
+  // Don't need to do anything here, handled by willAppear, willEnter and didUpdate
+  componentDidMount() {}
+
+  _performWillEnterAnimation(cb) {
+    if (this.props.enter) {
+      this.enterTweens = this._callExternalTweenCreator(this.props.enter, cb);
+    } else {
+      cb();
+    }
   }
 
-  // This is called at the same time as componentDidMount() for components that are initially mounted in a TransitionGroup. It will block other animations from occurring until callback is called. It is only called on the initial render of a TransitionGroup.
+  _performDidEnterAnimation() {
+    if (this.enterTweens.length) {
+      this.enterTweens.forEach(t => t.kill());
+      this.enterTweens = [];
+    }
+    this.didAppear = true;
+    this._startTween();
+  }
+
   componentWillAppear(cb) {
-    if (this.props.enter) {
-      this.enterTweens = this._callExternalTweenCreator(
-        this.props.enter,
-        cb
-      );
-    } else {
-      cb();
-    }
+    this._performWillEnterAnimation(cb);
   }
 
-  //This is called after the callback function that was passed to componentWillAppear is called.
   componentDidAppear() {
-    if (this.enterTweens.length) {
-      this.enterTweens.forEach(t => t.kill());
-      this.enterTweens = [];
-    }
-    this._startTween();
+    this._performDidEnterAnimation();
   }
 
-  //This is called at the same time as componentDidMount() for components added to an existing TransitionGroup. It will block other animations from occurring until callback is called. It will not be called on the initial render of a TransitionGroup.
   componentWillEnter(cb) {
-    if (this.props.enter) {
-      this.enterTweens = this._callExternalTweenCreator(
-        this.props.enter,
-        cb
-      );
-    } else {
-      cb();
-    }
+    this._performWillEnterAnimation(cb);
   }
-
-  //This is called after the callback function that was passed to componentWillEnter() is called.
   componentDidEnter() {
-    if (this.enterTweens.length) {
-      this.enterTweens.forEach(t => t.kill());
-      this.enterTweens = [];
-    }
-    this._startTween();
+    this._performDidEnterAnimation();
   }
 
   componentWillUpdate() {
@@ -133,28 +120,19 @@ export class TweenController extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    console.log('Will unmount');
-    this.activeTweens.forEach(t => {
-      t.kill();
-    });
+    this._killAllTweens();
   }
 
-  //This is called when the child has been removed from the ReactTransitionGroup. Though the child has been removed, ReactTransitionGroup will keep it in the DOM until callback is called.
   componentWillLeave(cb) {
-    console.log('will leave');
     if (this.props.leave) {
-      this.leaveTweens = this._callExternalTweenCreator(
-        this.props.leave,
-        cb
-      );
+      this._killAllTweens();
+      this.leaveTweens = this._callExternalTweenCreator(this.props.leave, cb);
     } else {
       cb();
     }
   }
 
-  //This is called when the willLeave callback is called (at the same time as componentWillUnmount()).
   componentDidLeave() {
-    console.log('did leave');
     if (this.leaveTweens.length) {
       this.leaveTweens.forEach(t => t.kill());
       this.leaveTweens = [];
@@ -162,7 +140,7 @@ export class TweenController extends React.PureComponent {
   }
 
   _saveStyles() {
-    this.originalStyle = this.tweenTargets.map(c => c.style);
+    this.cachedStyles = this.tweenTargets.map(c => c.style);
     this.tweenTargets.forEach(c => {
       c._gsTransform = null;
       c._gsTweenID = null;
@@ -171,7 +149,7 @@ export class TweenController extends React.PureComponent {
 
   _restoreStyles() {
     this.tweenTargets.forEach((c, i) => {
-      c.style = this.originalStyle[i];
+      c.style = this.cachedStyles[i];
     });
   }
 
@@ -206,7 +184,18 @@ export class TweenController extends React.PureComponent {
     }
   }
 
-  // If enter and leave don't execute the callback, it will freeze
+  _killAllTweens() {
+    this.enterTweens.forEach(t => {
+      t.kill();
+    });
+    this.activeTweens.forEach(t => {
+      t.kill();
+    });
+    this.leaveTweens.forEach(t => {
+      t.kill();
+    });
+  }
+
   _callExternalTweenCreator(func, callBack = () => {}) {
     let res = func({
       target: getDOMElements(this.tweenTargets),
@@ -228,7 +217,7 @@ export class TweenController extends React.PureComponent {
     const children = React.Children.map(originalChildren, (child, idx) => {
       let comp,
         exists = this.tweenTargets[idx] !== null,
-        style = exists ? this.originalStyle[idx] : null;
+        style = exists ? this.cachedStyles[idx] : null;
 
       comp = React.cloneElement(child, {
         key: idx,
@@ -253,8 +242,9 @@ TweenController.defaultProps = {
 };
 
 TweenController.propTypes = {
-  paused: PropTypes.bool, // pause steady state tween
-  component: PropTypes.object, // by default will be wrapped in a <div/>
+  tweenID: PropTypes.number,
+  paused: PropTypes.bool,
+  component: PropTypes.object,
   start: PropTypes.func,
   enter: PropTypes.func,
   tween: PropTypes.func,
