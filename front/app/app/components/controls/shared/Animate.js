@@ -13,8 +13,8 @@ TODO
 
 BUGS
 
+- After several updates, button padding shrinks
 - Components buttons, cards, need to wrapped in a div to work
-- After several pause restart, padding shrinks
 
 */
 
@@ -116,6 +116,14 @@ export class TweenGroup extends React.PureComponent {
   }
 
   componentDidUpdate() {
+    if (this.enterTweens.length) {
+      // Switching to tween before enter is done due to an update
+      this.enterTweens.forEach(t => {
+        t.seek(t.duration(), false);
+        t.kill();
+      });
+      this.enterTweens = [];
+    }
     this._startTween();
   }
 
