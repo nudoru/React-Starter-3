@@ -63,7 +63,7 @@ Animate.propTypes = {
   deferLeavingComponentRemoval: PropTypes.bool
 };
 
-export class TweenController extends React.PureComponent {
+export class TweenGroup extends React.PureComponent {
   constructor(props) {
     super(props);
     // Don't want these on state so a render isn't triggered
@@ -212,7 +212,7 @@ export class TweenController extends React.PureComponent {
   render() {
     const { children: originalChildren, component, ...childProps } = this.props;
 
-    let cleanedProps = cleanProps(TweenController.propTypes, childProps);
+    let cleanedProps = cleanProps(TweenGroup.propTypes, childProps);
 
     const children = React.Children.map(originalChildren, (child, idx) => {
       let comp,
@@ -236,12 +236,12 @@ export class TweenController extends React.PureComponent {
   }
 }
 
-TweenController.defaultProps = {
+TweenGroup.defaultProps = {
   paused: false,
   component: <div />
 };
 
-TweenController.propTypes = {
+TweenGroup.propTypes = {
   tweenID: PropTypes.number,
   paused: PropTypes.bool,
   component: PropTypes.object,

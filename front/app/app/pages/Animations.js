@@ -7,7 +7,7 @@ import { range } from 'lodash';
 
 import {
   Animate,
-  TweenController
+  TweenGroup
 } from '../components/controls/shared/Animate';
 
 import Button from '../components/controls/interactive/Button';
@@ -146,7 +146,7 @@ class Animations extends React.Component {
         <Animate>
           {range(this.state.counter).map((e, i) => {
             return (
-              <TweenController
+              <TweenGroup
                 key={i}
                 tweenID={i}
                 paused={!this.state.anim}
@@ -155,7 +155,7 @@ class Animations extends React.Component {
                 leave={this._leaveTweenFunc}
               >
                 <p>{this.state.counter}</p>
-              </TweenController>
+              </TweenGroup>
             );
           })}
         </Animate>
