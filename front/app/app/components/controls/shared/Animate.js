@@ -238,7 +238,7 @@ export class AnimationController extends React.PureComponent {
   }
 
   render() {
-    const { children: originalChildren, parent, ...childProps } = this.props;
+    const { children: originalChildren, component, ...childProps } = this.props;
 
     // Remove props and prevent warning on DOM el
     let cleanedProps = cleanProps(AnimationController.propTypes, childProps);
@@ -258,7 +258,7 @@ export class AnimationController extends React.PureComponent {
       return comp;
     });
 
-    return React.cloneElement(parent, {
+    return React.cloneElement(component, {
       children,
       ...cleanedProps
     });
@@ -269,7 +269,7 @@ AnimationController.defaultProps = {
   paused: false,
   duration: 0.5,
   staggerDelay: 0.25,
-  parent: <div />,
+  component: <div />,
   transformOrigin: '0% 0%',
   ease: Expo.easeInOut,
   enterDuration: 0.5,
@@ -279,18 +279,18 @@ AnimationController.defaultProps = {
 };
 
 AnimationController.propTypes = {
-  tween: PropTypes.object,
-  duration: PropTypes.number,
-  staggerDelay: PropTypes.number,
-  start: PropTypes.object,
+  start: PropTypes.object,               // Starting properties
+  tween: PropTypes.object,               // Steady state tween
+  enter: PropTypes.object,               // enter / appear tween
+  leave: PropTypes.object,               // leave / unmount tween
+  duration: PropTypes.number,            // duration of steady tween
+  staggerDelay: PropTypes.number,        // for multiple children, delay between children
   enterStaggerDuration: PropTypes.number,
   enterDuration: PropTypes.number,
   leaveStaggerDuration: PropTypes.number,
   leaveDuration: PropTypes.number,
-  enter: PropTypes.object,
-  leave: PropTypes.object,
-  paused: PropTypes.bool,
-  parent: PropTypes.object,
-  transformOrigin: PropTypes.string,
-  ease: PropTypes.object
+  paused: PropTypes.bool,                // pause steady state tween
+  component: PropTypes.object,           // by default will be wrapped in a <div/>
+  transformOrigin: PropTypes.string,     // origin point, default top left
+  ease: PropTypes.object                 // steady state default easing function
 };
