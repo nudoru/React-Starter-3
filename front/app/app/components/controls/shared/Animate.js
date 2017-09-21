@@ -222,20 +222,14 @@ export class TweenGroup extends React.PureComponent {
 
     let cleanedProps = cleanProps(TweenGroup.propTypes, childProps);
 
-    const children = React.Children.map(originalChildren, (child, idx) => {
-      let comp,
-        exists = this.tweenTargets[idx] !== null,
-        style = exists ? this.cachedStyles[idx] : null;
-
-      comp = React.cloneElement(child, {
+    const children = React.Children.map(originalChildren, (child, idx) =>
+      React.cloneElement(child, {
         key: idx,
         ref: comp => {
           this.tweenTargets[idx] = comp;
         }
-      });
-
-      return comp;
-    });
+      })
+    );
 
     return React.cloneElement(component, {
       children,
