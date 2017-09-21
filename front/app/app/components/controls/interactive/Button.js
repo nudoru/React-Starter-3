@@ -3,33 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 
-// TODO how to apply this AFTER the bootstrap styles?
-// TODO   font-weight: 600;
-export const BasicButtonEl = styled.button`
-  cursor: pointer;
-  text-transform: uppercase;
-  background-image: ${props => props.theme.gradients.light};
-  padding: ${props => props.theme.buttons.paddingTB}
-    ${props => props.theme.buttons.paddingLR};
-  text-shadow: ${props => props.theme.shadows.textDark};
-  border-width: 0px;
-  transition: all ${props => props.theme.transitions.transition};
-  transition-timing-function: ${props =>
-    props.theme.transitions.timingFunction};
-  &:active {
-    box-shadow: ${props => props.theme.shadows.buttonPress};
-  }
-  &:disabled {
-    cursor: not-allowed;
-  }
-`;
-
-export const OutlineButtonEl = BasicButtonEl.extend`
-  background-image: none;
-  text-shadow: none;
-  border-width: 1px;
-`;
-
 // TODO toggle
 // TODO Aria
 // TODO Support checkbox and radio types
@@ -49,18 +22,43 @@ class BButton extends React.PureComponent {
     }
   };
 
+  // padding: ${props => props.theme.buttons.paddingTB} ${props => props.theme.buttons.paddingLR};
+  // border-width: 0px;
+  // TODO The padding and border-width props don't apply correctly until the 5th render
+  getBasicButtonEl() {
+    return styled.button`
+      cursor: pointer;
+      text-transform: uppercase;
+      background-image: ${props => props.theme.gradients.light};
+      text-shadow: ${props => props.theme.shadows.textDark};
+      transition: all ${props => props.theme.transitions.transition};
+      transition-timing-function: ${props =>
+        props.theme.transitions.timingFunction};
+      &:active {
+        box-shadow: ${props => props.theme.shadows.buttonPress};
+      }
+      &:disabled {
+        cursor: not-allowed;
+      }
+    `;
+  }
+
+  getOutlineButtonEl() {
+    return this.getBasicButtonEl().extend`
+      background-image: none;
+      text-shadow: none;
+      border-width: 1px;
+    `;
+  }
+
   render() {
     let { type, tabIndex, ariaRole, ...rest } = this.props,
       El;
 
     if (this.props.outline) {
-      El = OutlineButtonEl.extend.attrs({
-        className: generateClassName(this.props)
-      })``;
+      El = this.getOutlineButtonEl().extend.attrs({className: generateClassName(this.props)})``;
     } else {
-      El = BasicButtonEl.extend.attrs({
-        className: generateClassName(this.props)
-      })``;
+      El = this.getBasicButtonEl().extend.attrs({className: generateClassName(this.props)})``;
     }
 
     type = type || 'button';

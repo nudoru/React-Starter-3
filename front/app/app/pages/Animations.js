@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { TweenMax, Expo, Bounce } from 'gsap';
+import { TweenMax, Expo, Back } from 'gsap';
 import styled from 'styled-components';
 import { range } from 'lodash';
 
@@ -58,9 +58,10 @@ class Animations extends React.Component {
   _enterTweenFunc = ({ target, props, callBack }) => {
     return TweenMax.staggerFrom(
       target,
-      0.5,
+      2,
       {
         x: 100,
+        y: 50,
         alpha: 0,
         skewX: 300
       },
@@ -86,7 +87,8 @@ class Animations extends React.Component {
         skewY: 0,
         scale: 1,
         yoyo: true,
-        repeat: -1
+        repeat: -1,
+        ease: Back.easeOut
       },
       0.25
     );
@@ -108,61 +110,58 @@ class Animations extends React.Component {
   render() {
     return (
       <Container>
-        <Button secondary outline className="ml-2" onClick={this._onPauseClick}>
+        <Button onClick={this._onPauseClick}>
           Pause
         </Button>
         <Button
-          secondary
-          outline
-          className="ml-2"
           onClick={this._onIncrementClick}
         >
           Inc
         </Button>
         <Button
-          secondary
-          outline
-          className="ml-2"
           onClick={this._onDecrementClick}
         >
           Dec
         </Button>
         <Button
-          secondary
-          outline
-          className="ml-2"
           onClick={this._onRemoveClick}
         >
           Remove all!
         </Button>
         <Button
-        secondary
-        outline
-        className="ml-2"
         onClick={this._onAddMoreClick}
       >
         Add more ...
       </Button>
-        <Animate>
-          {range(this.state.counter).map((e, i) => {
-            return (
-              <TweenGroup
-                key={i}
-                tweenID={i}
-                paused={!this.state.anim}
-                enter={this._enterTweenFunc}
-                tween={this._tweenFunc}
-                leave={this._leaveTweenFunc}
-              >
-                <p>{this.state.counter}</p>
-              </TweenGroup>
-            );
-          })}
-        </Animate>
+     
+      <Animate>
+      {range(this.state.counter).map((e, i) => {
+        return (
+          <TweenGroup
+            key={i}
+            tweenID={i}
+            paused={!this.state.anim}
+            enter={this._enterTweenFunc}
+            tween={this._tweenFunc}
+            leave={this._leaveTweenFunc}
+          >
+            <p>{i}, {this.state.counter}</p>
+            <p>{i}, {this.state.counter}</p>
+            <p>{i}, {this.state.counter}</p>
+          </TweenGroup>
+        );
+      })}
+    </Animate>
+        
       </Container>
     );
   }
 }
+
+
+/*
+
+*/
 
 Animations.defaultProps = {};
 Animations.propTypes = {};
