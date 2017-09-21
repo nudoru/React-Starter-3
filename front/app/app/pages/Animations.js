@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import {
   Animate,
-  AnimationController
+  TweenController
 } from '../components/controls/shared/Animate';
 
 import Button from '../components/controls/interactive/Button';
@@ -72,39 +72,69 @@ class Animations extends React.Component {
     );
   }
 
+  _enterTweenFunc = ({ target, props, callBack }) => {
+    return TweenMax.staggerFrom(target, 2, {
+      x: 100,
+      alpha: 0,
+      skewX: 300
+    }, 0.25, callBack);
+  }
+
+  _startTweenFunc = ({ target, props, callBack }) => {
+    console.log('start tween func');
+    return TweenMax.set(target, {
+      x: 50
+    });
+  }
+
+  _tweenFunc = ({ target, props, callBack }) => {
+    return TweenMax.staggerTo(target, 2, {
+      x: 500,
+      alpha: 0,
+      skewX: 50,
+      skewY: 0,
+      scale: 1,
+      yoyo: true,
+      repeat: -1
+    }, 0.25);
+  };
+
+  _leaveTweenFunc = ({ target, props, callBack }) => {
+    return TweenMax.staggerTo(target, 5, {
+      x: 100,
+      alpha: 0,
+      skewX: 300,
+      skewY: 300
+    }, 0.25, callBack);
+  }
+
   renderTestAnimations() {
     return (
-      <AnimationController
+      <TweenController
         paused={!this.state.anim}
-        duration={2}
-        staggerDelay={0.25}
-        enter={{
-          x: 100,
-          alpha: 0,
-          skewX: 50
-        }}
-        enterDuration={1}
-        tween={{
-          x: 500,
-          alpha: 1,
-          skewX: -50,
-          yoyo: true,
-          repeat: -1
-        }}
+        enter={this._enterTweenFunc}
+        start={this._startTweenFunc}
+        tween={this._tweenFunc}
+        leave={this._leaveTweenFunc}
         className="pt-5"
       >
         <h1>{this.counter}</h1>
         <h1>{this.counter}</h1>
         <h1>{this.counter}</h1>
         <h1>{this.counter}</h1>
-      </AnimationController>
+      </TweenController>
     );
   }
 }
 
 /** 
 
-
+enter={{
+          x: 100,
+          alpha: 0,
+          skewX: 50
+        }}
+        enterDuration={1}
 
 <Animate
             staggerDelay={0.1}

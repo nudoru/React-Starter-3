@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+// import Transition from 'react-transition-group/Transition';
 import TransitionGroupPlus from 'react-transition-group-plus';
+import { TweenMax, Expo } from 'gsap';
 import { mergeDeepLeft } from 'ramda';
+
+//https://greensock.com/get-started-js
 
 // Borrowed ideas
 // react-gsap-enhancer https://github.com/azazdeaz/react-gsap-enhancer
@@ -13,8 +17,10 @@ import { mergeDeepLeft } from 'ramda';
 // After several pause restart, padding shrinks
 
 /*
-- rename "tween" to steadyTween?
+  - extract code from appear and reuse for enter
+ - leave transitions
  - create an individual AnimationTarget class? Just wraps it in a div?
+ - Use imperative components to define enter/leave/steady tweens?
 */
 
 // TODO MOAR functional
@@ -35,7 +41,7 @@ export class Animate extends React.PureComponent {
     const {
       transitionMode,
       deferLeavingComponentRemoval,
-      children: originalChildren,
+      children,
       ...childProps
     } = this.props;
     let cleanedProps = cleanProps(Animate.propTypes, childProps);
@@ -47,7 +53,7 @@ export class Animate extends React.PureComponent {
         transitionMode={transitionMode}
         deferLeavingComponentRemoval={deferLeavingComponentRemoval}
       >
-        {originalChildren}
+        {children}
       </TransitionGroupPlus>
     );
   }
@@ -69,6 +75,8 @@ export class TweenController extends React.PureComponent {
   constructor(props) {
     super(props);
     // Don't want these on state so a render isn't triggered
+    this.isEntering = false;
+    this.isLeaving = false;
     this.originalStyle = [];
     this.tweenTargets = [];
     // Tween*.stagger* returns an array of tweens so support arrays by default
@@ -85,8 +93,15 @@ export class TweenController extends React.PureComponent {
   // This is called at the same time as componentDidMount() for components that are initially mounted in a TransitionGroup. It will block other animations from occurring until callback is called. It is only called on the initial render of a TransitionGroup.
   componentWillAppear(cb) {
     if (this.props.enter) {
-      this.enterTweens = this._callExternalTweenCreator(
-        this.props.enter,
+      this.isEntering = true;
+
+      let tween = mergeDeepLeft({}, this.props.enter);
+
+      this.enterTweens = TweenMax.staggerFrom(
+        getDOMElements(this.tweenTargets),
+        this.props.enterDuration,
+        tween,
+        this.props.enterStaggerDuration,
         cb
       );
     } else {
@@ -100,28 +115,23 @@ export class TweenController extends React.PureComponent {
       this.enterTweens.forEach(t => t.kill());
       this.enterTweens = [];
     }
+    this.isEntering = false;
+
     this._startTween();
   }
 
   //This is called at the same time as componentDidMount() for components added to an existing TransitionGroup. It will block other animations from occurring until callback is called. It will not be called on the initial render of a TransitionGroup.
   componentWillEnter(cb) {
-    if (this.props.enter) {
-      this.enterTweens = this._callExternalTweenCreator(
-        this.props.enter,
-        cb
-      );
-    } else {
-      cb();
-    }
+    console.log('will enter');
+    // TODO animate 'enter' and call cb at end
+    cb();
   }
 
   //This is called after the callback function that was passed to componentWillEnter() is called.
   componentDidEnter() {
-    if (this.enterTweens.length) {
-      this.enterTweens.forEach(t => t.kill());
-      this.enterTweens = [];
-    }
-    this._startTween();
+    console.log('did enter');
+    // TODO kill enter animations
+    // TODO start main animation?
   }
 
   componentWillUpdate() {
@@ -142,23 +152,20 @@ export class TweenController extends React.PureComponent {
   //This is called when the child has been removed from the ReactTransitionGroup. Though the child has been removed, ReactTransitionGroup will keep it in the DOM until callback is called.
   componentWillLeave(cb) {
     console.log('will leave');
-    if (this.props.leave) {
-      this.leaveTweens = this._callExternalTweenCreator(
-        this.props.leave,
-        cb
-      );
-    } else {
-      cb();
-    }
+    this.isLeaving = true;
+    // TODO animate 'leave' and call cb at end
+    cb();
   }
 
   //This is called when the willLeave callback is called (at the same time as componentWillUnmount()).
   componentDidLeave() {
     console.log('did leave');
+    // TODO kill leave animations
     if (this.leaveTweens.length) {
       this.leaveTweens.forEach(t => t.kill());
       this.leaveTweens = [];
     }
+    this.isLeaving = false;
   }
 
   _saveStyles() {
@@ -177,13 +184,21 @@ export class TweenController extends React.PureComponent {
 
   _startTween() {
     if (this.props.start) {
-      this._callExternalTweenCreator(this.props.start);
+      if (this.props.start && this.props.enter) {
+        console.warn('Animation with starting props and enter transition!');
+      }
+      TweenMax.set(getDOMElements(this.tweenTargets), this.props.start);
     }
     this._saveStyles();
     this._performAnimation();
   }
 
   _performAnimation() {
+    if (this.isEntering) {
+      console.log('is entering');
+      return;
+    }
+
     if (this.activeTweens.length) {
       this.activeTweens.forEach(tween => {
         let time = tween.time();
@@ -201,28 +216,58 @@ export class TweenController extends React.PureComponent {
           tween.reverse(null, true);
         }
       });
+    } else if (this.props.tweenFunc) {
+      if (this.props.tweenFunc) {
+        this.activeTweens = this._callExternalTweenCreator(
+          this.props.tweenFunc
+        );
+      }
     } else if (this.props.tween) {
-      this.activeTweens = this._callExternalTweenCreator(this.props.tween);
+      console.log('doing tween props');
+
+      this.activeTweens = TweenMax.staggerTo(
+        getDOMElements(this.tweenTargets),
+        this.props.duration,
+        this._propsToTween(this.props, this.props.tween),
+        this.props.staggerDelay
+      );
     }
   }
 
-  // If enter and leave don't execute the callback, it will freeze
-  _callExternalTweenCreator(func, callBack = () => {}) {
+  _callExternalTweenCreator(func, callBack = null) {
     let res = func({
       target: getDOMElements(this.tweenTargets),
       props: this.props,
       callBack: callBack
     });
+    console.log('Results from tween creator', res);
 
+    // TODO res instanceof TweenMax - any value?
+    // TODO check for *Timeline? We don't support that
+
+    // Make sure it's an array
     if (Array.isArray(res)) {
       return res;
     }
     return [res];
   }
 
+  // Add defaults to the tween object if they aren't specified
+  _propsToTween(props, tweenObj) {
+    return mergeDeepLeft(
+      {
+        transformOrigin: this.props.transformOrigin,
+        ease: this.props.ease,
+        paused: this.props.paused
+      },
+      tweenObj
+    );
+  }
+
   render() {
     const { children: originalChildren, component, ...childProps } = this.props;
 
+    // Remove props and prevent warning on DOM el
     let cleanedProps = cleanProps(TweenController.propTypes, childProps);
 
     const children = React.Children.map(originalChildren, (child, idx) => {
@@ -249,14 +294,31 @@ export class TweenController extends React.PureComponent {
 
 TweenController.defaultProps = {
   paused: false,
-  component: <div />
+  duration: 0.5,
+  staggerDelay: 0.25,
+  component: <div />,
+  transformOrigin: '0% 0%',
+  ease: Expo.easeInOut,
+  enterDuration: 0.5,
+  leaveDuration: 0.5,
+  enterStaggerDuration: 0.25,
+  leaveStaggerDuration: 0.25
 };
 
 TweenController.propTypes = {
+  start: PropTypes.object, // Starting properties
+  tween: PropTypes.object, // Steady state tween
+  enter: PropTypes.object, // enter / appear tween
+  leave: PropTypes.object, // leave / unmount tween
+  duration: PropTypes.number, // duration of steady tween
+  staggerDelay: PropTypes.number, // for multiple children, delay between children
+  enterStaggerDuration: PropTypes.number,
+  enterDuration: PropTypes.number,
+  leaveStaggerDuration: PropTypes.number,
+  leaveDuration: PropTypes.number,
   paused: PropTypes.bool, // pause steady state tween
   component: PropTypes.object, // by default will be wrapped in a <div/>
-  start: PropTypes.func,
-  enter: PropTypes.func,
-  tween: PropTypes.func,
-  leave: PropTypes.func
+  transformOrigin: PropTypes.string, // origin point, default top left
+  ease: PropTypes.object, // steady state default easing function
+  tweenFunc: PropTypes.func
 };
