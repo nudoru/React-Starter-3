@@ -18,9 +18,6 @@ TODO
 
 BUGS
 
-- After several updates, button padding shrinks
-- Components buttons, cards, need to wrapped in a div to work
-
 */
 
 const cleanProps = (propTypes, childProps) => {
@@ -75,7 +72,7 @@ export class TweenGroup extends React.PureComponent {
     this.didAppear = false;
     this.cachedStyles = [];
     this.tweenTargets = [];
-    // Tween*.stagger* returns an array of tweens so support arrays by default
+    // staggerTo/From returns an array of tweens so support arrays by default
     this.activeTweens = [];
     this.enterTweens = [];
     this.leaveTweens = [];
@@ -161,9 +158,11 @@ export class TweenGroup extends React.PureComponent {
   }
 
   _restoreStyles() {
-    this.tweenTargets.forEach((c, i) => {
-      c.style = this.cachedStyles[i];
-    });
+    if(this.props.preserveStyles) {
+      this.tweenTargets.forEach((c, i) => {
+        c.style = this.cachedStyles[i];
+      });
+    }
   }
 
   _startTween() {
@@ -245,11 +244,13 @@ export class TweenGroup extends React.PureComponent {
 
 TweenGroup.defaultProps = {
   paused: false,
+  preserveStyles: true,
   component: <div />
 };
 
 TweenGroup.propTypes = {
   tweenID: PropTypes.number,
+  preserveStyles: PropTypes.bool,
   paused: PropTypes.bool,
   component: PropTypes.object,
   start: PropTypes.func,

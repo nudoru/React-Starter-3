@@ -27,11 +27,11 @@ class BButton extends React.PureComponent {
   // TODO The padding and border-width props don't apply correctly until the 5th render
   getBasicButtonEl() {
     return styled.button`
+      transition: none !important;
       cursor: pointer;
       text-transform: uppercase;
       background-image: ${props => props.theme.gradients.light};
       text-shadow: ${props => props.theme.shadows.textDark};
-      transition: none !important;
       &:active {
         box-shadow: ${props => props.theme.shadows.buttonPress};
       }

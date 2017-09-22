@@ -89,7 +89,7 @@ class Animations extends React.Component {
   _leaveTweenFunc = ({ target, props, callBack }) => {
     return TweenMax.staggerTo(
       target,
-      5,
+      0.5,
       {
         y: 500,
         alpha: 0
@@ -119,14 +119,13 @@ class Animations extends React.Component {
                 tween={this._tweenFunc}
                 leave={this._leaveTweenFunc}
               >
-                <div>
-                  <Button primary>
-                    {i}, {this.state.counter}
-                  </Button>
-                </div>
+                <Button primary>
+                  {i}, {this.state.counter}
+                </Button>
                 <Button warning>
-                {i}, {this.state.counter}
-              </Button>
+                  {i}, {this.state.counter}
+                </Button>
+                <button>{i}, {this.state.counter}</button>
                 <p>
                   {i}, {this.state.counter}
                 </p>
