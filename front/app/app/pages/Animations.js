@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { TweenMax, Expo, Back } from 'gsap';
+import { TweenMax, Linear } from 'gsap';
 import styled from 'styled-components';
 import { range } from 'lodash';
 
-import {
-  Animate,
-  TweenGroup
-} from '../components/controls/shared/Animate';
+import { Animate, TweenGroup } from '../components/controls/shared/Animate';
 
 import Button from '../components/controls/interactive/Button';
 
@@ -44,7 +41,7 @@ class Animations extends React.Component {
   };
 
   _onAddMoreClick = e => {
-    this.setState(prevState => ({ counter: prevState.counter+=10 }));
+    this.setState(prevState => ({ counter: (prevState.counter += 10) }));
   };
 
   _onDecrementClick = e => {
@@ -61,9 +58,7 @@ class Animations extends React.Component {
       2,
       {
         x: 100,
-        y: 50,
-        alpha: 0,
-        skewX: 300
+        alpha: 0
       },
       0.1,
       callBack
@@ -80,17 +75,14 @@ class Animations extends React.Component {
   _tweenFunc = ({ target, props, callBack }) => {
     return TweenMax.staggerTo(
       target,
-      2,
+      1,
       {
         x: 500,
-        skewX: 0,
-        skewY: 0,
-        scale: 1,
         yoyo: true,
         repeat: -1,
-        ease: Back.easeOut
+        ease: Linear.easeNone
       },
-      0.25
+      0
     );
   };
 
@@ -110,54 +102,42 @@ class Animations extends React.Component {
   render() {
     return (
       <Container>
-        <Button onClick={this._onPauseClick}>
-          Pause
-        </Button>
-        <Button
-          onClick={this._onIncrementClick}
-        >
-          Inc
-        </Button>
-        <Button
-          onClick={this._onDecrementClick}
-        >
-          Dec
-        </Button>
-        <Button
-          onClick={this._onRemoveClick}
-        >
-          Remove all!
-        </Button>
-        <Button
-        onClick={this._onAddMoreClick}
-      >
-        Add more ...
-      </Button>
-     
-      <Animate>
-      {range(this.state.counter).map((e, i) => {
-        return (
-          <TweenGroup
-            key={i}
-            tweenID={i}
-            paused={!this.state.anim}
-            enter={this._enterTweenFunc}
-            tween={this._tweenFunc}
-            leave={this._leaveTweenFunc}
-          >
-            <p>{i}, {this.state.counter}</p>
-            <p>{i}, {this.state.counter}</p>
-            <p>{i}, {this.state.counter}</p>
-          </TweenGroup>
-        );
-      })}
-    </Animate>
-        
+        <Button onClick={this._onPauseClick}>Pause</Button>
+        <Button onClick={this._onIncrementClick}>Inc</Button>
+        <Button onClick={this._onDecrementClick}>Dec</Button>
+        <Button onClick={this._onRemoveClick}>Remove all!</Button>
+        <Button onClick={this._onAddMoreClick}>Add more ...</Button>
+
+        <Animate>
+          {range(this.state.counter).map((e, i) => {
+            return (
+              <TweenGroup
+                key={i}
+                tweenID={i}
+                paused={!this.state.anim}
+                //enter={this._enterTweenFunc}
+                tween={this._tweenFunc}
+                leave={this._leaveTweenFunc}
+              >
+                <div>
+                  <Button primary>
+                    {i}, {this.state.counter}
+                  </Button>
+                </div>
+                <Button warning>
+                {i}, {this.state.counter}
+              </Button>
+                <p>
+                  {i}, {this.state.counter}
+                </p>
+              </TweenGroup>
+            );
+          })}
+        </Animate>
       </Container>
     );
   }
 }
-
 
 /*
 

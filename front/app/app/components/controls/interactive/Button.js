@@ -31,9 +31,7 @@ class BButton extends React.PureComponent {
       text-transform: uppercase;
       background-image: ${props => props.theme.gradients.light};
       text-shadow: ${props => props.theme.shadows.textDark};
-      transition: all ${props => props.theme.transitions.transition};
-      transition-timing-function: ${props =>
-        props.theme.transitions.timingFunction};
+      transition: none !important;
       &:active {
         box-shadow: ${props => props.theme.shadows.buttonPress};
       }

@@ -4,6 +4,11 @@ import PropTypes from 'prop-types';
 import TransitionGroupPlus from 'react-transition-group-plus';
 
 /*
+Wrapper for GreenSock Animations and React components
+
+NOTES:
+- Elements with CSS transitions may interfere. Remove them if you encounter glitches or poor performance
+
 Borrowed ideas from https://github.com/azazdeaz/react-gsap-enhancer
 
 TODO
