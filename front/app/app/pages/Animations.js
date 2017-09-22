@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { TweenMax, Linear } from 'gsap';
+import { TweenMax, Linear, Circ } from 'gsap';
 import styled from 'styled-components';
 import { range } from 'lodash';
 
@@ -55,7 +55,7 @@ class Animations extends React.Component {
   _enterTweenFunc = ({ target, props, callBack }) => {
     return TweenMax.staggerFrom(
       target,
-      2,
+      1,
       {
         x: 100,
         alpha: 0
@@ -80,9 +80,9 @@ class Animations extends React.Component {
         x: 500,
         yoyo: true,
         repeat: -1,
-        ease: Linear.easeNone
+        ease: Circ.easeInOut
       },
-      0
+      0.25
     );
   };
 
@@ -107,30 +107,29 @@ class Animations extends React.Component {
         <Button onClick={this._onDecrementClick}>Dec</Button>
         <Button onClick={this._onRemoveClick}>Remove all!</Button>
         <Button onClick={this._onAddMoreClick}>Add more ...</Button>
-
         <Animate>
           {range(this.state.counter).map((e, i) => {
             return (
               <TweenGroup
                 key={i}
                 paused={!this.state.anim}
-                //enter={this._enterTweenFunc}
+                enter={this._enterTweenFunc}
                 tween={this._tweenFunc}
                 leave={this._leaveTweenFunc}
               >
                 <p>{i}, {this.state.counter}</p>
+                <p>{i}, {this.state.counter}</p>
+                <p>{i}, {this.state.counter}</p>
+                <p>{i}, {this.state.counter}</p>
               </TweenGroup>
             );
           })}
-        </Animate>
+          </Animate>
       </Container>
     );
   }
 }
 
-/*
-
-*/
 
 Animations.defaultProps = {};
 Animations.propTypes = {};

@@ -23,18 +23,25 @@ BUGS
 
 */
 
-const cleanProps = (propTypes, childProps) => {
+//----------------------------------------------------------------------------------------------------------------------
+// UTILS
+//----------------------------------------------------------------------------------------------------------------------
+
+const cleanProps = (propTypes, props) => {
   Object.keys(propTypes).forEach(p => {
-    if (childProps.hasOwnProperty(p)) {
-      delete childProps[p];
+    if (props.hasOwnProperty(p)) {
+      delete props[p];
     }
   });
-  return childProps;
+  return props;
 };
 
 const getDOMElements = a => a.map(ReactDOM.findDOMNode); //eslint-disable-line react/no-find-dom-node
 
-// Provides enter/leave hooks
+//----------------------------------------------------------------------------------------------------------------------
+// PARENT
+//----------------------------------------------------------------------------------------------------------------------
+
 export class Animate extends React.PureComponent {
   render() {
     const {
@@ -43,14 +50,13 @@ export class Animate extends React.PureComponent {
       children: originalChildren,
       ...childProps
     } = this.props;
-    let cleanedProps = cleanProps(Animate.propTypes, childProps);
 
     return (
       <TransitionGroupPlus
         transitionMode={transitionMode}
         deferLeavingComponentRemoval={deferLeavingComponentRemoval}
       >
-        {originalChildren}
+       {originalChildren} 
       </TransitionGroupPlus>
     );
   }
@@ -67,6 +73,10 @@ Animate.propTypes = {
   transitionMode: PropTypes.string,
   deferLeavingComponentRemoval: PropTypes.bool
 };
+
+//----------------------------------------------------------------------------------------------------------------------
+// GROUP
+//----------------------------------------------------------------------------------------------------------------------
 
 export class TweenGroup extends React.PureComponent {
   constructor(props) {
@@ -161,7 +171,7 @@ export class TweenGroup extends React.PureComponent {
   }
 
   _restoreStyles() {
-    if(this.props.__preserveStyles) {
+    if (this.props.__preserveStyles) {
       this.tweenTargets.forEach((c, i) => {
         c.style = this.cachedStyles[i];
       });
@@ -181,20 +191,23 @@ export class TweenGroup extends React.PureComponent {
       //let invalidatedTargets = [];
 
       this.activeTweens.forEach((tween, i) => {
-        if(!document.body.contains(tween.target)) {
+        if (!document.body.contains(tween.target)) {
           // If the component is completely replaced during a render, we'll loose the reference
-          console.warn('Tween target was removed from DOM during update',tween.target);
+          console.warn(
+            'Tween target was removed from DOM during update',
+            tween.target
+          );
           tween.invalidate();
           //invalidatedTargets.push(i);
         } else {
           let time = tween.time();
           let reversed = tween.reversed();
-  
+
           tween
             .invalidate()
             .restart(false, true)
             .time(time, true);
-  
+
           if (this.props.paused) {
             tween.pause(null, true);
           }
@@ -202,7 +215,6 @@ export class TweenGroup extends React.PureComponent {
             tween.reverse(null, true);
           }
         }
-        
       });
 
       // This isn't working like it should - no new tween is returned
@@ -270,7 +282,7 @@ TweenGroup.defaultProps = {
 
 TweenGroup.propTypes = {
   __preserveStyles: PropTypes.bool, // debugging
-  __tweenID: PropTypes.number,      // debugging
+  __tweenID: PropTypes.number, // debugging
   component: PropTypes.object,
   paused: PropTypes.bool,
   start: PropTypes.func,
