@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 import TransitionGroupPlus from 'react-transition-group-plus';
 
 /*
-Wrapper for GreenSock Animations and React components
+Wrapper for GreenSock Animations and React components. Animations persist between 
+updates as long as the element isn't recreated (looking at you styled-components).
 
 NOTES:
 - Elements with CSS transitions may interfere. Remove them if you encounter glitches or poor performance
+- Elements that are completely recreated, styled-components for example, will drop animations state changes
+  since the tween looses a reference to the element
 
 Borrowed ideas from https://github.com/azazdeaz/react-gsap-enhancer
 
@@ -158,7 +161,7 @@ export class TweenGroup extends React.PureComponent {
   }
 
   _restoreStyles() {
-    if(this.props.preserveStyles) {
+    if(this.props.__preserveStyles) {
       this.tweenTargets.forEach((c, i) => {
         c.style = this.cachedStyles[i];
       });
@@ -175,22 +178,39 @@ export class TweenGroup extends React.PureComponent {
 
   _performAnimation() {
     if (this.activeTweens.length) {
-      this.activeTweens.forEach(tween => {
-        let time = tween.time();
-        let reversed = tween.reversed();
+      //let invalidatedTargets = [];
 
-        tween
-          .invalidate()
-          .restart(false, true)
-          .time(time, true);
-
-        if (this.props.paused) {
-          tween.pause(null, true);
+      this.activeTweens.forEach((tween, i) => {
+        if(!document.body.contains(tween.target)) {
+          // If the component is completely replaced during a render, we'll loose the reference
+          console.warn('Tween target was removed from DOM during update',tween.target);
+          tween.invalidate();
+          //invalidatedTargets.push(i);
+        } else {
+          let time = tween.time();
+          let reversed = tween.reversed();
+  
+          tween
+            .invalidate()
+            .restart(false, true)
+            .time(time, true);
+  
+          if (this.props.paused) {
+            tween.pause(null, true);
+          }
+          if (reversed) {
+            tween.reverse(null, true);
+          }
         }
-        if (reversed) {
-          tween.reverse(null, true);
-        }
+        
       });
+
+      // This isn't working like it should - no new tween is returned
+      // invalidatedTargets.forEach(tgt => {
+      //   let domEl = ReactDOM.findDOMNode(this.tweenTargets[tgt]), //eslint-disable-line react/no-find-dom-node
+      //   newtween = this._callExternalTweenCreator(this.props.tween, null, domEl);
+      //   console.log(domEl,newtween)
+      // });
     } else if (this.props.tween) {
       this.activeTweens = this._callExternalTweenCreator(this.props.tween);
     }
@@ -208,9 +228,9 @@ export class TweenGroup extends React.PureComponent {
     });
   }
 
-  _callExternalTweenCreator(func, callBack = () => {}) {
+  _callExternalTweenCreator(func, callBack = () => {}, targets) {
     let res = func({
-      target: getDOMElements(this.tweenTargets),
+      target: targets || getDOMElements(this.tweenTargets),
       props: this.props,
       callBack: callBack
     });
@@ -243,16 +263,16 @@ export class TweenGroup extends React.PureComponent {
 }
 
 TweenGroup.defaultProps = {
+  __preserveStyles: true,
   paused: false,
-  preserveStyles: true,
   component: <div />
 };
 
 TweenGroup.propTypes = {
-  tweenID: PropTypes.number,
-  preserveStyles: PropTypes.bool,
-  paused: PropTypes.bool,
+  __preserveStyles: PropTypes.bool, // debugging
+  __tweenID: PropTypes.number,      // debugging
   component: PropTypes.object,
+  paused: PropTypes.bool,
   start: PropTypes.func,
   enter: PropTypes.func,
   tween: PropTypes.func,

@@ -113,22 +113,12 @@ class Animations extends React.Component {
             return (
               <TweenGroup
                 key={i}
-                tweenID={i}
                 paused={!this.state.anim}
                 //enter={this._enterTweenFunc}
                 tween={this._tweenFunc}
                 leave={this._leaveTweenFunc}
               >
-                <Button primary>
-                  {i}, {this.state.counter}
-                </Button>
-                <Button warning>
-                  {i}, {this.state.counter}
-                </Button>
-                <button>{i}, {this.state.counter}</button>
-                <p>
-                  {i}, {this.state.counter}
-                </p>
+                <p>{i}, {this.state.counter}</p>
               </TweenGroup>
             );
           })}
