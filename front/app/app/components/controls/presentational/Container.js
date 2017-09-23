@@ -1,5 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
+import { mergeClassNames } from '../shared/utils';
 
-export const Container = styled.div.attrs({ className: 'container' })``;
-export const ContainerFluid = styled.div.attrs({ className: 'container-fluid' })``;
+export const Container      = (props) => <div
+  className={mergeClassNames('container', props.className)}>{props.children}</div>;
+
+  export const ContainerFluid = (props) => <div
+  className={mergeClassNames('container-fluid', props.className)}>{props.children}</div>;

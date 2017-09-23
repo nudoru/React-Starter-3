@@ -1,17 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
+import { mergeClassNames } from '../shared/utils';
 import { Container, ContainerFluid } from './Container';
 
 export const Grid      = ({children, ...rest}) =>
   <Container {...rest}>{children}</Container>;
 export const GridFluid = ({children, ...rest}) =>
   <ContainerFluid {...rest}>{children}</ContainerFluid>;
-export const Row       = styled.div.attrs({className: 'row'})``;
-export const RowNG     = styled.div.attrs({className: 'row no-gutters'})``;
 
-export const ColBreak = styled.div.attrs({className: 'w-100'})``;
+export const Row      = ({children, ...rest}) => <div
+  className={mergeClassNames('row', rest.className)}>{children}</div>;
+export const RowNG    = ({children, ...rest}) => <div
+  className={mergeClassNames('row no-gutters', rest.className)}>{children}</div>;
+export const ColBreak = ({children, ...rest}) => <div
+  className='w-100'>{children}</div>;
 
-export const Col = ({size, width, className='', ...rest}) => {
+export const Col = ({size, width, className = null, ...rest}) => {
   let modifier = ['col'];
 
   if (size && !width) {
@@ -24,8 +27,7 @@ export const Col = ({size, width, className='', ...rest}) => {
     modifier.push(width);
   }
 
-  // TODO any reasons to use a styled component here?
   return (
-    <div className={modifier.join('-') + ' ' + className} {...rest} />
+    <div className={mergeClassNames(modifier.join('-'), className)} {...rest} />
   );
 };

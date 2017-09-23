@@ -1,18 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 
 // TODO https://getbootstrap.com/docs/4.0/components/list-group/#links-and-buttons
 
 const BListGroup = props => {
-  const List = styled.ul.attrs({className: generateClassName(props)})``;
-  return <List {...props}/>;
+  return <ul className={generateClassName(props)}>{props.children}</ul>;
 };
 
 const BListGroupItem = props => {
-  let Item = styled.li.attrs({className: generateClassName(props)})``;
-  return <Item {...props}/>;
+  return <li className={generateClassName(props)}>{props.children}</li>;
 };
 
 export const ListGroup     = withBootStrap('list-group')(BListGroup);

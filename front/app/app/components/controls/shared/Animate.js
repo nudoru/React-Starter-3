@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import TransitionGroupPlus from 'react-transition-group-plus';
+import {cleanProps, getDOMElements} from './utils';
 
 /*
 Wrapper for GreenSock Animations and React components. Animations persist between 
@@ -22,21 +22,6 @@ TODO
 BUGS
 
 */
-
-//----------------------------------------------------------------------------------------------------------------------
-// UTILS
-//----------------------------------------------------------------------------------------------------------------------
-
-const cleanProps = (propTypes, props) => {
-  Object.keys(propTypes).forEach(p => {
-    if (props.hasOwnProperty(p)) {
-      delete props[p];
-    }
-  });
-  return props;
-};
-
-const getDOMElements = a => a.map(ReactDOM.findDOMNode); //eslint-disable-line react/no-find-dom-node
 
 //----------------------------------------------------------------------------------------------------------------------
 // PARENT

@@ -1,28 +1,13 @@
 import React, { Component } from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import PropTypes from 'prop-types';
-import styled, { keyframes, ThemeProvider } from 'styled-components';
-import RHUTheme from '../theme/rh';
 import { SpinnerDots } from '../shared/SpinnerDots';
 
-// d-flex justify-content-center align-items-center
-const BaseViewDiv = styled.div.attrs({className: ''})`
-  width: 100%;
-  height: 100%;
-  padding: 1rem;
-  background: rgba(0,0,0,.05);
-  text-align: center;
-`;
-
-const LoadingViewDiv = BaseViewDiv.extend``;
-const PendingViewDiv = BaseViewDiv.extend``;
-const ErrorViewDiv   = BaseViewDiv.extend``;
-
-const LoadingView = ({message, ...rest}) => <LoadingViewDiv {...rest}><h6>{message}</h6>
-  <SpinnerDots/></LoadingViewDiv>;
-const PendingView = ({message, ...rest}) => <PendingViewDiv {...rest}><h6>{message}</h6><SpinnerDots/>
-</PendingViewDiv>;
-const ErrorView   = ({message, ...rest}) => <ErrorViewDiv {...rest}><h6>{message}</h6></ErrorViewDiv>;
+const LoadingView = ({message, ...rest}) => <div {...rest}><h6>{message}</h6>
+  <SpinnerDots/></div>;
+const PendingView = ({message, ...rest}) => <div {...rest}><h6>{message}</h6><SpinnerDots/>
+</div>;
+const ErrorView   = ({message, ...rest}) => <div {...rest}><h6>{message}</h6></div>;
 
 export const withLoading = Comp => {
   class Loading extends Component {
@@ -40,7 +25,7 @@ export const withLoading = Comp => {
               message
             }   = this.props;
       let returnedComp,
-            cls = [this.props.className || null];
+            cls = ['component-loading', (this.props.className || null)];
 
       if (loading) {
         if (loadingClass) {

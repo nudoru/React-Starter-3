@@ -119,7 +119,7 @@ class Components extends React.Component {
               <Button primary>Disabled</Button>
               <Button primary>Toggle</Button>
             </ButtonGroup>
-            <ButtonGroup className='pr-3' lg>
+            <ButtonGroup className='pt-3' lg>
               <Button primary>Active</Button>
               <Button primary>Disabled</Button>
               <Button primary>Toggle</Button>

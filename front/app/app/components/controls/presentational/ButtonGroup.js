@@ -1,14 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
+import {mergeClassNames} from '../shared/utils';
 import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 
-export const ButtonToolBar = ({className='', ...rest}) =>
-  <div role='toolbar' className={`btn-toolbar ${className}`} {...rest} />;
+export const ButtonToolBar = ({className, children}) =>
+  <div role='toolbar' className={mergeClassNames('btn-toolbar',className)}>{children}</div>;
 
 // TODO Note, sm and lg don't appear correctly when inside of a toolbar
-const BButtonGroup = (props) => {
-  const El = styled.div.attrs({className: generateClassName(props)})``;
-  return <El role='group'/>;
+const BButtonGroup = ({children, ... rest}) => {
+  return <div role='group' className={generateClassName(rest)}>{children}</div>;
 };
 
 export const ButtonGroup = withBootStrap('btn-group')(BButtonGroup);
