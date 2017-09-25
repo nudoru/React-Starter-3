@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import PropTypes from 'prop-types';
-import { ThemeProvider } from 'styled-components';
-import RHUTheme from '../theme/rh';
 import { getNextId } from '../../../utils/ElementIDCreator';
 
 export const bootStrapPropTypes = {
-  cid   : PropTypes.string,
+  __cid     : PropTypes.string,
+  __ctype   : PropTypes.string,
   bsClass   : PropTypes.string, // btn
   bsClassAlt: PropTypes.string, // outline
   ariaRole  : PropTypes.string,
@@ -21,6 +20,7 @@ export const bootStrapPropTypes = {
   light     : PropTypes.bool,
   dark      : PropTypes.bool,
   outline   : PropTypes.bool,
+  link      : PropTypes.bool,
   block     : PropTypes.bool,
   vertical  : PropTypes.bool,
   justified : PropTypes.bool,
@@ -33,6 +33,8 @@ export const bootStrapPropTypes = {
   dropShadow: PropTypes.string
 };
 
+export const COMP_TYPE = 'bootstrappedcomp';
+
 // bsClass -> BootStrap CSS control class, btn, badge, etc.
 export const withBootStrap = (bsClass = null) => Comp => {
   class Bootstrapped extends Component {
@@ -40,15 +42,12 @@ export const withBootStrap = (bsClass = null) => Comp => {
     static WrappedComponent = Comp;
 
     render () {
-      return (
-        <ThemeProvider theme={RHUTheme}>
-          <Comp cid={getNextId()} {...this.props} />
-        </ThemeProvider>
-      );
+      return <Comp __cid={getNextId()} {...this.props} />;
     }
   }
 
   Bootstrapped.defaultProps = {
+    __ctype   : COMP_TYPE,
     bsClass   : bsClass,
     bsClassAlt: '',
     dropShadow: ''

@@ -30,10 +30,9 @@ export default class Link extends React.PureComponent {
   };
 
   render () {
-    const {onKeyDown = (e) => e, underline, better, className, ...rest } = this.props;
+    const {onKeyDown = e => e, underline, better, className, ...rest } = this.props;
     let {ariaRole, tabIndex}              = this.props;
     let cls = [className];
-
 
     if (better) {
       cls.push('better');
@@ -49,8 +48,6 @@ export default class Link extends React.PureComponent {
       // TODO adding 'pointer-events: none;' CSS
       tabIndex = -1;
     }
-
-    console.log('Link styles', cls.join(' '))
 
     return (
       <a

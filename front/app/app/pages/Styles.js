@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyledComponents} from '../components/mocks/styledcomponents'
 import {TextStyles} from '../components/mocks/textstyles'
 
 

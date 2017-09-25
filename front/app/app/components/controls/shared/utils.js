@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// Given props from a component, itterate over propTypes and matches in the props
+// Given props from a component, iterate over propTypes and matches in the props
 // Create clean props that are safe to attach to DOM node
 export const cleanProps = (propTypes, props) => {
   Object.keys(propTypes).forEach(p => {

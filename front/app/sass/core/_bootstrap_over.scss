@@ -1,6 +1,5 @@
 @import "overpass";
 
-
 $font-family-base: 'Overpass', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 $ms-10: 11.089rem;
@@ -60,6 +59,7 @@ $theme-colors: (
 $component-active-bg: theme-color("primary");
 
 $enable-gradients: true;
+$enable-transitions: false;
 
 $spacer: $ms-1;
 $spacers: (

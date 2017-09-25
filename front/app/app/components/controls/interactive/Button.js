@@ -1,5 +1,10 @@
 import React from 'react';
-import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
+import { cleanProps } from '../shared/utils';
+import {
+  withBootStrap,
+  generateClassName,
+  bootStrapPropTypes
+} from '../shared/BootStrapHOC';
 
 // TODO toggle
 // TODO Aria
@@ -21,7 +26,8 @@ class BButton extends React.PureComponent {
   };
 
   render () {
-    let {type, tabIndex, ariaRole, ...rest} = this.props;
+    let {type, tabIndex, ariaRole, ...rest} = this.props,
+        cleanedProps                          = cleanProps(bootStrapPropTypes, rest);
 
     type = type || 'button';
 
@@ -37,7 +43,7 @@ class BButton extends React.PureComponent {
         tabIndex={tabIndex}
         onClick={this.handleClick}
         className={generateClassName(this.props)}
-        {...rest}
+        {...cleanedProps}
       >
         {this.props.children}
       </button>
