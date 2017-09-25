@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 
 
@@ -16,10 +15,8 @@ import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 
 class BExpandButtonGroup extends React.PureComponent {
   render() {
-    const El = styled.div.attrs({className:getBsClassName(this.props)})``;
-
     return (
-      <El>Template component</El>
+      <div className={getBsClassName(this.props)}>Template component</div>
     );
   }
 }
@@ -28,10 +25,8 @@ export const ExpandButtonGroup =  withBootStrap('')(BExpandButtonGroup);
 
 class BToggleButton extends React.PureComponent {
   render() {
-    const El = styled.div.attrs({className:getBsClassName(this.props)})``;
-
     return (
-      <El>Template component</El>
+      <div className={getBsClassName(this.props)}>Template component</div>
     );
   }
 }

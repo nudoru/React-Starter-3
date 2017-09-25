@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'ramda';
-import {mergeClassNames} from '../shared/utils';
 
 const isTrivial = href => !href || href.trim() === '#';
 
