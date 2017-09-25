@@ -1,51 +1,35 @@
 import React from 'react';
-import styled from 'styled-components';
-import {mergeClassNames} from '../shared/utils';
-import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
+import { mergeClassNames, cleanProps } from '../shared/utils';
+import { withBootStrap, generateClassName,bootStrapPropTypes } from '../shared/BootStrapHOC';
 import Link from '../interactive/Link';
 
 // Theme passed via Loading Wrapper
 
-const BCard = props => {
-  const El = styled.div.attrs({className: generateClassName(props)})`
-  width: ${props => props.width ? props.width : props.theme.cards.defaultWidth}
-  `;
-  return <El {...props} />;
-};
+const BCard = props => <div
+  className={generateClassName(props)}>{props.children}</div>;
 
-const BCardHeader = props => {
-  const El = styled.div.attrs({className: generateClassName(props)})``;
-  return <El {...props} />;
-};
+const BCardHeader = props => <div
+  className={generateClassName(props)}>{props.children}</div>;
 
-const BCardFooter = props => {
-  const El = styled.div.attrs({className: generateClassName(props)})``;
-  return <El {...props} />;
-};
+const BCardFooter = props => <div
+  className={generateClassName(props)}>{props.children}</div>;
 
-const BCardBody = props => {
-  const El = styled.div.attrs({className: 'card-body'})`
-  padding: ${props => props.theme.metrics.spacing};`;
-  return <El {...props} />;
-};
+const BCardBody = props => <div
+  className={generateClassName(props)}>{props.children}</div>;
 
-const BCardTitle = props => {
-  const El = styled.h4.attrs({className: 'card-title'})``;
-  return <El {...props} />;
-};
+const BCardTitle = props => <h4
+  className={generateClassName(props)}>{props.children}</h4>;
 
-const BCardSubTitle = props => {
-  const El = styled.h6.attrs({className: 'card-subtitle mb-2 text-muted'})``;
-  return <El {...props} />;
-};
+const BCardSubTitle = props => <h6
+  className={generateClassName(props)}>{props.children}</h6>;
 
-const BCardText = props => {
-  const El = styled.p.attrs({className: 'card-text'})``;
-  return <El {...props} />;
-};
+const BCardText = props => <p
+  className={generateClassName(props)}>{props.children}</p>;
 
-export const CardLink = ({className = '', ...rest}) => {
-  return <Link className={`card-link ${className}`} {...rest}/>;
+export const CardLink = ({className, ...rest}) => {
+  let cleanedProps = cleanProps(bootStrapPropTypes, rest);
+
+  return <Link className={mergeClassNames('card-link', className)} {...cleanedProps}/>;
 };
 
 export const Card         = withBootStrap('card')(BCard);

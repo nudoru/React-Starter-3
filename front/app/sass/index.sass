@@ -2,14 +2,75 @@
 @import "vendor/paper-shadows.scss"
 @import "vendor/webgradients.scss"
 // Provided by react-icons @import "vendor/font-awesome/font-awesome" 
+@import "./core/variables"
 
+a
+  &:hover
+    text-decoration: underline
+
+a.no-underline
+  &:hover
+    text-decoration: none !important
+
+a.better
+  color: $link-color
+  outline: none
+  text-decoration: none
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff
+  background-image: none
+  &:active, &:hover
+    color: $link-color
+    background-image: linear-gradient(to top, transparent, transparent 2px, $link-color 2px, $link-color 3px, transparent 3px)
+    outline: none
+  &:focus
+    outline: dotted 1px
+
+.card
+  .card-header, .card-body, .card-footer
+    padding-left: 1rem
+    padding-right: 1rem
+  .card-subtitle
+    @extend .mb-2
+    @extend .text-muted
 
 .component-loading
   width: 100%
   height: 100%
   padding: 1rem
-  background: rgba(0,0,0,.05)
+  background: rgba(0, 0, 0, .05)
   text-align: center
+
+.nav
+  .nav-item
+    .nav-link
+      &:hover
+        background-color: rgba(0, 0, 0, .05)
+      &.disabled:hover
+        background-color: #fff
+
+.nav.nav-tabs
+  border-bottom: 1px solid $blue
+  .nav-item
+    .nav-link.active
+      font-weight: 600
+      background-color: #fff
+      border-left: 1px solid $blue
+      border-top: 1px solid $blue
+      border-right: 1px solid $blue
+      box-shadow: 0 3px -5px rgba(0, 0, 0, .5)
+    .nav-link:hover
+      border: 1px solid rgba(0, 0, 0, 0)
+    .nav-link.active:hover
+      border-left: 1px solid $blue
+      border-top: 1px solid $blue
+      border-right: 1px solid $blue
+    .nav-link.disabled:hover
+      border-bottom: 1px solid $blue
+
+.nav.nav-pills
+  .nav-item
+    .nav-link.active:hover
+      background-color: $blue-8
 
 
 

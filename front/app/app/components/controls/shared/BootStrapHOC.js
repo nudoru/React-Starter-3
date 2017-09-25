@@ -5,6 +5,34 @@ import { ThemeProvider } from 'styled-components';
 import RHUTheme from '../theme/rh';
 import { getNextId } from '../../../utils/ElementIDCreator';
 
+export const bootStrapPropTypes = {
+  cid   : PropTypes.string,
+  bsClass   : PropTypes.string, // btn
+  bsClassAlt: PropTypes.string, // outline
+  ariaRole  : PropTypes.string,
+  active    : PropTypes.bool,
+  disabled  : PropTypes.bool,
+  primary   : PropTypes.bool,
+  secondary : PropTypes.bool,
+  success   : PropTypes.bool,
+  danger    : PropTypes.bool,
+  warning   : PropTypes.bool,
+  info      : PropTypes.bool,
+  light     : PropTypes.bool,
+  dark      : PropTypes.bool,
+  outline   : PropTypes.bool,
+  block     : PropTypes.bool,
+  vertical  : PropTypes.bool,
+  justified : PropTypes.bool,
+  stacked   : PropTypes.bool,
+  center    : PropTypes.bool,
+  pullRight : PropTypes.bool,
+  sm        : PropTypes.bool,
+  lg        : PropTypes.bool,
+  flush     : PropTypes.bool,
+  dropShadow: PropTypes.string
+};
+
 // bsClass -> BootStrap CSS control class, btn, badge, etc.
 export const withBootStrap = (bsClass = null) => Comp => {
   class Bootstrapped extends Component {
@@ -23,35 +51,10 @@ export const withBootStrap = (bsClass = null) => Comp => {
   Bootstrapped.defaultProps = {
     bsClass   : bsClass,
     bsClassAlt: '',
-    dropShadow    : ''
+    dropShadow: ''
   };
 
-  Bootstrapped.propTypes = {
-    bsClass   : PropTypes.string, // btn
-    bsClassAlt: PropTypes.string, // outline
-    ariaRole  : PropTypes.string,
-    active    : PropTypes.bool,
-    disabled  : PropTypes.bool,
-    primary   : PropTypes.bool,
-    secondary : PropTypes.bool,
-    success   : PropTypes.bool,
-    danger    : PropTypes.bool,
-    warning   : PropTypes.bool,
-    info      : PropTypes.bool,
-    light     : PropTypes.bool,
-    dark      : PropTypes.bool,
-    outline   : PropTypes.bool,
-    block     : PropTypes.bool,
-    vertical  : PropTypes.bool,
-    justified : PropTypes.bool,
-    stacked   : PropTypes.bool,
-    center    : PropTypes.bool,
-    pullRight : PropTypes.bool,
-    sm        : PropTypes.bool,
-    lg        : PropTypes.bool,
-    flush     : PropTypes.bool,
-    dropShadow    : PropTypes.string
-  };
+  Bootstrapped.propTypes = bootStrapPropTypes;
 
   hoistNonReactStatic(Bootstrapped, Comp);
 

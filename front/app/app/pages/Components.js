@@ -42,6 +42,8 @@ import {
   ButtonToolBar
 } from '../components/controls/presentational/ButtonGroup';
 
+import Link from '../components/controls/interactive/Link';
+
 import { withLoading } from '../components/controls/shared/IsLoadingHOC';
 
 const LoadingCard = withLoading(Card);
@@ -71,6 +73,85 @@ class Components extends React.Component {
   render () {
     return (
       <div className="container mt-1">
+        <div className="pb-5">
+          <h3 className="pb-3">Misc Elements</h3>
+          <Link href='#' className='pr-2'>This is a link</Link>
+          <Link href='#' className='pr-2' underline={false}>This is a link with no underline</Link>
+          <Link href='#' better>Ggreat Jjingles, a better underline</Link>
+        </div>
+        <div className="pb-5">
+          <h3 className="pb-3">Card</h3>
+          <GridFluid>
+            <Row>
+              <Col>
+                <Card>
+                  <CardHeader>Header</CardHeader>
+                  <CardBody>
+                    <CardTitle>This is a card!</CardTitle>
+                    <CardSubTitle>Subtitles are cool</CardSubTitle>
+                    <CardText>Card! Card! Card! Card! </CardText>
+                    <CardLink href="http://www.google.com">Link text</CardLink>
+                  </CardBody>
+                  <CardFooter>Footer</CardFooter>
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <CardBody>
+                    <CardTitle>This is a card!</CardTitle>
+                    <CardSubTitle>Subtitles are cool</CardSubTitle>
+                    <CardText>Card! Card! Card! Card! </CardText>
+                    <CardLink href="http://www.google.com">Link gggtextjjj</CardLink>
+                    <CardLink href="http://www.google.com">Link text</CardLink>
+                  </CardBody>
+                  <ListGroup flush>
+                    <ListGroupItem>Foo</ListGroupItem>
+                    <ListGroupItem>Bar</ListGroupItem>
+                  </ListGroup>
+                </Card>
+              </Col>
+            </Row>
+          </GridFluid>
+          <GridFluid className='pt-3'>
+            <Row>
+              <Col>
+                <Card dropShadow='xs'>
+                  <CardBody>
+                    <p>Shadow XS</p>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col>
+                <Card dropShadow='sm'>
+                  <CardBody>
+                    <p>Shadow SM</p>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col>
+                <Card dropShadow='m'>
+                  <CardBody>
+                    <p>Shadow M</p>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col>
+                <Card dropShadow='lg'>
+                  <CardBody>
+                    <p>Shadow LG</p>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col>
+                <Card dropShadow='xl'>
+                  <CardBody>
+                    <p>Shadow XL</p>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </GridFluid>
+        </div>
 
         <div className="pb-5">
           <h3 className="pb-3">Buttons</h3>
@@ -205,79 +286,7 @@ class Components extends React.Component {
             </RowNG>
           </GridFluid>
         </div>
-        <div className="pb-5">
-          <h3 className="pb-3">Card</h3>
-          <GridFluid>
-            <Row>
-              <Col>
-                <Card>
-                  <CardHeader>Header</CardHeader>
-                  <CardBody>
-                    <CardTitle>This is a card!</CardTitle>
-                    <CardSubTitle>Subtitles are cool</CardSubTitle>
-                    <CardText>Card! Card! Card! Card! </CardText>
-                    <CardLink href="http://www.google.com">Link text</CardLink>
-                  </CardBody>
-                  <CardFooter>Footer</CardFooter>
-                </Card>
-              </Col>
-              <Col>
-                <Card>
-                  <CardBody>
-                    <CardTitle>This is a card!</CardTitle>
-                    <CardSubTitle>Subtitles are cool</CardSubTitle>
-                    <CardText>Card! Card! Card! Card! </CardText>
-                    <CardLink href="http://www.google.com">Link gggtextjjj</CardLink>
-                    <CardLink href="http://www.google.com">Link text</CardLink>
-                  </CardBody>
-                  <ListGroup flush>
-                    <ListGroupItem>Foo</ListGroupItem>
-                    <ListGroupItem>Bar</ListGroupItem>
-                  </ListGroup>
-                </Card>
-              </Col>
-            </Row>
-          </GridFluid>
-          <GridFluid className='pt-3'>
-            <Row>
-              <Col>
-                <Card dropShadow='xs'>
-                  <CardBody>
-                    <p>Shadow XS</p>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col>
-                <Card dropShadow='sm'>
-                  <CardBody>
-                    <p>Shadow SM</p>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col>
-                <Card dropShadow='m'>
-                  <CardBody>
-                    <p>Shadow M</p>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col>
-                <Card dropShadow='lg'>
-                  <CardBody>
-                    <p>Shadow LG</p>
-                  </CardBody>
-                </Card>
-              </Col>
-              <Col>
-                <Card dropShadow='xl'>
-                  <CardBody>
-                    <p>Shadow XL</p>
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>
-          </GridFluid>
-        </div>
+
         <div className="pb-5">
           <h3 className="pb-3">Loading HOC</h3>
           <LoadingCard loading message='Fetching the data'>
