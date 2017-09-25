@@ -3,94 +3,12 @@
 @import "vendor/webgradients.scss"
 // Provided by react-icons @import "vendor/font-awesome/font-awesome" 
 @import "./core/variables"
+@import "./core/base"
+@import "./controls/button"
+@import "./controls/nav"
+@import "./controls/card"
+@import "./controls/component-loading"
 
-a
-  &:hover
-    text-decoration: underline
-
-a.no-underline
-  &:hover
-    text-decoration: none !important
-
-a.better
-  color: $link-color
-  outline: none
-  text-decoration: none
-  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff
-  background-image: none
-  &:active, &:hover
-    color: $link-color
-    background-image: linear-gradient(to top, transparent, transparent 2px, $link-color 2px, $link-color 3px, transparent 3px)
-    outline: none
-  &:focus
-    outline: dotted 1px
-
-.btn
-  transition: none !important
-  cursor: pointer
-  text-transform: uppercase
-  background-image: linear-gradient(to bottom, transparent, rgba(255,255,255,.1))
-  text-shadow: 1px 1px 0 rgba(0,0,0,.25)
-  &:active
-    box-shadow: inset 0 2px 7px rgba(0,0,0,.2)
-  &:disabled
-    cursor: not-allowed
-
-.btn.btn-link
-  background-image: none
-  text-shadow: none
-
-button[class*='btn-outline-']
-  background-image: none
-  text-shadow: none
-  border-width: 1px
-
-.card
-  .card-header, .card-body, .card-footer
-    padding-left: 1rem
-    padding-right: 1rem
-  .card-subtitle
-    @extend .mb-2
-    @extend .text-muted
-
-.component-loading
-  width: 100%
-  height: 100%
-  padding: 1rem
-  background: rgba(0, 0, 0, .05)
-  text-align: center
-
-.nav
-  .nav-item
-    .nav-link
-      &:hover
-        background-color: rgba(0, 0, 0, .05)
-      &.disabled:hover
-        background-color: #fff
-
-.nav.nav-tabs
-  border-bottom: 1px solid $blue
-  .nav-item
-    .nav-link.active
-      font-weight: 600
-      background-color: #fff
-      border-left: 1px solid $blue
-      border-top: 1px solid $blue
-      border-right: 1px solid $blue
-      box-shadow: 0 3px -5px rgba(0, 0, 0, .5)
-    .nav-link:hover
-      border: 1px solid rgba(0, 0, 0, 0)
-    .nav-link.active:hover
-      border-left: 1px solid $blue
-      border-top: 1px solid $blue
-      border-right: 1px solid $blue
-    .nav-link.disabled:hover
-      border-bottom: 1px solid $blue
-
-.nav.nav-pills
-  .nav-item
-    .nav-link.active:hover
-      background-color: $blue-8
 
 
 
