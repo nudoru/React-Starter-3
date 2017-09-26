@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TransitionGroupPlus from 'react-transition-group-plus';
+//import TransitionGroupPlus from 'react-transition-group-plus';
+import TransitionGroupPlus from '../../../utils/ReactTransitionGroupPlus';
 import { cleanProps, getDOMElements } from './utils';
 
 /*

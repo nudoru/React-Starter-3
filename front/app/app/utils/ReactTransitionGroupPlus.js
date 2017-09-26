@@ -1,3 +1,14 @@
+/* eslint-disable */
+
+/*
+web-dev_1  |   150:21  error  Using this.refs is deprecated  react/no-string-refs
+web-dev_1  |   162:21  error  Using this.refs is deprecated  react/no-string-refs
+web-dev_1  |   186:21  error  Using this.refs is deprecated  react/no-string-refs
+web-dev_1  |   219:21  error  Using this.refs is deprecated  react/no-string-refs
+web-dev_1  |   245:21  error  Using this.refs is deprecated  react/no-string-refs
+web-dev_1  |   277:21  error  Using this.refs is deprecated  react/no-string-refs
+*/
+
 //https://raw.githubusercontent.com/cheapsteak/react-transition-group-plus/master/src/ReactTransitionGroupPlus.js
 
 /**
@@ -17,9 +28,63 @@ var React = require('react');
 var PropTypes = require('prop-types');
 var createReactClass = require('create-react-class');
 var difference = require('lodash.difference');
-var ReactTransitionChildMapping = require('react/lib/ReactTransitionChildMapping');
 
-var assign = require('object-assign');
+const getChildMapping = children => React.Children.toArray(children).reduce((acc, c) => {
+  acc[c.key] = c;
+  return acc;
+}, {});
+
+const mergeChildMappings = (prev, next) => {
+  prev = prev || {};
+  next = next || {};
+
+  function getValueForKey(key) {
+    if (next.hasOwnProperty(key)) {
+      return next[key];
+    } else {
+      return prev[key];
+    }
+  }
+
+  // For each key of `next`, the list of keys to insert before that key in
+  // the combined list
+  var nextKeysPending = {};
+
+  var pendingKeys = [];
+  for (var prevKey in prev) {
+    if (next.hasOwnProperty(prevKey)) {
+      if (pendingKeys.length) {
+        nextKeysPending[prevKey] = pendingKeys;
+        pendingKeys = [];
+      }
+    } else {
+      pendingKeys.push(prevKey);
+    }
+  }
+
+  var i;
+  var childMapping = {};
+  for (var nextKey in next) {
+    if (nextKeysPending.hasOwnProperty(nextKey)) {
+      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+        var pendingNextKey = nextKeysPending[nextKey][i];
+        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(
+          pendingNextKey
+        );
+      }
+    }
+    childMapping[nextKey] = getValueForKey(nextKey);
+  }
+
+  // Finally, add the keys which didn't appear before any key in `next`
+  for (i = 0; i < pendingKeys.length; i++) {
+    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+  }
+
+  return childMapping;
+};
+
+
 
 var ReactTransitionGroupPlus = createReactClass({
   displayName: 'ReactTransitionGroupPlus',
@@ -28,7 +93,7 @@ var ReactTransitionGroupPlus = createReactClass({
     component: PropTypes.any,
     childFactory: PropTypes.func,
     transitionMode: PropTypes.oneOf(['in-out', 'out-in', 'simultaneous']),
-    deferLeavingComponentRemoval: PropTypes.bool,
+    deferLeavingComponentRemoval: PropTypes.bool
   },
 
   getDefaultProps: function() {
@@ -38,13 +103,15 @@ var ReactTransitionGroupPlus = createReactClass({
         return arg;
       },
       transitionMode: 'simultaneous',
-      deferLeavingComponentRemoval: false,
+      deferLeavingComponentRemoval: false
     };
   },
 
   getInitialState: function() {
+    console.log(getChildMapping(this.props.children));
+
     return {
-      children: ReactTransitionChildMapping.getChildMapping(this.props.children),
+      children: getChildMapping(this.props.children)
     };
   },
 
@@ -72,16 +139,16 @@ var ReactTransitionGroupPlus = createReactClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    var nextChildMapping = ReactTransitionChildMapping.getChildMapping(
+    var nextChildMapping = getChildMapping(
       nextProps.children
     );
     var prevChildMapping = this.state.children;
 
     this.setState({
-      children: ReactTransitionChildMapping.mergeChildMappings(
+      children: mergeChildMappings(
         prevChildMapping,
         nextChildMapping
-      ),
+      )
     });
 
     var key;
@@ -163,7 +230,7 @@ var ReactTransitionGroupPlus = createReactClass({
       component.componentDidAppear();
     }
 
-    var currentChildMapping = ReactTransitionChildMapping.getChildMapping(
+    var currentChildMapping = getChildMapping(
       this.props.children
     );
 
@@ -220,7 +287,7 @@ var ReactTransitionGroupPlus = createReactClass({
       component.componentDidEnter();
     }
 
-    var currentChildMapping = ReactTransitionChildMapping.getChildMapping(
+    var currentChildMapping = getChildMapping(
       this.props.children
     );
 
@@ -280,13 +347,13 @@ var ReactTransitionGroupPlus = createReactClass({
     }
 
 
-    var currentChildMapping = ReactTransitionChildMapping.getChildMapping(
+    var currentChildMapping = getChildMapping(
       this.props.children
     );
 
     var updateChildren = function updateChildren () {
       this.setState(function(state) {
-        var newChildren = assign({}, state.children);
+        var newChildren = Object.assign({}, state.children);
         delete newChildren[key];
         return {children: newChildren};
       });
@@ -352,10 +419,10 @@ var ReactTransitionGroupPlus = createReactClass({
     }
     return React.createElement(
       this.props.component,
-      this.cleanProps(assign({},this.props)),
+      this.cleanProps(Object.assign({},this.props)),
       childrenToRender
     );
-  },
+  }
 });
 
 module.exports = ReactTransitionGroupPlus;
