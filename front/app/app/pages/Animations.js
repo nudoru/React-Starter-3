@@ -29,7 +29,7 @@ const Container = styled.div.attrs({ className: 'glass_water' })`
 class Animations extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { anim: true, stop: false, counter: 1 };
+    this.state = { anim: true, stop: false, counter: 5 };
   }
 
   _onPauseClick = e => {

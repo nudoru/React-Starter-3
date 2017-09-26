@@ -173,16 +173,14 @@ export class TweenGroup extends React.PureComponent {
   }
 
   _restoreDomAttrs () {
-    if (this.props.__preserveStyles) {
-      let domEls = getDOMElements(this.tweenTargets);
+    let domEls = getDOMElements(this.tweenTargets);
 
-      domEls.forEach((el, i) => {
-        let savedAttrs = this.cachedDomAttrs[i] || {};
-        Object.keys(savedAttrs).forEach(attr => {
-          el.setAttribute(attr, savedAttrs[attr]);
-        });
+    domEls.forEach((el, i) => {
+      let savedAttrs = this.cachedDomAttrs[i] || {};
+      Object.keys(savedAttrs).forEach(attr => {
+        el.setAttribute(attr, savedAttrs[attr]);
       });
-    }
+    });
   }
 
   _startTween () {
@@ -243,9 +241,9 @@ export class TweenGroup extends React.PureComponent {
     this.leaveTweens  = [];
   }
 
-  _callExternalTweenCreator (func, callBack = () => {}, targets) {
+  _callExternalTweenCreator (func, callBack = () => {}) {
     let res = func({
-      target  : targets || getDOMElements(this.tweenTargets),
+      target  : getDOMElements(this.tweenTargets),
       props   : this.props,
       callBack: callBack
     });
@@ -286,16 +284,14 @@ export class TweenGroup extends React.PureComponent {
 }
 
 TweenGroup.defaultProps = {
-  __preserveStyles   : true,
   __applyNoTransition: false,
   paused             : false,
   component          : <div/>
 };
 
 TweenGroup.propTypes = {
-  __preserveStyles   : PropTypes.bool, // debugging
   __applyNoTransition: PropTypes.bool,
-  __tweenID          : PropTypes.number, // debugging
+  __tweenID          : PropTypes.number,
   component          : PropTypes.object,
   paused             : PropTypes.bool,
   start              : PropTypes.func,
