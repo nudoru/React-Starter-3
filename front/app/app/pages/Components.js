@@ -49,7 +49,7 @@ import { withLoading } from '../components/controls/shared/IsLoadingHOC';
 const LoadingCard = withLoading(Card);
 
 class Components extends React.Component {
-  
+
   handleClick = e => {
     console.log('You clicked on something!', e);
   };

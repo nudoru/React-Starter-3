@@ -238,6 +238,9 @@ export class TweenGroup extends React.PureComponent {
     this.leaveTweens.forEach(t => {
       t.kill();
     });
+    this.enterTweens  = [];
+    this.activeTweens = [];
+    this.leaveTweens  = [];
   }
 
   _callExternalTweenCreator (func, callBack = () => {}, targets) {
