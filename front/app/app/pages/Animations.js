@@ -118,7 +118,7 @@ class Animations extends React.Component {
                 leave={this._leaveTweenFunc}
               >
                 <Button>{i}, {this.state.counter}</Button>
-                <p>{i}, {this.state.counter}</p>
+                <p style={{color: '#f00'}}>{i}, {this.state.counter}</p>
               </TweenGroup>
             );
           })}

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TransitionGroupPlus from 'react-transition-group-plus';
-import {cleanProps, getDOMElements} from './utils';
+import { cleanProps, getDOMElements } from './utils';
 
 /*
 Wrapper for GreenSock Animations and React components. Animations persist between 
@@ -17,31 +17,34 @@ Borrowed ideas from https://github.com/azazdeaz/react-gsap-enhancer
 TODO
 
 - create an individual AnimationTarget class? Just wraps it in a div?
-- support componentWillEnter in TweenController not working due to nesting
 
 BUGS
 
 */
+
+const CSS_NO_TRANSITION = {
+  transition: 'none !important'
+};
 
 //----------------------------------------------------------------------------------------------------------------------
 // PARENT
 //----------------------------------------------------------------------------------------------------------------------
 
 export class Animate extends React.PureComponent {
-  render() {
+  render () {
     const {
-      transitionMode,
-      deferLeavingComponentRemoval,
-      children: originalChildren,
-      ...childProps
-    } = this.props;
+            transitionMode,
+            deferLeavingComponentRemoval,
+            children: originalChildren,
+            ...childProps
+          } = this.props;
 
     return (
       <TransitionGroupPlus
         transitionMode={transitionMode}
         deferLeavingComponentRemoval={deferLeavingComponentRemoval}
       >
-       {originalChildren} 
+        {originalChildren}
       </TransitionGroupPlus>
     );
   }
@@ -49,13 +52,13 @@ export class Animate extends React.PureComponent {
 
 // https://github.com/cheapsteak/react-transition-group-plus#usage
 Animate.defaultProps = {
-  transitionMode: 'out-in',
+  transitionMode              : 'out-in',
   deferLeavingComponentRemoval: false
 };
 
 // Anything other than these will be sent to children
 Animate.propTypes = {
-  transitionMode: PropTypes.string,
+  transitionMode              : PropTypes.string,
   deferLeavingComponentRemoval: PropTypes.bool
 };
 
@@ -64,22 +67,22 @@ Animate.propTypes = {
 //----------------------------------------------------------------------------------------------------------------------
 
 export class TweenGroup extends React.PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props);
     // Don't want these on state so a render isn't triggered
-    this.didAppear = false;
-    this.cachedStyles = [];
-    this.tweenTargets = [];
+    this.didAppear      = false;
+    this.cachedDomAttrs = [];
+    this.tweenTargets   = [];
     // staggerTo/From returns an array of tweens so support arrays by default
-    this.activeTweens = [];
-    this.enterTweens = [];
-    this.leaveTweens = [];
+    this.activeTweens   = [];
+    this.enterTweens    = [];
+    this.leaveTweens    = [];
   }
 
   // Don't need to do anything here, handled by willAppear, willEnter and didUpdate
-  componentDidMount() {}
+  componentDidMount () {}
 
-  _performWillEnterAnimation(cb) {
+  _performWillEnterAnimation (cb) {
     if (this.props.enter) {
       this.enterTweens = this._callExternalTweenCreator(this.props.enter, cb);
     } else {
@@ -87,7 +90,7 @@ export class TweenGroup extends React.PureComponent {
     }
   }
 
-  _performDidEnterAnimation() {
+  _performDidEnterAnimation () {
     if (this.enterTweens.length) {
       this.enterTweens.forEach(t => t.kill());
       this.enterTweens = [];
@@ -96,26 +99,27 @@ export class TweenGroup extends React.PureComponent {
     this._startTween();
   }
 
-  componentWillAppear(cb) {
+  componentWillAppear (cb) {
     this._performWillEnterAnimation(cb);
   }
 
-  componentDidAppear() {
+  componentDidAppear () {
     this._performDidEnterAnimation();
   }
 
-  componentWillEnter(cb) {
+  componentWillEnter (cb) {
     this._performWillEnterAnimation(cb);
   }
-  componentDidEnter() {
+
+  componentDidEnter () {
     this._performDidEnterAnimation();
   }
 
-  componentWillUpdate() {
-    this._restoreStyles();
+  componentWillUpdate () {
+    this._restoreDomAttrs();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate () {
     if (this.enterTweens.length) {
       // Switching to tween before enter is done due to an update
       this.enterTweens.forEach(t => {
@@ -127,11 +131,11 @@ export class TweenGroup extends React.PureComponent {
     this._startTween();
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this._killAllTweens();
   }
 
-  componentWillLeave(cb) {
+  componentWillLeave (cb) {
     if (this.props.leave) {
       this._killAllTweens();
       this.leaveTweens = this._callExternalTweenCreator(this.props.leave, cb);
@@ -140,42 +144,60 @@ export class TweenGroup extends React.PureComponent {
     }
   }
 
-  componentDidLeave() {
+  componentDidLeave () {
     if (this.leaveTweens.length) {
       this.leaveTweens.forEach(t => t.kill());
       this.leaveTweens = [];
     }
   }
 
-  _saveStyles() {
-    this.cachedStyles = this.tweenTargets.map(c => c.style);
-    this.tweenTargets.forEach(c => {
+  // TODO does this need to be recursive?
+  _saveDomAttrs () {
+    let domEls          = getDOMElements(this.tweenTargets);
+    this.cachedDomAttrs = domEls.reduce((acc, c) => {
+      let attrs = {};
+      Object.keys(c.attributes).forEach(idx => {
+        let attr = c.attributes[idx];
+        if (attr) {
+          attrs[attr.name] = attr.value;
+        }
+      });
+      acc.push(attrs);
+      return acc;
+    }, []);
+
+    domEls.forEach(c => {
       c._gsTransform = null;
-      c._gsTweenID = null;
+      c._gsTweenID   = null;
     });
   }
 
-  _restoreStyles() {
+  _restoreDomAttrs () {
     if (this.props.__preserveStyles) {
-      this.tweenTargets.forEach((c, i) => {
-        c.style = this.cachedStyles[i];
+      let domEls = getDOMElements(this.tweenTargets);
+
+      domEls.forEach((el, i) => {
+        let savedAttrs = this.cachedDomAttrs[i] || {};
+        Object.keys(savedAttrs).forEach(attr => {
+          el.setAttribute(attr, savedAttrs[attr]);
+        });
       });
     }
   }
 
-  _startTween() {
+  _startTween () {
     if (this.props.start) {
       this._callExternalTweenCreator(this.props.start);
     }
-    this._saveStyles();
+    this._saveDomAttrs();
     this._performAnimation();
   }
 
-  _performAnimation() {
+  _performAnimation () {
     if (this.activeTweens.length) {
-      //let invalidatedTargets = [];
 
       this.activeTweens.forEach((tween, i) => {
+        // TODO possibly expensive
         if (!document.body.contains(tween.target)) {
           // If the component is completely replaced during a render, we'll loose the reference
           console.warn(
@@ -183,9 +205,8 @@ export class TweenGroup extends React.PureComponent {
             tween.target
           );
           tween.invalidate();
-          //invalidatedTargets.push(i);
         } else {
-          let time = tween.time();
+          let time     = tween.time();
           let reversed = tween.reversed();
 
           tween
@@ -202,18 +223,12 @@ export class TweenGroup extends React.PureComponent {
         }
       });
 
-      // This isn't working like it should - no new tween is returned
-      // invalidatedTargets.forEach(tgt => {
-      //   let domEl = ReactDOM.findDOMNode(this.tweenTargets[tgt]), //eslint-disable-line react/no-find-dom-node
-      //   newtween = this._callExternalTweenCreator(this.props.tween, null, domEl);
-      //   console.log(domEl,newtween)
-      // });
     } else if (this.props.tween) {
       this.activeTweens = this._callExternalTweenCreator(this.props.tween);
     }
   }
 
-  _killAllTweens() {
+  _killAllTweens () {
     this.enterTweens.forEach(t => {
       t.kill();
     });
@@ -225,10 +240,10 @@ export class TweenGroup extends React.PureComponent {
     });
   }
 
-  _callExternalTweenCreator(func, callBack = () => {}, targets) {
+  _callExternalTweenCreator (func, callBack = () => {}, targets) {
     let res = func({
-      target: targets || getDOMElements(this.tweenTargets),
-      props: this.props,
+      target  : targets || getDOMElements(this.tweenTargets),
+      props   : this.props,
       callBack: callBack
     });
 
@@ -238,18 +253,26 @@ export class TweenGroup extends React.PureComponent {
     return [res];
   }
 
-  render() {
-    const { children: originalChildren, component, ...childProps } = this.props;
+  render () {
+    const {children: originalChildren, component, __applyNoTransition, ...childProps} = this.props;
 
     let cleanedProps = cleanProps(TweenGroup.propTypes, childProps);
 
-    const children = React.Children.map(originalChildren, (child, idx) =>
-      React.cloneElement(child, {
-        key: idx,
-        ref: comp => {
-          this.tweenTargets[idx] = comp;
+    const children = React.Children.map(originalChildren, (child, idx) => {
+        let adjustedStyle = child.props.style || {};
+
+        if (__applyNoTransition) {
+          adjustedStyle = Object.assign(adjustedStyle, CSS_NO_TRANSITION);
         }
-      })
+
+        return React.cloneElement(child, {
+          key  : idx,
+          style: adjustedStyle,
+          ref  : comp => {
+            this.tweenTargets[idx] = comp;
+          }
+        });
+      }
     );
 
     return React.cloneElement(component, {
@@ -260,18 +283,20 @@ export class TweenGroup extends React.PureComponent {
 }
 
 TweenGroup.defaultProps = {
-  __preserveStyles: true,
-  paused: false,
-  component: <div />
+  __preserveStyles   : true,
+  __applyNoTransition: false,
+  paused             : false,
+  component          : <div/>
 };
 
 TweenGroup.propTypes = {
-  __preserveStyles: PropTypes.bool, // debugging
-  __tweenID: PropTypes.number, // debugging
-  component: PropTypes.object,
-  paused: PropTypes.bool,
-  start: PropTypes.func,
-  enter: PropTypes.func,
-  tween: PropTypes.func,
-  leave: PropTypes.func
+  __preserveStyles   : PropTypes.bool, // debugging
+  __applyNoTransition: PropTypes.bool,
+  __tweenID          : PropTypes.number, // debugging
+  component          : PropTypes.object,
+  paused             : PropTypes.bool,
+  start              : PropTypes.func,
+  enter              : PropTypes.func,
+  tween              : PropTypes.func,
+  leave              : PropTypes.func
 };

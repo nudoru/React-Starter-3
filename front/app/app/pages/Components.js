@@ -49,23 +49,7 @@ import { withLoading } from '../components/controls/shared/IsLoadingHOC';
 const LoadingCard = withLoading(Card);
 
 class Components extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {};
-  }
-
-  /*
-  this.props.history
-   - action, createHref, go, goBack, goForward, listen passed from React-Router
-  this.props.location
-    - hash, key, pathname, search passed from React-Router
-  this.props.match
-     - isExact, params, path, url passed from React-Router
-   */
-  componentDidMount () {
-    console.log('Template page, ', this.props);
-  }
-
+  
   handleClick = e => {
     console.log('You clicked on something!', e);
   };
