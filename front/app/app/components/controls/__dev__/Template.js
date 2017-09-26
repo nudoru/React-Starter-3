@@ -1,26 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withBootStrap } from './shared/BootStrapHOC';
+import { withBootStrap, getBsClassName } from '../shared/bsHOC';
+import { SIZE, SIZE_MAP, DEVICE_SIZES, STYLE, STATE } from './BsStyles';
 
-// Theme passed via Loading Wrapper
-const ControlContainer = styled.div`
-  margin: ${props => props.theme.metrics.spacing};
-  padding: ${props => props.theme.metrics.spacing};
-  background-color: ${props => props.theme.colorList.grey1};
-  border: 1px solid ${props => props.theme.colorList.blue};
-  border-radius: ${props => props.theme.metrics.borderRadiusSmall};
-  width: 250px;
-`;
+class Bar extends React.PureComponent {
+  render() {
+    const El = styled.div.attrs({className:getBsClassName(this.props)})``;
+
+    return (
+      <El>Template component</El>
+    );
+  }
+}
+
+export default withBootStrap('bscls')(Bar);
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
 
 class Foo extends React.PureComponent {
-  // constructor(props) {
-  //   super(props);
-  // }
 
   state = {};
   
-
   // Determine we're in a user or programmer controlled state as determined by passed props values
   // If controlled, use props. If not, use state
   // For changes, if controlled invoke onChange `callback to parent, else update state
@@ -92,6 +97,8 @@ class Foo extends React.PureComponent {
   };
 
   render() {
+    const El = styled.div.attrs({className:getBsClassName(this.props)})``;
+
     /*
     const children = React.Children.map(this.props.children, (child, index) => {
       return React.cloneElement(child, {
@@ -102,27 +109,7 @@ class Foo extends React.PureComponent {
     */
 
     return (
-      <ControlContainer>
-        <p
-          onMouseEnter={this._onMouseEnter}
-          onMouseLeave={this._onMouseLeave}
-          onClick={this._onClick}
-        >
-          Foo! {this.props.cid}
-        </p>
-        <p>
-          <a href="#" onClick={this._onClick} onKeyDown={this._onOnKeyDown} onFocus={this._onFocus}
-          onBlur={this._onBlur} >
-            Test clicks and keydowns
-          </a>
-        </p>
-        <input
-          onFocus={this._onFocus}
-          onBlur={this._onBlur}
-          onChange={this._onChange}
-          defaultValue="Whatever"
-        />
-      </ControlContainer>
+      <El>Template component</El>
     );
   }
 }
@@ -143,9 +130,6 @@ Foo.propTypes = {
   defaultValue: PropTypes.string,
   activeIndex: PropTypes.number,
   defaultActiveIndex: PropTypes.number,
-  bsClass: PropTypes.string, // btn
-  bsStatus: PropTypes.string, // primary
-  bsSize: PropTypes.string, // sm
   status: PropTypes.string, // Needed?
   isDisabled: PropTypes.bool,
   isActive: PropTypes.bool,
@@ -157,9 +141,9 @@ Foo.propTypes = {
   number: PropTypes.number,
   appearance: PropTypes.string,
   legend: PropTypes.string,
-  role: PropTypes.string, // Aria
+  ariaRole: PropTypes.string, // Aria
   href: PropTypes.string,
   tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
-export default withBootStrap(Foo);
+export default withBootStrap('bscls')(Foo);
