@@ -49,7 +49,7 @@ class Animations extends React.Component {
   _enterTweenFunc = ({target, props, callBack}) => {
     return TweenMax.staggerFrom(
       target,
-      1,
+      2,
       {
         x    : 100,
         alpha: 0
@@ -92,6 +92,8 @@ class Animations extends React.Component {
       callBack
     );
   };
+
+  // TODO need to explicitly return true from shouldComponentUpdate()?
 
   render () {
     return (

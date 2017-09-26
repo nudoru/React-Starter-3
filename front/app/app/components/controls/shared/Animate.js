@@ -8,15 +8,15 @@ Wrapper for GreenSock Animations and React components. Animations persist betwee
 updates as long as the element isn't recreated (looking at you styled-components).
 
 NOTES:
-- Elements with CSS transitions may interfere. Remove them if you encounter glitches or poor performance
-- Elements that are completely recreated, styled-components for example, will drop animations state changes
-  since the tween looses a reference to the element
+...
 
 Borrowed ideas from https://github.com/azazdeaz/react-gsap-enhancer
 
 TODO
 
-- create an individual AnimationTarget class? Just wraps it in a div?
+- pause handled enter / leave tweens
+- create wrapper object for each tween target so I don't get dom el's all the time
+- React 16 breaks RTG+, lib removed 'react/lib/ReactTransitionChildMapping'
 
 BUGS
 
