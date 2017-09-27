@@ -101,6 +101,7 @@ class Animations extends React.Component {
   };
 
   // 3D Flip https://codepen.io/GreenSock/pen/yzahJ
+//                  paused={!this.state.anim}
 
   render () {
     return (
@@ -119,9 +120,8 @@ class Animations extends React.Component {
               return (
                 <TweenGroup
                   key={i}
-                  paused={!this.state.anim}
                   enter={this._enterTweenFunc}
-                  tween={this._tweenFunc}
+                  tween={!this.state.anim ? null : this._tweenFunc}
                   leave={this._leaveTweenFunc}
                 >
                   <Button primary>{i}, {this.state.counter}</Button>

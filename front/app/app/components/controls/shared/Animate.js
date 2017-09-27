@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import TransitionGroupPlus from 'react-transition-group-plus';
-import { cleanProps, getDOMElements } from './utils';
+import { NOOP, cleanProps, getDOMElements } from './utils';
 
 /*
 Wrapper for GreenSock Animations and React components. Animations persist between 
@@ -15,6 +15,7 @@ Borrowed ideas from https://github.com/azazdeaz/react-gsap-enhancer
 
 TODO
 
+- Fix kills tweens code duplication
 - Add 'set' props to Animate container
 - listen for classes added/removed and run a tween
 - pause handled enter / leave tweens
@@ -167,7 +168,12 @@ export class TweenGroup extends React.PureComponent {
       });
       this.enterTweens = [];
     }
-    this._startTween();
+
+    if(this.props.tween) {
+      this._startTween();
+    } else {
+      this._killAllTweens();
+    }
   }
 
   componentWillUnmount () {
@@ -280,7 +286,7 @@ export class TweenGroup extends React.PureComponent {
     this.leaveTweens  = [];
   }
 
-  _callExternalTweenCreator (func, callBack = () => {}) {
+  _callExternalTweenCreator (func, callBack = NOOP) {
     let res = func({
       target  : getDOMElements(this.tweenTargets),
       props   : this.props,
@@ -338,3 +344,25 @@ TweenGroup.propTypes = {
   tween              : PropTypes.func,
   leave              : PropTypes.func
 };
+
+
+//----------------------------------------------------------------------------------------------------------------------
+// TWEENED
+//----------------------------------------------------------------------------------------------------------------------
+
+export class Tweened extends React.PureComponent {
+
+  constructor(props) {
+    super(props);
+    this.tween = [];
+  }
+
+  render() {
+    return (
+      <div>Template component</div>
+    );
+  }
+}
+
+Tweened.defaultProps = {};
+Tweened.propTypes = {};
