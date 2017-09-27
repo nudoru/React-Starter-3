@@ -15,6 +15,8 @@ https://medium.com/@andyccs/webpack-and-docker-for-development-and-deployment-ae
 http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html#the-nodemodules-volume-trick
 
 - The `Dockerfile` and `docker-compose.yml` files are for running the compiled app as standalone.
+- To update the node_modules folder in the machine, run `docker-compose -f docker-compose-dev.yml build`
+    - If it refuses to rebuild, remove the previous image `docker rmi reactstarter3_web-dev -f ` and try again
 - For front end development `docker-compose -f docker-compose-dev.yml up` and open a browser to `http://localhost:3000`
 - To build the front end for prod `docker-compose -f docker-compose-build.yml up`
 
