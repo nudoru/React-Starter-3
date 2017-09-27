@@ -14,18 +14,14 @@ const RouteMessage = ({children}) =>
 
 export const AppRouter = ({config}) =>
   <Router>
-    <div className="application-container">
-      <div className="application-content">
-        <Switch>
-          <Route exact path="/" component={Components}/>
-          <Route path="/a" component={Animations}/>
-          <Route path="/c" component={Components}/>
-          <Route path="/s" component={Styles}/>
-          <Route path="/404" render={() => <RouteMessage>There&apos;s nothing
-            here.</RouteMessage>}/>
-          <Route render={() => <RouteMessage>There&apos;s nothing
-            here.</RouteMessage>}/>
-        </Switch>
-      </div>
-    </div>
+    <Switch>
+      <Route exact path="/" component={Components}/>
+      <Route path="/a" component={Animations}/>
+      <Route path="/c" component={Components}/>
+      <Route path="/s" component={Styles}/>
+      <Route path="/404" render={() => <RouteMessage>There&apos;s nothing
+        here.</RouteMessage>}/>
+      <Route render={() => <RouteMessage>There&apos;s nothing
+        here.</RouteMessage>}/>
+    </Switch>
   </Router>;

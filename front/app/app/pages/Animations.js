@@ -97,7 +97,7 @@ class Animations extends React.Component {
 
   render () {
     return (
-      <div className='container-full glass_water'>
+      <div className='full-window-cover glass_water'>
         <Button onClick={this._onPauseClick}>Pause</Button>
         <Button onClick={this._onIncrementClick}>Inc</Button>
         <Button onClick={this._onDecrementClick}>Dec</Button>
