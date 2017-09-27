@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { TweenMax, Linear, Circ } from 'gsap';
+import { TweenMax, Quad, Circ } from 'gsap';
 import { range } from 'lodash';
 
 import { Animate, TweenGroup } from '../components/controls/shared/Animate';
@@ -18,7 +18,6 @@ import {
   CardHeader,
   CardFooter
 } from '../components/controls/presentational/Card';
-
 
 class Animations extends React.Component {
   constructor (props) {
@@ -46,13 +45,20 @@ class Animations extends React.Component {
     this.setState(prevState => ({stop: true, counter: 0}));
   };
 
+  _containerStartTweenFunc = ({target, props, callBack}) => {
+    return TweenMax.from(target, 2, {
+      alpha: 0
+    });
+  };
+
   _enterTweenFunc = ({target, props, callBack}) => {
     return TweenMax.staggerFrom(
       target,
-      2,
+      1,
       {
-        x    : 100,
-        alpha: 0
+        y     : "-25",
+        alpha : 0,
+        ease     : Quad.easeOut
       },
       0.1,
       callBack
@@ -83,42 +89,47 @@ class Animations extends React.Component {
   _leaveTweenFunc = ({target, props, callBack}) => {
     return TweenMax.staggerTo(
       target,
-      0.5,
+      1,
       {
-        y    : 500,
-        alpha: 0
+        y        : 100,
+        autoAlpha: 0,
+        ease     : Quad.easeIn
       },
       0.25,
       callBack
     );
   };
 
-  // TODO need to explicitly return true from shouldComponentUpdate()?
+  // 3D Flip https://codepen.io/GreenSock/pen/yzahJ
 
   render () {
     return (
       <div className='full-window-cover glass_water'>
-        <Button onClick={this._onPauseClick}>Pause</Button>
-        <Button onClick={this._onIncrementClick}>Inc</Button>
-        <Button onClick={this._onDecrementClick}>Dec</Button>
-        <Button onClick={this._onRemoveClick}>Remove all!</Button>
-        <Button onClick={this._onAddMoreClick}>Add more ...</Button>
-        <Animate>
-          {range(this.state.counter).map((e, i) => {
-            return (
-              <TweenGroup
-                key={i}
-                paused={!this.state.anim}
-                enter={this._enterTweenFunc}
-                tween={this._tweenFunc}
-                leave={this._leaveTweenFunc}
-              >
-                <Button>{i}, {this.state.counter}</Button>
-                <p style={{color: '#f00'}}>{i}, {this.state.counter}</p>
-              </TweenGroup>
-            );
-          })}
-        </Animate>
+        <div className='fixed-top text-center'
+             style={{backgroundColor: '#fff'}}>
+          <Button link onClick={this._onPauseClick}>Pause</Button>
+          <Button link onClick={this._onIncrementClick}>Inc</Button>
+          <Button link onClick={this._onDecrementClick}>Dec</Button>
+          <Button link onClick={this._onRemoveClick}>Remove all!</Button>
+          <Button link onClick={this._onAddMoreClick}>Add more ...</Button>
+        </div>
+        <div className='mt-5'>
+          <Animate start={this._containerStartTweenFunc}>
+            {range(this.state.counter).map((e, i) => {
+              return (
+                <TweenGroup
+                  key={i}
+                  paused={!this.state.anim}
+                  enter={this._enterTweenFunc}
+                  tween={this._tweenFunc}
+                  leave={this._leaveTweenFunc}
+                >
+                  <Button primary>{i}, {this.state.counter}</Button>
+                </TweenGroup>
+              );
+            })}
+          </Animate>
+        </div>
       </div>
     );
   }

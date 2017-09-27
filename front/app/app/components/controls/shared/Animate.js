@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import TransitionGroupPlus from 'react-transition-group-plus';
 import { cleanProps, getDOMElements } from './utils';
@@ -14,9 +15,11 @@ Borrowed ideas from https://github.com/azazdeaz/react-gsap-enhancer
 
 TODO
 
+- Add 'set' props to Animate container
+- listen for classes added/removed and run a tween
 - pause handled enter / leave tweens
 - create wrapper object for each tween target so I don't get dom el's all the time
-- React 16 breaks RTG+, lib removed 'react/lib/ReactTransitionChildMapping'
+
 
 BUGS
 
@@ -31,35 +34,71 @@ const CSS_NO_TRANSITION = {
 //----------------------------------------------------------------------------------------------------------------------
 
 export class Animate extends React.PureComponent {
+  componentDidMount () {
+    const {start} = this.props;
+
+    if (start) {
+      this.startTween = start({
+        target  : ReactDOM.findDOMNode(this), //eslint-disable-line react/no-find-dom-node
+        props   : this.props
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    if(this.startTween) {
+      this.startTween.kill();
+      this.startTween = null;
+    }
+  }
+
   render () {
     const {
             transitionMode,
             deferLeavingComponentRemoval,
             children: originalChildren,
+            start,
             ...childProps
           } = this.props;
 
-    return (
-      <TransitionGroupPlus
-        transitionMode={transitionMode}
-        deferLeavingComponentRemoval={deferLeavingComponentRemoval}
-      >
-        {originalChildren}
-      </TransitionGroupPlus>
-    );
+    let {component} = this.props;
+
+    // RTG+ performs the animations in a <span> which won't animate, so need to
+    // wrap in a <div> if no other component is specified
+    if(start && !component) {
+      component = <div/>;
+    }
+
+    let rtg = (<TransitionGroupPlus
+      transitionMode={transitionMode}
+      deferLeavingComponentRemoval={deferLeavingComponentRemoval}
+    >
+      {originalChildren}
+    </TransitionGroupPlus>);
+
+    if (component) {
+      return React.cloneElement(component, {}, rtg);
+    }
+
+    return rtg;
+
   }
 }
 
 // https://github.com/cheapsteak/react-transition-group-plus#usage
 Animate.defaultProps = {
   transitionMode              : 'out-in',
-  deferLeavingComponentRemoval: false
+  deferLeavingComponentRemoval: false,
+  component                   : null,
+  start                       : null
 };
 
 // Anything other than these will be sent to children
 Animate.propTypes = {
   transitionMode              : PropTypes.string,
-  deferLeavingComponentRemoval: PropTypes.bool
+  deferLeavingComponentRemoval: PropTypes.bool,
+  component                   : PropTypes.object,
+  start                       : PropTypes.func
 };
 
 //----------------------------------------------------------------------------------------------------------------------
