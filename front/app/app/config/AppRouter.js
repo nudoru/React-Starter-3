@@ -4,6 +4,7 @@ import TemplatePage from '../pages/TemplatePage';
 import Components from '../pages/Components';
 import Animations from '../pages/Animations';
 import Styles from '../pages/Styles';
+import Stage from'../pages/Stage';
 
 const RouteMessage = ({children}) =>
   <div>
@@ -15,7 +16,7 @@ const RouteMessage = ({children}) =>
 export const AppRouter = ({config}) =>
   <Router>
     <Switch>
-      <Route exact path="/" component={Components}/>
+      <Route exact path="/" component={Stage}/>
       <Route path="/a" component={Animations}/>
       <Route path="/c" component={Components}/>
       <Route path="/s" component={Styles}/>
