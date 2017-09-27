@@ -1,6 +1,7 @@
 import React from 'react';
 import { Either } from './utils/functional';
 import App from './App';
+import ErrorBoundary from './utils/ErrorBoundary';
 
 // import { fetchConfigData } from './services/fetchConfig';
 
@@ -42,7 +43,7 @@ class Bootstrap extends React.Component {
             .fold(
               () => Either
                     .fromBool(this.state.isError)
-                    .fold(() => <App/>,
+                .fold(() => <ErrorBoundary><App/></ErrorBoundary>,
                       () => <ErrorMessage/>),
               () => <LoadingMessage/>);
   }

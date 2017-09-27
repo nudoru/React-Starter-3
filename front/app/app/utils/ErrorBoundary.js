@@ -1,4 +1,7 @@
-// Ref impl from https://facebook.github.io/react/blog/2017/07/26/error-handling-in-react-16.html
+// Ref impl from
+// https://facebook.github.io/react/blog/2017/07/26/error-handling-in-react-16.html
+// and this pen
+// https://codepen.io/gaearon/pen/wqvxGa?editors=0010
 
 import React from 'react';
 
