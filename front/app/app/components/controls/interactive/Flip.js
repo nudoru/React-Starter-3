@@ -13,7 +13,7 @@ const cardSetBackFace = ({target}) => {
 };
 
 const cardFlipToBack = ({target, callBack}) => {
-  return TweenMax.to(target, 0.75, {
+  return TweenMax.to(target, 0.5, {
     rotationY      : 180,
     transformOrigin: '50% 50%',
     ease           : Back.easeOut,
@@ -25,7 +25,7 @@ const cardFlipToFront = ({target, callBack}) => {
   return TweenMax.to(target, 0.75, {
     rotationY      : 0,
     transformOrigin: '50% 50%',
-    ease           : Back.easeOut,
+    ease           : Back.easeInOut,
     onComplete     : callBack
   });
 };

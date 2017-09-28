@@ -21,17 +21,17 @@ class Stage extends React.Component {
 
   render () {
     return <div className='full-window-cover-center risky_concrete'>
+      <Flip className='paper-shadow-lg mr-3' width={200} height={400}>
+        <Face className='bg-white'><Front/></Face>
+        <Face className='bg-primary'><Back/></Face>
+      </Flip>
       <Flip className='paper-shadow-xl mr-3' width={300} height={500}>
         <Face className='bg-white'><Front/></Face>
-        <Face className='bg-dark'><Back/></Face>
+        <Face className='bg-danger'><Back/></Face>
       </Flip>
-      <Flip className='paper-shadow-lg mr-3' width={300} height={500}>
+      <Flip className='paper-shadow-sm mr-3' width={200} height={200}>
         <Face className='bg-white'><Front/></Face>
-        <Face className='bg-dark'><Back/></Face>
-      </Flip>
-      <Flip className='paper-shadow-sm mr-3' width={300} height={500}>
-        <Face className='bg-white'><Front/></Face>
-        <Face className='bg-dark'><Back/></Face>
+        <Face className='bg-info'><Back/></Face>
       </Flip>
     </div>;
   }
