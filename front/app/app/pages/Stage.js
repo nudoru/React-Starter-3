@@ -1,16 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Flip, Face } from '../components/controls/interactive/Flip';
 
 class Stage extends React.Component {
-  
-  render() {
+
+  render () {
     return <div className='full-window-cover-center risky_concrete'>
-      <h1>Stage!</h1>
-    </div>
+      <Flip>
+        <Face>FRONT!</Face>
+        <Face>BACK</Face>
+      </Flip>
+      <Flip>
+        <Face>FRONT!</Face>
+        <Face>BACK</Face>
+      </Flip>
+      <Flip>
+        <Face>FRONT!</Face>
+        <Face>BACK</Face>
+      </Flip>
+    </div>;
   }
 }
 
 Stage.defaultProps = {};
-Stage.propTypes = {};
+Stage.propTypes    = {};
 
 export default Stage;

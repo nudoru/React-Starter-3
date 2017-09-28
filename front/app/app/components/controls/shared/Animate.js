@@ -155,8 +155,16 @@ export class TweenGroup extends React.PureComponent {
     this._performDidEnterAnimation();
   }
 
-  componentWillUpdate () {
+  componentWillUpdate (nextProps) {
     this._restoreDomAttrs();
+
+    // The tween changed, invalidate the old one
+    if(nextProps.tween !== this.props.tween) {
+      this.activeTweens.forEach(t => {
+        t.invalidate();
+      });
+      this.activeTweens = [];
+    }
   }
 
   componentDidUpdate () {
@@ -238,17 +246,15 @@ export class TweenGroup extends React.PureComponent {
 
   _performAnimation () {
     if (this.activeTweens.length) {
-
       this.activeTweens.forEach((tween, i) => {
-        // TODO possibly expensive
-        if (!document.body.contains(tween.target)) {
-          // If the component is completely replaced during a render, we'll loose the reference
-          console.warn(
-            'Tween target was removed from DOM during update',
-            tween.target
-          );
-          tween.invalidate();
-        } else {
+        //if (!document.body.contains(tween.target)) {
+        //  // If the component is completely replaced during a render, we'll loose the reference
+        //  console.warn(
+        //    'Tween target was removed from DOM during update',
+        //    tween.target
+        //  );
+        //  tween.invalidate();
+        //} else {
           let time     = tween.time();
           let reversed = tween.reversed();
 
@@ -263,11 +269,11 @@ export class TweenGroup extends React.PureComponent {
           if (reversed) {
             tween.reverse(null, true);
           }
-        }
+        //}
       });
 
     } else if (this.props.tween) {
-      this.activeTweens = this._callExternalTweenCreator(this.props.tween);
+      this.activeTweens = this._callExternalTweenCreator(this.props.tween, this.props.tweenCallback);
     }
   }
 
@@ -342,6 +348,7 @@ TweenGroup.propTypes = {
   start              : PropTypes.func,
   enter              : PropTypes.func,
   tween              : PropTypes.func,
+  tweenCallback      : PropTypes.func,
   leave              : PropTypes.func
 };
 
