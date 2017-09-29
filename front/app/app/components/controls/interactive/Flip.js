@@ -15,7 +15,6 @@ const cardSetBackFace = ({target}) => {
 const cardFlipToBack = ({target, callBack}) => {
   return TweenMax.to(target, 0.5, {
     rotationY      : 180,
-    transformOrigin: '50% 50%',
     ease           : Back.easeOut,
     onComplete     : callBack
   });
@@ -24,11 +23,26 @@ const cardFlipToBack = ({target, callBack}) => {
 const cardFlipToFront = ({target, callBack}) => {
   return TweenMax.to(target, 0.75, {
     rotationY      : 0,
-    transformOrigin: '50% 50%',
     ease           : Back.easeInOut,
     onComplete     : callBack
   });
 };
+
+const cardIntroFlip = ({target, callBack}) => {
+  return TweenMax.from(target, 0.5, {
+    rotationY      : -60,
+    ease           : Back.easeOut,
+    onComplete     : callBack
+  });
+};
+
+const CARD_FACE_CSS = css`
+  position: absolute;
+  overflow: hidden;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+`;
 
 //----------------------------------------------------------------------------------------------------------------------
 // Flip container
@@ -80,13 +94,14 @@ export class Flip extends React.PureComponent {
     });
 
     return (
-      <div className='flip-wrapper'>
+      <div className='threedwrapper'>
         <Animate>
           <TweenGroup
+            enter={cardIntroFlip}
             tween={this.state.activeFace === 0 ? cardFlipToFront : cardFlipToBack}
             tweenCallback={this._onToggleComplete}
           >
-            <div className={mergeClassNames([cardCSS,'flip-card'].join(' '), className)}>
+            <div className={mergeClassNames([cardCSS,'threedobject'].join(' '), className)}>
               {children}
             </div>
           </TweenGroup>
@@ -136,7 +151,7 @@ export class Face extends React.PureComponent {
 
     return (
       <div
-        className={mergeClassNames('flip-card-face', className)}>
+        className={mergeClassNames(CARD_FACE_CSS, className)}>
         {children}
       </div>
     );

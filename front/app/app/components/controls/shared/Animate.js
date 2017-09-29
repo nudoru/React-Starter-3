@@ -158,6 +158,15 @@ export class TweenGroup extends React.PureComponent {
   componentWillUpdate (nextProps) {
     this._restoreDomAttrs();
 
+    // TODO ff to the end state and invalidate
+    this.enterTweens.forEach(t => {
+      t.seek(t.duration(), false);
+      t.pause();
+      t.kill();
+    });
+
+    this.enterTweens = [];
+
     // The tween changed, invalidate the old one
     if(nextProps.tween !== this.props.tween) {
       this.activeTweens.forEach(t => {
