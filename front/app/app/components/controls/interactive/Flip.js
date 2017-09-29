@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { TweenMax, Back } from 'gsap';
+import {TweenMax, Back} from 'gsap';
 import {css} from 'emotion';
-import { Animate, TweenGroup } from '../shared/Animate';
-import { mergeClassNames } from '../shared/utils';
+import {Animate, TweenGroup} from '../shared/Animate';
+import {mergeClassNames} from '../shared/utils';
 
 const cardSetBackFace = ({target}) => {
   return TweenMax.set(target, {
@@ -14,25 +14,26 @@ const cardSetBackFace = ({target}) => {
 
 const cardFlipToBack = ({target, callBack}) => {
   return TweenMax.to(target, 0.5, {
-    rotationY      : 180,
-    ease           : Back.easeOut,
-    onComplete     : callBack
+    rotationY : 180,
+    ease      : Back.easeOut,
+    onComplete: callBack
   });
 };
 
 const cardFlipToFront = ({target, callBack}) => {
   return TweenMax.to(target, 0.75, {
-    rotationY      : 0,
-    ease           : Back.easeInOut,
-    onComplete     : callBack
+    rotationY : 0,
+    ease      : Back.easeInOut,
+    onComplete: callBack
   });
 };
 
 const cardIntroFlip = ({target, callBack}) => {
   return TweenMax.from(target, 0.5, {
-    rotationY      : -60,
-    ease           : Back.easeOut,
-    onComplete     : callBack
+    scale     : 0.75,
+    alpha     : 0,
+    ease      : Back.easeOut,
+    onComplete: callBack
   });
 };
 
@@ -50,7 +51,7 @@ const CARD_FACE_CSS = css`
 
 export class Flip extends React.PureComponent {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state      = {activeFace: 0};
     // Don't allow extra flips during the flip animation
@@ -74,9 +75,9 @@ export class Flip extends React.PureComponent {
     return css`width:${this.props.width}px; height:${this.props.height}px; `
   };
 
-  render () {
+  render() {
     const {children: originalChildren, className, ...rest} = this.props;
-    const cardCSS = this._getCardCSS();
+    const cardCSS                                          = this._getCardCSS();
 
     if (React.Children.count(originalChildren) !== 2) {
       console.warn('Flip requires two children. Extra children will be discarded.');
@@ -101,7 +102,8 @@ export class Flip extends React.PureComponent {
             tween={this.state.activeFace === 0 ? cardFlipToFront : cardFlipToBack}
             tweenCallback={this._onToggleComplete}
           >
-            <div className={mergeClassNames([cardCSS,'threedobject'].join(' '), className)}>
+            <div
+              className={mergeClassNames([cardCSS, 'threedobject'].join(' '), className)}>
               {children}
             </div>
           </TweenGroup>
@@ -112,13 +114,13 @@ export class Flip extends React.PureComponent {
 }
 
 Flip.defaultProps = {
-  width  : 200,
-  height : 200
+  width : 200,
+  height: 200
 };
 
-Flip.propTypes    = {
-  width  : PropTypes.number,
-  height : PropTypes.number
+Flip.propTypes = {
+  width : PropTypes.number,
+  height: PropTypes.number
 };
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -127,14 +129,14 @@ Flip.propTypes    = {
 
 export class Face extends React.PureComponent {
 
-  componentDidMount () {
+  componentDidMount() {
     if (this.props.faceIndex === 1) {
       // Set the back to -180 rotation Y
       cardSetBackFace({target: ReactDOM.findDOMNode(this)}); //eslint-disable-line react/no-find-dom-node
     }
   }
 
-  render () {
+  render() {
     const {children: originalChildren, className} = this.props;
 
     // Clone children to pass down flip Fn
@@ -161,5 +163,5 @@ export class Face extends React.PureComponent {
 Face.defaultProps = {};
 Face.propTypes    = {
   faceIndex: PropTypes.number,
-  flip : PropTypes.func
+  flip     : PropTypes.func
 };
