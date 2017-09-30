@@ -62,9 +62,10 @@ export class CoverTitle extends React.PureComponent {
       this.bodyDefaultY = this.props.height - this.bodyTitleEl.clientHeight;
     }
 
-    TweenMax.set(this.bodyEl, {y: this.bodyDefaultY});
+    if(!this.state.bodyVisible) {
+      TweenMax.set(this.bodyEl, {y: this.bodyDefaultY});
+    }
   }
-
 
   _coverIntro = ({target, callBack}) => {
     return TweenMax.from(target, 0.5, {
@@ -77,7 +78,7 @@ export class CoverTitle extends React.PureComponent {
 
   _showContent = () => {
     return [
-      TweenMax.to(this.backgroundEl, 0.5, {
+      TweenMax.to(this.backgroundEl, 1, {
         scale: 1.25,
         ease : Expo.easeOut
       }),
@@ -89,22 +90,21 @@ export class CoverTitle extends React.PureComponent {
 
   _hideContent = () => {
     return [
-      TweenMax.to(this.backgroundEl, 0.5, {
+      TweenMax.to(this.backgroundEl, 1, {
         scale: 1,
         ease : Expo.easeOut
       }),
-      TweenMax.to(this.bodyEl, 0.75, {
+      TweenMax.to(this.bodyEl, 0.5, {
         y   : this.bodyDefaultY,
         ease: Expo.easeOut
       })];
   };
 
   render() {
-    const {children: originalChildren, className, ...rest} = this.props;
+    const {children: originalChildren, className} = this.props;
 
-    const children = React.Children.map(originalChildren, (child, idx) => {
+    const children = React.Children.map(originalChildren, child => {
       let props = {};
-      // TODO Has to be a better way to do this ...
       if (child.type.name === 'CoverTitleBackground') {
         props = {
           ref: comp => {
@@ -123,7 +123,7 @@ export class CoverTitle extends React.PureComponent {
 
     return (
       <div
-        className={mergeClassNames(['threedwrapper', wrapperCSS].join(' '), className)}>
+        className={mergeClassNames(wrapperCSS, className)}>
         <Animate>
           <TweenGroup
             enter={this._coverIntro}
@@ -132,7 +132,7 @@ export class CoverTitle extends React.PureComponent {
             <div
               onMouseEnter={this._onCoverMouseEnter}
               onMouseLeave={this._onCoverMouseLeave}
-              className={[this._getContainerCSS(), 'threedobject'].join(' ')}>
+              className={this._getContainerCSS()}>
               {children}
             </div>
           </TweenGroup>
