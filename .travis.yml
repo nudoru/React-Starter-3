@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - 7
+notifications:
+  email: false
+sudo: false
+before_install:
+  - 'npm config set registry http://registry.npmjs.org/'
+install: npm install
+before_script: npm run build:prod

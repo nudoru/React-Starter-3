@@ -37,14 +37,6 @@ const cardIntroFlip = ({target, callBack}) => {
   });
 };
 
-const CARD_FACE_CSS = css`
-  position: absolute;
-  overflow: hidden;
-  backface-visibility: hidden;
-  width: 100%;
-  height: 100%;
-`;
-
 //----------------------------------------------------------------------------------------------------------------------
 // Flip container
 //----------------------------------------------------------------------------------------------------------------------
@@ -71,13 +63,12 @@ export class Flip extends React.PureComponent {
     this.isFlipping = false;
   };
 
-  _getCardCSS = () => {
+  _getContainerCSS = () => {
     return css`width:${this.props.width}px; height:${this.props.height}px; `
   };
 
   render() {
-    const {children: originalChildren, className, ...rest} = this.props;
-    const cardCSS                                          = this._getCardCSS();
+    const {children: originalChildren, className} = this.props;
 
     if (React.Children.count(originalChildren) !== 2) {
       console.warn('Flip requires two children. Extra children will be discarded.');
@@ -103,7 +94,7 @@ export class Flip extends React.PureComponent {
             tweenCallback={this._onToggleComplete}
           >
             <div
-              className={mergeClassNames([cardCSS, 'threedobject'].join(' '), className)}>
+              className={mergeClassNames([this._getContainerCSS(), 'threedobject'].join(' '), className)}>
               {children}
             </div>
           </TweenGroup>
@@ -126,6 +117,14 @@ Flip.propTypes = {
 //----------------------------------------------------------------------------------------------------------------------
 // Card Face, front and back
 //----------------------------------------------------------------------------------------------------------------------
+
+const CARD_FACE_CSS = css`
+  position: absolute;
+  overflow: hidden;
+  backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
+`;
 
 export class Face extends React.PureComponent {
 

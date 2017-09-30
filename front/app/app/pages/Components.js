@@ -25,7 +25,7 @@ import {
   ListGroupItem
 } from '../components/controls/presentational/ListGroup';
 
-import { Nav, NavItem } from '../components/controls/interactive/Navigation.js';
+import {Nav, NavItem} from '../components/controls/interactive/Navigation.js';
 
 import {
   Tabs,
@@ -44,9 +44,9 @@ import {
 
 import Link from '../components/controls/interactive/Link';
 
-import { Flip, Face } from '../components/controls/interactive/Flip';
+import {Flip, Face} from '../components/controls/interactive/Flip';
 
-import { withLoading } from '../components/controls/shared/IsLoadingHOC';
+import {withLoading} from '../components/controls/shared/IsLoadingHOC';
 
 const LoadingCard = withLoading(Card);
 
@@ -64,36 +64,37 @@ const FlipBack = (props) => {
   </div>)
 };
 
+const StageArea = (props) => <div
+  className='p-5 flex-full-center risky_concrete'>{props.children}</div>
+
 class Components extends React.Component {
 
   handleClick = e => {
     console.log('You clicked on something!', e);
   };
 
-  render () {
+  render() {
     return (
       <div className="container mt-1">
         <div className="pb-5">
           <h3 className="pb-3">Flip card</h3>
-          <div className='p-5 flex-full-center risky_concrete'>
-          <Flip className='paper-shadow-lg mr-3' width={200} height={200}>
-            <Face className='bg-white'><FlipFront/></Face>
-            <Face className='bg-primary'><FlipBack/></Face>
-          </Flip>
-          <Flip className='paper-shadow-xl mr-3' width={300} height={300}>
-            <Face className='bg-white'><FlipFront/></Face>
-            <Face className='bg-danger'><FlipBack/></Face>
-          </Flip>
-          <Flip className='paper-shadow-sm mr-3' width={200} height={200}>
-            <Face className='bg-white'><FlipFront/></Face>
-            <Face className='bg-info'><FlipBack/></Face>
-          </Flip>
-          </div>
+          <StageArea>
+            <Flip className='paper-shadow-xl mr-3' width={200} height={200}>
+              <Face className='bg-white'><FlipFront/></Face>
+              <Face className='bg-primary'><FlipBack/></Face>
+            </Flip>
+            <Flip className='paper-shadow-xl' width={200} height={200}>
+              <Face className='bg-white'><FlipFront/></Face>
+              <Face className='bg-info'><FlipBack/></Face>
+            </Flip>
+          </StageArea>
         </div>
         <div className="pb-5">
           <h3 className="pb-3">Misc Elements</h3>
           <Link href='#' className='pr-2'>This is a link</Link>
-          <Link href='#' className='pr-2' underline={false}>This is a link with no underline</Link>
+          <Link href='#' className='pr-2' underline={false}>This is a link with
+            no
+            underline</Link>
           <Link href='#' better>Ggreat Jjingles, a better underline</Link>
         </div>
         <div className="pb-5">
@@ -118,7 +119,8 @@ class Components extends React.Component {
                     <CardTitle>This is a card!</CardTitle>
                     <CardSubTitle>Subtitles are cool</CardSubTitle>
                     <CardText>Card! Card! Card! Card! </CardText>
-                    <CardLink href="http://www.google.com">Link gggtextjjj</CardLink>
+                    <CardLink href="http://www.google.com">Link
+                      gggtextjjj</CardLink>
                     <CardLink href="http://www.google.com">Link text</CardLink>
                   </CardBody>
                   <ListGroup flush>
@@ -327,7 +329,8 @@ class Components extends React.Component {
           </LoadingCard>
         </div>
       </div>
-    );
+    )
+      ;
   }
 }
 
