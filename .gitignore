@@ -8,5 +8,4 @@ node_modules
 .Trashes
 *.zip
 
-front/app/config.json
 front/www
