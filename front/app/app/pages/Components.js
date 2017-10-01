@@ -88,7 +88,7 @@ class Components extends React.Component {
           <h3 className="pb-3">Cover Title</h3>
           <StageArea>
             <CoverTitle className='mr-3 paper-shadow-xl' width={150}>
-              <CoverTitleBackground className='morpheus_den'/>
+              <CoverTitleBackground className='morpheus_den'><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p></CoverTitleBackground>
               <CoverTitleBody>
                 <CoverTitleTitle>
                   <h5>Lorem Ipsum</h5>
@@ -100,7 +100,8 @@ class Components extends React.Component {
               </CoverTitleBody>
             </CoverTitle>
             <CoverTitle className='paper-shadow-xl'>
-              <CoverTitleBackground className='ripe_malinka'/>
+              <CoverTitleBackground className='ripe_malinka'>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p></CoverTitleBackground>
               <CoverTitleBody>
                 <CoverTitleTitle>
                   <h5>Lorem Ipsum</h5>

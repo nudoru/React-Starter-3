@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import TransitionGroupPlus from 'react-transition-group-plus';
-import { NOOP, cleanProps, getDOMElements } from './utils';
+import {NOOP, cleanProps, getDOMElements} from './utils';
 
 /*
 Wrapper for GreenSock Animations and React components. Animations persist between 
@@ -35,25 +35,25 @@ const CSS_NO_TRANSITION = {
 //----------------------------------------------------------------------------------------------------------------------
 
 export class Animate extends React.PureComponent {
-  componentDidMount () {
+  componentDidMount() {
     const {start} = this.props;
 
     if (start) {
       this.startTween = start({
-        target  : ReactDOM.findDOMNode(this), //eslint-disable-line react/no-find-dom-node
-        props   : this.props
+        target: ReactDOM.findDOMNode(this), //eslint-disable-line react/no-find-dom-node
+        props : this.props
       });
     }
   }
 
   componentWillUnmount() {
-    if(this.startTween) {
+    if (this.startTween) {
       this.startTween.kill();
       this.startTween = null;
     }
   }
 
-  render () {
+  render() {
     const {
             transitionMode,
             deferLeavingComponentRemoval,
@@ -66,7 +66,7 @@ export class Animate extends React.PureComponent {
 
     // RTG+ performs the animations in a <span> which won't animate, so need to
     // wrap in a <div> if no other component is specified
-    if(start && !component) {
+    if (start && !component) {
       component = <div/>;
     }
 
@@ -107,7 +107,7 @@ Animate.propTypes = {
 //----------------------------------------------------------------------------------------------------------------------
 
 export class TweenGroup extends React.PureComponent {
-  constructor (props) {
+  constructor(props) {
     super(props);
     // Don't want these on state so a render isn't triggered
     this.didAppear      = false;
@@ -120,9 +120,10 @@ export class TweenGroup extends React.PureComponent {
   }
 
   // Don't need to do anything here, handled by willAppear, willEnter and didUpdate
-  componentDidMount () {}
+  componentDidMount() {
+  }
 
-  _performWillEnterAnimation (cb) {
+  _performWillEnterAnimation(cb) {
     if (this.props.enter) {
       this.enterTweens = this._callExternalTweenCreator(this.props.enter, cb);
     } else {
@@ -130,7 +131,7 @@ export class TweenGroup extends React.PureComponent {
     }
   }
 
-  _performDidEnterAnimation () {
+  _performDidEnterAnimation() {
     if (this.enterTweens.length) {
       this.enterTweens.forEach(t => t.kill());
       this.enterTweens = [];
@@ -139,23 +140,23 @@ export class TweenGroup extends React.PureComponent {
     this._startTween();
   }
 
-  componentWillAppear (cb) {
+  componentWillAppear(cb) {
     this._performWillEnterAnimation(cb);
   }
 
-  componentDidAppear () {
+  componentDidAppear() {
     this._performDidEnterAnimation();
   }
 
-  componentWillEnter (cb) {
+  componentWillEnter(cb) {
     this._performWillEnterAnimation(cb);
   }
 
-  componentDidEnter () {
+  componentDidEnter() {
     this._performDidEnterAnimation();
   }
 
-  componentWillUpdate (nextProps) {
+  componentWillUpdate(nextProps) {
     this._restoreDomAttrs();
 
     // TODO ff to the end state and invalidate
@@ -167,8 +168,12 @@ export class TweenGroup extends React.PureComponent {
 
     this.enterTweens = [];
 
-    // The tween changed, invalidate the old one
-    if(nextProps.tween !== this.props.tween) {
+    // The tween changed
+    // Need to
+    // 1) invalidate here,
+    // 2) update tween props then
+    // 3) restart
+    if (nextProps.tween !== this.props.tween || this.props.forceUpdate) {
       this.activeTweens.forEach(t => {
         t.invalidate();
       });
@@ -176,7 +181,7 @@ export class TweenGroup extends React.PureComponent {
     }
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     if (this.enterTweens.length) {
       // Switching to tween before enter is done due to an update
       this.enterTweens.forEach(t => {
@@ -186,18 +191,18 @@ export class TweenGroup extends React.PureComponent {
       this.enterTweens = [];
     }
 
-    if(this.props.tween) {
+    if (this.props.tween) {
       this._startTween();
     } else {
       this._killAllTweens();
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this._killAllTweens();
   }
 
-  componentWillLeave (cb) {
+  componentWillLeave(cb) {
     if (this.props.leave) {
       this._killAllTweens();
       this.leaveTweens = this._callExternalTweenCreator(this.props.leave, cb);
@@ -206,7 +211,7 @@ export class TweenGroup extends React.PureComponent {
     }
   }
 
-  componentDidLeave () {
+  componentDidLeave() {
     if (this.leaveTweens.length) {
       this.leaveTweens.forEach(t => t.kill());
       this.leaveTweens = [];
@@ -214,7 +219,7 @@ export class TweenGroup extends React.PureComponent {
   }
 
   // TODO does this need to be recursive?
-  _saveDomAttrs () {
+  _saveDomAttrs() {
     let domEls          = getDOMElements(this.tweenTargets);
     this.cachedDomAttrs = domEls.reduce((acc, c) => {
       let attrs = {};
@@ -234,7 +239,7 @@ export class TweenGroup extends React.PureComponent {
     });
   }
 
-  _restoreDomAttrs () {
+  _restoreDomAttrs() {
     let domEls = getDOMElements(this.tweenTargets);
 
     domEls.forEach((el, i) => {
@@ -245,7 +250,7 @@ export class TweenGroup extends React.PureComponent {
     });
   }
 
-  _startTween () {
+  _startTween() {
     if (this.props.start) {
       this._callExternalTweenCreator(this.props.start);
     }
@@ -253,7 +258,7 @@ export class TweenGroup extends React.PureComponent {
     this._performAnimation();
   }
 
-  _performAnimation () {
+  _performAnimation() {
     if (this.activeTweens.length) {
       this.activeTweens.forEach((tween, i) => {
         //if (!document.body.contains(tween.target)) {
@@ -264,20 +269,20 @@ export class TweenGroup extends React.PureComponent {
         //  );
         //  tween.invalidate();
         //} else {
-          let time     = tween.time();
-          let reversed = tween.reversed();
+        let time     = tween.time();
+        let reversed = tween.reversed();
 
-          tween
-            .invalidate()
-            .restart(false, true)
-            .time(time, true);
+        tween
+          .invalidate()
+          .restart(false, true)
+          .time(time, true);
 
-          if (this.props.paused) {
-            tween.pause(null, true);
-          }
-          if (reversed) {
-            tween.reverse(null, true);
-          }
+        if (this.props.paused) {
+          tween.pause(null, true);
+        }
+        if (reversed) {
+          tween.reverse(null, true);
+        }
         //}
       });
 
@@ -286,7 +291,7 @@ export class TweenGroup extends React.PureComponent {
     }
   }
 
-  _killAllTweens () {
+  _killAllTweens() {
     this.enterTweens.forEach(t => {
       t.kill();
     });
@@ -301,7 +306,7 @@ export class TweenGroup extends React.PureComponent {
     this.leaveTweens  = [];
   }
 
-  _callExternalTweenCreator (func, callBack = NOOP) {
+  _callExternalTweenCreator(func, callBack = NOOP) {
     let res = func({
       target  : getDOMElements(this.tweenTargets),
       props   : this.props,
@@ -314,7 +319,7 @@ export class TweenGroup extends React.PureComponent {
     return [res];
   }
 
-  render () {
+  render() {
     const {children: originalChildren, component, __applyNoTransition, ...childProps} = this.props;
 
     let cleanedProps = cleanProps(TweenGroup.propTypes, childProps);
@@ -346,6 +351,7 @@ export class TweenGroup extends React.PureComponent {
 TweenGroup.defaultProps = {
   __applyNoTransition: false,
   paused             : false,
+  forceUpdate        : false,
   component          : <div/>
 };
 
@@ -354,6 +360,7 @@ TweenGroup.propTypes = {
   __tweenID          : PropTypes.number,
   component          : PropTypes.object,
   paused             : PropTypes.bool,
+  forceUpdate        : PropTypes.bool,
   start              : PropTypes.func,
   enter              : PropTypes.func,
   tween              : PropTypes.func,
@@ -381,4 +388,4 @@ export class Tweened extends React.PureComponent {
 }
 
 Tweened.defaultProps = {};
-Tweened.propTypes = {};
+Tweened.propTypes    = {};

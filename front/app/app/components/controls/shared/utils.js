@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-export const NOOP = () => {};
+export const NOOP = () => {
+};
 
 // Given props from a component, iterate over propTypes and matches in the props
 // Create clean props that are safe to attach to DOM node
