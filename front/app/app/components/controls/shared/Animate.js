@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import TransitionGroupPlus from 'react-transition-group-plus';
-import {NOOP, cleanProps, getDOMElements} from './utils';
+import { NOOP, cleanProps, getDOMElements } from './utils';
 
 /*
 Wrapper for GreenSock Animations and React components. Animations persist between 
@@ -35,7 +35,7 @@ const CSS_NO_TRANSITION = {
 //----------------------------------------------------------------------------------------------------------------------
 
 export class Animate extends React.PureComponent {
-  componentDidMount() {
+  componentDidMount () {
     const {start} = this.props;
 
     if (start) {
@@ -46,14 +46,14 @@ export class Animate extends React.PureComponent {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     if (this.startTween) {
       this.startTween.kill();
       this.startTween = null;
     }
   }
 
-  render() {
+  render () {
     const {
             transitionMode,
             deferLeavingComponentRemoval,
@@ -107,102 +107,54 @@ Animate.propTypes = {
 //----------------------------------------------------------------------------------------------------------------------
 
 export class TweenGroup extends React.PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props);
-    // Don't want these on state so a render isn't triggered
-    this.didAppear      = false;
     this.cachedDomAttrs = [];
     this.tweenTargets   = [];
-    // staggerTo/From returns an array of tweens so support arrays by default
     this.activeTweens   = [];
     this.enterTweens    = [];
     this.leaveTweens    = [];
+    this.tweenDidChange = false;
   }
 
-  // Don't need to do anything here, handled by willAppear, willEnter and didUpdate
-  componentDidMount() {
-  }
-
-  _performWillEnterAnimation(cb) {
-    if (this.props.enter) {
-      this.enterTweens = this._callExternalTweenCreator(this.props.enter, cb);
-    } else {
-      cb();
-    }
-  }
-
-  _performDidEnterAnimation() {
-    if (this.enterTweens.length) {
-      this.enterTweens.forEach(t => t.kill());
-      this.enterTweens = [];
-    }
-    this.didAppear = true;
-    this._startTween();
-  }
-
-  componentWillAppear(cb) {
+  componentWillAppear (cb) {
     this._performWillEnterAnimation(cb);
   }
 
-  componentDidAppear() {
-    this._performDidEnterAnimation();
+  componentDidAppear () {
+    this._onComponentDidMount();
   }
 
-  componentWillEnter(cb) {
+  componentWillEnter (cb) {
     this._performWillEnterAnimation(cb);
   }
 
-  componentDidEnter() {
-    this._performDidEnterAnimation();
+  componentDidEnter () {
+    this._onComponentDidMount();
   }
 
-  componentWillUpdate(nextProps) {
+  // Due to RTG+, cDid/WillEnter serve this function
+  componentDidMount () {}
+  _onComponentDidMount () {
+    this._killEnterTweens();
+    this._saveDomAttrs();
+    this._performStartAttrs();
+    this._performAnimation();
+  }
+
+  componentWillUpdate (nextProps) {
+    this._killEnterTweens(); // If still entering and it gets an update
     this._restoreDomAttrs();
 
-    // TODO ff to the end state and invalidate
-    this.enterTweens.forEach(t => {
-      t.seek(t.duration(), false);
-      t.pause();
-      t.kill();
-    });
-
-    this.enterTweens = [];
-
-    // The tween changed
-    // Need to
-    // 1) invalidate here,
-    // 2) update tween props then
-    // 3) restart
-    if (nextProps.tween !== this.props.tween || this.props.forceUpdate) {
-      this.activeTweens.forEach(t => {
-        t.invalidate();
-      });
-      this.activeTweens = [];
-    }
+    this.tweenDidChange = nextProps.tween !== this.props.tween;
   }
 
-  componentDidUpdate() {
-    if (this.enterTweens.length) {
-      // Switching to tween before enter is done due to an update
-      this.enterTweens.forEach(t => {
-        t.seek(t.duration(), false);
-        t.kill();
-      });
-      this.enterTweens = [];
-    }
-
-    if (this.props.tween) {
-      this._startTween();
-    } else {
-      this._killAllTweens();
-    }
+  componentDidUpdate () {
+    this._saveDomAttrs();
+    this._performAnimation();
   }
 
-  componentWillUnmount() {
-    this._killAllTweens();
-  }
-
-  componentWillLeave(cb) {
+  componentWillLeave (cb) {
     if (this.props.leave) {
       this._killAllTweens();
       this.leaveTweens = this._callExternalTweenCreator(this.props.leave, cb);
@@ -211,16 +163,16 @@ export class TweenGroup extends React.PureComponent {
     }
   }
 
-  componentDidLeave() {
-    if (this.leaveTweens.length) {
-      this.leaveTweens.forEach(t => t.kill());
-      this.leaveTweens = [];
-    }
+  componentDidLeave () {
   }
 
-  // TODO does this need to be recursive?
-  _saveDomAttrs() {
-    let domEls          = getDOMElements(this.tweenTargets);
+  componentWillUnmount () {
+    this._killAllTweens();
+  }
+
+  _saveDomAttrs () {
+    let domEls = getDOMElements(this.tweenTargets);
+
     this.cachedDomAttrs = domEls.reduce((acc, c) => {
       let attrs = {};
       Object.keys(c.attributes).forEach(idx => {
@@ -230,16 +182,18 @@ export class TweenGroup extends React.PureComponent {
         }
       });
       acc.push(attrs);
+
+      if(!this.props.forceUpdate) {
+        c._gsTweenID   = null;
+      }
+
+      c._gsTransform = null;
+
       return acc;
     }, []);
-
-    domEls.forEach(c => {
-      c._gsTransform = null;
-      c._gsTweenID   = null;
-    });
   }
 
-  _restoreDomAttrs() {
+  _restoreDomAttrs () {
     let domEls = getDOMElements(this.tweenTargets);
 
     domEls.forEach((el, i) => {
@@ -250,67 +204,97 @@ export class TweenGroup extends React.PureComponent {
     });
   }
 
-  _startTween() {
+  _performWillEnterAnimation (cb) {
+    if (this.props.enter) {
+      this.enterTweens = this._callExternalTweenCreator(this.props.enter, cb);
+    } else {
+      cb();
+    }
+  }
+
+  _performStartAttrs () {
     if (this.props.start) {
       this._callExternalTweenCreator(this.props.start);
     }
-    this._saveDomAttrs();
-    this._performAnimation();
   }
 
-  _performAnimation() {
+  _performAnimation () {
+    // Did change on update
+
+    if(this.tweenDidChange || this.props.forceUpdate) {
+      this._invalidateActiveTweens();
+    }
+
     if (this.activeTweens.length) {
-      this.activeTweens.forEach((tween, i) => {
-        //if (!document.body.contains(tween.target)) {
-        //  // If the component is completely replaced during a render, we'll loose the reference
-        //  console.warn(
-        //    'Tween target was removed from DOM during update',
-        //    tween.target
-        //  );
-        //  tween.invalidate();
-        //} else {
-        let time     = tween.time();
-        let reversed = tween.reversed();
-
-        tween
-          .invalidate()
-          .restart(false, true)
-          .time(time, true);
-
-        if (this.props.paused) {
-          tween.pause(null, true);
-        }
-        if (reversed) {
-          tween.reverse(null, true);
-        }
-        //}
-      });
-
+      this._attachTween();
     } else if (this.props.tween) {
       this.activeTweens = this._callExternalTweenCreator(this.props.tween, this.props.tweenCallback);
+    } else {
+      this._killActiveTweens();
     }
   }
 
-  _killAllTweens() {
-    this.enterTweens.forEach(t => {
-      t.kill();
+  // test for !document.body.contains(tween.target)
+  _attachTween = () => {
+    this.activeTweens.forEach((tween, i) => {
+      let time     = tween.time();
+      let reversed = tween.reversed();
+
+      tween
+        .invalidate()
+        .restart(false, true)
+        .time(time, true);
+
+      if (this.props.paused) {
+        tween.pause(null, true);
+      }
+      if (reversed) {
+        tween.reverse(null, true);
+      }
     });
+  };
+
+  _killAllTweens () {
+    this._killEnterTweens();
+    this._killActiveTweens();
+    this._killLeaveTweens();
+  }
+
+  _killEnterTweens () {
+    this.enterTweens.forEach(t => {
+      t.seek(t.duration(), false).pause().kill();
+    });
+    this.enterTweens = [];
+  }
+
+  _invalidateActiveTweens () {
+    this.activeTweens.forEach(t => {
+      t.invalidate();
+    });
+    this.activeTweens = [];
+  }
+
+  _killActiveTweens () {
     this.activeTweens.forEach(t => {
       t.kill();
     });
-    this.leaveTweens.forEach(t => {
-      t.kill();
-    });
-    this.enterTweens  = [];
     this.activeTweens = [];
-    this.leaveTweens  = [];
   }
 
-  _callExternalTweenCreator(func, callBack = NOOP) {
+  _killLeaveTweens () {
+    this.leaveTweens.forEach(t => {
+      t.seek(t.duration(), false);
+      t.kill();
+    });
+    this.leaveTweens = [];
+  }
+
+  _callExternalTweenCreator (func, callBack = NOOP) {
     let res = func({
-      target  : getDOMElements(this.tweenTargets),
-      props   : this.props,
-      callBack: callBack
+      target      : getDOMElements(this.tweenTargets),
+      props       : this.props,
+      callBack    : callBack,
+      activeTweens: this.activeTweens
     });
 
     if (Array.isArray(res)) {
@@ -319,7 +303,7 @@ export class TweenGroup extends React.PureComponent {
     return [res];
   }
 
-  render() {
+  render () {
     const {children: originalChildren, component, __applyNoTransition, ...childProps} = this.props;
 
     let cleanedProps = cleanProps(TweenGroup.propTypes, childProps);
@@ -367,25 +351,3 @@ TweenGroup.propTypes = {
   tweenCallback      : PropTypes.func,
   leave              : PropTypes.func
 };
-
-
-//----------------------------------------------------------------------------------------------------------------------
-// TWEENED
-//----------------------------------------------------------------------------------------------------------------------
-
-export class Tweened extends React.PureComponent {
-
-  constructor(props) {
-    super(props);
-    this.tween = [];
-  }
-
-  render() {
-    return (
-      <div>Template component</div>
-    );
-  }
-}
-
-Tweened.defaultProps = {};
-Tweened.propTypes    = {};

@@ -6,6 +6,8 @@ import {MouseOverElement} from "../shared/MouseMove";
 import {Animate, TweenGroup} from '../shared/Animate';
 import {mergeClassNames} from '../shared/utils';
 
+//https://github.com/bersLucas/FollowCursor/blob/master/FollowCursor.js
+
 const cardIntroFlip = ({target, callBack}) => {
   return TweenMax.from(target, 0.5, {
     scale     : 0.75,
@@ -20,9 +22,8 @@ export class TiltCover extends React.PureComponent {
   pctX = 0;
   pctY = 0;
 
-  _getContainerCSS = () => {
+  _getObjectCSS = () => {
     return css`
-      position: absolute;
       overflow: hidden;
       width: 100%;
       height: 100%;
@@ -32,10 +33,18 @@ export class TiltCover extends React.PureComponent {
   };
 
   _cardTilt = ({target}) => {
-    return TweenMax.to(target, 0.25, {
-      rotationX: this.pctY,
-      rotationY: this.pctX
-    });
+    if(this.pctX===0 && this.pctY === 0) {
+      return TweenMax.to(target, 2, {
+        rotationX: this.pctY,
+        rotationY: this.pctX,
+        ease: Expo.easeOut
+      });
+    } else {
+      return TweenMax.set(target, {
+        rotationX: this.pctY,
+        rotationY: this.pctX
+      });
+    }
   };
 
   render() {
@@ -50,20 +59,20 @@ export class TiltCover extends React.PureComponent {
         } else {
           let midX = this.props.width / 2,
               midY = this.props.height / 2;
-          this.pctX = Math.round(((midX - x) / this.props.width) * 50);
-          this.pctY = Math.round(((y - midY) / this.props.height) * 50);
+          this.pctX = Math.round(((x - midX) / this.props.width) * this.props.extent);
+          this.pctY = Math.round(((midY - y) / this.props.height) * this.props.extent);
         }
-
 
         return (<div className='threedwrapper'>
           <Animate>
             <TweenGroup
+              component={<span/>}
               enter={cardIntroFlip}
               tween={this._cardTilt}
               forceUpdate
             >
               <div
-                className={mergeClassNames([this._getContainerCSS(), 'wild_apple', 'threedobject'].join(' '), className)}>
+                className={mergeClassNames([this._getObjectCSS(), 'threedobject'].join(' '), className)}>
                 {children}
               </div>
             </TweenGroup>
@@ -78,11 +87,13 @@ export class TiltCover extends React.PureComponent {
 
 TiltCover.defaultProps = {
   width : 200,
-  height: 200
+  height: 200,
+  extent: 50
 };
 
 TiltCover.propTypes = {
   width : PropTypes.number,
-  height: PropTypes.number
+  height: PropTypes.number,
+  extent: PropTypes.number
 };
 
