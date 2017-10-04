@@ -55,7 +55,7 @@ import {
   CoverTitleTitle,
   CoverTitleText
 } from "../components/controls/interactive/CoverTItle";
-
+import {TiltCover} from "../components/controls/interactive/TiltCover";
 const LoadingCard = withLoading(Card);
 
 const FlipFront = (props) => {
@@ -84,6 +84,14 @@ class Components extends React.Component {
   render() {
     return (
       <div className="container mt-1">
+        <div className="pb-5">
+          <h3 className="pb-3">Tilt Cover</h3>
+          <StageArea>
+            <TiltCover className='mr-3 paper-shadow-xl grown_early'><h1>Hi</h1></TiltCover>
+            <TiltCover className='mr-3 paper-shadow-xl malibu_beach'><h1>Hi</h1></TiltCover>
+            <TiltCover className='mr-3 paper-shadow-xl mixed_hopes'><h1>Hi</h1></TiltCover>
+          </StageArea>
+        </div>
         <div className="pb-5">
           <h3 className="pb-3">Cover Title</h3>
           <StageArea>
