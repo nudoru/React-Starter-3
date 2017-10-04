@@ -1,12 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { css } from 'emotion';
 import { mergeClassNames, cleanProps } from '../shared/utils';
-import { withBootStrap, generateClassName,bootStrapPropTypes } from '../shared/BootStrapHOC';
+import {flexBoxProps} from '../shared/FlexBoxProps';
+import {
+  withBootStrap,
+  generateClassName,
+  bootStrapPropTypes
+} from '../shared/BootStrapHOC';
 import Link from '../interactive/Link';
 
 // Theme passed via Loading Wrapper
 
-const BCard = props => <div
-  className={generateClassName(props)}>{props.children}</div>;
+class BCard extends React.PureComponent {
+  render () {
+    const {children, ...rest} = this.props;
+    const cleanedProps        = cleanProps(bootStrapPropTypes, rest);
+    let custCss               = css`
+      width: ${this.props.width};
+    `;
+
+    return (
+      <div
+        className={mergeClassNames(generateClassName(this.props), custCss)} {...cleanedProps}>{children}</div>
+    );
+  }
+}
+
+BCard.defaultProps = {
+  width: 'auto'
+};
+BCard.propTypes    = {
+  width: PropTypes.string
+};
 
 const BCardHeader = props => <div
   className={generateClassName(props)}>{props.children}</div>;
@@ -29,7 +55,8 @@ const BCardText = props => <p
 export const CardLink = ({className, ...rest}) => {
   let cleanedProps = cleanProps(bootStrapPropTypes, rest);
 
-  return <Link className={mergeClassNames('card-link', className)} {...cleanedProps}/>;
+  return <Link
+    className={mergeClassNames('card-link', className)} {...cleanedProps}/>;
 };
 
 export const Card         = withBootStrap('card')(BCard);
@@ -39,3 +66,39 @@ export const CardBody     = withBootStrap('card-body')(BCardBody);
 export const CardTitle    = withBootStrap('card-title')(BCardTitle);
 export const CardSubTitle = withBootStrap('card-subtitle')(BCardSubTitle);
 export const CardText     = withBootStrap('card-text')(BCardText);
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+export class CardXHeader extends React.PureComponent {
+  render () {
+    const {className, children, ...rest} = this.props;
+    const cleanedProps                   = cleanProps(CardXHeader.propTypes, rest);
+    let custCss                          = css`
+      height: ${this.props.height};
+      display: flex;
+      justify-content: ${flexBoxProps[this.props.horizontal]};
+      align-items: ${flexBoxProps[this.props.vertical]};
+      color: ${this.props.textColor};
+    `;
+
+    return (
+      <div
+        className={mergeClassNames(className, custCss)} {...cleanedProps}>{children}</div>
+    );
+  }
+}
+
+CardXHeader.defaultProps = {
+  height: 'auto',
+  horizontal: flexBoxProps.center,
+  vertical: flexBoxProps.middle,
+  textColor: '#fff'
+};
+CardXHeader.propTypes    = {
+  height: PropTypes.string,
+  horizontal: PropTypes.string,
+  vertical: PropTypes.string,
+  textColor: PropTypes.string
+};

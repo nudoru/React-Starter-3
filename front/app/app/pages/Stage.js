@@ -1,14 +1,32 @@
 import React from 'react';
 
-import {TiltCover} from "../components/controls/interactive/TiltCover";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubTitle,
+  CardText,
+  CardLink,
+  CardHeader,
+  CardXHeader,
+  CardFooter
+} from '../components/controls/presentational/Card';
 
 class Stage extends React.Component {
 
-  render() {
+  render () {
     return <div className='full-window-cover-center risky_concrete'>
-      <TiltCover className='mr-3 paper-shadow-xl grown_early'><h1>Hi</h1></TiltCover>
-      <TiltCover className='mr-3 paper-shadow-xl malibu_beach'><h1>Hi</h1></TiltCover>
-      <TiltCover className='mr-3 paper-shadow-xl mixed_hopes'><h1>Hi</h1></TiltCover>
+      <Card width='400px' dropShadow='xl'>
+        <CardXHeader height='150px' horizontal='right' vertical='bottom' className='morpheus_den p-2'><h2>Cool header</h2></CardXHeader>
+        <CardHeader>Header</CardHeader>
+        <CardBody>
+          <CardTitle>This is a card!</CardTitle>
+          <CardSubTitle>Subtitles are cool</CardSubTitle>
+          <CardText>Card! Card! Card! Card! </CardText>
+          <CardLink href="http://www.google.com">Link text</CardLink>
+        </CardBody>
+        <CardFooter>Footer</CardFooter>
+      </Card>
     </div>;
   }
 }

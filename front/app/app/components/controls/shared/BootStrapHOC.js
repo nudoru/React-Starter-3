@@ -30,6 +30,7 @@ export const bootStrapPropTypes = {
   sm        : PropTypes.bool,
   lg        : PropTypes.bool,
   flush     : PropTypes.bool,
+  animated     : PropTypes.bool,
   dropShadow: PropTypes.string
 };
 

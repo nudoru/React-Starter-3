@@ -8,6 +8,7 @@ import {
   CardText,
   CardLink,
   CardHeader,
+  CardXHeader,
   CardFooter
 } from '../components/controls/presentational/Card';
 
@@ -148,7 +149,8 @@ class Components extends React.Component {
           <GridFluid>
             <Row>
               <Col>
-                <Card>
+                <Card width='400px' dropShadow='xl'>
+                  <CardXHeader height='100px' horizontal='center' vertical='center' className='morpheus_den p-2'><h2>Cool header</h2></CardXHeader>
                   <CardHeader>Header</CardHeader>
                   <CardBody>
                     <CardTitle>This is a card!</CardTitle>
