@@ -57,6 +57,16 @@ import {
   CoverTitleText
 } from "../components/controls/interactive/CoverTItle";
 import {TiltCover} from "../components/controls/interactive/TiltCover";
+
+import {
+  Alert,
+  AlertHeading,
+  AlertLink,
+  AlertClose
+} from '../components/controls/presentational/Alert';
+
+import {Badge} from '../components/controls/presentational/Badge';
+
 const LoadingCard = withLoading(Card);
 
 const FlipFront = (props) => {
@@ -85,6 +95,44 @@ class Components extends React.Component {
   render() {
     return (
       <div className="container mt-1">
+        <div className="pb-5">
+          <h3 className="pb-3">Alerts</h3>
+            <Alert info dismissible className='mb-2'>Informational <AlertClose onClick={this.handleClick}/></Alert>
+            <Alert success className='mb-2'>Success</Alert>
+            <Alert warning className='mb-2'>Warning</Alert>
+            <Alert danger className='mb-2'>Danger</Alert>
+            <Alert light className='mb-2'>Light</Alert>
+            <Alert dark className='mb-2'>Dark</Alert>
+            <Alert info dismissible>
+              <AlertClose onClick={this.handleClick}/>
+              <AlertHeading>Something important to say ...</AlertHeading>
+              <p>It is a long established fact that a reader will be distracted by
+                the readable content of a page when looking at its layout. The point
+                of using Lorem Ipsum is that it has a more-or-less normal
+                distribution of letters, as opposed to using 'Content here, content
+                here', making it look like readable English.</p>
+              <hr/>
+              <AlertLink href='#' >Read more...</AlertLink>
+            </Alert>
+          <h3 className="mt-3 pb-3">Badges</h3>
+          <Badge primary>Ima Badge</Badge>
+          <Badge secondary>Ima Badge</Badge>
+          <Badge success>Ima Badge</Badge>
+          <Badge warning>Ima Badge</Badge>
+          <Badge danger>Ima Badge</Badge>
+          <Badge info>Ima Badge</Badge>
+          <Badge light>Ima Badge</Badge>
+          <Badge dark>Ima Badge</Badge>
+          <hr/>
+          <Badge primary pill>Ima Badge</Badge>
+          <Badge secondary pill>Ima Badge</Badge>
+          <Badge success pill>Ima Badge</Badge>
+          <Badge warning pill>Ima Badge</Badge>
+          <Badge danger pill>Ima Badge</Badge>
+          <Badge info pill>Ima Badge</Badge>
+          <Badge light pill>Ima Badge</Badge>
+          <Badge dark pill>Ima Badge</Badge>
+        </div>
         <div className="pb-5">
           <h3 className="pb-3">Tilt Cover</h3>
           <StageArea>

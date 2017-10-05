@@ -4,34 +4,35 @@ import PropTypes from 'prop-types';
 import { getNextId } from '../../../utils/ElementIDCreator';
 
 export const bootStrapPropTypes = {
-  __cid     : PropTypes.string,
-  __ctype   : PropTypes.string,
-  bsClass   : PropTypes.string, // btn
-  bsClassAlt: PropTypes.string, // outline
-  ariaRole  : PropTypes.string,
-  active    : PropTypes.bool,
-  disabled  : PropTypes.bool,
-  primary   : PropTypes.bool,
-  secondary : PropTypes.bool,
-  success   : PropTypes.bool,
-  danger    : PropTypes.bool,
-  warning   : PropTypes.bool,
-  info      : PropTypes.bool,
-  light     : PropTypes.bool,
-  dark      : PropTypes.bool,
-  outline   : PropTypes.bool,
-  link      : PropTypes.bool,
-  block     : PropTypes.bool,
-  vertical  : PropTypes.bool,
-  justified : PropTypes.bool,
-  stacked   : PropTypes.bool,
-  center    : PropTypes.bool,
-  pullRight : PropTypes.bool,
-  sm        : PropTypes.bool,
-  lg        : PropTypes.bool,
-  flush     : PropTypes.bool,
-  animated     : PropTypes.bool,
-  dropShadow: PropTypes.string
+  __cid      : PropTypes.string,
+  __ctype    : PropTypes.string,
+  bsClass    : PropTypes.string, // btn
+  bsClassAlt : PropTypes.string, // outline
+  ariaRole   : PropTypes.string,
+  active     : PropTypes.bool,
+  disabled   : PropTypes.bool,
+  primary    : PropTypes.bool,
+  secondary  : PropTypes.bool,
+  success    : PropTypes.bool,
+  danger     : PropTypes.bool,
+  warning    : PropTypes.bool,
+  info       : PropTypes.bool,
+  light      : PropTypes.bool,
+  dark       : PropTypes.bool,
+  outline    : PropTypes.bool,
+  link       : PropTypes.bool,
+  block      : PropTypes.bool,
+  vertical   : PropTypes.bool,
+  justified  : PropTypes.bool,
+  stacked    : PropTypes.bool,
+  center     : PropTypes.bool,
+  pullRight  : PropTypes.bool,
+  sm         : PropTypes.bool,
+  lg         : PropTypes.bool,
+  flush      : PropTypes.bool,
+  animated   : PropTypes.bool,
+  dismissible: PropTypes.bool,
+  dropShadow : PropTypes.string
 };
 
 export const COMP_TYPE = 'bootstrappedcomp';
@@ -69,6 +70,7 @@ export const withBootStrap = (bsClass = null) => Comp => {
 const stylesMapping = {
   active        : 'active',
   disabled      : 'disabled',
+  dismissible   : '${cls}-dismissible',    // eslint-disable-line no-undef
   primary       : '${cls}-primary',    // eslint-disable-line no-undef
   secondary     : '${cls}-secondary',  // eslint-disable-line no-undef
   success       : '${cls}-success',    // eslint-disable-line no-undef
@@ -95,6 +97,9 @@ const stylesMapping = {
     pullRight: 'justify-content-end',
     center   : 'justify-content-center'
   },
+  badge         : {
+    pill: '${cls}-pill'             // eslint-disable-line no-undef
+  },
   ['list-group']: {
     flush: '${cls}-flush'
   }
@@ -117,6 +122,7 @@ export const generateClassName = (props, additional) => {
   return Object.keys(props)
     .reduce((acc, key) => {
       if (stylesMapping[key]) {
+        // TODO This should be a template literal
         acc.push(stylesMapping[key].replace(/\${cls}/, extendedRootCls));
       } else if (stylesMapping.hasOwnProperty(origionalRootCls) && stylesMapping[origionalRootCls][key]) {
         acc.push(stylesMapping[origionalRootCls][key].replace(/\${cls}/, extendedRootCls));
