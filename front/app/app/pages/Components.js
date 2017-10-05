@@ -67,6 +67,7 @@ import {
 
 import {Badge} from '../components/controls/presentational/Badge';
 import {ProgressBar} from '../components/controls/presentational/ProgressBar';
+import  {Jumbotron} from '../components/controls/presentational/Jumbotron';
 
 const LoadingCard = withLoading(Card);
 
@@ -96,6 +97,10 @@ class Components extends React.Component {
   render() {
     return (
       <div className="container mt-1">
+        <Jumbotron><h1>Welcome to the components testing page</h1>
+          <p className='lead'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit amet, sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum varius. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis porta lobortis nisl, non blandit enim. </p>
+          <p>Vestibulum tellus sem, tristique sed lacus sit amet, sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum varius.</p>
+        </Jumbotron>
         <div className="pb-5">
           <h3 className="pb-3">Alerts</h3>
             <Alert info dismissible className='mb-2'>Informational <AlertClose onClick={this.handleClick}/></Alert>

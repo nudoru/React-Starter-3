@@ -19,7 +19,7 @@ export class ProgressBar extends React.PureComponent {
     const {className, ...rest} = this.props;
 
     return (
-      <div className={mergeClassNames(['progress', TRACK_CSS].join(' '), className)}>
+      <div className={mergeClassNames('progress', TRACK_CSS, className)}>
         <Bar {...rest}></Bar>
       </div>
     );

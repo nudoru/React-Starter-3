@@ -19,5 +19,4 @@ export const getDOMElements = a => a.map(ReactDOM.findDOMNode); //eslint-disable
 
 export const removeNulls = array => array.filter(i => !!i);
 
-// Could do it this way too ... `btn-toolbar ${className}`
-export const mergeClassNames = (cls, propsCls = null) => removeNulls([cls, propsCls]).join(' ');
+export const mergeClassNames = (...args) => removeNulls([...args]).join(' ');

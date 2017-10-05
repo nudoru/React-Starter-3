@@ -50,7 +50,7 @@ class BNavigationItem extends React.PureComponent {
           onClick={onClick}
           disabled={disabled}
           underline={false}
-          className={mergeClassNames('nav-link', removeNulls([(active ? 'active' : null), (disabled ? 'disabled' : null), (className ? className : null)]).join(' '))}
+          className={mergeClassNames('nav-link', (active ? 'active' : null), (disabled ? 'disabled' : null), (className ? className : null))}
           {...cleanedProps}
         />
       </li>

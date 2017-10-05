@@ -94,7 +94,7 @@ export class Flip extends React.PureComponent {
             tweenCallback={this._onToggleComplete}
           >
             <div
-              className={mergeClassNames([this._getContainerCSS(), 'threedobject'].join(' '), className)}>
+              className={mergeClassNames(this._getContainerCSS(), 'threedobject', className)}>
               {children}
             </div>
           </TweenGroup>

@@ -115,6 +115,9 @@ const stylesMapping = {
   },
   ['list-group']  : {
     flush: '${cls}-flush'
+  },
+  jumbotron: {
+    fluid: '${cls}-fluid'         // eslint-disable-line no-undef
   }
 };
 

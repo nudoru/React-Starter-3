@@ -72,7 +72,7 @@ export class TiltCover extends React.PureComponent {
               forceUpdate
             >
               <div
-                className={mergeClassNames([this._getObjectCSS(), 'threedobject'].join(' '), className)}>
+                className={mergeClassNames(this._getObjectCSS(), 'threedobject', className)}>
                 {children}
               </div>
             </TweenGroup>

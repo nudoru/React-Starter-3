@@ -181,7 +181,7 @@ export class CoverTitleBody extends React.PureComponent {
   render() {
     const {className, children} = this.props;
     return <div
-      className={mergeClassNames([COVER_CHILD_CSS, coverTitleBodyCSS].join(' '), className)}>{children}</div>;
+      className={mergeClassNames(COVER_CHILD_CSS, coverTitleBodyCSS, className)}>{children}</div>;
   }
 }
 
