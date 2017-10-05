@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Badge} from '../components/controls/presentational/Badge';
+import {ProgressBar} from '../components/controls/presentational/ProgressBar';
 
 class Stage extends React.Component {
 

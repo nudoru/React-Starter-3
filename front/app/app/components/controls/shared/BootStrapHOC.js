@@ -68,27 +68,27 @@ export const withBootStrap = (bsClass = null) => Comp => {
 
 // TODO how can this work as a template literal?
 const stylesMapping = {
-  active        : 'active',
-  disabled      : 'disabled',
-  dismissible   : '${cls}-dismissible',    // eslint-disable-line no-undef
-  primary       : '${cls}-primary',    // eslint-disable-line no-undef
-  secondary     : '${cls}-secondary',  // eslint-disable-line no-undef
-  success       : '${cls}-success',    // eslint-disable-line no-undef
-  danger        : '${cls}-danger',     // eslint-disable-line no-undef
-  warning       : '${cls}-warning',    // eslint-disable-line no-undef
-  info          : '${cls}-info',       // eslint-disable-line no-undef
-  light         : '${cls}-light',      // eslint-disable-line no-undef
-  dark          : '${cls}-dark',       // eslint-disable-line no-undef
-  lg            : '${cls}-lg',         // eslint-disable-line no-undef
-  sm            : '${cls}-sm',         // eslint-disable-line no-undef
-  btn           : {
+  active          : 'active',
+  disabled        : 'disabled',
+  dismissible     : '${cls}-dismissible',    // eslint-disable-line no-undef
+  primary         : '${cls}-primary',    // eslint-disable-line no-undef
+  secondary       : '${cls}-secondary',  // eslint-disable-line no-undef
+  success         : '${cls}-success',    // eslint-disable-line no-undef
+  danger          : '${cls}-danger',     // eslint-disable-line no-undef
+  warning         : '${cls}-warning',    // eslint-disable-line no-undef
+  info            : '${cls}-info',       // eslint-disable-line no-undef
+  light           : '${cls}-light',      // eslint-disable-line no-undef
+  dark            : '${cls}-dark',       // eslint-disable-line no-undef
+  lg              : '${cls}-lg',         // eslint-disable-line no-undef
+  sm              : '${cls}-sm',         // eslint-disable-line no-undef
+  btn             : {
     link : '${cls}-link',             // eslint-disable-line no-undef
     block: '${cls}-block'             // eslint-disable-line no-undef
   },
-  ['btn-group'] : {
+  ['btn-group']   : {
     vertical: '${cls}-vertical'       // eslint-disable-line no-undef
   },
-  nav           : {
+  nav             : {
     tabs     : 'nav-tabs',
     pills    : 'nav-pills',
     fill     : 'nav-fill',
@@ -97,10 +97,23 @@ const stylesMapping = {
     pullRight: 'justify-content-end',
     center   : 'justify-content-center'
   },
-  badge         : {
+  badge           : {
     pill: '${cls}-pill'             // eslint-disable-line no-undef
   },
-  ['list-group']: {
+  ['progress-bar']: {
+    striped  : '${cls}-striped',         // eslint-disable-line no-undef
+    animated : '${cls}-animated',         // eslint-disable-line no-undef
+    info     : 'bg-info',         // eslint-disable-line no-undef
+    light    : 'bg-light',         // eslint-disable-line no-undef
+    dark     : 'bg-dark',         // eslint-disable-line no-undef
+    success  : 'bg-success',         // eslint-disable-line no-undef
+    warning  : 'bg-warning',         // eslint-disable-line no-undef
+    danger   : 'bg-danger',         // eslint-disable-line no-undef
+    primary  : 'bg-primary',         // eslint-disable-line no-undef
+    secondary: 'bg-secondary',         // eslint-disable-line no-undef
+    white    : 'bg-white'         // eslint-disable-line no-undef
+  },
+  ['list-group']  : {
     flush: '${cls}-flush'
   }
 };
@@ -119,13 +132,15 @@ export const generateClassName = (props, additional) => {
     extendedRootCls = origionalRootCls + '-outline';
   }
 
+  // TODO This should be using template literal
   return Object.keys(props)
     .reduce((acc, key) => {
-      if (stylesMapping[key]) {
-        // TODO This should be a template literal
-        acc.push(stylesMapping[key].replace(/\${cls}/, extendedRootCls));
-      } else if (stylesMapping.hasOwnProperty(origionalRootCls) && stylesMapping[origionalRootCls][key]) {
+      if (stylesMapping.hasOwnProperty(origionalRootCls) && stylesMapping[origionalRootCls][key]) {
+        // Specific mapping for the component
         acc.push(stylesMapping[origionalRootCls][key].replace(/\${cls}/, extendedRootCls));
+      } else if (stylesMapping[key]) {
+        // General common mapping
+        acc.push(stylesMapping[key].replace(/\${cls}/, extendedRootCls));
       }
       return acc;
     }, [origionalRootCls])

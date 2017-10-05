@@ -66,6 +66,7 @@ import {
 } from '../components/controls/presentational/Alert';
 
 import {Badge} from '../components/controls/presentational/Badge';
+import {ProgressBar} from '../components/controls/presentational/ProgressBar';
 
 const LoadingCard = withLoading(Card);
 
@@ -132,6 +133,20 @@ class Components extends React.Component {
           <Badge info pill>Ima Badge</Badge>
           <Badge light pill>Ima Badge</Badge>
           <Badge dark pill>Ima Badge</Badge>
+          <h3 className="mt-3 pb-3">Progress</h3>
+          <ProgressBar percent={25} height={50} striped animated primary className='mb-2'/>
+          <ProgressBar percent={25} height={2} striped animated primary className='mb-2'/>
+          <ProgressBar percent={25} striped animated secondary className='mb-2'/>
+          <ProgressBar percent={25} striped animated info className='mb-2'/>
+          <ProgressBar percent={25} striped animated white className='mb-2'/>
+          <ProgressBar percent={25} striped animated light className='mb-2'/>
+          <ProgressBar percent={25} striped animated dark className='mb-2'/>
+          <ProgressBar percent={25} striped animated success className='mb-2'/>
+          <ProgressBar percent={25} striped animated warning className='mb-2'/>
+          <ProgressBar percent={25} striped animated danger className='mb-2'/>
+          <ProgressBar percent={50} striped className='mb-2'/>
+          <ProgressBar percent={75} striped animated className='mb-2'/>
+          <ProgressBar percent={100} className='mb-2'/>
         </div>
         <div className="pb-5">
           <h3 className="pb-3">Tilt Cover</h3>

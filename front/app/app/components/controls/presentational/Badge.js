@@ -1,6 +1,5 @@
 import React from 'react';
-import { withBootStrap, generateClassName, bootStrapPropTypes } from '../shared/BootStrapHOC';
-import {mergeClassNames, cleanProps} from '../shared/utils';
+import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 
 class BBadge extends React.PureComponent {
   render() {
@@ -12,6 +11,5 @@ class BBadge extends React.PureComponent {
 
 BBadge.defaultProps = {};
 BBadge.propTypes = {};
-
 
 export const Badge =  withBootStrap('badge')(BBadge);
