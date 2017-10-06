@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {TweenMax, Back} from 'gsap';
 import {css} from 'emotion';
 import {Animate, TweenGroup} from '../shared/Animate';
-import {mergeClassNames} from '../shared/utils';
+import {joinClasses} from '../shared/utils';
 
 const cardSetBackFace = ({target}) => {
   return TweenMax.set(target, {
@@ -94,7 +94,7 @@ export class Flip extends React.PureComponent {
             tweenCallback={this._onToggleComplete}
           >
             <div
-              className={mergeClassNames(this._getContainerCSS(), 'threedobject', className)}>
+              className={joinClasses(this._getContainerCSS(), 'threedobject', className)}>
               {children}
             </div>
           </TweenGroup>
@@ -152,7 +152,7 @@ export class Face extends React.PureComponent {
 
     return (
       <div
-        className={mergeClassNames(CARD_FACE_CSS, className)}>
+        className={joinClasses(CARD_FACE_CSS, className)}>
         {children}
       </div>
     );

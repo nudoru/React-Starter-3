@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { darken } from 'polished';
-import { mergeClassNames, cleanProps, removeNulls } from '../shared/utils';
+import { joinClasses, cleanProps, removeNulls } from '../shared/utils';
 import {
   withBootStrap,
   generateClassName,
@@ -50,7 +50,7 @@ class BNavigationItem extends React.PureComponent {
           onClick={onClick}
           disabled={disabled}
           underline={false}
-          className={mergeClassNames('nav-link', (active ? 'active' : null), (disabled ? 'disabled' : null), (className ? className : null))}
+          className={joinClasses('nav-link', (active ? 'active' : null), (disabled ? 'disabled' : null), (className ? className : null))}
           {...cleanedProps}
         />
       </li>

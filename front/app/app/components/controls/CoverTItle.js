@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {TweenMax, Back, Expo} from 'gsap';
 import {css} from 'emotion';
 import {Animate, TweenGroup} from '../shared/Animate';
-import {mergeClassNames} from '../shared/utils';
+import {joinClasses} from '../shared/utils';
 
 const COVER_CHILD_CSS = css`
   cursor: pointer;
@@ -123,7 +123,7 @@ export class CoverTitle extends React.PureComponent {
 
     return (
       <div
-        className={mergeClassNames(wrapperCSS, className)}>
+        className={joinClasses(wrapperCSS, className)}>
         <Animate>
           <TweenGroup
             enter={this._coverIntro}
@@ -170,7 +170,7 @@ export class CoverTitleBackground extends React.PureComponent {
   render() {
     const {className, children} = this.props;
     return <div
-      className={mergeClassNames(COVER_CHILD_CSS, className)}>{children}</div>;
+      className={joinClasses(COVER_CHILD_CSS, className)}>{children}</div>;
   }
 }
 
@@ -181,7 +181,7 @@ export class CoverTitleBody extends React.PureComponent {
   render() {
     const {className, children} = this.props;
     return <div
-      className={mergeClassNames(COVER_CHILD_CSS, coverTitleBodyCSS, className)}>{children}</div>;
+      className={joinClasses(COVER_CHILD_CSS, coverTitleBodyCSS, className)}>{children}</div>;
   }
 }
 
@@ -189,7 +189,7 @@ CoverTitleBody.defaultProps = {};
 CoverTitleBody.propTypes    = {};
 
 export const CoverTitleTitle = ({className, children}) => <div
-  className={mergeClassNames(coverTitleTitleCSS, className)}>{children}</div>;
+  className={joinClasses(coverTitleTitleCSS, className)}>{children}</div>;
 
 export const CoverTitleText = ({className, children}) => <div
-  className={mergeClassNames(coverTitleTextCSS, className)}>{children}</div>;
+  className={joinClasses(coverTitleTextCSS, className)}>{children}</div>;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
 import { withBootStrap, generateClassName, bootStrapPropTypes } from '../shared/BootStrapHOC';
-import {mergeClassNames, cleanProps} from '../shared/utils';
+import {joinClasses, cleanProps} from '../shared/utils';
 
 const TRACK_CSS = css`
 box-shadow: inset 0 2px 10px rgba(0,0,0,.05);
@@ -19,7 +19,7 @@ export class ProgressBar extends React.PureComponent {
     const {className, ...rest} = this.props;
 
     return (
-      <div className={mergeClassNames('progress', TRACK_CSS, className)}>
+      <div className={joinClasses('progress', TRACK_CSS, className)}>
         <Bar {...rest}></Bar>
       </div>
     );

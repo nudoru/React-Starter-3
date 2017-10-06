@@ -4,7 +4,7 @@ import {TweenMax, Back, Expo} from 'gsap';
 import {css} from 'emotion';
 import {MouseOverElement} from "../shared/MouseMove";
 import {Animate, TweenGroup} from '../shared/Animate';
-import {mergeClassNames} from '../shared/utils';
+import {joinClasses} from '../shared/utils';
 
 //https://github.com/bersLucas/FollowCursor/blob/master/FollowCursor.js
 
@@ -72,7 +72,7 @@ export class TiltCover extends React.PureComponent {
               forceUpdate
             >
               <div
-                className={mergeClassNames(this._getObjectCSS(), 'threedobject', className)}>
+                className={joinClasses(this._getObjectCSS(), 'threedobject', className)}>
                 {children}
               </div>
             </TweenGroup>

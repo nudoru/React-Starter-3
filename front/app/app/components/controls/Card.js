@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
-import { mergeClassNames, cleanProps } from '../shared/utils';
+import { joinClasses, cleanProps } from '../shared/utils';
 import {flexBoxProps} from '../shared/FlexBoxProps';
 import {
   withBootStrap,
@@ -22,7 +22,7 @@ class BCard extends React.PureComponent {
 
     return (
       <div
-        className={mergeClassNames(generateClassName(this.props), custCss)} {...cleanedProps}>{children}</div>
+        className={joinClasses(generateClassName(this.props), custCss)} {...cleanedProps}>{children}</div>
     );
   }
 }
@@ -56,7 +56,7 @@ export const CardLink = ({className, ...rest}) => {
   let cleanedProps = cleanProps(bootStrapPropTypes, rest);
 
   return <Link
-    className={mergeClassNames('card-link', className)} {...cleanedProps}/>;
+    className={joinClasses('card-link', className)} {...cleanedProps}/>;
 };
 
 export const Card         = withBootStrap('card')(BCard);
@@ -85,7 +85,7 @@ export class CardXHeader extends React.PureComponent {
 
     return (
       <div
-        className={mergeClassNames(className, custCss)} {...cleanedProps}>{children}</div>
+        className={joinClasses(className, custCss)} {...cleanedProps}>{children}</div>
     );
   }
 }

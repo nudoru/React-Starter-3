@@ -1,9 +1,9 @@
 import React from 'react';
-import {mergeClassNames} from '../shared/utils';
+import {joinClasses} from '../shared/utils';
 import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
 
 export const ButtonToolBar = ({className, children}) =>
-  <div role='toolbar' className={mergeClassNames('btn-toolbar',className)}>{children}</div>;
+  <div role='toolbar' className={joinClasses('btn-toolbar',className)}>{children}</div>;
 
 // TODO Note, sm and lg don't appear correctly when inside of a toolbar
 const BButtonGroup = ({children, ... rest}) => {

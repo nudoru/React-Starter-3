@@ -1,5 +1,5 @@
 import React from 'react';
-import { mergeClassNames } from '../shared/utils';
+import { joinClasses } from '../shared/utils';
 import { Container, ContainerFluid } from './Container';
 
 export const Grid      = ({children, ...rest}) =>
@@ -8,9 +8,9 @@ export const GridFluid = ({children, ...rest}) =>
   <ContainerFluid {...rest}>{children}</ContainerFluid>;
 
 export const Row      = ({children, ...rest}) => <div
-  className={mergeClassNames('row', rest.className)}>{children}</div>;
+  className={joinClasses('row', rest.className)}>{children}</div>;
 export const RowNG    = ({children, ...rest}) => <div
-  className={mergeClassNames('row no-gutters', rest.className)}>{children}</div>;
+  className={joinClasses('row no-gutters', rest.className)}>{children}</div>;
 export const ColBreak = ({children, ...rest}) => <div
   className='w-100'>{children}</div>;
 
@@ -28,6 +28,6 @@ export const Col = ({size, width, className = null, ...rest}) => {
   }
 
   return (
-    <div className={mergeClassNames(modifier.join('-'), className)} {...rest} />
+    <div className={joinClasses(modifier.join('-'), className)} {...rest} />
   );
 };
