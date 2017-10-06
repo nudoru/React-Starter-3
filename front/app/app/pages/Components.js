@@ -26,7 +26,7 @@ import {
   ListGroupItem
 } from '../components/controls/ListGroup';
 
-import {Nav, NavItem} from '../components/controls/Navigation.js';
+import { Nav, NavItem } from '../components/controls/Navigation.js';
 
 import {
   Tabs,
@@ -45,9 +45,9 @@ import {
 
 import Link from '../components/controls/Link';
 
-import {Flip, Face} from '../components/controls/Flip';
+import { Flip, Face } from '../components/controls/Flip';
 
-import {withLoading} from '../components/shared/IsLoadingHOC';
+import { withLoading } from '../components/shared/IsLoadingHOC';
 
 import {
   CoverTitle,
@@ -55,8 +55,8 @@ import {
   CoverTitleBody,
   CoverTitleTitle,
   CoverTitleText
-} from "../components/controls/CoverTItle";
-import {TiltCover} from "../components/controls/TiltCover";
+} from '../components/controls/CoverTItle';
+import { TiltCover } from '../components/controls/TiltCover';
 
 import {
   Alert,
@@ -65,9 +65,9 @@ import {
   AlertClose
 } from '../components/controls/Alert';
 
-import {Badge} from '../components/controls/Badge';
-import {ProgressBar} from '../components/controls/ProgressBar';
-import  {Jumbotron} from '../components/controls/Jumbotron';
+import { Badge } from '../components/controls/Badge';
+import { ProgressBar } from '../components/controls/ProgressBar';
+import { Jumbotron } from '../components/controls/Jumbotron';
 
 const LoadingCard = withLoading(Card);
 
@@ -75,18 +75,18 @@ const FlipFront = (props) => {
   return (<div className='p-3'>
     <h1>Front!</h1>
     <Button primary onClick={props.flip}>Flip me</Button>
-  </div>)
+  </div>);
 };
 
 const FlipBack = (props) => {
   return (<div className='p-3'>
     <h2>Back of the card</h2>
     <Button light outline onClick={props.flip}>Flip me</Button>
-  </div>)
+  </div>);
 };
 
 const StageArea = (props) => <div
-  className='p-5 flex-full-center risky_concrete'>{props.children}</div>
+  className='p-5 flex-full-center risky_concrete'>{props.children}</div>;
 
 class Components extends React.Component {
 
@@ -94,131 +94,110 @@ class Components extends React.Component {
     console.log('You clicked on something!', e);
   };
 
-  render() {
+  render () {
     return (
-      <div className="container mt-1">
+      <div className="container">
         <Jumbotron><h1>Welcome to the components testing page</h1>
-          <p className='lead'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit amet, sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum varius. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis porta lobortis nisl, non blandit enim. </p>
-          <p>Vestibulum tellus sem, tristique sed lacus sit amet, sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum varius.</p>
+          <p className='lead'>I'm experimenting with a new component system.
+            Focus is on: building on top of BootStrap 4, CSS-in-my-JS, animation
+            with GSAP, simpler and concise component API and better component
+            composition. This also iterates on my React boiler plate with
+            updated deps, no more Redux and moved up to React 16.</p>
+          <p>Source is on <Link
+            href='https://github.com/nudoru/react-starter-3'>Github</Link>.
+          </p>
+
         </Jumbotron>
         <div className="pb-5">
-          <h3 className="pb-3">Alerts</h3>
-            <Alert info dismissible className='mb-2'>Informational <AlertClose onClick={this.handleClick}/></Alert>
-            <Alert success className='mb-2'>Success</Alert>
-            <Alert warning className='mb-2'>Warning</Alert>
-            <Alert danger className='mb-2'>Danger</Alert>
-            <Alert light className='mb-2'>Light</Alert>
-            <Alert dark className='mb-2'>Dark</Alert>
-            <Alert info dismissible>
-              <AlertClose onClick={this.handleClick}/>
-              <AlertHeading>Something important to say ...</AlertHeading>
-              <p>It is a long established fact that a reader will be distracted by
-                the readable content of a page when looking at its layout. The point
-                of using Lorem Ipsum is that it has a more-or-less normal
-                distribution of letters, as opposed to using 'Content here, content
-                here', making it look like readable English.</p>
-              <hr/>
-              <AlertLink href='#' >Read more...</AlertLink>
-            </Alert>
-          <h3 className="mt-3 pb-3">Badges</h3>
-          <Badge primary>Ima Badge</Badge>
-          <Badge secondary>Ima Badge</Badge>
-          <Badge success>Ima Badge</Badge>
-          <Badge warning>Ima Badge</Badge>
-          <Badge danger>Ima Badge</Badge>
-          <Badge info>Ima Badge</Badge>
-          <Badge light>Ima Badge</Badge>
-          <Badge dark>Ima Badge</Badge>
-          <hr/>
-          <Badge primary pill>Ima Badge</Badge>
-          <Badge secondary pill>Ima Badge</Badge>
-          <Badge success pill>Ima Badge</Badge>
-          <Badge warning pill>Ima Badge</Badge>
-          <Badge danger pill>Ima Badge</Badge>
-          <Badge info pill>Ima Badge</Badge>
-          <Badge light pill>Ima Badge</Badge>
-          <Badge dark pill>Ima Badge</Badge>
-          <h3 className="mt-3 pb-3">Progress</h3>
-          <ProgressBar percent={25} height={50} striped animated primary className='mb-2'/>
-          <ProgressBar percent={25} height={2} striped animated primary className='mb-2'/>
-          <ProgressBar percent={25} striped animated secondary className='mb-2'/>
-          <ProgressBar percent={25} striped animated info className='mb-2'/>
-          <ProgressBar percent={25} striped animated white className='mb-2'/>
-          <ProgressBar percent={25} striped animated light className='mb-2'/>
-          <ProgressBar percent={25} striped animated dark className='mb-2'/>
-          <ProgressBar percent={25} striped animated success className='mb-2'/>
-          <ProgressBar percent={25} striped animated warning className='mb-2'/>
-          <ProgressBar percent={25} striped animated danger className='mb-2'/>
-          <ProgressBar percent={50} striped className='mb-2'/>
-          <ProgressBar percent={75} striped animated className='mb-2'/>
-          <ProgressBar percent={100} className='mb-2'/>
+
         </div>
         <div className="pb-5">
-          <h3 className="pb-3">Tilt Cover</h3>
+          <h4 className="pb-3">Tilt Cover (hover over)</h4>
           <StageArea>
-            <TiltCover className='mr-3 paper-shadow-xl grown_early'><h1>Hi</h1></TiltCover>
-            <TiltCover className='mr-3 paper-shadow-xl malibu_beach'><h1>Hi</h1></TiltCover>
-            <TiltCover className='mr-3 paper-shadow-xl mixed_hopes'><h1>Hi</h1></TiltCover>
+            <TiltCover className='mr-3 paper-shadow-xl grown_early' extent={25}>
+              <h1>Hover
+                over me!</h1>
+            </TiltCover>
+            <TiltCover className='mr-3 paper-shadow-xl malibu_beach'><h1>Mee
+              too</h1>
+            </TiltCover>
+            <TiltCover className='mr-3 paper-shadow-xl mixed_hopes'
+                       extent={100}><h1>Meee
+              three</h1>
+            </TiltCover>
           </StageArea>
         </div>
         <div className="pb-5">
-          <h3 className="pb-3">Cover Title</h3>
+          <h4 className="pb-3">Cover Title (hover over)</h4>
           <StageArea>
             <CoverTitle className='mr-3 paper-shadow-xl' width={150}>
-              <CoverTitleBackground className='morpheus_den'><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p></CoverTitleBackground>
+              <CoverTitleBackground className='morpheus_den'><p>Lorem Ipsum is
+                simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever
+                since the 1500s.</p></CoverTitleBackground>
               <CoverTitleBody>
                 <CoverTitleTitle>
                   <h5>Lorem Ipsum</h5>
                   <h2>What is Lorem Ipsum?</h2>
                 </CoverTitleTitle>
                 <CoverTitleText>
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                  <p>Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining
+                    essentially unchanged.</p>
                 </CoverTitleText>
               </CoverTitleBody>
             </CoverTitle>
             <CoverTitle className='paper-shadow-xl'>
               <CoverTitleBackground className='ripe_malinka'>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p></CoverTitleBackground>
+                <p>Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s.</p>
+              </CoverTitleBackground>
               <CoverTitleBody>
                 <CoverTitleTitle>
                   <h5>Lorem Ipsum</h5>
                   <h2>What is Lorem Ipsum?</h2>
                 </CoverTitleTitle>
                 <CoverTitleText>
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                  <p>Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining
+                    essentially unchanged.</p>
                 </CoverTitleText>
               </CoverTitleBody>
             </CoverTitle>
           </StageArea>
         </div>
         <div className="pb-5">
-          <h3 className="pb-3">Flip card</h3>
+          <h4 className="pb-3">Flip card</h4>
           <StageArea>
             <Flip className='paper-shadow-xl mr-3' width={200} height={200}>
-              <Face className='bg-white'><FlipFront/></Face>
-              <Face className='bg-primary'><FlipBack/></Face>
+              <Face className='spring_warmth'><FlipFront/></Face>
+              <Face className='night_fade'><FlipBack/></Face>
             </Flip>
             <Flip className='paper-shadow-xl' width={200} height={200}>
-              <Face className='bg-white'><FlipFront/></Face>
-              <Face className='bg-info'><FlipBack/></Face>
+              <Face className='heavy_rain'><FlipFront/></Face>
+              <Face className='tempting_azure'><FlipBack/></Face>
             </Flip>
           </StageArea>
         </div>
+
         <div className="pb-5">
-          <h3 className="pb-3">Misc Elements</h3>
-          <Link href='#' className='pr-2'>This is a link</Link>
-          <Link href='#' className='pr-2' underline={false}>This is a link with
-            no
-            underline</Link>
-          <Link href='#' better>Ggreat Jjingles, a better underline</Link>
-        </div>
-        <div className="pb-5">
-          <h3 className="pb-3">Card</h3>
+          <h4 className="pb-3">Card</h4>
           <GridFluid>
             <Row>
               <Col>
                 <Card width='400px' dropShadow='xl'>
-                  <CardXHeader height='100px' horizontal='center' vertical='center' className='morpheus_den p-2'><h2>Cool header</h2></CardXHeader>
+                  <CardXHeader height='100px' horizontal='center'
+                               vertical='center' className='morpheus_den p-2'>
+                    <h2>Cool header</h2></CardXHeader>
                   <CardHeader>Header</CardHeader>
                   <CardBody>
                     <CardTitle>This is a card!</CardTitle>
@@ -289,7 +268,7 @@ class Components extends React.Component {
         </div>
 
         <div className="pb-5">
-          <h3 className="pb-3">Buttons</h3>
+          <h4 className="pb-3">Buttons</h4>
           <div className="pb-2">
             <Button primary onClick={this.handleClick}>Hiya</Button>
             <Button secondary>Hiya</Button>
@@ -343,7 +322,7 @@ class Components extends React.Component {
           </div>
         </div>
         <div className="pb-5">
-          <h3 className="pb-3">Tabs</h3>
+          <h4 className="pb-3">Tabs</h4>
           <Tabs>
             <TabList>
               <Tab>One</Tab>
@@ -358,7 +337,7 @@ class Components extends React.Component {
           </Tabs>
         </div>
         <div className="pb-5">
-          <h3 className="pb-3">Navigation</h3>
+          <h4 className="pb-3">Navigation</h4>
           <Card className="mb-3" dropShadow='m'>
             <CardBody>
               <h5>Default</h5>
@@ -401,7 +380,7 @@ class Components extends React.Component {
           </Card>
         </div>
         <div className="pb-5">
-          <h3 className="pb-3">List Group</h3>
+          <h4 className="pb-3">List Group</h4>
           <ListGroup>
             <ListGroupItem active>Foo</ListGroupItem>
             <ListGroupItem success>Bar</ListGroupItem>
@@ -411,7 +390,7 @@ class Components extends React.Component {
           </ListGroup>
         </div>
         <div className="pb-5">
-          <h3 className="pb-3">Grid</h3>
+          <h4 className="pb-3">Grid</h4>
           <GridFluid>
             <RowNG className="debug-container">
               <Col>1</Col>
@@ -423,7 +402,7 @@ class Components extends React.Component {
         </div>
 
         <div className="pb-5">
-          <h3 className="pb-3">Loading HOC</h3>
+          <h4 className="pb-3">Loading HOC</h4>
           <LoadingCard loading message='Fetching the data'>
             <CardBody>
               <CardTitle>Done loading</CardTitle>
@@ -443,6 +422,70 @@ class Components extends React.Component {
               <CardText>Whew! Glad we got that loading out of the way</CardText>
             </CardBody>
           </LoadingCard>
+        </div>
+        <div className="pb-5">
+          <h4 className="pb-3">Links</h4>
+          <Link href='#' className='pr-2'>This is a link</Link>
+          <Link href='#' className='pr-2' underline={false}>This is a link with
+            no
+            underline</Link>
+          <Link href='#' better>Ggreat Jjingles, a better underline</Link>
+          <h4 className="mt-3 pb-3">Alerts</h4>
+          <Alert info dismissible className='mb-2'>Informational <AlertClose
+            onClick={this.handleClick}/></Alert>
+          <Alert success className='mb-2'>Success</Alert>
+          <Alert warning className='mb-2'>Warning</Alert>
+          <Alert danger className='mb-2'>Danger</Alert>
+          <Alert light className='mb-2'>Light</Alert>
+          <Alert dark className='mb-2'>Dark</Alert>
+          <Alert info dismissible>
+            <AlertClose onClick={this.handleClick}/>
+            <AlertHeading>Something important to say ...</AlertHeading>
+            <p>It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout. The
+              point
+              of using Lorem Ipsum is that it has a more-or-less normal
+              distribution of letters, as opposed to using 'Content here,
+              content
+              here', making it look like readable English.</p>
+            <hr/>
+            <AlertLink href='#'>Read more...</AlertLink>
+          </Alert>
+          <h4 className="mt-3 pb-3">Badges</h4>
+          <Badge primary>Ima Badge</Badge>
+          <Badge secondary>Ima Badge</Badge>
+          <Badge success>Ima Badge</Badge>
+          <Badge warning>Ima Badge</Badge>
+          <Badge danger>Ima Badge</Badge>
+          <Badge info>Ima Badge</Badge>
+          <Badge light>Ima Badge</Badge>
+          <Badge dark>Ima Badge</Badge>
+          <hr/>
+          <Badge primary pill>Ima Badge</Badge>
+          <Badge secondary pill>Ima Badge</Badge>
+          <Badge success pill>Ima Badge</Badge>
+          <Badge warning pill>Ima Badge</Badge>
+          <Badge danger pill>Ima Badge</Badge>
+          <Badge info pill>Ima Badge</Badge>
+          <Badge light pill>Ima Badge</Badge>
+          <Badge dark pill>Ima Badge</Badge>
+          <h4 className="mt-3 pb-3">Progress</h4>
+          <ProgressBar percent={25} height={50} striped animated primary
+                       className='mb-2'/>
+          <ProgressBar percent={25} height={2} striped animated primary
+                       className='mb-2'/>
+          <ProgressBar percent={25} striped animated secondary
+                       className='mb-2'/>
+          <ProgressBar percent={25} striped animated info className='mb-2'/>
+          <ProgressBar percent={25} striped animated white className='mb-2'/>
+          <ProgressBar percent={25} striped animated light className='mb-2'/>
+          <ProgressBar percent={25} striped animated dark className='mb-2'/>
+          <ProgressBar percent={25} striped animated success className='mb-2'/>
+          <ProgressBar percent={25} striped animated warning className='mb-2'/>
+          <ProgressBar percent={25} striped animated danger className='mb-2'/>
+          <ProgressBar percent={50} striped className='mb-2'/>
+          <ProgressBar percent={75} striped animated className='mb-2'/>
+          <ProgressBar percent={100} className='mb-2'/>
         </div>
       </div>
     )

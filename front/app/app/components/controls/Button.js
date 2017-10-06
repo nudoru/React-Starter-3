@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanProps } from '../shared/utils';
 import {
   withBootStrap,
-  generateClassName,
+  buildClassName,
   bootStrapPropTypes
 } from '../shared/BootStrapHOC';
 
@@ -42,7 +42,7 @@ class BButton extends React.PureComponent {
         role={ariaRole || 'button'}
         tabIndex={tabIndex}
         onClick={this.handleClick}
-        className={generateClassName(this.props)}
+        className={buildClassName(this.props)}
         {...cleanedProps}
       >
         {this.props.children}

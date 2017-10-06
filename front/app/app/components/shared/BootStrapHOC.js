@@ -121,7 +121,7 @@ const stylesMapping = {
   }
 };
 
-export const generateClassName = (props, additional) => {
+export const buildClassName = (props, additional) => {
   let {
         className,
         bsClass,

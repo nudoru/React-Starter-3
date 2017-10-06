@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
+import { withBootStrap, buildClassName } from '../shared/BootStrapHOC';
 import { Nav, NavItem } from './Navigation';
 
 // TODO ARIA
@@ -25,7 +25,7 @@ class BTabs extends React.PureComponent {
   };
 
   render () {
-    return <div className={generateClassName(this.props)}>{this.props.children}</div>;
+    return <div className={buildClassName(this.props)}>{this.props.children}</div>;
   }
 }
 
@@ -70,13 +70,13 @@ class BTabPanels extends React.PureComponent {
 
   render () {
     const {activeIndex} = this.context;
-    return <div className={generateClassName(this.props)}>{this.props.children[activeIndex]}</div>;
+    return <div className={buildClassName(this.props)}>{this.props.children[activeIndex]}</div>;
   }
 }
 
 class BTabPanel extends React.PureComponent {
   render () {
-    return <div className={generateClassName(this.props)}>{this.props.children}</div>;
+    return <div className={buildClassName(this.props)}>{this.props.children}</div>;
   }
 }
 

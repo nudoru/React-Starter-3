@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'ramda';
+import { css } from 'emotion';
+
+// Based on https://github.com/react-bootstrap/react-bootstrap/blob/master/src/SafeAnchor.js
 
 const isTrivial = href => !href || href.trim() === '#';
 
@@ -30,9 +33,9 @@ export default class Link extends React.PureComponent {
   };
 
   render () {
-    const {onKeyDown = e => e, underline, better, className, ...rest } = this.props;
-    let {ariaRole, tabIndex}              = this.props;
-    let cls = [className];
+    const {onKeyDown = e => e, underline, better, className, ...rest} = this.props;
+    let {ariaRole, tabIndex}                                          = this.props;
+    let cls                                                           = [className];
 
     if (better) {
       cls.push('better');
@@ -45,7 +48,10 @@ export default class Link extends React.PureComponent {
     }
 
     if (this.props.disabled) {
-      // TODO adding 'pointer-events: none;' CSS
+      let peNoneStyle = css`
+        pointer-events: none;
+        `;
+      cls.push(peNoneStyle);
       tabIndex = -1;
     }
 

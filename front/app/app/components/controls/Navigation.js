@@ -4,28 +4,16 @@ import { darken } from 'polished';
 import { joinClasses, cleanProps, removeNulls } from '../shared/utils';
 import {
   withBootStrap,
-  generateClassName,
+  buildClassName,
   bootStrapPropTypes
 } from '../shared/BootStrapHOC';
 import Link from './Link';
 
 // TODO Aria https://getbootstrap.com/docs/4.0/components/navs/#regarding-accessibility
-/*
-// TODO this darkened color is a little "green"
-const PillsNavULEl = NavULEl.extend`
 
-      }
-  }
-`;
-
-const TabbedNavULEl = NavULEl.extend`
-
-  }
-`;
-*/
 class BNavigation extends React.PureComponent {
   render () {
-    return (<nav role='navigation'><ul className={generateClassName(this.props)}>{this.props.children}</ul></nav>);
+    return (<nav role='navigation'><ul className={buildClassName(this.props)}>{this.props.children}</ul></nav>);
   }
 }
 
@@ -44,7 +32,7 @@ class BNavigationItem extends React.PureComponent {
     let cleanedProps = cleanProps(bootStrapPropTypes, rest);
 
     return (
-      <li className={generateClassName(this.props)}>
+      <li className={buildClassName(this.props)}>
         <Link
           href="#"
           onClick={onClick}

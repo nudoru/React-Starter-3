@@ -1,10 +1,10 @@
 import React from 'react';
-import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
+import { withBootStrap, buildClassName } from '../shared/BootStrapHOC';
 
 class BBadge extends React.PureComponent {
   render() {
     return (
-      <span className={generateClassName(this.props)}>{this.props.children}</span>
+      <span className={buildClassName(this.props)}>{this.props.children}</span>
     );
   }
 }

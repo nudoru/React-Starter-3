@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import {TweenMax, Back, Expo} from 'gsap';
-import {css} from 'emotion';
-import {Animate, TweenGroup} from '../shared/Animate';
-import {joinClasses} from '../shared/utils';
+import { TweenMax, Back, Expo } from 'gsap';
+import { css } from 'emotion';
+import { Animate, TweenGroup } from '../shared/Animate';
+import { joinClasses } from '../shared/utils';
 
 const COVER_CHILD_CSS = css`
   cursor: pointer;
@@ -18,13 +18,13 @@ const COVER_CHILD_CSS = css`
 // Container
 //----------------------------------------------------------------------------------------------------------------------
 
-const wrapperCSS = css`
+const componentStyle = css`
   overflow: hidden;
 `;
 
 export class CoverTitle extends React.PureComponent {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state          = {bodyVisible: false};
     this.backgroundComp = null;
@@ -48,10 +48,10 @@ export class CoverTitle extends React.PureComponent {
   };
 
   _getContainerCSS = () => {
-    return css`width:${this.props.width}px; height:${this.props.height}px; `
+    return css`width:${this.props.width}px; height:${this.props.height}px; `;
   };
 
-  componentDidMount() {
+  componentDidMount () {
     this.backgroundEl = ReactDOM.findDOMNode(this.backgroundComp); //eslint-disable-line react/no-find-dom-node
     this.bodyEl       = ReactDOM.findDOMNode(this.bodyComp); //eslint-disable-line react/no-find-dom-node
 
@@ -62,7 +62,7 @@ export class CoverTitle extends React.PureComponent {
       this.bodyDefaultY = this.props.height - this.bodyTitleEl.clientHeight;
     }
 
-    if(!this.state.bodyVisible) {
+    if (!this.state.bodyVisible) {
       TweenMax.set(this.bodyEl, {y: this.bodyDefaultY});
     }
   }
@@ -100,7 +100,7 @@ export class CoverTitle extends React.PureComponent {
       })];
   };
 
-  render() {
+  render () {
     const {children: originalChildren, className} = this.props;
 
     const children = React.Children.map(originalChildren, child => {
@@ -123,7 +123,7 @@ export class CoverTitle extends React.PureComponent {
 
     return (
       <div
-        className={joinClasses(wrapperCSS, className)}>
+        className={joinClasses(componentStyle, className)}>
         <Animate>
           <TweenGroup
             enter={this._coverIntro}
@@ -152,22 +152,8 @@ CoverTitle.propTypes = {
   height: PropTypes.number
 };
 
-
-const coverTitleBodyCSS = css`
-  background-color: rgba(255,255,255,0.5);
-  text-align: left;
-`;
-
-const coverTitleTitleCSS = css`
-  padding: 1rem;
-`;
-
-const coverTitleTextCSS = css`
-  padding: 1rem;
-`;
-
 export class CoverTitleBackground extends React.PureComponent {
-  render() {
+  render () {
     const {className, children} = this.props;
     return <div
       className={joinClasses(COVER_CHILD_CSS, className)}>{children}</div>;
@@ -177,19 +163,32 @@ export class CoverTitleBackground extends React.PureComponent {
 CoverTitleBackground.defaultProps = {};
 CoverTitleBackground.propTypes    = {};
 
+const bodyStyle = css`
+  background-color: rgba(255,255,255,0.5);
+  text-align: left;
+`;
+
 export class CoverTitleBody extends React.PureComponent {
-  render() {
+  render () {
     const {className, children} = this.props;
     return <div
-      className={joinClasses(COVER_CHILD_CSS, coverTitleBodyCSS, className)}>{children}</div>;
+      className={joinClasses(COVER_CHILD_CSS, bodyStyle, className)}>{children}</div>;
   }
 }
 
 CoverTitleBody.defaultProps = {};
 CoverTitleBody.propTypes    = {};
 
+const titleStyle = css`
+  padding: 1rem;
+`;
+
 export const CoverTitleTitle = ({className, children}) => <div
-  className={joinClasses(coverTitleTitleCSS, className)}>{children}</div>;
+  className={joinClasses(titleStyle, className)}>{children}</div>;
+
+const textStyle = css`
+  padding: 1rem;
+`;
 
 export const CoverTitleText = ({className, children}) => <div
-  className={joinClasses(coverTitleTextCSS, className)}>{children}</div>;
+  className={joinClasses(textStyle, className)}>{children}</div>;

@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import { joinClasses, cleanProps } from '../shared/utils';
-import {flexBoxProps} from '../shared/FlexBoxProps';
+import { flexBoxProps } from '../shared/FlexBoxProps';
 import {
   withBootStrap,
-  generateClassName,
+  buildClassName,
   bootStrapPropTypes
 } from '../shared/BootStrapHOC';
 import Link from './Link';
@@ -22,7 +22,7 @@ class BCard extends React.PureComponent {
 
     return (
       <div
-        className={joinClasses(generateClassName(this.props), custCss)} {...cleanedProps}>{children}</div>
+        className={joinClasses(buildClassName(this.props), custCss)} {...cleanedProps}>{children}</div>
     );
   }
 }
@@ -35,22 +35,22 @@ BCard.propTypes    = {
 };
 
 const BCardHeader = props => <div
-  className={generateClassName(props)}>{props.children}</div>;
+  className={buildClassName(props)}>{props.children}</div>;
 
 const BCardFooter = props => <div
-  className={generateClassName(props)}>{props.children}</div>;
+  className={buildClassName(props)}>{props.children}</div>;
 
 const BCardBody = props => <div
-  className={generateClassName(props)}>{props.children}</div>;
+  className={buildClassName(props)}>{props.children}</div>;
 
 const BCardTitle = props => <h4
-  className={generateClassName(props)}>{props.children}</h4>;
+  className={buildClassName(props)}>{props.children}</h4>;
 
 const BCardSubTitle = props => <h6
-  className={generateClassName(props)}>{props.children}</h6>;
+  className={buildClassName(props)}>{props.children}</h6>;
 
 const BCardText = props => <p
-  className={generateClassName(props)}>{props.children}</p>;
+  className={buildClassName(props)}>{props.children}</p>;
 
 export const CardLink = ({className, ...rest}) => {
   let cleanedProps = cleanProps(bootStrapPropTypes, rest);
@@ -75,7 +75,7 @@ export class CardXHeader extends React.PureComponent {
   render () {
     const {className, children, ...rest} = this.props;
     const cleanedProps                   = cleanProps(CardXHeader.propTypes, rest);
-    let custCss                          = css`
+    let componentStyle                   = css`
       height: ${this.props.height};
       display: flex;
       justify-content: ${flexBoxProps[this.props.horizontal]};
@@ -85,20 +85,20 @@ export class CardXHeader extends React.PureComponent {
 
     return (
       <div
-        className={joinClasses(className, custCss)} {...cleanedProps}>{children}</div>
+        className={joinClasses(className, componentStyle)} {...cleanedProps}>{children}</div>
     );
   }
 }
 
 CardXHeader.defaultProps = {
-  height: 'auto',
+  height    : 'auto',
   horizontal: flexBoxProps.center,
-  vertical: flexBoxProps.middle,
-  textColor: '#fff'
+  vertical  : flexBoxProps.middle,
+  textColor : '#fff'
 };
 CardXHeader.propTypes    = {
-  height: PropTypes.string,
+  height    : PropTypes.string,
   horizontal: PropTypes.string,
-  vertical: PropTypes.string,
-  textColor: PropTypes.string
+  vertical  : PropTypes.string,
+  textColor : PropTypes.string
 };

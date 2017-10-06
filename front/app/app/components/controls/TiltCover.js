@@ -8,7 +8,7 @@ import {joinClasses} from '../shared/utils';
 
 //https://github.com/bersLucas/FollowCursor/blob/master/FollowCursor.js
 
-const cardIntroFlip = ({target, callBack}) => {
+const introTween = ({target, callBack}) => {
   return TweenMax.from(target, 0.5, {
     scale     : 0.75,
     alpha     : 0,
@@ -67,7 +67,7 @@ export class TiltCover extends React.PureComponent {
           <Animate>
             <TweenGroup
               component={<span/>}
-              enter={cardIntroFlip}
+              enter={introTween}
               tween={this._cardTilt}
               forceUpdate
             >

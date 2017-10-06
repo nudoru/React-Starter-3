@@ -6,13 +6,13 @@ import {css} from 'emotion';
 import {Animate, TweenGroup} from '../shared/Animate';
 import {joinClasses} from '../shared/utils';
 
-const cardSetBackFace = ({target}) => {
+const setBackFaceStartTween = ({target}) => {
   return TweenMax.set(target, {
     rotationY: -180
   });
 };
 
-const cardFlipToBack = ({target, callBack}) => {
+const toBackTween = ({target, callBack}) => {
   return TweenMax.to(target, 0.5, {
     rotationY : 180,
     ease      : Back.easeOut,
@@ -20,7 +20,7 @@ const cardFlipToBack = ({target, callBack}) => {
   });
 };
 
-const cardFlipToFront = ({target, callBack}) => {
+const toFrontTween = ({target, callBack}) => {
   return TweenMax.to(target, 0.75, {
     rotationY : 0,
     ease      : Back.easeInOut,
@@ -28,7 +28,7 @@ const cardFlipToFront = ({target, callBack}) => {
   });
 };
 
-const cardIntroFlip = ({target, callBack}) => {
+const introTween = ({target, callBack}) => {
   return TweenMax.from(target, 0.5, {
     scale     : 0.75,
     alpha     : 0,
@@ -63,7 +63,7 @@ export class Flip extends React.PureComponent {
     this.isFlipping = false;
   };
 
-  _getContainerCSS = () => {
+  _getContainerStyle = () => {
     return css`width:${this.props.width}px; height:${this.props.height}px; `
   };
 
@@ -89,12 +89,12 @@ export class Flip extends React.PureComponent {
       <div className='threedwrapper'>
         <Animate>
           <TweenGroup
-            enter={cardIntroFlip}
-            tween={this.state.activeFace === 0 ? cardFlipToFront : cardFlipToBack}
+            enter={introTween}
+            tween={this.state.activeFace === 0 ? toFrontTween : toBackTween}
             tweenCallback={this._onToggleComplete}
           >
             <div
-              className={joinClasses(this._getContainerCSS(), 'threedobject', className)}>
+              className={joinClasses(this._getContainerStyle(), 'threedobject', className)}>
               {children}
             </div>
           </TweenGroup>
@@ -118,7 +118,7 @@ Flip.propTypes = {
 // Card Face, front and back
 //----------------------------------------------------------------------------------------------------------------------
 
-const CARD_FACE_CSS = css`
+const faceStyle = css`
   position: absolute;
   overflow: hidden;
   backface-visibility: hidden;
@@ -131,7 +131,7 @@ export class Face extends React.PureComponent {
   componentDidMount() {
     if (this.props.faceIndex === 1) {
       // Set the back to -180 rotation Y
-      cardSetBackFace({target: ReactDOM.findDOMNode(this)}); //eslint-disable-line react/no-find-dom-node
+      setBackFaceStartTween({target: ReactDOM.findDOMNode(this)}); //eslint-disable-line react/no-find-dom-node
     }
   }
 
@@ -152,7 +152,7 @@ export class Face extends React.PureComponent {
 
     return (
       <div
-        className={joinClasses(CARD_FACE_CSS, className)}>
+        className={joinClasses(faceStyle, className)}>
         {children}
       </div>
     );

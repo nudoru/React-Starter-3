@@ -18,7 +18,7 @@ export const Col = ({size, width, className = null, ...rest}) => {
   let modifier = ['col'];
 
   if (size && !width) {
-    console.warn('<Col> needs a width if it has a size!');
+    console.warn('<Col> requires a width if it has a size!');
   }
   if (size) {
     modifier.push(size);
