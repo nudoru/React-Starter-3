@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import PropTypes from 'prop-types';
-import { SpinnerDots } from '../shared/SpinnerDots';
+import { SpinnerDots } from './SpinnerDots';
 
 const LoadingView = ({message, ...rest}) => <div {...rest}><h6>{message}</h6>
   <SpinnerDots/></div>;

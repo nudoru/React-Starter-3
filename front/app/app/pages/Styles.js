@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {TextStyles} from '../components/mocks/textstyles'
+import {TextStyles} from './mocks/textstyles'
 
 
 class Styles extends React.Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import PropTypes from 'prop-types';
-import { getNextId } from '../../../utils/ElementIDCreator';
+import { getNextId } from '../../utils/ElementIDCreator';
 
 export const bootStrapPropTypes = {
   __cid      : PropTypes.string,

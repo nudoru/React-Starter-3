@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ProgressBar} from '../components/controls/presentational/ProgressBar';
+import {ProgressBar} from '../components/controls/ProgressBar';
 
 class Stage extends React.Component {
 

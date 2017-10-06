@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withBootStrap, getBsClassName } from '../shared/bsHOC';
+import { withBootStrap, getBsClassName } from '../../shared/bsHOC';
 import { SIZE, SIZE_MAP, DEVICE_SIZES, STYLE, STATE } from './BsStyles';
 
 class Bar extends React.PureComponent {

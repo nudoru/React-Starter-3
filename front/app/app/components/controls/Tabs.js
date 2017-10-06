@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withBootStrap, generateClassName } from '../shared/BootStrapHOC';
-import { Nav, NavItem } from '../interactive/Navigation';
+import { Nav, NavItem } from './Navigation';
 
 // TODO ARIA
 // TODO hooks for panelWillChange, panelDidChange, panelWillRemove, panelDidRemove

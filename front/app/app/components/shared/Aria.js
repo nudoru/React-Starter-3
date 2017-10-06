@@ -1,4 +1,4 @@
-import Enum from '../../../utils/Enum';
+import Enum from '../../utils/Enum';
 
 // Refer 
 // http://a11yproject.com/posts/getting-started-aria/

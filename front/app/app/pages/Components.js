@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardXHeader,
   CardFooter
-} from '../components/controls/presentational/Card';
+} from '../components/controls/Card';
 
 import {
   Grid,
@@ -19,14 +19,14 @@ import {
   RowNG,
   Col,
   ColBreak
-} from '../components/controls/presentational/Grid';
+} from '../components/controls/Grid';
 
 import {
   ListGroup,
   ListGroupItem
-} from '../components/controls/presentational/ListGroup';
+} from '../components/controls/ListGroup';
 
-import {Nav, NavItem} from '../components/controls/interactive/Navigation.js';
+import {Nav, NavItem} from '../components/controls/Navigation.js';
 
 import {
   Tabs,
@@ -34,20 +34,20 @@ import {
   Tab,
   TabPanels,
   TabPanel
-} from '../components/controls/presentational/Tabs';
+} from '../components/controls/Tabs';
 
-import Button from '../components/controls/interactive/Button';
+import Button from '../components/controls/Button';
 
 import {
   ButtonGroup,
   ButtonToolBar
-} from '../components/controls/presentational/ButtonGroup';
+} from '../components/controls/ButtonGroup';
 
-import Link from '../components/controls/interactive/Link';
+import Link from '../components/controls/Link';
 
-import {Flip, Face} from '../components/controls/interactive/Flip';
+import {Flip, Face} from '../components/controls/Flip';
 
-import {withLoading} from '../components/controls/shared/IsLoadingHOC';
+import {withLoading} from '../components/shared/IsLoadingHOC';
 
 import {
   CoverTitle,
@@ -55,19 +55,19 @@ import {
   CoverTitleBody,
   CoverTitleTitle,
   CoverTitleText
-} from "../components/controls/interactive/CoverTItle";
-import {TiltCover} from "../components/controls/interactive/TiltCover";
+} from "../components/controls/CoverTItle";
+import {TiltCover} from "../components/controls/TiltCover";
 
 import {
   Alert,
   AlertHeading,
   AlertLink,
   AlertClose
-} from '../components/controls/presentational/Alert';
+} from '../components/controls/Alert';
 
-import {Badge} from '../components/controls/presentational/Badge';
-import {ProgressBar} from '../components/controls/presentational/ProgressBar';
-import  {Jumbotron} from '../components/controls/presentational/Jumbotron';
+import {Badge} from '../components/controls/Badge';
+import {ProgressBar} from '../components/controls/ProgressBar';
+import  {Jumbotron} from '../components/controls/Jumbotron';
 
 const LoadingCard = withLoading(Card);
 

@@ -8,7 +8,7 @@ import {
   generateClassName,
   bootStrapPropTypes
 } from '../shared/BootStrapHOC';
-import Link from '../interactive/Link';
+import Link from './Link';
 
 // Theme passed via Loading Wrapper
 

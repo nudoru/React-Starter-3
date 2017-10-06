@@ -2,7 +2,7 @@ import React from 'react';
 import {css} from 'emotion';
 import { withBootStrap, bootStrapPropTypes, generateClassName } from '../shared/BootStrapHOC';
 import {mergeClassNames, cleanProps} from '../shared/utils';
-import Link from '../interactive/Link';
+import Link from './Link';
 
 const ALERT_CSS = css`
   border-left-width: 5px !important;

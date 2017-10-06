@@ -1,4 +1,4 @@
-import Enum from '../../../utils/Enum';
+import Enum from '../../utils/Enum';
 
 export const SIZE_MAP = {
   large: 'lg',

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { TweenMax, Quad, Circ } from 'gsap';
 import { range } from 'lodash';
 
-import { Animate, TweenGroup } from '../components/controls/shared/Animate';
+import { Animate, TweenGroup } from '../components/shared/Animate';
 
-import Button from '../components/controls/interactive/Button';
+import Button from '../components/controls/Button';
 
 import {
   Card,
@@ -17,7 +17,7 @@ import {
   CardLink,
   CardHeader,
   CardFooter
-} from '../components/controls/presentational/Card';
+} from '../components/controls/Card';
 
 class Animations extends React.Component {
   constructor (props) {

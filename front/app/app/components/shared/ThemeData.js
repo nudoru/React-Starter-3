@@ -1,4 +1,11 @@
-const colorList = {
+/*
+Constants for component CSS
+This need to match any variables in any Sass files, especially in the Bootstrap
+variable overlay file ./sass/core/_bootstrap_over.scss
+ */
+
+
+export const colorList = {
   redLight1        : 'rgb(208,170,171)',
   redLight2        : 'rgb(207,131,131)',
   redLight3        : 'rgb(205,88,88)',
@@ -93,7 +100,7 @@ const colorList = {
   neutralColorLight: 'rgb(229, 229, 229)'
 };
 
-const colors = {
+export const colors = {
   primary  : colorList.red,
   secondary: colorList.blue,
   light    : 'rgb(229, 229, 229)',
@@ -105,12 +112,12 @@ const colors = {
   linkHover: 'rgb(27, 162, 226)'
 };
 
-const fontStacks = {
+export const fontStacks = {
   header : '\'Overpass\', \'Helvetica Neue\', Helvetica, Arial, sans-serif !default',
   content: '\'Overpass\', \'Helvetica Neue\', Helvetica, Arial, sans-serif !default'
 };
 
-const modularScale = {
+export const modularScale = {
   ms10  : '11.089rem',
   ms9   : '8.755rem',
   ms8   : '6.854rem',
@@ -128,7 +135,7 @@ const modularScale = {
   'ms-4': '0.146rem'
 };
 
-const shadows = {
+export const shadows = {
   textLight    : '1px 1px 0 rgba(255,255,255,.5)',
   textDark     : '1px 1px 0 rgba(0,0,0,.25)',
   textDarkSmall: '1px 1px 3px rgba(0,0,0,.25)',
@@ -144,7 +151,7 @@ const shadows = {
   buttonPress  : 'inset 0px 2px 7px rgba(0,0,0,.2)'
 };
 
-const gradients = {
+export const gradients = {
   bars     :
     'linear-gradient(-45deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.2) 22%,rgba(255,255,255,.1) 22.01%,rgba(255,255,255,0) 85%,rgba(255,255,255,.15) 85.01%,rgba(255,255,255,0) 100%)',
   light    : 'linear-gradient(to bottom, transparent, rgba(255,255,255,.1))',
@@ -152,7 +159,7 @@ const gradients = {
   solidDark: 'linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,.1))'
 };
 
-const metrics = {
+export const metrics = {
   spacing          : modularScale.ms0,
   borderRadiusSmall: '0px',
   borderRadius     : modularScale.ms0,
@@ -162,41 +169,26 @@ const metrics = {
   fontSizeLarge    : modularScale.ms3
 };
 
-const transitions = {
+export const transitions = {
   transition    : '.33s ease-out',
   timingFunction: 'cubic-bezier(.42,0,.58,1)'
 };
 
-const grids = {};
+export const grids = {};
 
-const forms = {
+export const forms = {
   height     : '4rem',
   border     : `1px solid ${colorList.grey3}`,
   borderFocus: `1px solid ${colorList.infoColor}`,
   borderError: `1px solid ${colorList.dangerColor}`
 };
 
-const buttons = {
+export const buttons = {
   paddingTB: modularScale['ms-2'],
   paddingLR: modularScale.ms1
 };
-const tables  = {};
+export const tables  = {};
 
-const cards = {
+export const cards = {
   defaultWidth: '100%'
-};
-
-export default {
-  colorList,
-  colors,
-  fontStacks,
-  metrics,
-  shadows,
-  gradients,
-  transitions,
-  grids,
-  forms,
-  buttons,
-  tables,
-  cards
 };
