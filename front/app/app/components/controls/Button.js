@@ -1,16 +1,46 @@
 import React from 'react';
-import { cleanProps } from '../shared/utils';
+import {css} from 'emotion';
+import { cleanProps, joinClasses } from '../shared/utils';
 import {
   withBootStrap,
   buildClassName,
   bootStrapPropTypes
 } from '../shared/BootStrapHOC';
+import {shadows, gradients} from "../shared/ThemeData";
 
-// TODO toggle
-// TODO Aria
-// TODO Support checkbox and radio types
-// TODO Support tags: a, input
+
+const componentStyle = css`
+    transition: background .25s ease-in-out !important;
+    transition: box-shadow .25s ease-in-out !important;
+    border-width: 0 !important;
+    cursor: pointer;
+    text-transform: uppercase;
+    background-image: ${gradients.light} !important;
+    text-shadow: ${shadows.textDark} !important;
+    &:disabled {
+      cursor: not-allowed !important;
+    }
+`;
+
+const linkStyle = css`
+  background-image: none !important;
+  text-shadow: none !important;
+`;
+
+const outlineStyle = css`
+  background-image: none !important;
+  text-shadow: none !important;
+  border-width: 1px !important;
+  .btn-outline-light:hover {
+    background-color: rgba(0,0,0,0.1);
+  }
+`;
+
+
 class BButton extends React.PureComponent {
+  static defaultProps = {};
+  static propTypes    = {};
+
   handleClick = e => {
     const {disabled, onClick} = this.props;
 
@@ -42,7 +72,10 @@ class BButton extends React.PureComponent {
         role={ariaRole || 'button'}
         tabIndex={tabIndex}
         onClick={this.handleClick}
-        className={buildClassName(this.props)}
+        className={joinClasses(buildClassName(this.props), componentStyle,
+          'custom',
+          (this.props.outline ? outlineStyle : null),
+          (this.props.link ? linkStyle : null))}
         {...cleanedProps}
       >
         {this.props.children}
@@ -50,8 +83,5 @@ class BButton extends React.PureComponent {
     );
   }
 }
-
-BButton.defaultProps = {};
-BButton.propTypes    = {};
 
 export default withBootStrap('btn')(BButton);

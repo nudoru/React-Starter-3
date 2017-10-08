@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import {css} from 'emotion';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import PropTypes from 'prop-types';
+import {metrics} from './ThemeData';
 import { SpinnerDots } from './SpinnerDots';
 
 const LoadingView = ({message, ...rest}) => <div {...rest}><h6>{message}</h6>
@@ -8,6 +10,14 @@ const LoadingView = ({message, ...rest}) => <div {...rest}><h6>{message}</h6>
 const PendingView = ({message, ...rest}) => <div {...rest}><h6>{message}</h6><SpinnerDots/>
 </div>;
 const ErrorView   = ({message, ...rest}) => <div {...rest}><h6>{message}</h6></div>;
+
+const componentStyle = css`
+  width: 100%;
+  height: 100%;
+  padding: ${metrics.spacing};
+  background: rgba(0, 0, 0, .05);
+  text-align: center;
+`;
 
 export const withLoading = Comp => {
   class Loading extends Component {
@@ -25,7 +35,7 @@ export const withLoading = Comp => {
               message
             }   = this.props;
       let returnedComp,
-            cls = ['component-loading', (this.props.className || null)];
+            cls = [componentStyle, (this.props.className || null)];
 
       if (loading) {
         if (loadingClass) {

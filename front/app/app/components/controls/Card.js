@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import { joinClasses, cleanProps } from '../shared/utils';
+import { metrics } from '../shared/ThemeData';
 import { flexBoxProps } from '../shared/FlexBoxProps';
 import {
   withBootStrap,
@@ -10,19 +11,17 @@ import {
 } from '../shared/BootStrapHOC';
 import Link from './Link';
 
-// Theme passed via Loading Wrapper
-
 class BCard extends React.PureComponent {
   render () {
     const {children, ...rest} = this.props;
     const cleanedProps        = cleanProps(bootStrapPropTypes, rest);
-    let custCss               = css`
+    const componentStyle      = css`
       width: ${this.props.width};
     `;
 
     return (
       <div
-        className={joinClasses(buildClassName(this.props), custCss)} {...cleanedProps}>{children}</div>
+        className={joinClasses(buildClassName(this.props), componentStyle)} {...cleanedProps}>{children}</div>
     );
   }
 }
@@ -34,20 +33,25 @@ BCard.propTypes    = {
   width: PropTypes.string
 };
 
+const containerStyle = css`
+    padding-left: ${metrics.spacing} !important;
+    padding-right: ${metrics.spacing} !important;
+  `;
+
 const BCardHeader = props => <div
-  className={buildClassName(props)}>{props.children}</div>;
+  className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</div>;
 
 const BCardFooter = props => <div
-  className={buildClassName(props)}>{props.children}</div>;
+  className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</div>;
 
 const BCardBody = props => <div
-  className={buildClassName(props)}>{props.children}</div>;
+  className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</div>;
 
 const BCardTitle = props => <h4
   className={buildClassName(props)}>{props.children}</h4>;
 
 const BCardSubTitle = props => <h6
-  className={buildClassName(props)}>{props.children}</h6>;
+  className={joinClasses(buildClassName(props), 'mb-2', 'text-muted')}>{props.children}</h6>;
 
 const BCardText = props => <p
   className={buildClassName(props)}>{props.children}</p>;
