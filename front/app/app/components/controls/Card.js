@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'emotion';
-import { joinClasses, cleanProps } from '../shared/utils';
-import { metrics } from '../shared/ThemeData';
-import { flexBoxProps } from '../shared/FlexBoxProps';
+import {css} from 'emotion';
+import {joinClasses, cleanProps} from '../shared/utils';
+import {metrics} from '../shared/ThemeData';
+import {flexBoxProps} from '../shared/FlexBoxProps';
 import {
   withBootStrap,
   buildClassName,
@@ -12,7 +12,16 @@ import {
 import Link from './Link';
 
 class BCard extends React.PureComponent {
-  render () {
+
+  static defaultProps = {
+    width: 'auto'
+  };
+
+  static propTypes = {
+    width: PropTypes.string
+  };
+
+  render() {
     const {children, ...rest} = this.props;
     const cleanedProps        = cleanProps(bootStrapPropTypes, rest);
     const componentStyle      = css`
@@ -26,12 +35,6 @@ class BCard extends React.PureComponent {
   }
 }
 
-BCard.defaultProps = {
-  width: 'auto'
-};
-BCard.propTypes    = {
-  width: PropTypes.string
-};
 
 const containerStyle = css`
     padding-left: ${metrics.spacing} !important;
@@ -76,7 +79,21 @@ export const CardText     = withBootStrap('card-text')(BCardText);
 //------------------------------------------------------------------------------
 
 export class CardXHeader extends React.PureComponent {
-  render () {
+
+  static defaultProps = {
+    height    : 'auto',
+    horizontal: flexBoxProps.center,
+    vertical  : flexBoxProps.middle,
+    textColor : '#fff'
+  };
+  static propTypes    = {
+    height    : PropTypes.string,
+    horizontal: PropTypes.string,
+    vertical  : PropTypes.string,
+    textColor : PropTypes.string
+  };
+
+  render() {
     const {className, children, ...rest} = this.props;
     const cleanedProps                   = cleanProps(CardXHeader.propTypes, rest);
     let componentStyle                   = css`
@@ -94,15 +111,3 @@ export class CardXHeader extends React.PureComponent {
   }
 }
 
-CardXHeader.defaultProps = {
-  height    : 'auto',
-  horizontal: flexBoxProps.center,
-  vertical  : flexBoxProps.middle,
-  textColor : '#fff'
-};
-CardXHeader.propTypes    = {
-  height    : PropTypes.string,
-  horizontal: PropTypes.string,
-  vertical  : PropTypes.string,
-  textColor : PropTypes.string
-};

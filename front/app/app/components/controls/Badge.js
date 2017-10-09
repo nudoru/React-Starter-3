@@ -9,7 +9,4 @@ class BBadge extends React.PureComponent {
   }
 }
 
-BBadge.defaultProps = {};
-BBadge.propTypes = {};
-
 export const Badge =  withBootStrap('badge')(BBadge);

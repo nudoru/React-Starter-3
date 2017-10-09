@@ -16,9 +16,6 @@ class BAlert extends React.PureComponent {
   }
 }
 
-BAlert.defaultProps = {};
-BAlert.propTypes = {};
-
 export const Alert =  withBootStrap('alert')(BAlert);
 
 export const AlertHeading = props => <h4

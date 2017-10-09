@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import TransitionGroupPlus from 'react-transition-group-plus';
-import { NOOP, cleanProps, getDOMElements } from './utils';
+import {NOOP, cleanProps, getDOMElements} from './utils';
 
 /*
 Wrapper for GreenSock Animations and React components. Animations persist between 
@@ -35,7 +35,7 @@ const CSS_NO_TRANSITION = {
 //----------------------------------------------------------------------------------------------------------------------
 
 export class Animate extends React.PureComponent {
-  componentDidMount () {
+  componentDidMount() {
     const {start} = this.props;
 
     if (start) {
@@ -46,14 +46,14 @@ export class Animate extends React.PureComponent {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.startTween) {
       this.startTween.kill();
       this.startTween = null;
     }
   }
 
-  render () {
+  render() {
     const {
             transitionMode,
             deferLeavingComponentRemoval,
@@ -107,7 +107,28 @@ Animate.propTypes = {
 //----------------------------------------------------------------------------------------------------------------------
 
 export class TweenGroup extends React.PureComponent {
-  constructor (props) {
+
+  static defaultProps = {
+    __applyNoTransition: false,
+    paused             : false,
+    forceUpdate        : false,
+    component          : <div/>
+  };
+
+  static propTypes = {
+    __applyNoTransition: PropTypes.bool,
+    __tweenID          : PropTypes.number,
+    component          : PropTypes.object,
+    paused             : PropTypes.bool,
+    forceUpdate        : PropTypes.bool,
+    start              : PropTypes.func,
+    enter              : PropTypes.func,
+    tween              : PropTypes.func,
+    tweenCallback      : PropTypes.func,
+    leave              : PropTypes.func
+  };
+
+  constructor(props) {
     super(props);
     this.cachedDomAttrs = [];
     this.tweenTargets   = [];
@@ -117,44 +138,46 @@ export class TweenGroup extends React.PureComponent {
     this.tweenDidChange = false;
   }
 
-  componentWillAppear (cb) {
+  componentWillAppear(cb) {
     this._performWillEnterAnimation(cb);
   }
 
-  componentDidAppear () {
+  componentDidAppear() {
     this._onComponentDidMount();
   }
 
-  componentWillEnter (cb) {
+  componentWillEnter(cb) {
     this._performWillEnterAnimation(cb);
   }
 
-  componentDidEnter () {
+  componentDidEnter() {
     this._onComponentDidMount();
   }
 
   // Due to RTG+, cDid/WillEnter serve this function
-  componentDidMount () {}
-  _onComponentDidMount () {
+  componentDidMount() {
+  }
+
+  _onComponentDidMount() {
     this._killEnterTweens();
     this._saveDomAttrs();
     this._performStartAttrs();
     this._performAnimation();
   }
 
-  componentWillUpdate (nextProps) {
+  componentWillUpdate(nextProps) {
     this._killEnterTweens(); // If still entering and it gets an update
     this._restoreDomAttrs();
 
     this.tweenDidChange = nextProps.tween !== this.props.tween;
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     this._saveDomAttrs();
     this._performAnimation();
   }
 
-  componentWillLeave (cb) {
+  componentWillLeave(cb) {
     if (this.props.leave) {
       this._killAllTweens();
       this.leaveTweens = this._callExternalTweenCreator(this.props.leave, cb);
@@ -163,14 +186,14 @@ export class TweenGroup extends React.PureComponent {
     }
   }
 
-  componentDidLeave () {
+  componentDidLeave() {
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this._killAllTweens();
   }
 
-  _saveDomAttrs () {
+  _saveDomAttrs() {
     let domEls = getDOMElements(this.tweenTargets);
 
     this.cachedDomAttrs = domEls.reduce((acc, c) => {
@@ -183,8 +206,8 @@ export class TweenGroup extends React.PureComponent {
       });
       acc.push(attrs);
 
-      if(!this.props.forceUpdate) {
-        c._gsTweenID   = null;
+      if (!this.props.forceUpdate) {
+        c._gsTweenID = null;
       }
 
       c._gsTransform = null;
@@ -193,7 +216,7 @@ export class TweenGroup extends React.PureComponent {
     }, []);
   }
 
-  _restoreDomAttrs () {
+  _restoreDomAttrs() {
     let domEls = getDOMElements(this.tweenTargets);
 
     domEls.forEach((el, i) => {
@@ -204,7 +227,7 @@ export class TweenGroup extends React.PureComponent {
     });
   }
 
-  _performWillEnterAnimation (cb) {
+  _performWillEnterAnimation(cb) {
     if (this.props.enter) {
       this.enterTweens = this._callExternalTweenCreator(this.props.enter, cb);
     } else {
@@ -212,16 +235,16 @@ export class TweenGroup extends React.PureComponent {
     }
   }
 
-  _performStartAttrs () {
+  _performStartAttrs() {
     if (this.props.start) {
       this._callExternalTweenCreator(this.props.start);
     }
   }
 
-  _performAnimation () {
+  _performAnimation() {
     // Did change on update
 
-    if(this.tweenDidChange || this.props.forceUpdate) {
+    if (this.tweenDidChange || this.props.forceUpdate) {
       this._invalidateActiveTweens();
     }
 
@@ -254,34 +277,34 @@ export class TweenGroup extends React.PureComponent {
     });
   };
 
-  _killAllTweens () {
+  _killAllTweens() {
     this._killEnterTweens();
     this._killActiveTweens();
     this._killLeaveTweens();
   }
 
-  _killEnterTweens () {
+  _killEnterTweens() {
     this.enterTweens.forEach(t => {
       t.seek(t.duration(), false).pause().kill();
     });
     this.enterTweens = [];
   }
 
-  _invalidateActiveTweens () {
+  _invalidateActiveTweens() {
     this.activeTweens.forEach(t => {
       t.invalidate();
     });
     this.activeTweens = [];
   }
 
-  _killActiveTweens () {
+  _killActiveTweens() {
     this.activeTweens.forEach(t => {
       t.kill();
     });
     this.activeTweens = [];
   }
 
-  _killLeaveTweens () {
+  _killLeaveTweens() {
     this.leaveTweens.forEach(t => {
       t.seek(t.duration(), false);
       t.kill();
@@ -289,7 +312,7 @@ export class TweenGroup extends React.PureComponent {
     this.leaveTweens = [];
   }
 
-  _callExternalTweenCreator (func, callBack = NOOP) {
+  _callExternalTweenCreator(func, callBack = NOOP) {
     let res = func({
       target      : getDOMElements(this.tweenTargets),
       props       : this.props,
@@ -303,7 +326,7 @@ export class TweenGroup extends React.PureComponent {
     return [res];
   }
 
-  render () {
+  render() {
     const {children: originalChildren, component, __applyNoTransition, ...childProps} = this.props;
 
     let cleanedProps = cleanProps(TweenGroup.propTypes, childProps);
@@ -331,23 +354,3 @@ export class TweenGroup extends React.PureComponent {
     });
   }
 }
-
-TweenGroup.defaultProps = {
-  __applyNoTransition: false,
-  paused             : false,
-  forceUpdate        : false,
-  component          : <div/>
-};
-
-TweenGroup.propTypes = {
-  __applyNoTransition: PropTypes.bool,
-  __tweenID          : PropTypes.number,
-  component          : PropTypes.object,
-  paused             : PropTypes.bool,
-  forceUpdate        : PropTypes.bool,
-  start              : PropTypes.func,
-  enter              : PropTypes.func,
-  tween              : PropTypes.func,
-  tweenCallback      : PropTypes.func,
-  leave              : PropTypes.func
-};

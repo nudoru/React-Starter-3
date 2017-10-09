@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'emotion';
-import {
-  withBootStrap,
-  buildClassName,
-  bootStrapPropTypes
-} from '../shared/BootStrapHOC';
-import { joinClasses, cleanProps } from '../shared/utils';
+import {css} from 'emotion';
+import {buildClassName, withBootStrap} from '../shared/BootStrapHOC';
+import {joinClasses} from '../shared/utils';
 
 const BBar = (props) =>
   <div className={buildClassName(props)} role="progressbar"
@@ -22,7 +18,17 @@ const componentStyle = css`
 
 // TODO Support multiple bars
 export class ProgressBar extends React.PureComponent {
-  render () {
+  static defaultProps = {
+    percent: 50,
+    height : 10
+  };
+
+  static propTypes = {
+    percent: PropTypes.number,
+    height : PropTypes.number
+  };
+
+  render() {
     const {className, ...rest} = this.props;
 
     return (
@@ -33,13 +39,6 @@ export class ProgressBar extends React.PureComponent {
   }
 }
 
-ProgressBar.defaultProps = {
-  percent: 50,
-  height : 10
-};
-ProgressBar.propTypes    = {
-  percent: PropTypes.number,
-  height : PropTypes.number
-};
+
 
 

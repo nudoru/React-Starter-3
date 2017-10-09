@@ -1,13 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'ramda';
-import { css } from 'emotion';
+import {compose} from 'ramda';
+import {css} from 'emotion';
 
 // Based on https://github.com/react-bootstrap/react-bootstrap/blob/master/src/SafeAnchor.js
 
 const isTrivial = href => !href || href.trim() === '#';
 
 export default class Link extends React.PureComponent {
+  static defaultProps = {
+    underline: true
+  };
+
+  static propTypes = {
+    underline: PropTypes.bool,
+    better   : PropTypes.bool
+  };
+
   handleClick = e => {
     const {disabled, href, onClick} = this.props;
 
@@ -32,7 +41,7 @@ export default class Link extends React.PureComponent {
     }
   };
 
-  render () {
+  render() {
     const {onKeyDown = e => e, underline, better, className, ...rest} = this.props;
     let {ariaRole, tabIndex}                                          = this.props;
     let cls                                                           = [className];
@@ -67,11 +76,3 @@ export default class Link extends React.PureComponent {
     );
   }
 }
-
-Link.defaultProps = {
-  underline: true
-};
-Link.propTypes    = {
-  underline: PropTypes.bool,
-  better   : PropTypes.bool
-};

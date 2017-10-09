@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import PropTypes from 'prop-types';
-import { getNextId } from '../../utils/ElementIDCreator';
+import {getNextId} from '../../utils/ElementIDCreator';
 
 export const bootStrapPropTypes = {
   __cid      : PropTypes.string,
@@ -43,28 +43,25 @@ export const withBootStrap = (bsClass = null) => Comp => {
 
     static WrappedComponent = Comp;
 
-    render () {
+    static defaultProps = {
+      __ctype   : COMP_TYPE,
+      bsClass   : bsClass,
+      bsClassAlt: '',
+      dropShadow: ''
+    };
+
+    static propTypes = bootStrapPropTypes;
+
+    render() {
       return <Comp __cid={getNextId()} {...this.props} />;
     }
   }
-
-  Bootstrapped.defaultProps = {
-    __ctype   : COMP_TYPE,
-    bsClass   : bsClass,
-    bsClassAlt: '',
-    dropShadow: ''
-  };
-
-  Bootstrapped.propTypes = bootStrapPropTypes;
 
   hoistNonReactStatic(Bootstrapped, Comp);
 
   return Bootstrapped;
 };
 
-/* TODO
-- Need a modifier for tabs: nav nav-tabs, pills, fill
-*/
 
 // TODO how can this work as a template literal?
 const stylesMapping = {
@@ -116,7 +113,7 @@ const stylesMapping = {
   ['list-group']  : {
     flush: '${cls}-flush'
   },
-  jumbotron: {
+  jumbotron       : {
     fluid: '${cls}-fluid'         // eslint-disable-line no-undef
   }
 };

@@ -1,18 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { TweenMax, Back, Expo } from 'gsap';
-import { css } from 'emotion';
-import { Animate, TweenGroup } from '../shared/Animate';
-import { joinClasses } from '../shared/utils';
-
-const COVER_CHILD_CSS = css`
-  cursor: pointer;
-  position: absolute;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-`;
+import {TweenMax, Back, Expo} from 'gsap';
+import {css} from 'emotion';
+import {Animate, TweenGroup} from '../shared/Animate';
+import {joinClasses} from '../shared/utils';
 
 //----------------------------------------------------------------------------------------------------------------------
 // Container
@@ -23,8 +15,17 @@ const componentStyle = css`
 `;
 
 export class CoverTitle extends React.PureComponent {
+  static defaultProps = {
+    width : 300,
+    height: 300
+  };
 
-  constructor (props) {
+  static propTypes = {
+    width : PropTypes.number,
+    height: PropTypes.number
+  };
+
+  constructor(props) {
     super(props);
     this.state          = {bodyVisible: false};
     this.backgroundComp = null;
@@ -51,7 +52,7 @@ export class CoverTitle extends React.PureComponent {
     return css`width:${this.props.width}px; height:${this.props.height}px; `;
   };
 
-  componentDidMount () {
+  componentDidMount() {
     this.backgroundEl = ReactDOM.findDOMNode(this.backgroundComp); //eslint-disable-line react/no-find-dom-node
     this.bodyEl       = ReactDOM.findDOMNode(this.bodyComp); //eslint-disable-line react/no-find-dom-node
 
@@ -100,7 +101,7 @@ export class CoverTitle extends React.PureComponent {
       })];
   };
 
-  render () {
+  render() {
     const {children: originalChildren, className} = this.props;
 
     const children = React.Children.map(originalChildren, child => {
@@ -142,26 +143,21 @@ export class CoverTitle extends React.PureComponent {
   }
 }
 
-CoverTitle.defaultProps = {
-  width : 300,
-  height: 300
-};
-
-CoverTitle.propTypes = {
-  width : PropTypes.number,
-  height: PropTypes.number
-};
+const faceContainerStyle = css`
+  cursor: pointer;
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+`;
 
 export class CoverTitleBackground extends React.PureComponent {
-  render () {
+  render() {
     const {className, children} = this.props;
     return <div
-      className={joinClasses(COVER_CHILD_CSS, className)}>{children}</div>;
+      className={joinClasses(faceContainerStyle, className)}>{children}</div>;
   }
 }
-
-CoverTitleBackground.defaultProps = {};
-CoverTitleBackground.propTypes    = {};
 
 const bodyStyle = css`
   background-color: rgba(255,255,255,0.5);
@@ -169,15 +165,12 @@ const bodyStyle = css`
 `;
 
 export class CoverTitleBody extends React.PureComponent {
-  render () {
+  render() {
     const {className, children} = this.props;
     return <div
-      className={joinClasses(COVER_CHILD_CSS, bodyStyle, className)}>{children}</div>;
+      className={joinClasses(faceContainerStyle, bodyStyle, className)}>{children}</div>;
   }
 }
-
-CoverTitleBody.defaultProps = {};
-CoverTitleBody.propTypes    = {};
 
 const titleStyle = css`
   padding: 1rem;

@@ -43,6 +43,16 @@ const introTween = ({target, callBack}) => {
 
 export class Flip extends React.PureComponent {
 
+  static defaultProps = {
+    width : 200,
+    height: 200
+  };
+
+  static propTypes = {
+    width : PropTypes.number,
+    height: PropTypes.number
+  };
+
   constructor(props) {
     super(props);
     this.state      = {activeFace: 0};
@@ -104,16 +114,6 @@ export class Flip extends React.PureComponent {
   }
 }
 
-Flip.defaultProps = {
-  width : 200,
-  height: 200
-};
-
-Flip.propTypes = {
-  width : PropTypes.number,
-  height: PropTypes.number
-};
-
 //----------------------------------------------------------------------------------------------------------------------
 // Card Face, front and back
 //----------------------------------------------------------------------------------------------------------------------
@@ -127,6 +127,12 @@ const faceStyle = css`
 `;
 
 export class Face extends React.PureComponent {
+
+  static defaultProps = {};
+  static propTypes    = {
+    faceIndex: PropTypes.number,
+    flip     : PropTypes.func
+  };
 
   componentDidMount() {
     if (this.props.faceIndex === 1) {
@@ -158,9 +164,3 @@ export class Face extends React.PureComponent {
     );
   }
 }
-
-Face.defaultProps = {};
-Face.propTypes    = {
-  faceIndex: PropTypes.number,
-  flip     : PropTypes.func
-};

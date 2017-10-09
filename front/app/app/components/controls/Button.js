@@ -38,8 +38,6 @@ const outlineStyle = css`
 
 
 class BButton extends React.PureComponent {
-  static defaultProps = {};
-  static propTypes    = {};
 
   handleClick = e => {
     const {disabled, onClick} = this.props;

@@ -18,7 +18,4 @@ class BJumbotron extends React.PureComponent {
   }
 }
 
-BJumbotron.defaultProps = {};
-BJumbotron.propTypes    = {};
-
 export const Jumbotron = withBootStrap('jumbotron')(BJumbotron);

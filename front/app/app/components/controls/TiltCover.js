@@ -19,6 +19,18 @@ const introTween = ({target, callBack}) => {
 
 export class TiltCover extends React.PureComponent {
 
+  static defaultProps = {
+    width : 200,
+    height: 200,
+    extent: 50
+  };
+
+  static propTypes = {
+    width : PropTypes.number,
+    height: PropTypes.number,
+    extent: PropTypes.number
+  };
+
   pctX = 0;
   pctY = 0;
 
@@ -84,16 +96,3 @@ export class TiltCover extends React.PureComponent {
     );
   }
 }
-
-TiltCover.defaultProps = {
-  width : 200,
-  height: 200,
-  extent: 50
-};
-
-TiltCover.propTypes = {
-  width : PropTypes.number,
-  height: PropTypes.number,
-  extent: PropTypes.number
-};
-
