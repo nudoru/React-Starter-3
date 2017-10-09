@@ -68,7 +68,7 @@ export class CoverTitle extends React.PureComponent {
     }
   }
 
-  _coverIntro = ({target, callBack}) => {
+  _componentIntroTween = ({target, callBack}) => {
     return TweenMax.from(target, 0.5, {
       scale     : 0.75,
       alpha     : 0,
@@ -77,7 +77,7 @@ export class CoverTitle extends React.PureComponent {
     });
   };
 
-  _showContent = () => {
+  _showContentTween = () => {
     return [
       TweenMax.to(this.backgroundEl, 1, {
         scale: 1.25,
@@ -89,7 +89,7 @@ export class CoverTitle extends React.PureComponent {
       })];
   };
 
-  _hideContent = () => {
+  _hideContentTween = () => {
     return [
       TweenMax.to(this.backgroundEl, 1, {
         scale: 1,
@@ -127,8 +127,8 @@ export class CoverTitle extends React.PureComponent {
         className={joinClasses(componentStyle, className)}>
         <Animate>
           <TweenGroup
-            enter={this._coverIntro}
-            tween={this.state.bodyVisible ? this._showContent : this._hideContent}
+            enter={this._componentIntroTween}
+            tween={this.state.bodyVisible ? this._showContentTween : this._hideContentTween}
           >
             <div
               onMouseEnter={this._onCoverMouseEnter}

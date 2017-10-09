@@ -341,6 +341,7 @@ export class TweenGroup extends React.PureComponent {
         return React.cloneElement(child, {
           key  : idx,
           style: adjustedStyle,
+          // TODO chain origional ref with this ref
           ref  : comp => {
             this.tweenTargets[idx] = comp;
           }

@@ -21,4 +21,6 @@ export const getDOMElements = a => a.map(ReactDOM.findDOMNode); //eslint-disable
 export const removeNulls = array => array.filter(i => !!i);
 export const joinStrings = delim => arry => arry.join(delim);
 export const joinWithSpaces = joinStrings(' ');
+
+// This does something similar https://www.npmjs.com/package/classnames
 export const joinClasses = (...els) => compose(joinWithSpaces, removeNulls)([...els]);
