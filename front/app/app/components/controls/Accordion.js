@@ -1,18 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {css} from 'emotion';
-import {TweenMax, Expo} from 'gsap';
+import {Expo, TweenMax} from 'gsap';
 import FaChevron from 'react-icons/lib/fa/chevron-down';
 import {Card, CardBody, CardHeader} from "./Card";
-import {gradients, colorList} from "../shared/ThemeData";
+import {colorList, gradients} from "../shared/ThemeData";
 import {Collapse} from "../shared/Collapse";
-import {Row, Col} from "./Grid";
+import {Col, Row} from "./Grid";
 import {Animate, TweenGroup} from "../shared/Animate";
 
 const headerStyle = css`
   cursor: pointer;
   background-image: ${gradients.dark};
-  `;
+`;
 
 const chevronStyle = css`
   flex-grow: 0 !important;
@@ -33,9 +32,6 @@ export class Accordion extends React.Component {
 
   state = {open: true};
 
-  componentDidMount() {
-  }
-
   toggle = _ => {
     this.setState((prevState, props) => ({open: !prevState.open}));
   };
@@ -51,20 +47,17 @@ export class Accordion extends React.Component {
   render() {
     const {className = '', children, ...rest} = this.props;
 
-    // TODO remove wrapper div, but issues w/ className on Card
     return (
       <div className={className}>
         <Card>
           <CardHeader className={headerStyle} onClick={this.toggle}>
             <Row>
               <Col className={chevronStyle}>
-                <Animate>
                   <TweenGroup
                     tween={this.state.open ? this._showContentTween : this._hideContentTween}
                   >
                     <div><FaChevron className={chevronIconStyle}/></div>
                   </TweenGroup>
-                </Animate>
               </Col>
               <Col className={headerCompStyle}>Header</Col>
             </Row>
