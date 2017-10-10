@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import {compose, identity} from 'ramda';
 import TransitionGroupPlus from 'react-transition-group-plus';
 import {NOOP, cleanProps, getDOMElements} from './utils';
 
@@ -15,9 +16,7 @@ Borrowed ideas from https://github.com/azazdeaz/react-gsap-enhancer
 
 TODO
 
-- Fix kills tweens code duplication
 - Add 'set' props to Animate container
-- listen for classes added/removed and run a tween
 - pause handled enter / leave tweens
 - create wrapper object for each tween target so I don't get dom el's all the time
 
@@ -110,6 +109,7 @@ export class TweenGroup extends React.PureComponent {
 
   static defaultProps = {
     __applyNoTransition: false,
+    __delayBeforeRun   : 0,         // should never need to change
     paused             : false,
     forceUpdate        : false,
     component          : <div/>
@@ -118,6 +118,7 @@ export class TweenGroup extends React.PureComponent {
   static propTypes = {
     __applyNoTransition: PropTypes.bool,
     __tweenID          : PropTypes.number,
+    __delayBeforeRun   : PropTypes.number,
     component          : PropTypes.object,
     paused             : PropTypes.bool,
     forceUpdate        : PropTypes.bool,
@@ -159,10 +160,14 @@ export class TweenGroup extends React.PureComponent {
   }
 
   _onComponentDidMount() {
-    this._killEnterTweens();
-    this._saveDomAttrs();
-    this._performStartAttrs();
-    this._performAnimation();
+    // TODO remove the cause of this
+    // Hack to prevent errors if the tweens are run before parent DOM elements ready
+    setTimeout(() => {
+      this._killEnterTweens();
+      this._saveDomAttrs();
+      this._performStartAttrs();
+      this._performAnimation();
+    }, this.props.delayBeforeRun);
   }
 
   componentWillUpdate(nextProps) {
@@ -332,19 +337,20 @@ export class TweenGroup extends React.PureComponent {
     let cleanedProps = cleanProps(TweenGroup.propTypes, childProps);
 
     const children = React.Children.map(originalChildren, (child, idx) => {
-        let adjustedStyle = child.props.style || {};
+        let originalStyle = child.props.style || {},
+            originalRef   = child.ref || identity,
+            tweenRef      = comp => {
+              this.tweenTargets[idx] = comp
+            };
 
         if (__applyNoTransition) {
-          adjustedStyle = Object.assign(adjustedStyle, CSS_NO_TRANSITION);
+          originalStyle = Object.assign(originalStyle, CSS_NO_TRANSITION);
         }
 
         return React.cloneElement(child, {
           key  : idx,
-          style: adjustedStyle,
-          // TODO chain origional ref with this ref
-          ref  : comp => {
-            this.tweenTargets[idx] = comp;
-          }
+          style: originalStyle,
+          ref  : compose(tweenRef, originalRef)
         });
       }
     );
