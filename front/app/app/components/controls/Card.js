@@ -41,8 +41,12 @@ const containerStyle = css`
     padding-right: ${metrics.spacing} !important;
   `;
 
-const BCardHeader = props => <div
-  className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</div>;
+const BCardHeader = props => {
+  const {className, ...rest} = props;
+  const cleanProps = omit(bootStrapPropTypes, rest);
+  return <div
+    className={joinClasses(buildClassName(props), containerStyle)} {...cleanProps} />;
+}
 
 const BCardFooter = props => <div
   className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</div>;

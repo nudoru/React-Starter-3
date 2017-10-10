@@ -109,7 +109,7 @@ export class TweenGroup extends React.PureComponent {
 
   static defaultProps = {
     __applyNoTransition: false,
-    __delayBeforeRun   : 0,         // should never need to change
+    immediate          : true,      // run tween on mount or just on update
     paused             : false,
     forceUpdate        : false,
     component          : <div/>
@@ -118,7 +118,7 @@ export class TweenGroup extends React.PureComponent {
   static propTypes = {
     __applyNoTransition: PropTypes.bool,
     __tweenID          : PropTypes.number,
-    __delayBeforeRun   : PropTypes.number,
+    immediate          : PropTypes.bool,
     component          : PropTypes.object,
     paused             : PropTypes.bool,
     forceUpdate        : PropTypes.bool,
@@ -160,19 +160,22 @@ export class TweenGroup extends React.PureComponent {
   }
 
   _onComponentDidMount() {
-    // TODO remove the cause of this
-    // Hack to prevent errors if the tweens are run before parent DOM elements ready
+    // Wait a tick for DOM els to become available if called before they are
     setTimeout(() => {
       this._killEnterTweens();
-      this._saveDomAttrs();
       this._performStartAttrs();
-      this._performAnimation();
-    }, this.props.delayBeforeRun);
+      if(this.props.immediate) {
+        this._saveDomAttrs();
+        this._performAnimation();
+      }
+    }, 0); //this.props.delayBeforeRun
   }
 
   componentWillUpdate(nextProps) {
     this._killEnterTweens(); // If still entering and it gets an update
-    this._restoreDomAttrs();
+    if(this.props.immediate) {
+      this._restoreDomAttrs();
+    }
 
     this.tweenDidChange = nextProps.tween !== this.props.tween;
   }
@@ -234,7 +237,11 @@ export class TweenGroup extends React.PureComponent {
 
   _performWillEnterAnimation(cb) {
     if (this.props.enter) {
-      this.enterTweens = this._callExternalTweenCreator(this.props.enter, cb);
+      // Wait a tick for DOM els to become available if called before they are
+      setTimeout(() => {
+        this.enterTweens = this._callExternalTweenCreator(this.props.enter, cb);
+      }, 0);
+
     } else {
       cb();
     }
@@ -242,13 +249,15 @@ export class TweenGroup extends React.PureComponent {
 
   _performStartAttrs() {
     if (this.props.start) {
-      this._callExternalTweenCreator(this.props.start);
+      // Wait a tick for DOM els to become available if called before they are
+      setTimeout(() => {
+        this._callExternalTweenCreator(this.props.start);
+      }, 0);
     }
   }
 
   _performAnimation() {
     // Did change on update
-
     if (this.tweenDidChange || this.props.forceUpdate) {
       this._invalidateActiveTweens();
     }

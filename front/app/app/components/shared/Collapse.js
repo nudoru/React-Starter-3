@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import {css} from 'emotion';
 import {TweenMax, Expo} from 'gsap';
 import {Animate, TweenGroup} from "./Animate";
-import {omit} from "./utils";
+import {joinClasses, omit} from "./utils";
+
+const containerStyle = css`
+  overflow: hidden;
+`;
 
 export class Collapse extends React.PureComponent {
   static defaultProps = {
@@ -16,75 +21,78 @@ export class Collapse extends React.PureComponent {
 
   state = {expanded: true};
 
+  animating     = false;
   containerComp = null;
   contentComp   = null;
   containerEl   = null;
   contentEl     = null;
 
   componentDidMount() {
-    this.contentHeight = this.contentComp.offsetHeight;
-
-    this.containerComp.style.height = `${this.contentHeight}px`;
-
     this.containerEl = ReactDOM.findDOMNode(this.containerComp); //eslint-disable-line react/no-find-dom-node
     this.contentEl   = ReactDOM.findDOMNode(this.contentComp); //eslint-disable-line react/no-find-dom-node
+
+    // Initial hide content
+    if (!this.props.expand) {
+      TweenMax.set(this.containerEl, {height: 0});
+      TweenMax.set(this.contentEl, {autoAlpha: 0});
+    }
   }
 
-  _showContentTween = () => {
+  _showContentTween = _ => {
     return [
-      TweenMax.to(this.containerEl, 0.5, {
-        height: this.contentHeight,
-        ease  : Expo.easeOut
+      TweenMax.set(this.containerEl, {height: 'auto'}),
+      TweenMax.from(this.containerEl, 0.5, {
+        height    : 0,
+        ease      : Expo.easeOut,
+        onStart   : this._onToggleStart,
+        onComplete: this._onToggleComplete
       }),
-      TweenMax.to(this.contentEl, 0.25, {
+      TweenMax.to(this.contentEl, 0.5, {
         autoAlpha: 1
       })
     ];
   };
 
-  _hideContentTween = () => {
+  _hideContentTween = _ => {
     return [
       TweenMax.to(this.containerEl, 0.5, {
-        height: 0,
-        ease  : Expo.easeOut
+        height    : 0,
+        ease      : Expo.easeOut,
+        onStart   : this._onToggleStart,
+        onComplete: this._onToggleComplete
       }),
-      TweenMax.to(this.contentEl, 0.25, {
+      TweenMax.to(this.contentEl, 0.5, {
         autoAlpha: 0
       })
     ]
   };
 
+  _onToggleStart = _ => {
+    this.animating = true;
+  };
+
+  _onToggleComplete = _ => {
+    this.animating = false;
+  };
+
   render() {
-    const {className, children, style, ...rest} = this.props;
+    const {className, children, ...rest} = this.props;
 
     const cleanedProps = omit(Collapse.propTypes, rest);
-
-    const containerStyle = {
-      ...style,
-      overflow: 'hidden'
-    };
-
-    const contentStyle = {
-      display: this.state.expanded ? '' : 'none'
-    };
-
 
     return (
       <Animate>
         <TweenGroup
           tween={this.props.expand ? this._showContentTween : this._hideContentTween}
+          immediate={false}
         >
           <div
             aria-hidden={!this.props.expand}
             ref={comp => this.containerComp = comp}
-            style={containerStyle}
-            className={className}
+            className={joinClasses(className, containerStyle)}
             {...cleanedProps}
           >
-            <div
-              ref={comp => this.contentComp = comp}
-              style={contentStyle}
-            >
+            <div ref={comp => this.contentComp = comp}>
               {children}
             </div>
           </div>

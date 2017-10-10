@@ -155,7 +155,7 @@ export const gradients = {
   bars     :
     'linear-gradient(-45deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.2) 22%,rgba(255,255,255,.1) 22.01%,rgba(255,255,255,0) 85%,rgba(255,255,255,.15) 85.01%,rgba(255,255,255,0) 100%)',
   light    : 'linear-gradient(to bottom, transparent, rgba(255,255,255,.1))',
-  dark     : 'linear-gradient(to bottom, transparent, rgba(0,0,0,.1))',
+  dark     : 'linear-gradient(to bottom, transparent, rgba(0,0,0,.05))',
   solidDark: 'linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,.1))'
 };
 
