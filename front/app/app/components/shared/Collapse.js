@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {TweenMax, Expo} from 'gsap';
 import {Animate, TweenGroup} from "./Animate";
-import {cleanProps} from "./utils";
+import {omit} from "./utils";
 
 export class Collapse extends React.PureComponent {
   static defaultProps = {
@@ -57,7 +57,7 @@ export class Collapse extends React.PureComponent {
   render() {
     const {className, children, style, ...rest} = this.props;
 
-    const cleanedProps = cleanProps(Collapse.propTypes, rest);
+    const cleanedProps = omit(Collapse.propTypes, rest);
 
     const containerStyle = {
       ...style,

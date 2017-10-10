@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
-import {joinClasses, cleanProps} from '../shared/utils';
+import {joinClasses, omit} from '../shared/utils';
 import {metrics} from '../shared/ThemeData';
 import {flexBoxProps} from '../shared/FlexBoxProps';
 import {
@@ -23,7 +23,7 @@ class BCard extends React.PureComponent {
 
   render() {
     const {children, ...rest} = this.props;
-    const cleanedProps        = cleanProps(bootStrapPropTypes, rest);
+    const cleanedProps        = omit(bootStrapPropTypes, rest);
     const componentStyle      = css`
       width: ${this.props.width};
     `;
@@ -60,7 +60,7 @@ const BCardText = props => <p
   className={buildClassName(props)}>{props.children}</p>;
 
 export const CardLink = ({className, ...rest}) => {
-  let cleanedProps = cleanProps(bootStrapPropTypes, rest);
+  let cleanedProps = omit(bootStrapPropTypes, rest);
 
   return <Link
     className={joinClasses('card-link', className)} {...cleanedProps}/>;
@@ -95,7 +95,7 @@ export class CardXHeader extends React.PureComponent {
 
   render() {
     const {className, children, ...rest} = this.props;
-    const cleanedProps                   = cleanProps(CardXHeader.propTypes, rest);
+    const cleanedProps                   = omit(CardXHeader.propTypes, rest);
     let componentStyle                   = css`
       height: ${this.props.height};
       display: flex;

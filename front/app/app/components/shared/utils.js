@@ -7,8 +7,8 @@ export const NOOP = () => {
 
 // Given props from a component, iterate over propTypes and matches in the props
 // Create clean props that are safe to attach to DOM node
-export const cleanProps = (propTypes, props) => {
-  Object.keys(propTypes).forEach(p => {
+export const omit = (excludeKeys, props) => {
+  Object.keys(excludeKeys).forEach(p => {
     if (props.hasOwnProperty(p)) {
       delete props[p];
     }

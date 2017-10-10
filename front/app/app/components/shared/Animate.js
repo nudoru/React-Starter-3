@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {compose, identity} from 'ramda';
 import TransitionGroupPlus from 'react-transition-group-plus';
-import {NOOP, cleanProps, getDOMElements} from './utils';
+import {NOOP, omit, getDOMElements} from './utils';
 
 /*
 Wrapper for GreenSock Animations and React components. Animations persist between 
@@ -334,7 +334,7 @@ export class TweenGroup extends React.PureComponent {
   render() {
     const {children: originalChildren, component, __applyNoTransition, ...childProps} = this.props;
 
-    let cleanedProps = cleanProps(TweenGroup.propTypes, childProps);
+    let cleanedProps = omit(TweenGroup.propTypes, childProps);
 
     const children = React.Children.map(originalChildren, (child, idx) => {
         let originalStyle = child.props.style || {},

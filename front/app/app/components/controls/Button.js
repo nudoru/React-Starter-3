@@ -1,6 +1,6 @@
 import React from 'react';
 import {css} from 'emotion';
-import { cleanProps, joinClasses } from '../shared/utils';
+import { omit, joinClasses } from '../shared/utils';
 import {
   withBootStrap,
   buildClassName,
@@ -55,7 +55,7 @@ class BButton extends React.PureComponent {
 
   render () {
     let {type, tabIndex, ariaRole, ...rest} = this.props,
-        cleanedProps                          = cleanProps(bootStrapPropTypes, rest);
+        cleanedProps                          = omit(bootStrapPropTypes, rest);
 
     type = type || 'button';
 

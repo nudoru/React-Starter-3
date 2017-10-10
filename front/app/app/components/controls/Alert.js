@@ -1,7 +1,7 @@
 import React from 'react';
 import {css} from 'emotion';
 import { withBootStrap, bootStrapPropTypes, buildClassName } from '../shared/BootStrapHOC';
-import {joinClasses, cleanProps} from '../shared/utils';
+import {joinClasses, omit} from '../shared/utils';
 import Link from './Link';
 
 const componentStyle = css`
@@ -22,7 +22,7 @@ export const AlertHeading = props => <h4
   className='alert-heading'>{props.children}</h4>;
 
 export const AlertLink = ({className, ...rest}) => {
-  let cleanedProps = cleanProps(bootStrapPropTypes, rest);
+  let cleanedProps = omit(bootStrapPropTypes, rest);
 
   return <Link
     className={joinClasses('alert-link', className)} {...cleanedProps}/>;

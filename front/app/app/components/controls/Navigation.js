@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
 import {metrics, colorList} from '../shared/ThemeData';
-import { joinClasses, cleanProps, removeNulls } from '../shared/utils';
+import { joinClasses, omit, removeNulls } from '../shared/utils';
 import {
   withBootStrap,
   buildClassName,
@@ -94,7 +94,7 @@ class BNavigationItem extends React.PureComponent {
 
   render () {
     const {className, onClick, active, disabled, tabs, pills, ...rest} = this.props;
-    let cleanedProps = cleanProps(bootStrapPropTypes, rest);
+    let cleanedProps = omit(bootStrapPropTypes, rest);
 
     return (
       <li className={joinClasses(buildClassName(this.props),null)}>
