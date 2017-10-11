@@ -33,19 +33,19 @@ const navItemTabsStyle = css`
     .nav-link {
       &.active {
         font-weight: 600;
-        color: #fff  !important;
-        background-color: ${colorList.blue} !important;
-        background-image: ${gradients.light} !important;
-        border: 1px solid ${colorList.blue} !important;
+        color: #fff;
+        background-color: ${colorList.blue};
+        background-image: ${gradients.light};
+        border: 1px solid ${colorList.blue};
         box-shadow: 0 3px -5px rgba(0, 0, 0, .5);
         text-shadow: ${shadows.textDark};
       }
       &:hover {
-        border: 1px solid rgba(0, 0, 0, 0) !important;
-        border-bottom: 1px solid ${colorList.blue} !important;
+        border: 1px solid rgba(0, 0, 0, 0);
+        border-bottom: 1px solid ${colorList.blue};
       }
       &.active:hover {
-        border: 1px solid ${colorList.blue} !important;
+        border: 1px solid ${colorList.blue};
       }
       &.disabled:hover {
         border-bottom: 1px solid ${colorList.blue};

@@ -21,7 +21,6 @@ export class Expando extends React.PureComponent {
   contentHeight     = 0;
 
   componentDidMount() {
-    console.log('Expando did mount');
     this.containerEl = ReactDOM.findDOMNode(this.containerComp); //eslint-disable-line react/no-find-dom-node
     this.contentEl   = ReactDOM.findDOMNode(this.contentComp); //eslint-disable-line react/no-find-dom-node
 

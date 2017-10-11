@@ -17,9 +17,9 @@
     "react"
   ],
   "plugins": [
-    "emotion",
     "transform-class-properties",
     "transform-object-rest-spread",
-    "transform-es2015-destructuring"
+    "transform-es2015-destructuring",
+    "emotion"
   ]
 }

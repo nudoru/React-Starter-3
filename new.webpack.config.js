@@ -4,12 +4,14 @@ const HTMLPlugin        = require('html-webpack-plugin');
 const CopyPlugin        = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PurifyCSSPlugin   = require('purifycss-webpack-plugin');
-
+const HappyPack = require('happypack');
+// Source
 const appEntryFile  = resolve(__dirname, 'front', 'app', 'index.js');
 const appConfigFile = resolve(__dirname, 'front', 'app', 'config.json');
 const favicon       = resolve(__dirname, 'front', 'app', 'favicon.ico');
 const appDestPath   = resolve(__dirname, 'front', 'www');
 
+// Disabled, injected const isProd = process.env.NODE_ENV === 'production';
 const isTest = process.env.NODE_ENV === 'test';
 
 module.exports = env => {
@@ -17,18 +19,17 @@ module.exports = env => {
   const removeEmpty = array => array.filter(i => !!i);
   const isProd      = env.prod ? true : false;
 
-  console.log('Building for prod? ',isProd);
-
   return {
 
     entry: {
       app   : appEntryFile,
+      // Removed 'moment' - only include in app file if it's used
       vendor: ['react', 'react-dom', 'react-router-dom', 'ramda', 'gsap']
     },
 
     output: {
       path      : appDestPath,
-      filename  : '[name].[hash].js', //.[hash]
+      filename  : '[name].[hash].js',
       publicPath: isProd ? '' : '/'
     },
 
@@ -36,6 +37,7 @@ module.exports = env => {
     bail   : env.prod,
 
     module: {
+      // 'use' is the preferred syntax but some of these aren't updated to support it
       loaders: [
         {
           test  : /\.(s?)(a|c)ss$/,
@@ -70,30 +72,37 @@ module.exports = env => {
           }]
         },
         {
-          enforce: 'pre',
           test   : /\.jsx?$/,
-          loader : 'eslint-loader?{configFile:\'./.eslintrc\', quiet:false, failOnWarning:false, failOnError:true}',
-          exclude: ['/node_modules/', '/app/vendor/']
-        },
-        {
-          test   : /\.jsx?$/,
-          loader : 'babel-loader',
+          loader : 'happypack/loader',
+          // exclude: ['/node_modules/'],
           exclude: resolve(__dirname, 'node_modules/'),
+          // TODO pass these to babel-loader
           query  : {
-            plugins: [
-              "transform-class-properties",
-              "transform-object-rest-spread",
-              "transform-es2015-destructuring",
-              "emotion"
-            ],
             presets: removeEmpty(['es2015', 'react', isProd ? undefined : 'react-hmre']),
             compact: true
           }
         }
+        // Disabled for Happypack
+        //{
+        //  enforce: 'pre',
+        //  test   : /\.jsx?$/,
+        //  use    : 'eslint-loader?{configFile:\'./.eslintrc\', quiet:false, failOnWarning:false, failOnError:true}',
+        //  exclude: ['/node_modules/', '/app/vendor/']
+        //},
+        //{
+        //  test   : /\.jsx?$/,
+        //  loader : 'babel-loader',
+        //  exclude: ['/node_modules/'],
+        //  query  : {
+        //    presets: removeEmpty(['es2015', 'react', isProd ? undefined : 'react-hmre']),
+        //    compact: true
+        //  }
+        //}
       ]
     },
 
     plugins: removeEmpty([
+      new HappyPack({ threads: 4, loaders: ['babel-loader', 'eslint-loader?{configFile:\'./.eslintrc\', quiet:false, failOnWarning:false, failOnError:true}'] }),
       new HTMLPlugin({
         title   : 'Application',
         template: 'front/app/index.html'
@@ -105,25 +114,26 @@ module.exports = env => {
       new ExtractTextPlugin({
         filename : 'style.css',
         allChunks: true,
-        disable  : false
+        disable  : !isProd
       }),
-      //Disable this for tests isTest ? undefined :
-      new webpack.optimize.CommonsChunkPlugin({
-        name     : 'vendor',
-        minChunks: Infinity,
-        filename : '[name].[hash].js', //.[hash]
-      }),
-      isProd ? undefined : new webpack.DefinePlugin({
+      // PROD ONLY
+      !isProd ? undefined : new webpack.DefinePlugin({
         'process.env': {NODE_ENV: '"production"'}
       }),
       !isProd ? undefined : new PurifyCSSPlugin({
         basePath     : __dirname,
         purifyOptions: {
-          info  : true,
-          minify: true
+          info     : true,
+          minify   : true
         }
       }),
-      !isProd ? undefined : new webpack.optimize.OccurrenceOrderPlugin()
+      !isProd ? undefined : new webpack.optimize.OccurrenceOrderPlugin(),
+      // If we're not in testing, create a separate vendor bundle file
+      isTest ? undefined : new webpack.optimize.CommonsChunkPlugin({
+        name     : 'vendor',
+        minChunks: Infinity,
+        filename : '[name].[hash].js',
+      })
     ])
   };
 };
