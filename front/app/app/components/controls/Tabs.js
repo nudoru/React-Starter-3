@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withBootStrap, buildClassName } from '../shared/BootStrapHOC';
-import { Nav, NavItem } from './Navigation';
+import {css} from 'emotion';
+import {withBootStrap, buildClassName} from '../shared/BootStrapHOC';
+import {Nav, NavItem} from './Navigation';
+import {Expando} from "../shared/Expando";
+import {metrics, colorList} from "../shared/ThemeData";
 
 // TODO ARIA
 // TODO hooks for panelWillChange, panelDidChange, panelWillRemove, panelDidRemove
@@ -13,7 +16,7 @@ class BTabs extends React.PureComponent {
     onSelectTab: PropTypes.func.isRequired
   };
 
-  getChildContext () {
+  getChildContext() {
     return {
       activeIndex: this.state.activeIndex,
       onSelectTab: this.onSelectTab
@@ -24,18 +27,21 @@ class BTabs extends React.PureComponent {
     this.setState({activeIndex: i});
   };
 
-  render () {
-    return <div className={buildClassName(this.props)}>{this.props.children}</div>;
+  render() {
+    return <div
+      className={buildClassName(this.props)}>{this.props.children}</div>;
   }
 }
 
+// TODO set a max length on the tab label
+// TODO Center, right align tabs as options
 class BTabList extends React.PureComponent {
   static contextTypes = {
     activeIndex: PropTypes.number.isRequired,
     onSelectTab: PropTypes.func.isRequired
   };
 
-  render () {
+  render() {
     const {activeIndex, onSelectTab} = this.context;
 
     const children = React.Children.map(this.props.children, (child, idx) => {
@@ -55,7 +61,7 @@ class BTab extends React.PureComponent {
     this.props.onSelect();
   };
 
-  render () {
+  render() {
     const {active, ...rest} = this.props;
 
     return <NavItem active={active}
@@ -63,20 +69,38 @@ class BTab extends React.PureComponent {
   }
 }
 
+
+const tabPanelContainerStyle = css`
+  border-left: 1px solid ${colorList.blue} !important;
+  border-right: 1px solid ${colorList.blue} !important;
+  border-bottom: 1px solid ${colorList.blue} !important;
+  background-color: #fff;
+  padding: ${metrics.spacing};
+`;
+
+const TabPanelContainer = (props) => <div  className={tabPanelContainerStyle} {...props}/>;
+
 class BTabPanels extends React.PureComponent {
   static contextTypes = {
     activeIndex: PropTypes.number.isRequired
   };
 
-  render () {
+  render() {
     const {activeIndex} = this.context;
-    return <div className={buildClassName(this.props)}>{this.props.children[activeIndex]}</div>;
+    return <div className={buildClassName(this.props)}>
+      <TabPanelContainer>
+      <Expando>
+        {this.props.children[activeIndex]}
+      </Expando>
+      </TabPanelContainer>
+    </div>;
   }
 }
 
 class BTabPanel extends React.PureComponent {
-  render () {
-    return <div className={buildClassName(this.props)}>{this.props.children}</div>;
+  render() {
+    return <div
+      className={buildClassName(this.props)}>{this.props.children}</div>;
   }
 }
 

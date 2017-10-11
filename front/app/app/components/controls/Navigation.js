@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
-import {metrics, colorList} from '../shared/ThemeData';
+import {metrics, colorList, shadows, gradients} from '../shared/ThemeData';
 import { joinClasses, omit, removeNulls } from '../shared/utils';
 import {
   withBootStrap,
@@ -29,26 +29,23 @@ const navTabsStyle = css`
   }
 `;
 
-// TODO remove the !importants
 const navItemTabsStyle = css`
     .nav-link {
       &.active {
         font-weight: 600;
-        background-color: #fff;
-        border-left: 1px solid ${colorList.blue} !important;
-        border-top: 1px solid ${colorList.blue} !important;
-        border-right: 1px solid ${colorList.blue} !important;
+        color: #fff  !important;
+        background-color: ${colorList.blue} !important;
+        background-image: ${gradients.light} !important;
+        border: 1px solid ${colorList.blue} !important;
         box-shadow: 0 3px -5px rgba(0, 0, 0, .5);
+        text-shadow: ${shadows.textDark};
       }
       &:hover {
         border: 1px solid rgba(0, 0, 0, 0) !important;
         border-bottom: 1px solid ${colorList.blue} !important;
       }
       &.active:hover {
-        border-left: 1px solid ${colorList.blue} !important;
-        border-top: 1px solid ${colorList.blue} !important;
-        border-right: 1px solid ${colorList.blue} !important;
-        border-bottom: 1px solid #fff !important;
+        border: 1px solid ${colorList.blue} !important;
       }
       &.disabled:hover {
         border-bottom: 1px solid ${colorList.blue};
