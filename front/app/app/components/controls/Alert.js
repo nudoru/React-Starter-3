@@ -5,7 +5,7 @@ import {joinClasses, omit} from '../shared/utils';
 import Link from './Link';
 
 const componentStyle = css`
-  border-left-width: 5px !important;
+  border-left-width: 5px;
   `;
 
 class BAlert extends React.PureComponent {

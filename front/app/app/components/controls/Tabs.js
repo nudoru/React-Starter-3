@@ -71,9 +71,9 @@ class BTab extends React.PureComponent {
 
 
 const tabPanelContainerStyle = css`
-  border-left: 1px solid ${colorList.blue} !important;
-  border-right: 1px solid ${colorList.blue} !important;
-  border-bottom: 1px solid ${colorList.blue} !important;
+  border-left: 1px solid ${colorList.blue};
+  border-right: 1px solid ${colorList.blue};
+  border-bottom: 1px solid ${colorList.blue};
   background-color: #fff;
   padding: ${metrics.spacing};
 `;

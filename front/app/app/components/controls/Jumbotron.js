@@ -5,7 +5,7 @@ import { joinClasses } from '../shared/utils';
 import { Container } from './Container';
 
 const componentStyle = css`
-    border-radius: 0 !important;
+    border-radius: 0;
   `;
 
 class BJumbotron extends React.PureComponent {

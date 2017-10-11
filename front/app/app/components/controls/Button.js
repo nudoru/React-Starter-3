@@ -10,27 +10,27 @@ import {shadows, gradients} from "../shared/ThemeData";
 
 
 const componentStyle = css`
-    transition: background .25s ease-in-out !important;
-    transition: box-shadow .25s ease-in-out !important;
-    border-width: 0 !important;
+    transition: background .25s ease-in-out;
+    transition: box-shadow .25s ease-in-out;
+    border-width: 0;
     cursor: pointer;
     text-transform: uppercase;
-    background-image: ${gradients.light} !important;
-    text-shadow: ${shadows.textDark} !important;
+    background-image: ${gradients.light};
+    text-shadow: ${shadows.textDark};
     &:disabled {
-      cursor: not-allowed !important;
+      cursor: not-allowed;
     }
 `;
 
 const linkStyle = css`
-  background-image: none !important;
-  text-shadow: none !important;
+  background-image: none;
+  text-shadow: none;
 `;
 
 const outlineStyle = css`
-  background-image: none !important;
-  text-shadow: none !important;
-  border-width: 1px !important;
+  background-image: none;
+  text-shadow: none;
+  border-width: 1px;
   .btn-outline-light:hover {
     background-color: rgba(0,0,0,0.1);
   }

@@ -15,8 +15,8 @@ const headerStyle = css`
 `;
 
 const chevronStyle = css`
-  flex-grow: 0 !important;
-  padding-right: 0 !important;
+  flex-grow: 0;
+  padding-right: 0;
 `;
 
 const chevronIconStyle = css`
@@ -24,7 +24,7 @@ const chevronIconStyle = css`
 `;
 
 const headerCompStyle = css`
-  padding-left: 5px !important;
+  padding-left: 5px;
   user-select: none;
 `;
 

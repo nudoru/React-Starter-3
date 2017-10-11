@@ -37,8 +37,8 @@ class BCard extends React.PureComponent {
 
 
 const containerStyle = css`
-    padding-left: ${metrics.spacing} !important;
-    padding-right: ${metrics.spacing} !important;
+    padding-left: ${metrics.spacing};
+    padding-right: ${metrics.spacing};
   `;
 
 const BCardHeader = props => {
