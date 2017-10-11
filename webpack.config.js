@@ -5,36 +5,25 @@ const CopyPlugin        = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PurifyCSSPlugin   = require('purifycss-webpack-plugin');
 
-const appEntryFile  = resolve(__dirname, 'front', 'app', 'index.js');
-const appConfigFile = resolve(__dirname, 'front', 'app', 'config.json');
-const favicon       = resolve(__dirname, 'front', 'app', 'favicon.ico');
-const appDestPath   = resolve(__dirname, 'front', 'www');
-
-const isTest = process.env.NODE_ENV === 'test';
+const removeEmpty = array => array.filter(i => !!i);
 
 module.exports = env => {
 
-  const removeEmpty = array => array.filter(i => !!i);
-  const isProd      = env.prod ? true : false;
-
-  console.log('Building for prod? ',isProd);
+  const isTest = process.env.NODE_ENV === 'test';
+  const isProd = env.prod ? true : false;
 
   return {
 
     entry: {
-      app   : appEntryFile,
+      app   : resolve(__dirname, 'front', 'app', 'index.js'),
       vendor: ['react', 'react-dom', 'react-router-dom', 'ramda', 'gsap']
     },
-
     output: {
-      path      : appDestPath,
-      filename  : '[name].[hash].js', //.[hash]
+      path      : resolve(__dirname, 'front', 'www'),
+      filename  : '[name].[hash].js',
       publicPath: isProd ? '' : '/'
     },
-
-    devtool: env.prod ? 'cheap-module-source-map' : 'eval',
-    bail   : env.prod,
-
+    devtool: isProd ? 'cheap-module-source-map' : 'eval',
     module: {
       loaders: [
         {
@@ -71,12 +60,12 @@ module.exports = env => {
         },
         {
           enforce: 'pre',
-          test   : /\.jsx?$/,
+          test   : /\.js$/,
           loader : 'eslint-loader?{configFile:\'./.eslintrc\', quiet:false, failOnWarning:false, failOnError:true}',
           exclude: ['/node_modules/', '/app/vendor/']
         },
         {
-          test   : /\.jsx?$/,
+          test   : /\.js$/,
           loader : 'babel-loader',
           exclude: resolve(__dirname, 'node_modules/'),
           query  : {
@@ -92,26 +81,25 @@ module.exports = env => {
         }
       ]
     },
-
     plugins: removeEmpty([
       new HTMLPlugin({
         title   : 'Application',
         template: 'front/app/index.html'
       }),
       new CopyPlugin([
-        {from: appConfigFile},
-        {from: favicon}
+        {from: resolve(__dirname, 'front', 'app', 'config.json')},
+        {from: resolve(__dirname, 'front', 'app', 'favicon.ico')}
       ]),
       new ExtractTextPlugin({
         filename : 'style.css',
         allChunks: true,
         disable  : false
       }),
-      //Disable this for tests isTest ? undefined :
+      //Disable for tests
       new webpack.optimize.CommonsChunkPlugin({
         name     : 'vendor',
         minChunks: Infinity,
-        filename : '[name].[hash].js', //.[hash]
+        filename : '[name].[hash].js',
       }),
       isProd ? undefined : new webpack.DefinePlugin({
         'process.env': {NODE_ENV: '"production"'}
