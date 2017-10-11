@@ -69,6 +69,12 @@ import { Badge } from '../components/controls/Badge';
 import { ProgressBar } from '../components/controls/ProgressBar';
 import { Jumbotron } from '../components/controls/Jumbotron';
 
+import {
+  Accordion,
+  AccordionBody,
+  AccordionTitle
+} from "../components/controls/Accordion";
+
 const LoadingCard = withLoading(Card);
 
 const FlipFront = (props) => {
@@ -188,7 +194,83 @@ class Components extends React.Component {
             </Flip>
           </StageArea>
         </div>
-
+        <div className="pb-5">
+          <h4 className="pb-3">Accordion</h4>
+          <Accordion open={true}>
+            <AccordionTitle>Click to expand</AccordionTitle>
+            <AccordionBody>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
+                amet,
+                sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
+                varius. Vestibulum ante ipsum primis in faucibus orci luctus
+                et</p>
+              <Accordion>
+                <AccordionTitle>Click to expand</AccordionTitle>
+                <AccordionBody>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                    vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
+                    amet,
+                    sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
+                    varius. Vestibulum ante ipsum primis in faucibus orci luctus
+                    et</p>
+                  <Accordion>
+                    <AccordionTitle>Click to expand</AccordionTitle>
+                    <AccordionBody>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                        vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
+                        amet,
+                        sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
+                        varius. Vestibulum ante ipsum primis in faucibus orci luctus
+                        et</p>
+                    </AccordionBody>
+                  </Accordion>
+                </AccordionBody>
+              </Accordion>
+              <Accordion>
+                <AccordionTitle>Click to expand</AccordionTitle>
+                <AccordionBody>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                    vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
+                    amet,
+                    sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
+                    varius. Vestibulum ante ipsum primis in faucibus orci luctus
+                    et</p>
+                </AccordionBody>
+              </Accordion>
+              <Accordion>
+                <AccordionTitle>Click to expand</AccordionTitle>
+                <AccordionBody>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                    vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
+                    amet,
+                    sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
+                    varius. Vestibulum ante ipsum primis in faucibus orci luctus
+                    et</p>
+                </AccordionBody>
+              </Accordion>
+              <p>ultrices posuere cubilia Curae; Duis porta lobortis nisl, non
+                blandit enim. Cras eros tortor, pellentesque ut orci vitae,
+                consectetur dictum erat. Morbi auctor risus vitae neque fringilla
+                congue.</p>
+            </AccordionBody>
+          </Accordion>
+          <Accordion>
+            <AccordionTitle>Click to expand</AccordionTitle>
+            <AccordionBody>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
+                amet,
+                sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
+                varius. Vestibulum ante ipsum primis in faucibus orci luctus
+                et</p>
+              <p>ultrices posuere cubilia Curae; Duis porta lobortis nisl, non
+                blandit enim. Cras eros tortor, pellentesque ut orci vitae,
+                consectetur dictum erat. Morbi auctor risus vitae neque fringilla
+                congue.</p>
+            </AccordionBody>
+          </Accordion>
+        </div>
         <div className="pb-5">
           <h4 className="pb-3">Card</h4>
           <GridFluid>

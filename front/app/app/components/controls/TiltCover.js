@@ -25,7 +25,7 @@ export class TiltCover extends React.PureComponent {
     extent: 50
   };
 
-  static propTypes = {
+  static  propTypes = {
     width : PropTypes.number,
     height: PropTypes.number,
     extent: PropTypes.number
