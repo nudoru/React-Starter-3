@@ -14,23 +14,23 @@ module.exports = env => {
 
   return {
 
-    entry: {
+    entry  : {
       app   : resolve(__dirname, 'front', 'app', 'index.js'),
       vendor: ['react', 'react-dom', 'react-router-dom', 'ramda', 'gsap']
     },
-    output: {
+    output : {
       path      : resolve(__dirname, 'front', 'www'),
       filename  : '[name].[hash].js',
       publicPath: isProd ? '' : '/'
     },
     devtool: isProd ? 'cheap-module-source-map' : 'eval',
-    module: {
-      loaders: [
+    module : {
+      rules: [
         {
           test  : /\.(s?)(a|c)ss$/,
           loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use     : ['css-loader', 'postcss-loader', 'sass-loader']
+            use     : ['css-loader', 'postcss-loader', 'sass-loader'],
+            fallback: 'style-loader'
           })
         },
         {
@@ -61,14 +61,17 @@ module.exports = env => {
         {
           enforce: 'pre',
           test   : /\.js$/,
-          loader : 'eslint-loader?{configFile:\'./.eslintrc\', quiet:false, failOnWarning:false, failOnError:true}',
-          exclude: ['/node_modules/', '/app/vendor/']
+          exclude: ['/node_modules/', '/app/vendor/'],
+          loader : 'eslint-loader',
+          options: {
+            configFile: resolve(__dirname, '.eslintrc')
+          }
         },
         {
           test   : /\.js$/,
           loader : 'babel-loader',
           exclude: resolve(__dirname, 'node_modules/'),
-          query  : {
+          options  : {
             plugins: [
               "transform-class-properties",
               "transform-object-rest-spread",
@@ -76,7 +79,7 @@ module.exports = env => {
               "emotion"
             ],
             presets: removeEmpty(['es2015', 'react', isProd ? undefined : 'react-hmre']),
-            compact: true
+            comments: false
           }
         }
       ]
