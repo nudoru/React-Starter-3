@@ -49,13 +49,15 @@ export class TiltCover extends React.PureComponent {
       return TweenMax.to(target, 2, {
         rotationX: this.pctY,
         rotationY: this.pctX,
+        scale: 0.95,
         ease: Expo.easeOut
       });
     } else {
-      return TweenMax.set(target, {
+      return [TweenMax.set(target, {
         rotationX: this.pctY,
-        rotationY: this.pctX
-      });
+        rotationY: this.pctX,
+        scale: 1.05
+      })];
     }
   };
 

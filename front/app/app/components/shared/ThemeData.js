@@ -4,7 +4,6 @@ This need to match any variables in any Sass files, especially in the Bootstrap
 variable overlay file ./sass/core/_bootstrap_over.scss
  */
 
-
 export const colorList = {
   redLight1        : 'rgb(208,170,171)',
   redLight2        : 'rgb(207,131,131)',
@@ -136,7 +135,7 @@ export const modularScale = {
 };
 
 export const shadows = {
-  textLight    : '1px 1px 0 rgba(255,255,255,.5)',
+  textLight    : '1px 1px 0 rgba(255,255,255,.75)',
   textDark     : '1px 1px 0 rgba(0,0,0,.25)',
   textDarkSmall: '1px 1px 3px rgba(0,0,0,.25)',
   textEmboss   :
@@ -171,7 +170,8 @@ export const metrics = {
 
 export const transitions = {
   transition    : '.33s ease-out',
-  timingFunction: 'cubic-bezier(.42,0,.58,1)'
+  timingFunction: 'cubic-bezier(.42,0,.58,1)',
+  baseTimingMS  : 1000
 };
 
 export const grids = {};

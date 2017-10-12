@@ -14,8 +14,17 @@ import Link from './Link';
 
 const navLinkStyle = css`
   .nav-link {
+    background-image: linear-gradient(
+      -45deg,
+      transparent 50%,
+      rgba(0,0,0,0.05) 50.01%,
+      rgba(0,0,0,0.05) 100%
+    );
+    background-size: 250%;
+    background-position: 99% 99%;
     &:hover {
-      background-color: rgba(0, 0, 0, .05);
+      background-position: 0 0;
+      transition: background-position 240ms linear, border-color 240ms linear;
     }
     &.disabled:hover {
       background-color: #fff;
@@ -32,7 +41,6 @@ const navTabsStyle = css`
 const navItemTabsStyle = css`
     .nav-link {
       &.active {
-        font-weight: 600;
         color: #fff;
         background-color: ${colorList.blue};
         background-image: ${gradients.light};
@@ -41,11 +49,8 @@ const navItemTabsStyle = css`
         text-shadow: ${shadows.textDark};
       }
       &:hover {
-        border: 1px solid rgba(0, 0, 0, 0);
+        border: 1px solid ${colorList.grey3};
         border-bottom: 1px solid ${colorList.blue};
-      }
-      &.active:hover {
-        border: 1px solid ${colorList.blue};
       }
       &.disabled:hover {
         border-bottom: 1px solid ${colorList.blue};
@@ -55,7 +60,6 @@ const navItemTabsStyle = css`
 
 const navItemPillsStyle = css`
   .nav-link.active:hover {
-    background-color: ${colorList.blue8};
   }
 `;
 

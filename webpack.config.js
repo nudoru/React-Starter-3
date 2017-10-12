@@ -42,19 +42,10 @@ module.exports = env => {
           loaders: ['file-loader?hash=sha512&digest=hex&name=[hash].[ext]', {
             loader: 'image-webpack-loader',
             query : {
-              mozjpeg : {
-                progressive: true,
-              },
-              gifsicle: {
-                interlaced: false,
-              },
-              optipng : {
-                optimizationLevel: 7,
-              },
-              pngquant: {
-                quality: '75-90',
-                speed  : 3,
-              },
+              mozjpeg : { progressive: true },
+              gifsicle: { interlaced: false },
+              optipng : { optimizationLevel: 7 },
+              pngquant: { quality: '75-90', speed: 3 },
             },
           }]
         },
@@ -63,9 +54,7 @@ module.exports = env => {
           test   : /\.js$/,
           exclude: ['/node_modules/', '/app/vendor/'],
           loader : 'eslint-loader',
-          options: {
-            configFile: resolve(__dirname, '.eslintrc')
-          }
+          options: { configFile: resolve(__dirname, '.eslintrc') }
         },
         {
           test   : /\.js$/,
@@ -99,22 +88,22 @@ module.exports = env => {
         disable  : false
       }),
       //Disable for tests
-      new webpack.optimize.CommonsChunkPlugin({
+      isTest ? null : new webpack.optimize.CommonsChunkPlugin({
         name     : 'vendor',
         minChunks: Infinity,
         filename : '[name].[hash].js',
       }),
-      isProd ? undefined : new webpack.DefinePlugin({
+      isProd ? null : new webpack.DefinePlugin({
         'process.env': {NODE_ENV: '"production"'}
       }),
-      !isProd ? undefined : new PurifyCSSPlugin({
+      !isProd ? null : new PurifyCSSPlugin({
         basePath     : __dirname,
         purifyOptions: {
           info  : true,
           minify: true
         }
       }),
-      !isProd ? undefined : new webpack.optimize.OccurrenceOrderPlugin()
+      !isProd ? null : new webpack.optimize.OccurrenceOrderPlugin()
     ])
   };
 };

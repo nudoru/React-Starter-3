@@ -131,8 +131,8 @@ export class CoverTitle extends React.PureComponent {
             tween={this.state.bodyVisible ? this._showContentTween : this._hideContentTween}
           >
             <div
-              onMouseEnter={this._onCoverMouseEnter}
-              onMouseLeave={this._onCoverMouseLeave}
+              onMouseOver={this._onCoverMouseEnter}
+              onMouseOut={this._onCoverMouseLeave}
               className={this._getContainerCSS()}>
               {children}
             </div>
@@ -162,6 +162,7 @@ export class CoverTitleBackground extends React.PureComponent {
 const bodyStyle = css`
   background-color: rgba(255,255,255,0.5);
   text-align: left;
+  user-select: none;
 `;
 
 export class CoverTitleBody extends React.PureComponent {

@@ -6,16 +6,35 @@ import {
   buildClassName,
   bootStrapPropTypes
 } from '../shared/BootStrapHOC';
-import {shadows, gradients} from "../shared/ThemeData";
+import {shadows, metrics} from "../shared/ThemeData";
 
 
-const componentStyle = css`
-    transition: background .25s ease-in-out;
+export const FourtyFiveEffect = css`
+  background-image: linear-gradient(
+    -45deg,
+    transparent 50%,
+    rgba(0,0,0,0.1) 50.01%,
+    rgba(0,0,0,0.1) 100%
+  );
+  background-size: 250%;
+  background-position: 99% 99%;
+  &:hover, &:focus, &:active {
+    box-shadow: 0 0.4em 0.25em -0.2em rgba(0, 0, 0, 0.15);
+    background-position: 0 0;
+    transform: translate(0, -0.1em);
+    transition: transform 160ms ease, background-position 240ms linear;
+  }
+`;
+
+/*
+transition: background .25s ease-in-out;
     transition: box-shadow .25s ease-in-out;
+ */
+const componentStyle = css`
+    ${FourtyFiveEffect};
     border-width: 0;
     cursor: pointer;
     text-transform: uppercase;
-    background-image: ${gradients.light};
     text-shadow: ${shadows.textDark};
     &:disabled {
       cursor: not-allowed;
@@ -29,7 +48,7 @@ const linkStyle = css`
 
 const outlineStyle = css`
   background-image: none;
-  text-shadow: none;
+  text-shadow: none !important;
   border-width: 1px;
   .btn-outline-light:hover {
     background-color: rgba(0,0,0,0.1);
