@@ -56,6 +56,9 @@ export class CoverTitle extends React.PureComponent {
     this.backgroundEl = ReactDOM.findDOMNode(this.backgroundComp); //eslint-disable-line react/no-find-dom-node
     this.bodyEl       = ReactDOM.findDOMNode(this.bodyComp); //eslint-disable-line react/no-find-dom-node
 
+    console.log('body comp', this.bodyComp);
+    console.log('body el?', this.bodyEl);
+
     // TODO forces the title to be the first child
     this.bodyTitleEl = this.bodyEl.firstChild;
 

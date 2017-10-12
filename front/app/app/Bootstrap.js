@@ -43,7 +43,7 @@ class Bootstrap extends React.Component {
             .fold(
               () => Either
                     .fromBool(this.state.isError)
-                .fold(() => <ErrorBoundary><App/></ErrorBoundary>,
+                .fold(() => <App/>,
                       () => <ErrorMessage/>),
               () => <LoadingMessage/>);
   }

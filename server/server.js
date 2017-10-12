@@ -17,7 +17,7 @@ var express = require('express'),
     port = env.OPENSHIFT_NODEJS_PORT || 8080; //(isProduction ? env.PORT : 8080);
 
 app.use(compression());
-app.use(favicon(path.join(__dirname, 'front', 'www', 'favicon.ico')));
+app.use(favicon('./front/www/favicon.ico'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

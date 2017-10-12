@@ -23,7 +23,7 @@ module.exports = env => {
       filename  : '[name].[hash].js',
       publicPath: isProd ? '' : '/'
     },
-    devtool: isProd ? 'cheap-module-source-map' : 'eval',
+    devtool: isProd ? 'source-map' : 'eval', //cheap-module-
     module : {
       rules: [
         {
@@ -68,6 +68,7 @@ module.exports = env => {
               "emotion"
             ],
             presets: removeEmpty(['es2015', 'react', isProd ? undefined : 'react-hmre']),
+            compact: false,
             comments: false
           }
         }
