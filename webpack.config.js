@@ -23,7 +23,7 @@ module.exports = env => {
       filename  : '[name].[hash].js',
       publicPath: isProd ? '' : '/'
     },
-    devtool: isProd ? 'source-map' : 'eval', //cheap-module-
+    devtool: isProd ? 'cheap-module-source-map' : 'eval',
     module : {
       rules: [
         {
