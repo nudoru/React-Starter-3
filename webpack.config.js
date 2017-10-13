@@ -97,6 +97,9 @@ module.exports = env => {
       !isProd ? null : new webpack.DefinePlugin({
         'process.env': {NODE_ENV: '"production"'}
       }),
+      !isProd ? null : new webpack.optimize.UglifyJsPlugin({
+        mangle: false
+      }),
       !isProd ? null : new PurifyCSSPlugin({
         basePath     : __dirname,
         purifyOptions: {

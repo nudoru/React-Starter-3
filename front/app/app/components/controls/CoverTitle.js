@@ -49,12 +49,14 @@ export class CoverTitle extends React.PureComponent {
     this.setState(s => ({bodyVisible: !s.bodyVisible}));
   };
 
+  /*
+  Build BUG
+  With webpack/Uglify 0.4.6 using mangle causes the refs on backgroundComp and bodyComp
+  to not execute? Altered prod build to not mangle 10/13/17
+   */
   componentDidMount() {
     this.backgroundEl = ReactDOM.findDOMNode(this.backgroundComp); //eslint-disable-line react/no-find-dom-node
     this.bodyEl       = ReactDOM.findDOMNode(this.bodyComp); //eslint-disable-line react/no-find-dom-node
-
-    console.log('body comp', this.bodyComp);
-    console.log('body el?', this.bodyEl);
 
     // TODO forces the title to be the first child
     this.bodyTitleEl = this.bodyEl.firstChild;
@@ -67,15 +69,6 @@ export class CoverTitle extends React.PureComponent {
       TweenMax.set(this.bodyEl, {y: this.bodyDefaultY});
     }
   }
-
-  _componentIntroTween = ({target, callBack}) => {
-    return TweenMax.from(target, 0, {
-      scale     : 0.9,
-      alpha     : 1,
-      ease      : Back.easeOut,
-      onComplete: callBack
-    });
-  };
 
   _showContentTween = () => {
     return [

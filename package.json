@@ -16,7 +16,7 @@
     "prebuild": "npm run clean-www",
     "prebuild:prod": "npm run clean-www",
     "build": "webpack --env.dev",
-    "build:prod": "webpack --env.prod -p",
+    "build:prod": "webpack --env.prod",
     "lint": "eslint ."
   },
   "repository": {
