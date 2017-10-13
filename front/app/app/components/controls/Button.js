@@ -8,7 +8,8 @@ import {
 } from '../shared/BootStrapHOC';
 import {shadows, metrics} from "../shared/ThemeData";
 
-
+//    transform: translate(0, -0.1em);
+// transform 160ms ease,
 export const FourtyFiveEffect = css`
   background-image: linear-gradient(
     -45deg,
@@ -21,8 +22,7 @@ export const FourtyFiveEffect = css`
   &:hover, &:focus, &:active {
     box-shadow: 0 0.4em 0.25em -0.2em rgba(0, 0, 0, 0.15);
     background-position: 0 0;
-    transform: translate(0, -0.1em);
-    transition: transform 160ms ease, background-position 240ms linear;
+    transition: box-shadow 120ms linear, background-position 240ms linear;
   }
 `;
 
