@@ -94,7 +94,7 @@ module.exports = env => {
         minChunks: Infinity,
         filename : '[name].[hash].js',
       }),
-      isProd ? null : new webpack.DefinePlugin({
+      !isProd ? null : new webpack.DefinePlugin({
         'process.env': {NODE_ENV: '"production"'}
       }),
       !isProd ? null : new PurifyCSSPlugin({

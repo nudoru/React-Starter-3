@@ -84,7 +84,7 @@ export class Accordion extends React.Component {
     let titleComp = <p></p>,
         bodyComp  = originalChildren;
 
-    React.Children.map(this.props.children, (child) => {
+    React.Children.forEach(this.props.children, (child) => {
       if (child.type === AccordionTitle) {
         titleComp = child;
       } else if (child.type === AccordionBody) {

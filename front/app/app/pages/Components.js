@@ -56,6 +56,7 @@ import {
   CoverTitleTitle,
   CoverTitleText
 } from '../components/controls/CoverTitle';
+
 import { TiltCover } from '../components/controls/TiltCover';
 
 import {

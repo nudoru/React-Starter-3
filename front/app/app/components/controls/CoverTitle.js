@@ -12,6 +12,7 @@ import {joinClasses} from '../shared/utils';
 
 const componentStyle = css`
   overflow: hidden;
+  position: relative;
 `;
 
 export class CoverTitle extends React.PureComponent {
@@ -48,10 +49,6 @@ export class CoverTitle extends React.PureComponent {
     this.setState(s => ({bodyVisible: !s.bodyVisible}));
   };
 
-  _getContainerCSS = () => {
-    return css`width:${this.props.width}px; height:${this.props.height}px; `;
-  };
-
   componentDidMount() {
     this.backgroundEl = ReactDOM.findDOMNode(this.backgroundComp); //eslint-disable-line react/no-find-dom-node
     this.bodyEl       = ReactDOM.findDOMNode(this.bodyComp); //eslint-disable-line react/no-find-dom-node
@@ -72,9 +69,9 @@ export class CoverTitle extends React.PureComponent {
   }
 
   _componentIntroTween = ({target, callBack}) => {
-    return TweenMax.from(target, 0.5, {
-      scale     : 0.75,
-      alpha     : 0,
+    return TweenMax.from(target, 0, {
+      scale     : 0.9,
+      alpha     : 1,
       ease      : Back.easeOut,
       onComplete: callBack
     });
@@ -104,6 +101,15 @@ export class CoverTitle extends React.PureComponent {
       })];
   };
 
+  _getContainerCSS = () => {
+    return css`
+    position: relative;
+    overflow: hidden;
+    width:${this.props.width}px; 
+    height:${this.props.height}px;
+    `;
+  };
+
   render() {
     const {children: originalChildren, className} = this.props;
 
@@ -127,16 +133,14 @@ export class CoverTitle extends React.PureComponent {
 
     return (
       <div
-        className={joinClasses(componentStyle, className)}>
+        className={joinClasses(componentStyle, this._getContainerCSS(), className)}>
         <Animate>
           <TweenGroup
-            enter={this._componentIntroTween}
             tween={this.state.bodyVisible ? this._showContentTween : this._hideContentTween}
-          >
+            immediate={false}>
             <div
               onMouseOver={this._onCoverMouseEnter}
-              onMouseOut={this._onCoverMouseLeave}
-              className={this._getContainerCSS()}>
+              onMouseOut={this._onCoverMouseLeave}>
               {children}
             </div>
           </TweenGroup>
@@ -146,10 +150,9 @@ export class CoverTitle extends React.PureComponent {
   }
 }
 
-const faceContainerStyle = css`
+const containerStyle = css`
   cursor: pointer;
   position: absolute;
-  overflow: hidden;
   width: 100%;
   height: 100%;
 `;
@@ -158,7 +161,7 @@ export class CoverTitleBackground extends React.PureComponent {
   render() {
     const {className, children} = this.props;
     return <div
-      className={joinClasses(faceContainerStyle, className)}>{children}</div>;
+      className={joinClasses(containerStyle, className)}>{children}</div>;
   }
 }
 
@@ -172,7 +175,7 @@ export class CoverTitleBody extends React.PureComponent {
   render() {
     const {className, children} = this.props;
     return <div
-      className={joinClasses(faceContainerStyle, bodyStyle, className)}>{children}</div>;
+      className={joinClasses(containerStyle, bodyStyle, className)}>{children}</div>;
   }
 }
 
