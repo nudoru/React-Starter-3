@@ -6,5 +6,14 @@ notifications:
 sudo: false
 before_install:
   - 'npm config set registry http://registry.npmjs.org/'
-install: npm install
-before_script: npm run build:prod
+install:
+  npm install
+before_script:
+  npm run build:prod
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $github_token
+  local_dir: front/www
+  on:
+    branch: master
