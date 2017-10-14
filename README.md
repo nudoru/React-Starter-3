@@ -1,4 +1,5 @@
 # React-Starter-3-app
+[![Build Status](https://travis-ci.org/nudoru/React-Starter-3.svg?branch=master)](https://travis-ci.org/nudoru/React-Starter-3)
 
 Bootstrap starter for React 15 projects with hot reloading and SASS styles. Built with Webpack 2 beta. Components are intended for mocks and are generally not functional.
 
