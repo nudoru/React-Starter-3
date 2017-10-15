@@ -39,7 +39,7 @@ export class Expando extends React.PureComponent {
   _expandToContentTween = _ => {
     return [
       TweenMax.set(this.containerEl, {height: 'auto'}),
-      TweenMax.from(this.containerEl, 0.5, {
+      TweenMax.from(this.containerEl, 1, {
         height: this.prevContentHeight,
         ease  : Expo.easeOut
       })

@@ -23,7 +23,7 @@ const toBackTween = ({target, callBack}) => {
 const toFrontTween = ({target, callBack}) => {
   return TweenMax.to(target, 0.75, {
     rotationY : 0,
-    ease      : Back.easeInOut,
+    ease      : Back.easeOut,
     onComplete: callBack
   });
 };

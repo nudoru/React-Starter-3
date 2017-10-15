@@ -41,13 +41,13 @@ export class Collapse extends React.PureComponent {
   _showContentTween = _ => {
     return [
       TweenMax.set(this.containerEl, {height: 'auto'}),
-      TweenMax.from(this.containerEl, 0.25, {
+      TweenMax.from(this.containerEl, 0.5, {
         height    : 0,
         ease      : Expo.easeOut,
         onStart   : this._onToggleStart,
         onComplete: this._onToggleComplete
       }),
-      TweenMax.to(this.contentEl, 0.25, {
+      TweenMax.to(this.contentEl, 0.5, {
         autoAlpha: 1
       })
     ];
@@ -55,13 +55,13 @@ export class Collapse extends React.PureComponent {
 
   _hideContentTween = _ => {
     return [
-      TweenMax.to(this.containerEl, 0.25, {
+      TweenMax.to(this.containerEl, 0.5, {
         height    : 0,
         ease      : Expo.easeOut,
         onStart   : this._onToggleStart,
         onComplete: this._onToggleComplete
       }),
-      TweenMax.to(this.contentEl, 0.25, {
+      TweenMax.to(this.contentEl, 0.5, {
         autoAlpha: 0
       })
     ]
