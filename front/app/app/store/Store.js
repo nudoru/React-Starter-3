@@ -6,7 +6,6 @@ import {
   has,
   is,
   lensPath,
-  memoizeWith,
   mergeDeepRight,
   path,
   set,
@@ -32,6 +31,7 @@ Return the state structure at a given path.
 keyPath may either be an array or a string with '.' separating nested objects
 See http://ramdajs.com/docs/#lensPath
  */
+// TODO memoize this for performance
 export const getStatePath = keyPath => clone(view(lensPath(splitKeyPath(keyPath)), _internalState));
 
 /*
@@ -97,7 +97,7 @@ export const listen = (...args) => {
   }
 
   // Return fn to remove the listener
-  return () => unlisten(keyPath, fn);
+  return _ => unlisten(keyPath, fn);
 };
 
 /*
