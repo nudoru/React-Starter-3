@@ -1,28 +1,45 @@
-import { clone, compose, curry, equals, has, is, memoizeWith, mergeDeepRight, path } from 'ramda';
-import {Either} from '../utils/functional';
-/*
-Ideas ...
-
-I don't want the complexity and boiler plate of Redux
-My needs and apps aren't complex enough to warrant Redux
-I need a single immutable state object
-I need to set keys and deeply set keys
-I need to get a state key from JSON
-I need to get keys and deeply get keys
-I need to subscribe to changes on certain keys
- */
+import {
+  clone,
+  compose,
+  curry,
+  equals,
+  has,
+  is,
+  lensPath,
+  memoizeWith,
+  mergeDeepRight,
+  path,
+  set,
+  view
+} from 'ramda';
+import { Either } from '../utils/functional';
 
 let _internalState = Object.create(null);
 let _listeners     = {onChange: []};
-let _debug         = true;
 
+// Convert a string path to an array
+const splitKeyPath = keyPath => is(String, keyPath) ? keyPath.split('.') : keyPath;
+// Join an array path back together
+const joinKeyPath  = keyPath => is(String, keyPath) ? keyPath : keyPath.join('.');
+
+/*
+Return a deep clone of the state
+ */
 export const getState = _ => clone(_internalState);
 
-export const getStatePath = keyPath => compose(clone, path(keyPath.split('.')))(_internalState);
+/*
+Return the state structure at a given path.
+keyPath may either be an array or a string with '.' separating nested objects
+See http://ramdajs.com/docs/#lensPath
+ */
+export const getStatePath = keyPath => clone(view(lensPath(splitKeyPath(keyPath)), _internalState));
 
+/*
+Deeply merges new props in to the state and dispatches a change event
+ */
 export const setState = val => {
-  let newState   = mergeDeepRight(_internalState, val);
-  if(equals(newState, _internalState)) {
+  let newState = mergeDeepRight(_internalState, val);
+  if (equals(newState, _internalState)) {
     return false;
   }
   _internalState = newState;
@@ -30,60 +47,62 @@ export const setState = val => {
   return true;
 };
 
-
-// TODO for ramda path, need to split str on dots
+/*
+Set a nested key in the state and dispatch a change event for that key path
+keyPath may either be an array or a string with '.' separating nested objects
+See http://ramdajs.com/docs/#set
+ */
 export const setStatePath = (keyPath, val) => {
-
+  let newState = set(lensPath(splitKeyPath(keyPath)), val, _internalState);
+  if (equals(newState, _internalState)) {
+    return false;
+  }
+  _internalState = newState;
+  dispatch(joinKeyPath(keyPath));
+  return true;
 };
 
-
-
+/*
+Dispatch a change event on the whole state or a specific key listener
+ */
 const dispatch = keyPath => Either
   .fromBool(keyPath && has(keyPath, _listeners))
   .fold(
     _ => {_listeners.onChange.forEach(fn => fn(getState()));},
     _ => {_listeners[keyPath].forEach(fn => fn(getStatePath(keyPath)));}
-    );
+  );
 
 /**
  * Listen for a change on a specific key or listen for any change
  * Args listenerFn | keyPath, listenerFn
- *
  */
-// TODO clean this up ...
 export const listen = (...args) => {
-        let keyPath, fn;
+  let keyPath, fn;
 
-        if(_debug) {
-          console.log('Listen called with', args);
-        }
+  if (args.length === 2 && is(String, args[0])) {
+    keyPath = args[0];
+    fn      = args[1];
+  } else if (args[0]) {
+    keyPath = 'onChange';
+    fn      = args[0];
+  } else {
+    console.warn('Listen called with incorrect args', args);
+    return false;
+  }
 
-        if (args.length === 2 && is(String, args[0])) {
-          keyPath = args[0];
-          fn      = args[1];
-        } else if (args[0]) {
-          keyPath = 'onChange';
-          fn      = args[0];
-        } else {
-          console.warn('Listen called with incorrect args', args);
-          return false;
-        }
+  if (_listeners[keyPath]) {
+    _listeners[keyPath].push(fn);
+  } else {
+    _listeners[keyPath] = [fn];
+  }
 
-        if (_listeners[keyPath]) {
-          if (_debug) {
-            console.log('adding listener for known keypath', keyPath, fn);
-          }
-          _listeners[keyPath].push(fn);
-        } else {
-          if (_debug) {
-            console.log('adding listener for NEW keypath', keyPath, fn);
-          }
-          _listeners[keyPath] = [fn];
-        }
+  // Return fn to remove the listener
+  return () => unlisten(keyPath, fn);
+};
 
-        return () => unlisten(keyPath, fn);
-      };
-
+/*
+Remove a specific listener
+ */
 const unlisten = (keyPath, fn) => Either
   .fromBool(_listeners[keyPath].indexOf(fn) >= 0)
   .fold(
@@ -92,7 +111,7 @@ const unlisten = (keyPath, fn) => Either
       return false;
     },
     _ => {
-      let idx = _listeners[keyPath].indexOf(fn);
+      let idx                  = _listeners[keyPath].indexOf(fn);
       _listeners[keyPath][idx] = null;
       _listeners[keyPath].splice(idx, 1);
       return true;

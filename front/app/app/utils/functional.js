@@ -27,7 +27,7 @@ export const tfilterer = (f, cnct) => (acc, x) => f(x) ? cnct(acc, x) : acc;
 // Implementation from Brian Lonsdorf
 //------------------------------------------------------------------------------
 
-const Right = x =>
+export const Right = x =>
   ({
     chain  : f => f(x),
     map    : f => Right(f(x)),
@@ -38,7 +38,7 @@ const Right = x =>
     inspect: () => `Right(${x})`
   });
 
-const Left = x =>
+export const Left = x =>
   ({
     chain  : f => Left(x),
     map    : f => Left(x),

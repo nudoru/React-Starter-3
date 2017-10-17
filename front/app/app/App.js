@@ -18,29 +18,29 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    console.log('Testing state ...');
-
-    setState({a:1, b:2, c:{d:3}});
-
-    let unsub = listen(s => {
-      console.log('111 State change',s);
-    });
-    let unsub2 = listen(s => {
-      console.log('222 State change',s);
-    });
-
-
-    setState({a:3, c:{d:4, e:[5,6,7]}});
-
-    unsub();
-
-    setStatePath('c.d',42);
-
-    setState({c:{e:[8,9,{foo:'bar'}]}});
-    setState({c:{e:[8,9,{foo:'bar'}]}});
-
-    console.log(getStatePath('c.e'))
-
+    // Testing state
+    //setState({a:1, b:2, c:{d:3}});
+    //
+    //let unsub = listen(s => {
+    //  console.log('111 State change',s);
+    //});
+    //let unsub2 = listen(s => {
+    //  console.log('222 State change',s);
+    //});
+    //let unsub3 = listen('c.e', s => {
+    //  console.log('333 State change',s);
+    //});
+    //
+    //setState({a:3, c:{d:4, e:[5,6,7]}});
+    //
+    //unsub();
+    //
+    //setState({c:{e:[8,9,{foo:'bar'}]}});
+    //setState({c:{e:[8,9,{foo:'bar'}]}});
+    //
+    //console.log('getStatePath',getStatePath(['c','e']))
+    //setStatePath('c.e',42);
+    //console.log(getState());
   }
 
   render () {
