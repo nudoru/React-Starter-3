@@ -13,6 +13,13 @@ import {
 } from 'ramda';
 import { Either } from '../utils/functional';
 
+/*
+Problems with this approach
+- Even if we're listening to setStatePaths on a key, if it's set via setState, then the listener won't fire.
+- Should I just listen to plain old magic strings?
+ */
+
+
 let _internalState = Object.create(null);
 let _listeners     = {onChange: []};
 
