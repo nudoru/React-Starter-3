@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import debouce from 'lodash/debounce';
@@ -10,27 +10,32 @@ export class MouseOverElement extends React.PureComponent {
     render: PropTypes.func.isRequired
   };
 
-  state = { x: 0, y: 0 };
+  state = {x: 0, y: 0};
 
-  componentDidMount() {
+  componentDidMount () {
     this.componentEl = ReactDOM.findDOMNode(this); //eslint-disable-line react/no-find-dom-node
   }
 
-  mouseMove = () => debouce((x,y) => {
-    this.setState({x,y})
+  mouseMove = () => debouce((x, y) => {
+    this.setState({x, y});
   }, 50);
 
+  // TODO support touch
+  // e.touches[0].pageX, e.touches[0].pageY
   handleMouseMove = e => {
     // To get mouse over screen use this
     // x: event.clientX,
     // y: event.clientY
 
-    if(this.componentEl) {
-      //this.mouseMove()(e.pageX - this.componentEl.offsetLeft, e.pageY - this.componentEl.offsetTop);
+    if (this.componentEl) {
+      let scrollX = window.pageXOffset,
+          scrollY = window.pageYOffset,
+          offset  = this.componentEl.getBoundingClientRect();
+
       this.setState({
-        x: e.pageX - this.componentEl.offsetLeft,
-        y: e.pageY - this.componentEl.offsetTop
-      })
+        x: e.pageX - offset.left - scrollX,
+        y: e.pageY - offset.top - scrollY
+      });
     }
   };
 
@@ -38,17 +43,19 @@ export class MouseOverElement extends React.PureComponent {
     this.setState({
       x: -1,
       y: -1
-    })
+    });
   };
 
   handleMouseEnter = () => {
-  }
+  };
 
-  render() {
+  render () {
     return (
-      <span onMouseMove={this.handleMouseMove} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+      <span onMouseMove={this.handleMouseMove}
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}>
         {this.props.render(this.state)}
       </span>
-    )
+    );
   }
 }
