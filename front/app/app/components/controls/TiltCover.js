@@ -26,8 +26,7 @@ export class TiltCover extends React.PureComponent {
       height: 100%;
       width:${this.props.width}px; 
       height:${this.props.height}px;
-      transform: rotateX(0deg) rotateY(0deg) scale3d(1,1,1);
-      transition: transform 240ms ease-out;
+      transition: transform 250ms ease-out, box-shadow 500ms ease-out;
     `;
   };
 
@@ -39,8 +38,18 @@ export class TiltCover extends React.PureComponent {
       width:${this.props.width}px; 
       height:${this.props.height}px;
       background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%,rgba(255, 255, 255, 0) 80%);
-      transition: background 240ms linear, transform 240ms linear;
+      transition: background 250ms linear, transform 250ms linear;
     `;
+  };
+
+  _clamp = val => {
+    if (val < 0) {
+      return 0;
+    }
+    if (val > 1) {
+      return 1;
+    }
+    return val;
   };
 
   render () {
@@ -51,23 +60,27 @@ export class TiltCover extends React.PureComponent {
       <MouseOverElement render={({x, y}) => {
         let mMidX = x - (this.props.width / 2), // - left of center + right of center
             mMidY = y - (this.props.height / 2), // - left of center + right of center
+            xR    = this._clamp(x / this.props.width),
+            yR    = this._clamp(y / this.props.width),
             rotX  = 0,
             rotY  = 0,
-            scale = '1, 1, 1';
+            scale = '1, 1, 1',
+            shadow = '0 0 0 rgba(0,0,0,0)';
 
         if (x > 0 && y > 0) {
-          rotX  = -(0.5 - x / this.props.width) * this.props.extent;
-          rotY  = (0.5 - y / this.props.height) * this.props.extent;
-          scale = '1.1, 1.1, 1.1';
+          rotX  = -(0.5 - yR) * this.props.extent;
+          rotY  = (0.5 - xR) * this.props.extent;
+          scale = '1.05, 1.05, 1.05';
+          shadow = '0 10px 30px 5px rgba(0,0,0,.15)'
         }
 
-        // get angle between 0-360 for the bg shine
         let angle = Math.atan2(mMidY, mMidX) * 180 / Math.PI - 90;
         if (angle < 0) {
           angle = angle + 360;
         }
 
         let containerStyle = {
+          boxShadow: shadow,
           transform: `rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(${scale})`
         };
 

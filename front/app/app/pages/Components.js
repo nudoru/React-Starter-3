@@ -121,14 +121,14 @@ class Components extends React.Component {
         <div className="pb-5">
           <h4 className="pb-3">Tilt Cover (hover over)</h4>
           <StageArea>
-            <TiltCover className='mr-3 paper-shadow-xl grown_early' extent={25}>
+            <TiltCover className='mr-3 grown_early' extent={25}>
               <h1>Hover
                 over me!</h1>
             </TiltCover>
-            <TiltCover className='mr-3 paper-shadow-xl malibu_beach'><h1>Mee
+            <TiltCover className='mr-3 malibu_beach'><h1>Mee
               too</h1>
             </TiltCover>
-            <TiltCover className='mr-3 paper-shadow-xl mixed_hopes'
+            <TiltCover className='mr-3 mixed_hopes'
                        extent={100}><h1>Meee
               three</h1>
             </TiltCover>
