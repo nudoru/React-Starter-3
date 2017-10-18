@@ -58,8 +58,12 @@ export const setState = val => {
 Set a nested key in the state and dispatch a change event for that key path
 keyPath may either be an array or a string with '.' separating nested objects
 See http://ramdajs.com/docs/#set
+
+With currying, fns to set deeply nested structures are easy to create:
+let setScore = setStatePath(['user','games',0,'performance','score']);
+setScore(100);
  */
-export const setStatePath = (keyPath, val) => {
+export const setStatePath = curry((keyPath, val) => {
   let newState = set(lensPath(splitKeyPath(keyPath)), val, _internalState);
   if (equals(newState, _internalState)) {
     return false;
@@ -67,7 +71,7 @@ export const setStatePath = (keyPath, val) => {
   _internalState = newState;
   dispatch(joinKeyPath(keyPath));
   return true;
-};
+});
 
 /*
 Dispatch a change event on the whole state or a specific key listener
