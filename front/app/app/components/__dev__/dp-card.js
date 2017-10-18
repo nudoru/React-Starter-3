@@ -244,8 +244,8 @@ var Card = function () {
       var dx = pageX - this.offsetLeft - this.width / 2; // @w/2 = center of container
       var dy = pageY - this.offsetTop - this.height / 2; // @h/2 = center of container
 
-      var yRotate = offsetX * maxRotation * 2; // rotation for container Y
       var xRotate = -offsetY * maxRotation * 2; // rotation for container X
+      var yRotate = offsetX * maxRotation * 2; // rotation for container Y
       var imgCSS = 'rotateX(' + xRotate + 'deg) rotateY(' + yRotate + 'deg)'; // img transform
 
       if (this.container.classList.contains('is-over')) {
