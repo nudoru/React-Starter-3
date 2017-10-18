@@ -4,16 +4,11 @@ import TemplatePage from '../pages/TemplatePage';
 import Components from '../pages/Components';
 import Animations from '../pages/Animations';
 import Styles from '../pages/Styles';
-import Stage from'../pages/Stage';
+import Stage from '../pages/Stage';
 
-const RouteMessage = ({children}) =>
-  <div>
-    <div className="color-bg-body">
-      <h1>{children}</h1>
-    </div>
-  </div>;
+const RouteMessage = ({children}) => <div><h1>{children}</h1></div>;
 
-export const AppRouter = ({config}) =>
+export const AppRouter = () =>
   <Router>
     <Switch>
       <Route exact path="/" component={Components}/>

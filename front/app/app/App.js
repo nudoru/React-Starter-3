@@ -2,13 +2,19 @@ import React from 'react';
 import { Either } from './utils/functional';
 import { resetId } from './utils/ElementIDCreator';
 import { AppRouter } from './config/AppRouter';
-
-import {
-  getState, getStatePath, setState, listen,
-  setStatePath
-} from './store/Store';
+import {Masthead} from './pages/regions/Masthead';
+import {Pagearea} from './pages/regions/Pagearea';
+//import {
+//  getState, getStatePath, setState, listen,
+//  setStatePath
+//} from './store/Store';
 
 const LoadingMessage = () => <h1>Reticulating splines ...</h1>;
+
+const Application = () => <div>
+  <Masthead><h5>Components playground</h5></Masthead>
+  <Pagearea><AppRouter/></Pagearea>
+</div>;
 
 class App extends React.Component {
 
@@ -49,7 +55,7 @@ class App extends React.Component {
     return Either
       .fromBool(this.state.isReady)
       .fold(() => <LoadingMessage/>,
-        () => <AppRouter config={this.props.config}/>);
+        () => <Application/>);
 
     /* or the more traditional way ...
     if (this.state.isReady) {

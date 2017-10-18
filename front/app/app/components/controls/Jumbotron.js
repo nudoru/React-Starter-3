@@ -3,8 +3,10 @@ import { css } from 'emotion';
 import { buildClassName, withBootStrap } from '../shared/BootStrapHOC';
 import { joinClasses } from '../shared/utils';
 import { Container } from './Container';
+import {colorList} from '../shared/ThemeData';
 
 const componentStyle = css`
+    background-color: ${colorList.grey1};
     border-radius: 0;
   `;
 

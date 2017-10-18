@@ -103,7 +103,7 @@ class Components extends React.Component {
 
   render () {
     return (
-      <div className="container">
+      <div>
         <Jumbotron><h1>Welcome to the components testing page</h1>
           <p className='lead'>I'm experimenting with a new component system.
             Focus is on: building on top of BootStrap 4, CSS-in-my-JS, animation
