@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {css} from 'emotion';
 import {
   CoverTitle,
   CoverTitleBackground,
@@ -7,6 +7,13 @@ import {
   CoverTitleTitle,
   CoverTitleText
 } from '../components/controls/CoverTitle';
+
+const componentStyle = css`
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 class Stage extends React.Component {
 
@@ -18,8 +25,8 @@ class Stage extends React.Component {
 
   render() {
     //className='full-window-cover-center risky_concrete'
-    return <div >
-      <div className='p-5'>
+    return <div className={componentStyle}>
+      <div className='pt-5'>
         <CoverTitle className='paper-shadow-xl'>
           <CoverTitleBackground className='ripe_malinka'>
             <p>Lorem Ipsum is simply dummy text of the printing and

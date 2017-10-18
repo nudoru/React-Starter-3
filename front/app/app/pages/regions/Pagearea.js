@@ -4,7 +4,10 @@ import { colorList } from '../../components/shared/ThemeData';
 import { Container } from '../../components/controls/Container';
 
 const componentStyle = css`
-background-color: ${colorList.grey0};
+  position: relative;
+  display: flex;
+  background-color: ${colorList.grey0};
+  flex: 1;
 `;
 
 export const Pagearea = ({children}) =>

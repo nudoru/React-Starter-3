@@ -2,8 +2,11 @@ import React from 'react';
 import { Either } from './utils/functional';
 import { resetId } from './utils/ElementIDCreator';
 import { AppRouter } from './config/AppRouter';
+import {ApplicationContainer} from './pages/regions/ApplicationContainer';
 import {Masthead} from './pages/regions/Masthead';
 import {Pagearea} from './pages/regions/Pagearea';
+import {Footer} from './pages/regions/Footer';
+import Link from './components/controls/Link';
 //import {
 //  getState, getStatePath, setState, listen,
 //  setStatePath
@@ -11,10 +14,13 @@ import {Pagearea} from './pages/regions/Pagearea';
 
 const LoadingMessage = () => <h1>Reticulating splines ...</h1>;
 
-const Application = () => <div>
+const Application = () => <ApplicationContainer>
   <Masthead><h5>Components playground</h5></Masthead>
   <Pagearea><AppRouter/></Pagearea>
-</div>;
+  <Footer><p className='small mb-0'>hello@mattperkins.me | Source is on <Link
+    href='https://github.com/nudoru/react-starter-3'>Github</Link>.
+  </p></Footer>
+</ApplicationContainer>;
 
 class App extends React.Component {
 
