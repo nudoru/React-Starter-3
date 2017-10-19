@@ -15,6 +15,13 @@ const componentStyle = css`
   position: relative;
 `;
 
+const containerCSS = props => css`
+    position: relative;
+    overflow: hidden;
+    width:${props.width}px; 
+    height:${props.height}px;
+    `;
+
 export class CoverTitle extends React.PureComponent {
   static defaultProps = {
     width : 300,
@@ -37,15 +44,15 @@ export class CoverTitle extends React.PureComponent {
     this.bodyDefaultY   = 0;
   }
 
-  _onCoverMouseEnter = () => {
+  _onCoverMouseEnter = _ => {
     this._onToggleContent();
   };
 
-  _onCoverMouseLeave = () => {
+  _onCoverMouseLeave = _ => {
     this._onToggleContent();
   };
 
-  _onToggleContent = () => {
+  _onToggleContent = _ => {
     this.setState(s => ({bodyVisible: !s.bodyVisible}));
   };
 
@@ -70,37 +77,28 @@ export class CoverTitle extends React.PureComponent {
     }
   }
 
-  _showContentTween = () => {
+  _showContentTween = _ => {
     return [
-      TweenMax.to(this.backgroundEl, 1, {
+      TweenMax.to(this.backgroundEl, 2, {
         scale: 1.25,
         ease : Expo.easeOut
       }),
-      TweenMax.to(this.bodyEl, 0.5, {
+      TweenMax.to(this.bodyEl, 1, {
         y   : 0,
         ease: Expo.easeOut
       })];
   };
 
-  _hideContentTween = () => {
+  _hideContentTween = _ => {
     return [
-      TweenMax.to(this.backgroundEl, 1, {
+      TweenMax.to(this.backgroundEl, 2, {
         scale: 1,
         ease : Expo.easeOut
       }),
-      TweenMax.to(this.bodyEl, 0.5, {
+      TweenMax.to(this.bodyEl, 1, {
         y   : this.bodyDefaultY,
         ease: Expo.easeOut
       })];
-  };
-
-  _getContainerCSS = () => {
-    return css`
-    position: relative;
-    overflow: hidden;
-    width:${this.props.width}px; 
-    height:${this.props.height}px;
-    `;
   };
 
   render() {
@@ -126,7 +124,7 @@ export class CoverTitle extends React.PureComponent {
 
     return (
       <div
-        className={joinClasses(componentStyle, this._getContainerCSS(), className)}>
+        className={joinClasses(componentStyle, containerCSS(this.props), className)}>
         <Animate>
           <TweenGroup
             tween={this.state.bodyVisible ? this._showContentTween : this._hideContentTween}

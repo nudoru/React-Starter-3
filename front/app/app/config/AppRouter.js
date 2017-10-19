@@ -1,6 +1,5 @@
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import TemplatePage from '../pages/TemplatePage';
 import Components from '../pages/Components';
 import Animations from '../pages/Animations';
 import Styles from '../pages/Styles';

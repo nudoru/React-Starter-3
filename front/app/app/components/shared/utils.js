@@ -24,3 +24,15 @@ export const joinWithSpaces = joinStrings(' ');
 
 // This does something similar https://www.npmjs.com/package/classnames
 export const joinClasses = (...els) => compose(joinWithSpaces, removeNulls)([...els]);
+
+export const clamp = curry((min, max, val) => {
+  if (val < min) {
+    return min;
+  }
+  if (val > max) {
+    return max;
+  }
+  return val;
+});
+
+export const clamp01 = clamp(0,1);

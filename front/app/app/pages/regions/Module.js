@@ -5,6 +5,8 @@ import { metrics } from '../../components/shared/ThemeData';
 import { Container } from '../../components/controls/Container';
 import { joinClasses } from '../../components/shared/utils';
 
+//display: flex;
+//flex-direction: column;
 const containerComponentStyle = css`
   width: 100%;
   min-height: 100%;
@@ -30,7 +32,7 @@ const contentContainerStyle = css`
 
 const flexContentContainerStyle = props => css`
   display: flex;
-  flex-direction: column;
+  flex-direction: co;
   align-items: ${props.middle ? 'center' : 'flex-start'};
   justify-content: ${props.center ? 'center' : 'flex-start'};
   flex: ${props.full ? 1 : 0};
