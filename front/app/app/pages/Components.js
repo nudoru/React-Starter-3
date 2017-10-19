@@ -108,7 +108,7 @@ const FlipBack = (props) => {
 };
 
 const StageArea = (props) => <div
-  className='flex-row'>{props.children}</div>;
+  className='flex-full-center'>{props.children}</div>;
 
 class Components extends React.Component {
 
