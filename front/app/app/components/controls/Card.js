@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {css} from 'emotion';
-import {joinClasses, omit} from '../shared/utils';
-import {metrics} from '../shared/ThemeData';
-import {flexBoxProps} from '../shared/FlexBoxProps';
+import { css } from 'emotion';
+import { joinClasses, omit } from '../shared/utils';
+import { metrics } from '../shared/ThemeData';
+import { flexBoxProps } from '../shared/FlexBoxProps';
 import {
   withBootStrap,
   buildClassName,
@@ -21,7 +21,7 @@ class BCard extends React.PureComponent {
     width: PropTypes.string
   };
 
-  render() {
+  render () {
     const {children, ...rest} = this.props;
     const cleanedProps        = omit(bootStrapPropTypes, rest);
     const componentStyle      = css`
@@ -29,12 +29,13 @@ class BCard extends React.PureComponent {
     `;
 
     return (
-      <div
-        className={joinClasses(buildClassName(this.props), componentStyle)} {...cleanedProps}>{children}</div>
+      <section
+        className={joinClasses(buildClassName(this.props), componentStyle)} {...cleanedProps}>
+        {children}
+      </section>
     );
   }
 }
-
 
 const containerStyle = css`
     padding-left: ${metrics.spacing};
@@ -43,10 +44,10 @@ const containerStyle = css`
 
 const BCardHeader = props => {
   const {className, ...rest} = props;
-  const cleanProps = omit(bootStrapPropTypes, rest);
+  const cleanProps           = omit(bootStrapPropTypes, rest);
   return <div
     className={joinClasses(buildClassName(props), containerStyle)} {...cleanProps} />;
-}
+};
 
 const BCardFooter = props => <div
   className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</div>;
@@ -97,7 +98,7 @@ export class CardXHeader extends React.PureComponent {
     textColor : PropTypes.string
   };
 
-  render() {
+  render () {
     const {className, children, ...rest} = this.props;
     const cleanedProps                   = omit(CardXHeader.propTypes, rest);
     let componentStyle                   = css`

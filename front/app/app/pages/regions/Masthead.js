@@ -12,6 +12,6 @@ const componentStyle = css`
 `;
 
 export const Masthead = ({children}) =>
-  <div className={componentStyle}>
+  <header className={componentStyle}>
     <Container>{children}</Container>
-  </div>;
+  </header>;

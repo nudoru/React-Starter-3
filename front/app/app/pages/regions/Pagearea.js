@@ -11,6 +11,6 @@ const componentStyle = css`
 `;
 
 export const Pagearea = ({children}) =>
-  <div className={componentStyle}>
-    <Container className='pt-2'>{children}</Container>
-  </div>;
+  <main className={componentStyle}>
+    {children}
+  </main>;
