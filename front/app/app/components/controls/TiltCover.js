@@ -58,7 +58,7 @@ export class TiltCover extends React.PureComponent {
           rotX  = -(0.5 - (y / this.props.width)) * this.props.extent;
           rotY  = (0.5 - (x / this.props.width)) * this.props.extent;
           scale = '1.05, 1.05, 1.05';
-          shadow = '0 10px 30px 5px rgba(0,0,0,.15)'
+          shadow = '0 19px 38px rgba(0,0,0,0.15), 0 15px 12px rgba(0,0,0,0.12)' // .paper-shadow-xl
         }
 
         let angle = Math.atan2(mMidY, mMidX) * 180 / Math.PI - 90;
