@@ -67,8 +67,6 @@ class BVTab extends React.PureComponent {
 
 
 const tabPanelContainerStyle = css`
-  border: 1px solid ${colorList.grey1};
-  background-color: #fff;
   padding: ${metrics.spacing};
 `;
 

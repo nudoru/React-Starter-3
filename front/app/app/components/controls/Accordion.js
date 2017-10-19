@@ -12,6 +12,8 @@ import { Animate, TweenGroup } from '../shared/Animate';
 const headerStyle = css`
   cursor: pointer;
   text-shadow: ${shadows.textLight};
+  border-bottom: 3px solid ${colorList.grey3};
+  margin-bottom: -1px;
   background-color: ${colorList.grey1};
   background-image: linear-gradient(
     -45deg,
