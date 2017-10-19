@@ -22,7 +22,7 @@ class Stage extends React.Component {
   render () {
     //className='full-window-cover-center risky_concrete'
     return <ModuleContainer>
-      <Module full className='risky_concrete'>
+      <Module full >
 
       </Module>
     </ModuleContainer>;

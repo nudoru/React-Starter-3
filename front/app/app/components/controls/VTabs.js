@@ -5,8 +5,9 @@ import { buildClassName, withBootStrap } from '../shared/BootStrapHOC';
 import { Nav, NavItem } from './Navigation';
 import { Expando } from '../shared/Expando';
 import { colorList, metrics } from '../shared/ThemeData';
+import { Col, RowNG } from './Grid';
 
-class BTabs extends React.PureComponent {
+class BVTabs extends React.PureComponent {
   state = {activeIndex: 0};
 
   static childContextTypes = {
@@ -26,12 +27,11 @@ class BTabs extends React.PureComponent {
   };
 
   render() {
-    return <div
-      className={buildClassName(this.props)}>{this.props.children}</div>;
+    return <RowNG className={buildClassName(this.props)}>{this.props.children}</RowNG>;
   }
 }
 
-class BTabList extends React.PureComponent {
+class BVTabList extends React.PureComponent {
   static contextTypes = {
     activeIndex: PropTypes.number.isRequired,
     onSelectTab: PropTypes.func.isRequired
@@ -47,11 +47,11 @@ class BTabList extends React.PureComponent {
       });
     });
 
-    return <Nav tabs>{children}</Nav>;
+    return <Col width={3}><Nav stacked>{children}</Nav></Col>;
   }
 }
 
-class BTab extends React.PureComponent {
+class BVTab extends React.PureComponent {
   handleClick = e => {
     e.preventDefault();
     this.props.onSelect();
@@ -67,41 +67,39 @@ class BTab extends React.PureComponent {
 
 
 const tabPanelContainerStyle = css`
-  border-left: 1px solid ${colorList.blue};
-  border-right: 1px solid ${colorList.blue};
-  border-bottom: 1px solid ${colorList.blue};
+  border: 1px solid ${colorList.grey1};
   background-color: #fff;
   padding: ${metrics.spacing};
 `;
 
-const TabPanelContainer = (props) => <div  className={tabPanelContainerStyle} {...props}/>;
+const VTabPanelContainer = (props) => <div  className={tabPanelContainerStyle} {...props}/>;
 
-class BTabPanels extends React.PureComponent {
+class BVTabPanels extends React.PureComponent {
   static contextTypes = {
     activeIndex: PropTypes.number.isRequired
   };
 
   render() {
     const {activeIndex} = this.context;
-    return <div className={buildClassName(this.props)}>
-      <TabPanelContainer>
+    return <Col className={buildClassName(this.props)}>
+      <VTabPanelContainer>
       <Expando>
         {this.props.children[activeIndex]}
       </Expando>
-      </TabPanelContainer>
-    </div>;
+      </VTabPanelContainer>
+    </Col>;
   }
 }
 
-class BTabPanel extends React.PureComponent {
+class BVTabPanel extends React.PureComponent {
   render() {
     return <div
       className={buildClassName(this.props)}>{this.props.children}</div>;
   }
 }
 
-export const Tabs      = withBootStrap('')(BTabs);
-export const TabList   = withBootStrap('nav')(BTabList);
-export const Tab       = withBootStrap('nav-item')(BTab);
-export const TabPanels = withBootStrap('')(BTabPanels);
-export const TabPanel  = withBootStrap('')(BTabPanel);
+export const VTabs      = withBootStrap('')(BVTabs);
+export const VTabList   = withBootStrap('nav')(BVTabList);
+export const VTab       = withBootStrap('nav-item')(BVTab);
+export const VTabPanels = withBootStrap('')(BVTabPanels);
+export const VTabPanel  = withBootStrap('')(BVTabPanel);
