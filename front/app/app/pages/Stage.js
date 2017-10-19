@@ -1,5 +1,6 @@
 import React from 'react';
-import {css} from 'emotion';
+import { css } from 'emotion';
+import { ModuleContainer, Module } from './regions/Module';
 import {
   CoverTitle,
   CoverTitleBackground,
@@ -23,10 +24,10 @@ class Stage extends React.Component {
     this.setState((prevState, props) => ({open: !prevState.open}));
   };
 
-  render() {
+  render () {
     //className='full-window-cover-center risky_concrete'
-    return <div className={componentStyle}>
-      <div className='pt-5'>
+    return <ModuleContainer>
+      <Module full center middle className='risky_concrete'>
         <CoverTitle className='paper-shadow-xl'>
           <CoverTitleBackground className='ripe_malinka'>
             <p>Lorem Ipsum is simply dummy text of the printing and
@@ -49,8 +50,40 @@ class Stage extends React.Component {
             </CoverTitleText>
           </CoverTitleBody>
         </CoverTitle>
-      </div>
-    </div>;
+    </Module>
+    <Module className='bg-white'>
+      <p>Lorem Ipsum is simply dummy text of the printing and
+        typesetting industry. Lorem Ipsum has been the industry's
+        standard dummy text ever since the 1500s, when an unknown
+        printer took a galley of type and scrambled it to make a
+        type specimen book. It has survived not only five centuries,
+        but also the leap into electronic typesetting, remaining
+        essentially unchanged.</p>
+      <p>Lorem Ipsum is simply dummy text of the printing and
+        typesetting industry. Lorem Ipsum has been the industry's
+        standard dummy text ever since the 1500s, when an unknown
+        printer took a galley of type and scrambled it to make a
+        type specimen book. It has survived not only five centuries,
+        but also the leap into electronic typesetting, remaining
+        essentially unchanged.</p>
+    </Module>
+      <Module className='bg-white'>
+        <p>Lorem Ipsum is simply dummy text of the printing and
+          typesetting industry. Lorem Ipsum has been the industry's
+          standard dummy text ever since the 1500s, when an unknown
+          printer took a galley of type and scrambled it to make a
+          type specimen book. It has survived not only five centuries,
+          but also the leap into electronic typesetting, remaining
+          essentially unchanged.</p>
+        <p>Lorem Ipsum is simply dummy text of the printing and
+          typesetting industry. Lorem Ipsum has been the industry's
+          standard dummy text ever since the 1500s, when an unknown
+          printer took a galley of type and scrambled it to make a
+          type specimen book. It has survived not only five centuries,
+          but also the leap into electronic typesetting, remaining
+          essentially unchanged.</p>
+      </Module>
+    </ModuleContainer>;
   }
 }
 

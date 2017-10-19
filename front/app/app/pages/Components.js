@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { ModuleContainer, Module } from './regions/Module';
 import {
   Card,
   CardBody,
@@ -74,7 +74,7 @@ import {
   Accordion,
   AccordionBody,
   AccordionTitle
-} from "../components/controls/Accordion";
+} from '../components/controls/Accordion';
 
 const LoadingCard = withLoading(Card);
 
@@ -103,7 +103,7 @@ class Components extends React.Component {
 
   render () {
     return (
-      <div>
+      <Module>
         <Jumbotron><h1>Welcome to the components testing page</h1>
           <p className='lead'>I'm experimenting with a new component system.
             Focus is on: building on top of BootStrap 4, CSS-in-my-JS, animation
@@ -204,26 +204,78 @@ class Components extends React.Component {
               <Tab>Three</Tab>
             </TabList>
             <TabPanels>
-              <TabPanel>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit amet, sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum varius. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis porta lobortis nisl, non blandit enim. Cras eros tortor, pellentesque ut orci vitae, consectetur dictum erat. Morbi auctor risus vitae neque fringilla congue. Integer ac augue quis mi viverra commodo. Nullam ornare, purus ut sollicitudin dignissim, elit arcu sollicitudin dui, ac dictum enim dolor id diam. Integer et lobortis elit. Maecenas varius feugiat magna, eu bibendum neque blandit eu. Nunc sed faucibus ante. Pellentesque at lectus at ante tempus condimentum. Aliquam ac consequat tortor, at rutrum neque. Nam fermentum nulla eget finibus imperdiet.
+              <TabPanel>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Integer vitae orci mi. Vestibulum tellus sem, tristique sed
+                lacus sit amet, sollicitudin pharetra turpis. Ut sodales
+                scelerisque urna bibendum varius. Vestibulum ante ipsum primis
+                in faucibus orci luctus et ultrices posuere cubilia Curae; Duis
+                porta lobortis nisl, non blandit enim. Cras eros tortor,
+                pellentesque ut orci vitae, consectetur dictum erat. Morbi
+                auctor risus vitae neque fringilla congue. Integer ac augue quis
+                mi viverra commodo. Nullam ornare, purus ut sollicitudin
+                dignissim, elit arcu sollicitudin dui, ac dictum enim dolor id
+                diam. Integer et lobortis elit. Maecenas varius feugiat magna,
+                eu bibendum neque blandit eu. Nunc sed faucibus ante.
+                Pellentesque at lectus at ante tempus condimentum. Aliquam ac
+                consequat tortor, at rutrum neque. Nam fermentum nulla eget
+                finibus imperdiet.
                 <Accordion className='mt-2'>
                   <AccordionTitle>Click to expand</AccordionTitle>
                   <AccordionBody>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                      vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Integer
+                      vitae orci mi. Vestibulum tellus sem, tristique sed lacus
+                      sit
                       amet,
-                      sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
-                      varius. Vestibulum ante ipsum primis in faucibus orci luctus
+                      sollicitudin pharetra turpis. Ut sodales scelerisque urna
+                      bibendum
+                      varius. Vestibulum ante ipsum primis in faucibus orci
+                      luctus
                       et</p>
-                    <p>ultrices posuere cubilia Curae; Duis porta lobortis nisl, non
-                      blandit enim. Cras eros tortor, pellentesque ut orci vitae,
-                      consectetur dictum erat. Morbi auctor risus vitae neque fringilla
+                    <p>ultrices posuere cubilia Curae; Duis porta lobortis nisl,
+                      non
+                      blandit enim. Cras eros tortor, pellentesque ut orci
+                      vitae,
+                      consectetur dictum erat. Morbi auctor risus vitae neque
+                      fringilla
                       congue.</p>
                   </AccordionBody>
                 </Accordion>
               </TabPanel>
-              <TabPanel>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit amet, sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum varius.</TabPanel>
-              <TabPanel><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit amet, sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum varius. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis porta lobortis nisl, non blandit enim. Cras eros tortor, pellentesque ut orci vitae, consectetur dictum erat. Morbi auctor risus vitae neque fringilla congue. Integer ac augue quis mi viverra commodo. Nullam ornare, purus ut sollicitudin dignissim, elit arcu sollicitudin dui, ac dictum enim dolor id diam. Integer et lobortis elit. Maecenas varius feugiat magna, eu bibendum neque blandit eu. Nunc sed faucibus ante. Pellentesque at lectus at ante tempus condimentum. Aliquam ac consequat tortor, at rutrum neque. Nam fermentum nulla eget finibus imperdiet.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit amet, sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum varius. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis porta lobortis nisl, non blandit enim. Cras eros tortor, pellentesque ut orci vitae, consectetur dictum erat. Morbi auctor risus vitae neque fringilla congue. Integer ac augue quis mi viverra commodo. Nullam ornare, purus ut sollicitudin dignissim, elit arcu sollicitudin dui, ac dictum enim dolor id diam. Integer et lobortis elit. Maecenas varius feugiat magna, eu bibendum neque blandit eu. Nunc sed faucibus ante. Pellentesque at lectus at ante tempus condimentum. Aliquam ac consequat tortor, at rutrum neque. Nam fermentum nulla eget finibus imperdiet.</p></TabPanel>
+              <TabPanel>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Integer vitae orci mi. Vestibulum tellus sem, tristique sed
+                lacus sit amet, sollicitudin pharetra turpis. Ut sodales
+                scelerisque urna bibendum varius.</TabPanel>
+              <TabPanel><p>Lorem ipsum dolor sit amet, consectetur adipiscing
+                elit. Integer vitae orci mi. Vestibulum tellus sem, tristique
+                sed lacus sit amet, sollicitudin pharetra turpis. Ut sodales
+                scelerisque urna bibendum varius. Vestibulum ante ipsum primis
+                in faucibus orci luctus et ultrices posuere cubilia Curae; Duis
+                porta lobortis nisl, non blandit enim. Cras eros tortor,
+                pellentesque ut orci vitae, consectetur dictum erat. Morbi
+                auctor risus vitae neque fringilla congue. Integer ac augue quis
+                mi viverra commodo. Nullam ornare, purus ut sollicitudin
+                dignissim, elit arcu sollicitudin dui, ac dictum enim dolor id
+                diam. Integer et lobortis elit. Maecenas varius feugiat magna,
+                eu bibendum neque blandit eu. Nunc sed faucibus ante.
+                Pellentesque at lectus at ante tempus condimentum. Aliquam ac
+                consequat tortor, at rutrum neque. Nam fermentum nulla eget
+                finibus imperdiet.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Integer vitae orci mi. Vestibulum tellus sem, tristique sed
+                  lacus sit amet, sollicitudin pharetra turpis. Ut sodales
+                  scelerisque urna bibendum varius. Vestibulum ante ipsum primis
+                  in faucibus orci luctus et ultrices posuere cubilia Curae;
+                  Duis porta lobortis nisl, non blandit enim. Cras eros tortor,
+                  pellentesque ut orci vitae, consectetur dictum erat. Morbi
+                  auctor risus vitae neque fringilla congue. Integer ac augue
+                  quis mi viverra commodo. Nullam ornare, purus ut sollicitudin
+                  dignissim, elit arcu sollicitudin dui, ac dictum enim dolor id
+                  diam. Integer et lobortis elit. Maecenas varius feugiat magna,
+                  eu bibendum neque blandit eu. Nunc sed faucibus ante.
+                  Pellentesque at lectus at ante tempus condimentum. Aliquam ac
+                  consequat tortor, at rutrum neque. Nam fermentum nulla eget
+                  finibus imperdiet.</p></TabPanel>
             </TabPanels>
           </Tabs>
         </div>
@@ -232,29 +284,38 @@ class Components extends React.Component {
           <Accordion open={true}>
             <AccordionTitle>Click to expand</AccordionTitle>
             <AccordionBody>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Integer
                 vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
                 amet,
-                sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
+                sollicitudin pharetra turpis. Ut sodales scelerisque urna
+                bibendum
                 varius. Vestibulum ante ipsum primis in faucibus orci luctus
                 et</p>
               <Accordion>
                 <AccordionTitle>Click to expand</AccordionTitle>
                 <AccordionBody>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                    vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Integer
+                    vitae orci mi. Vestibulum tellus sem, tristique sed lacus
+                    sit
                     amet,
-                    sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
+                    sollicitudin pharetra turpis. Ut sodales scelerisque urna
+                    bibendum
                     varius. Vestibulum ante ipsum primis in faucibus orci luctus
                     et</p>
                   <Accordion>
                     <AccordionTitle>Click to expand</AccordionTitle>
                     <AccordionBody>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                        vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing
+                        elit. Integer
+                        vitae orci mi. Vestibulum tellus sem, tristique sed
+                        lacus sit
                         amet,
-                        sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
-                        varius. Vestibulum ante ipsum primis in faucibus orci luctus
+                        sollicitudin pharetra turpis. Ut sodales scelerisque
+                        urna bibendum
+                        varius. Vestibulum ante ipsum primis in faucibus orci
+                        luctus
                         et</p>
                     </AccordionBody>
                   </Accordion>
@@ -263,10 +324,13 @@ class Components extends React.Component {
               <Accordion>
                 <AccordionTitle>Click to expand</AccordionTitle>
                 <AccordionBody>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                    vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Integer
+                    vitae orci mi. Vestibulum tellus sem, tristique sed lacus
+                    sit
                     amet,
-                    sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
+                    sollicitudin pharetra turpis. Ut sodales scelerisque urna
+                    bibendum
                     varius. Vestibulum ante ipsum primis in faucibus orci luctus
                     et</p>
                 </AccordionBody>
@@ -274,32 +338,39 @@ class Components extends React.Component {
               <Accordion>
                 <AccordionTitle>Click to expand</AccordionTitle>
                 <AccordionBody>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                    vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Integer
+                    vitae orci mi. Vestibulum tellus sem, tristique sed lacus
+                    sit
                     amet,
-                    sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
+                    sollicitudin pharetra turpis. Ut sodales scelerisque urna
+                    bibendum
                     varius. Vestibulum ante ipsum primis in faucibus orci luctus
                     et</p>
                 </AccordionBody>
               </Accordion>
               <p>ultrices posuere cubilia Curae; Duis porta lobortis nisl, non
                 blandit enim. Cras eros tortor, pellentesque ut orci vitae,
-                consectetur dictum erat. Morbi auctor risus vitae neque fringilla
+                consectetur dictum erat. Morbi auctor risus vitae neque
+                fringilla
                 congue.</p>
             </AccordionBody>
           </Accordion>
           <Accordion>
             <AccordionTitle>Click to expand</AccordionTitle>
             <AccordionBody>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Integer
                 vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit
                 amet,
-                sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum
+                sollicitudin pharetra turpis. Ut sodales scelerisque urna
+                bibendum
                 varius. Vestibulum ante ipsum primis in faucibus orci luctus
                 et</p>
               <p>ultrices posuere cubilia Curae; Duis porta lobortis nisl, non
                 blandit enim. Cras eros tortor, pellentesque ut orci vitae,
-                consectetur dictum erat. Morbi auctor risus vitae neque fringilla
+                consectetur dictum erat. Morbi auctor risus vitae neque
+                fringilla
                 congue.</p>
             </AccordionBody>
           </Accordion>
@@ -588,9 +659,8 @@ class Components extends React.Component {
           <ProgressBar percent={75} striped animated className='mb-2'/>
           <ProgressBar percent={100} className='mb-2'/>
         </div>
-      </div>
-    )
-      ;
+      </Module>
+    );
   }
 }
 
