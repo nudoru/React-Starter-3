@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import PropTypes from 'prop-types';
-import {getNextId} from '../../utils/ElementIDCreator';
+import { getNextId } from '../../utils/ElementIDCreator';
 
 export const bootStrapPropTypes = {
   __cid      : PropTypes.string,
@@ -52,7 +52,7 @@ export const withBootStrap = (bsClass = null) => Comp => {
 
     static propTypes = bootStrapPropTypes;
 
-    render() {
+    render () {
       return <Comp __cid={getNextId()} {...this.props} />;
     }
   }
@@ -62,28 +62,27 @@ export const withBootStrap = (bsClass = null) => Comp => {
   return Bootstrapped;
 };
 
-
 // TODO how can this work as a template literal?
 const stylesMapping = {
   active          : 'active',
   disabled        : 'disabled',
-  dismissible     : '${cls}-dismissible',    // eslint-disable-line no-undef
-  primary         : '${cls}-primary',    // eslint-disable-line no-undef
-  secondary       : '${cls}-secondary',  // eslint-disable-line no-undef
-  success         : '${cls}-success',    // eslint-disable-line no-undef
-  danger          : '${cls}-danger',     // eslint-disable-line no-undef
-  warning         : '${cls}-warning',    // eslint-disable-line no-undef
-  info            : '${cls}-info',       // eslint-disable-line no-undef
-  light           : '${cls}-light',      // eslint-disable-line no-undef
-  dark            : '${cls}-dark',       // eslint-disable-line no-undef
-  lg              : '${cls}-lg',         // eslint-disable-line no-undef
-  sm              : '${cls}-sm',         // eslint-disable-line no-undef
+  dismissible     : '${cls}-dismissible',
+  primary         : '${cls}-primary',
+  secondary       : '${cls}-secondary',
+  success         : '${cls}-success',
+  danger          : '${cls}-danger',
+  warning         : '${cls}-warning',
+  info            : '${cls}-info',
+  light           : '${cls}-light',
+  dark            : '${cls}-dark',
+  lg              : '${cls}-lg',
+  sm              : '${cls}-sm',
   btn             : {
-    link : '${cls}-link',             // eslint-disable-line no-undef
-    block: '${cls}-block'             // eslint-disable-line no-undef
+    link : '${cls}-link',
+    block: '${cls}-block'
   },
   ['btn-group']   : {
-    vertical: '${cls}-vertical'       // eslint-disable-line no-undef
+    vertical: '${cls}-vertical'
   },
   nav             : {
     tabs     : 'nav-tabs',
@@ -95,26 +94,33 @@ const stylesMapping = {
     center   : 'justify-content-center'
   },
   badge           : {
-    pill: '${cls}-pill'             // eslint-disable-line no-undef
+    pill: '${cls}-pill'
   },
   ['progress-bar']: {
-    striped  : '${cls}-striped',         // eslint-disable-line no-undef
-    animated : '${cls}-animated',         // eslint-disable-line no-undef
-    info     : 'bg-info',         // eslint-disable-line no-undef
-    light    : 'bg-light',         // eslint-disable-line no-undef
-    dark     : 'bg-dark',         // eslint-disable-line no-undef
-    success  : 'bg-success',         // eslint-disable-line no-undef
-    warning  : 'bg-warning',         // eslint-disable-line no-undef
-    danger   : 'bg-danger',         // eslint-disable-line no-undef
-    primary  : 'bg-primary',         // eslint-disable-line no-undef
-    secondary: 'bg-secondary',         // eslint-disable-line no-undef
-    white    : 'bg-white'         // eslint-disable-line no-undef
+    striped  : '${cls}-striped',
+    animated : '${cls}-animated',
+    info     : 'bg-info',
+    light    : 'bg-light',
+    dark     : 'bg-dark',
+    success  : 'bg-success',
+    warning  : 'bg-warning',
+    danger   : 'bg-danger',
+    primary  : 'bg-primary',
+    secondary: 'bg-secondary',
+    white    : 'bg-white'
   },
   ['list-group']  : {
     flush: '${cls}-flush'
   },
   jumbotron       : {
-    fluid: '${cls}-fluid'         // eslint-disable-line no-undef
+    fluid: '${cls}-fluid'
+  },
+  table           : {
+    dark      : '${cls}-dark',
+    striped   : '${cls}-striped',
+    bordered  : '${cls}-bordered',
+    hover     : '${cls}-hover',
+    responsive: '${cls}-responsive'
   }
 };
 

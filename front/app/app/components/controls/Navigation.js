@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
-import {metrics, colorList, shadows, gradients} from '../shared/ThemeData';
+import {metrics, modularScale, colorList, shadows, gradients} from '../shared/ThemeData';
 import { joinClasses, omit, removeNulls } from '../shared/utils';
 import {
   withBootStrap,
@@ -34,7 +34,7 @@ const navLinkStyle = css`
 
 const navTabsStyle = css`
   .nav-tabs {
-    border-bottom: 1px solid ${colorList.blue};
+    border-bottom: 3px solid ${colorList.blue};
   }
 `;
 
@@ -63,20 +63,38 @@ const navItemPillsStyle = css`
   }
 `;
 
+const navItemStackedStyle = css`
+  .nav-link {
+    padding-left: 0;
+    padding-top: ${modularScale.ms0};
+    padding-bottom: ${modularScale.ms0};
+    border-bottom: 3px solid ${colorList.grey3};
+    &.active {
+      color: #000;
+      border-bottom: 3px solid ${colorList.blue};
+    }
+    &.disabled {
+      border-bottom: 3px solid ${colorList.grey1};
+    }
+  }
+`;
+
 class BNavigation extends React.PureComponent {
   static defaultProps = {};
 
   static propTypes = {
     tabs : PropTypes.bool,
     pills: PropTypes.bool,
-    fill : PropTypes.bool
+    fill : PropTypes.bool,
+    stacked : PropTypes.bool
   };
 
   render () {
     const children = React.Children.map(this.props.children, (child, idx) => {
       return React.cloneElement(child, {
         tabs : this.props.tabs,
-        pills: this.props.pills
+        pills: this.props.pills,
+        stacked: this.props.stacked
       });
     });
 
@@ -90,11 +108,12 @@ class BNavigationItem extends React.PureComponent {
 
   static propTypes = {
     tabs : PropTypes.bool,
-    pills: PropTypes.bool
+    pills: PropTypes.bool,
+    stacked : PropTypes.bool
   };
 
   render () {
-    const {className, onClick, active, disabled, tabs, pills, ...rest} = this.props;
+    const {className, onClick, active, disabled, tabs, pills, stacked, ...rest} = this.props;
     let cleanedProps = omit(bootStrapPropTypes, rest);
 
     return (
@@ -110,6 +129,7 @@ class BNavigationItem extends React.PureComponent {
             navLinkStyle,
             (tabs ? navItemTabsStyle : null),
             (pills ? navItemPillsStyle : null),
+            (stacked ? navItemStackedStyle : null),
             (className ? className : null) )}
           {...cleanedProps}
         />

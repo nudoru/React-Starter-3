@@ -76,6 +76,13 @@ import {
   AccordionTitle
 } from '../components/controls/Accordion';
 
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableHead
+} from '../components/controls/Table';
+
 const LoadingCard = withLoading(Card);
 
 const FlipFront = (props) => {
@@ -481,6 +488,42 @@ class Components extends React.Component {
           </div>
 
           <div className="pb-5">
+            <h4 className="pb-3">Basic table</h4>
+            <Table striped>
+              <TableCaption>List of users</TableCaption>
+              <TableHead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Username</th>
+                </tr>
+              </TableHead>
+              <TableBody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </TableBody>
+            </Table>
+
+          </div>
+
+          <div className="pb-5">
             <h4 className="pb-3">Buttons</h4>
             <div className="pb-2">
               <Button primary onClick={this.handleClick}>Hiya</Button>
@@ -571,7 +614,7 @@ class Components extends React.Component {
             <Card className="mb-3">
               <CardBody>
                 <h5>Stacked</h5>
-                <Nav stacked pills>
+                <Nav stacked>
                   <NavItem active>Navigation Item 1</NavItem>
                   <NavItem>Navigation Item 2</NavItem>
                   <NavItem disabled>Navigation Item 3</NavItem>
