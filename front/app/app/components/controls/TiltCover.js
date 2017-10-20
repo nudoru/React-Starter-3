@@ -5,6 +5,19 @@ import { css } from 'emotion';
 import { MouseOverElement } from '../shared/MouseMove';
 import { joinClasses } from '../shared/utils';
 
+/*
+This was ultimately inspired by Union's work on the Discovery Place site.
+
+MB 10/19/17
+I wanted to use my Animation component for this, but being able to change the props
+of a tween mid-motion (when the mouse moves) isn't working properly yet. Using a
+CSS tween is still ok!
+
+TODO
+Whole card surface is a link
+Keep using the "shine" layer as a mask?
+ */
+
 const containerStyle = props => css`
     overflow: hidden;
     width: 100%;
@@ -38,8 +51,6 @@ export class TiltCover extends React.PureComponent {
     height: PropTypes.number,
     extent: PropTypes.number
   };
-
-
 
   render () {
     const {children, className} = this.props;

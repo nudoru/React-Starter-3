@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
-import { metrics } from '../../components/shared/ThemeData';
+import { modularScale } from '../../components/shared/ThemeData';
 import { Container } from '../../components/controls/Container';
 import { joinClasses } from '../../components/shared/utils';
 
@@ -26,8 +26,8 @@ const moduleComponentStyle = props => css`
 `;
 
 const contentContainerStyle = css`
-  padding-top: ${metrics.spacing};
-  padding-bottom: ${metrics.spacing};
+  padding-top: ${modularScale.ms3};
+  padding-bottom: ${modularScale.ms3};
 `;
 
 const flexContentContainerStyle = props => css`

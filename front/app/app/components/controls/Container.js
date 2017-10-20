@@ -1,8 +1,15 @@
 import React from 'react';
+import {css} from 'emotion';
+import { modularScale } from '../../components/shared/ThemeData';
 import {joinClasses} from '../shared/utils';
 
+const componentStyle = css`
+  padding-left: ${modularScale.ms0};
+  padding-right: ${modularScale.ms0};
+`;
+
 export const Container = (props) => <div
-  className={joinClasses('container', props.className)}>{props.children}</div>;
+  className={joinClasses('container', componentStyle, props.className)}>{props.children}</div>;
 
 export const ContainerFluid = (props) => <div
-  className={joinClasses('container-fluid', props.className)}>{props.children}</div>;
+  className={joinClasses('container-fluid', componentStyle, props.className)}>{props.children}</div>;
