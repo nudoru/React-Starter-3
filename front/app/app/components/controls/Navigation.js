@@ -48,6 +48,10 @@ const navItemTabsStyle = css`
         box-shadow: 0 3px -5px rgba(0, 0, 0, .5);
         text-shadow: ${shadows.textDark};
       }
+      &.active:hover {
+        border: 1px solid ${colorList.blue};
+        border-bottom: 1px solid ${colorList.blue};
+      }
       &:hover {
         border: 1px solid ${colorList.grey3};
         border-bottom: 1px solid ${colorList.blue};
