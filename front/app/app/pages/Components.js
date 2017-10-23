@@ -620,6 +620,12 @@ class Components extends React.Component {
               <Button outline dark>Hiya</Button>
             </div>
             <div className="pb-2">
+              <Button pill primary>Hiya</Button>
+              <Button round sm secondary>Hiya</Button>
+              <Button round secondary>Hiya</Button>
+              <Button round lg outline secondary>Hiya</Button>
+            </div>
+            <div className="pb-2">
               <Button sm primary>Small</Button>
               <Button primary>Regular</Button>
               <Button lg primary>Large</Button>

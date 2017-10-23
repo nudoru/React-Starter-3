@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
+import {PropTypes} from 'prop-types';
 import {darken} from 'polished';
 import { omit, joinClasses } from '../shared/utils';
 import {
@@ -26,6 +27,9 @@ import { shadows, colors, transitions } from '../shared/ThemeData';
 //  }
 //`;
 
+const RoundSmall = '2.8rem';
+const RoundDefault = '4rem';
+const RoundLarge = '5.8rem';
 
 const makeButtonEffect = color => css`
   &:hover, &:focus, &:active {
@@ -136,7 +140,35 @@ const outlineStyle = css`
   }
 `;
 
+const pillStyle = css`
+  border-radius: 50px;
+`;
+
+const roundStyle = size => css`
+  width: ${size};
+  height: ${size};
+  line-height: ${size};
+  overflow: hidden;
+  border-radius: 50%;
+  padding: 0;
+`;
+
+const getRoundStyle = props => {
+  if(props.sm) {
+    return roundStyle(RoundSmall);
+  } else if(props.lg) {
+    return roundStyle(RoundLarge);
+  }
+  return roundStyle(RoundDefault);
+}
+
 class BButton extends React.PureComponent {
+
+  static propTypes = {
+    pill: PropTypes.bool,
+    round: PropTypes.bool
+  };
+  static defaultProps = {};
 
   handleClick = e => {
     const {disabled, onClick} = this.props;
@@ -154,7 +186,7 @@ class BButton extends React.PureComponent {
 
   render () {
     let {type, tabIndex, ariaRole, ...rest} = this.props,
-        cleanedProps                        = omit(bootStrapPropTypes, rest);
+        cleanedProps                        = omit(BButton.propTypes, omit(bootStrapPropTypes, rest));
 
     type = type || 'button';
 
@@ -169,10 +201,14 @@ class BButton extends React.PureComponent {
         role={ariaRole || 'button'}
         tabIndex={tabIndex}
         onClick={this.handleClick}
-        className={joinClasses(buildClassName(this.props), componentStyle,
-          'custom',
+        className={joinClasses(
+          buildClassName(this.props),
+          componentStyle,
           (this.props.outline ? outlineStyle : normalStyle),
-          (this.props.link ? linkStyle : null))}
+          (this.props.link ? linkStyle : null),
+          (this.props.pill ? pillStyle : null),
+          (this.props.round ? getRoundStyle(this.props) : null)
+        )}
         {...cleanedProps}
       >
         {this.props.children}
