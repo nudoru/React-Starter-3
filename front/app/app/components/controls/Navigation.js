@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
-import {modularScale, colorList, shadows, gradients, transitions} from '../shared/ThemeData';
-import { joinClasses, omit, removeNulls } from '../shared/utils';
+import {modularScale, colorList, colors, shadows, gradients, transitions, metrics} from '../shared/ThemeData';
+import { joinClasses, omit } from '../shared/utils';
 import {
   withBootStrap,
   buildClassName,
@@ -17,14 +17,14 @@ const navLinkStyle = css`
     background-image: linear-gradient(
       -45deg,
       transparent 50%,
-      rgba(0,0,0,0.05) 50.01%,
-      rgba(0,0,0,0.05) 100%
+      ${colors.exposabeContentBg} 50.01%,
+      ${colors.exposabeContentBg} 100%
     );
     background-size: 250%;
     background-position: 99% 99%;
     &:hover {
       background-position: 0 0;
-      transition: background-position ${transitions.timing} ${transitions.timingFunction}, border-color ${transitions.timing} ${transitions.timingFunction};
+      transition: background-position ${transitions.timing} ${transitions.timingFunction}, border ${transitions.timing} ${transitions.timingFunction};
     }
     &.disabled:hover {
       background-color: #fff;
@@ -34,18 +34,21 @@ const navLinkStyle = css`
 
 const navTabsStyle = css`
   .nav-tabs {
-    border-bottom: 3px solid ${colorList.blue};
+    border-bottom: ${metrics.accentBorderWidth} solid ${colorList.blue};
   }
 `;
 
 const navItemTabsStyle = css`
     .nav-link {
+      padding-top: ${modularScale['ms-1']};
+      padding-bottom: ${modularScale['ms-1']};
+      z-index: 1;
       &.active {
         color: #fff;
         background-color: ${colorList.blue};
         background-image: ${gradients.light};
         border: 1px solid ${colorList.blue};
-        box-shadow: 0 3px -5px rgba(0, 0, 0, .5);
+        box-shadow: ${shadows.dropShadow.sm};
         text-shadow: ${shadows.textDark};
       }
       &.active:hover {
@@ -72,13 +75,13 @@ const navItemStackedStyle = css`
     padding-left: ${modularScale.ms0};
     padding-top: ${modularScale.ms0};
     padding-bottom: ${modularScale.ms0};
-    border-bottom: 3px solid ${colorList.grey3};
+    border-bottom: ${metrics.accentBorderWidth} solid ${colorList.grey3};
     &.active {
       color: #000;
-      border-bottom: 3px solid ${colorList.blue};
+      border-bottom: ${metrics.accentBorderWidth} solid ${colorList.blue};
     }
     &.disabled {
-      border-bottom: 3px solid ${colorList.grey1};
+      border-bottom: ${metrics.accentBorderWidth} solid ${colorList.grey1};
     }
   }
 `;

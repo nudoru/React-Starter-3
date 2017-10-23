@@ -111,20 +111,21 @@ primary: $blue,
  */
 
 export const colors = {
-  primary  : colorList.blue,
-  secondary: colorList.grey8,
-  light    : 'rgb(229, 229, 229)',
-  lightTransp:'rgba(255,255,255,0.25)',
-  neutral  : 'rgb(187, 187, 187)',
-  dark     : colorList.grey10,
-  text     : 'rgb(76, 76, 76)',
-  headings : 'rgb(76, 76, 76)',
-  link     : 'rgb(27, 191, 248)',
-  linkHover: 'rgb(27, 162, 226)',
-  success  : colorList.successColor,
-  warning  : colorList.warningColor,
-  danger   : colorList.dangerColor,
-  info     : colorList.teal
+  primary    : colorList.blue,
+  secondary  : colorList.grey8,
+  light      : 'rgb(229, 229, 229)',
+  lightTransp: 'rgba(255,255,255,0.25)',
+  neutral    : 'rgb(187, 187, 187)',
+  dark       : colorList.grey10,
+  text       : 'rgb(76, 76, 76)',
+  headings   : 'rgb(76, 76, 76)',
+  link       : 'rgb(27, 191, 248)',
+  linkHover  : 'rgb(27, 162, 226)',
+  success    : colorList.successColor,
+  warning    : colorList.warningColor,
+  danger     : colorList.dangerColor,
+  info       : colorList.teal,
+  exposabeContentBg: colorList.grey0
 };
 
 export const fontStacks = {
@@ -198,12 +199,13 @@ export const metrics = {
   fontSizeTiny     : modularScale['ms-1'],
   fontSizeSmall    : modularScale.ms0,
   fontSize         : modularScale.ms1,
-  fontSizeLarge    : modularScale.ms3
+  fontSizeLarge    : modularScale.ms3,
+  accentBorderWidth     : '3px'
 };
 
 export const transitions = {
-  baseTiming: 250,
-  timing    : '250ms',
+  baseTiming    : 250,
+  timing        : '250ms',
   timingFunction: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)'
 };
 

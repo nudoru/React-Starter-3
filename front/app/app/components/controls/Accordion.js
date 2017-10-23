@@ -4,15 +4,21 @@ import { css } from 'emotion';
 import { Expo, TweenMax } from 'gsap';
 import FaChevron from 'react-icons/lib/fa/chevron-right';
 import { Card, CardBody, CardHeader } from './Card';
-import { colorList, shadows, transitions } from '../shared/ThemeData';
+import {
+  modularScale,
+  colorList, shadows, transitions, metrics,
+  colors
+} from '../shared/ThemeData';
 import { Collapse } from '../shared/Collapse';
 import { Col, Row } from './Grid';
-import { Animate, TweenGroup } from '../shared/Animate';
+import { TweenGroup } from '../shared/Animate';
 
 const headerStyle = css`
   cursor: pointer;
+  padding-top: ${modularScale['ms-1']};
+      padding-bottom: ${modularScale['ms-1']};
   text-shadow: ${shadows.textLight};
-  border-bottom: 3px solid ${colorList.grey3};
+  border-bottom: ${metrics.accentBorderWidth} solid ${colorList.grey3};
   margin-bottom: -1px;
   background-color: ${colorList.grey1};
   background-image: linear-gradient(
@@ -23,6 +29,7 @@ const headerStyle = css`
   );
   background-size: 250%;
   background-position: 99% 99%;
+  z-index: 1;
   &:hover {
     background-position: 0 0;
     transition: background-position ${transitions.baseTiming * 2}ms ${transitions.timingFunction};
@@ -41,6 +48,10 @@ const chevronIconStyle = css`
 const headerCompStyle = css`
   padding-left: 5px;
   user-select: none;
+`;
+
+const contentContainerStyle = css`
+  background-color: ${colors.exposabeContentBg};
 `;
 
 // TODO Update state when props change
@@ -110,7 +121,7 @@ export class Accordion extends React.Component {
             </Row>
           </CardHeader>
           <Collapse expand={this.state.open}>
-            <CardBody>
+            <CardBody className={contentContainerStyle}>
               {bodyComp}
             </CardBody>
           </Collapse>

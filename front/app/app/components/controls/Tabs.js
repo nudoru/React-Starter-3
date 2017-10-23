@@ -4,7 +4,7 @@ import { css } from 'emotion';
 import { buildClassName, withBootStrap } from '../shared/BootStrapHOC';
 import { Nav, NavItem } from './Navigation';
 import { Expando } from '../shared/Expando';
-import { colorList, metrics } from '../shared/ThemeData';
+import { colors, metrics } from '../shared/ThemeData';
 
 class BTabs extends React.PureComponent {
   state = {activeIndex: 0};
@@ -67,10 +67,7 @@ class BTab extends React.PureComponent {
 
 
 const tabPanelContainerStyle = css`
-  border-left: 1px solid ${colorList.blue};
-  border-right: 1px solid ${colorList.blue};
-  border-bottom: 1px solid ${colorList.blue};
-  background-color: #fff;
+  background-color: ${colors.exposabeContentBg};
   padding: ${metrics.spacing};
 `;
 

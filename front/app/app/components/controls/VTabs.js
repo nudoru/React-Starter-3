@@ -4,7 +4,7 @@ import { css } from 'emotion';
 import { buildClassName, withBootStrap } from '../shared/BootStrapHOC';
 import { Nav, NavItem } from './Navigation';
 import { Expando } from '../shared/Expando';
-import { colorList, metrics } from '../shared/ThemeData';
+import { colors, metrics } from '../shared/ThemeData';
 import { Col, RowNG } from './Grid';
 
 class BVTabs extends React.PureComponent {
@@ -67,6 +67,7 @@ class BVTab extends React.PureComponent {
 
 
 const tabPanelContainerStyle = css`
+ background-color: ${colors.exposabeContentBg};
   padding: ${metrics.spacing};
 `;
 

@@ -16,6 +16,7 @@ import {
   Grid,
   GridFluid,
   Row,
+  RowAuto,
   RowNG,
   Col,
   ColBreak
@@ -529,43 +530,33 @@ class Components extends React.Component {
               </Row>
             </GridFluid>
             <GridFluid className='pt-3'>
-              <Row>
-                <Col>
+              <RowAuto>
                   <Card dropShadow='xs'>
                     <CardBody>
                       <p>Shadow XS</p>
                     </CardBody>
                   </Card>
-                </Col>
-                <Col>
                   <Card dropShadow='sm'>
                     <CardBody>
                       <p>Shadow SM</p>
                     </CardBody>
                   </Card>
-                </Col>
-                <Col>
                   <Card dropShadow='m'>
                     <CardBody>
                       <p>Shadow M</p>
                     </CardBody>
                   </Card>
-                </Col>
-                <Col>
                   <Card dropShadow='lg'>
                     <CardBody>
                       <p>Shadow LG</p>
                     </CardBody>
                   </Card>
-                </Col>
-                <Col>
                   <Card dropShadow='xl'>
                     <CardBody>
                       <p>Shadow XL</p>
                     </CardBody>
                   </Card>
-                </Col>
-              </Row>
+              </RowAuto>
             </GridFluid>
           </div>
 
