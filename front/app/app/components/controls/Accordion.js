@@ -4,7 +4,7 @@ import { css } from 'emotion';
 import { Expo, TweenMax } from 'gsap';
 import FaChevron from 'react-icons/lib/fa/chevron-right';
 import { Card, CardBody, CardHeader } from './Card';
-import { colorList, shadows } from '../shared/ThemeData';
+import { colorList, shadows, transitions } from '../shared/ThemeData';
 import { Collapse } from '../shared/Collapse';
 import { Col, Row } from './Grid';
 import { Animate, TweenGroup } from '../shared/Animate';
@@ -25,7 +25,7 @@ const headerStyle = css`
   background-position: 99% 99%;
   &:hover {
     background-position: 0 0;
-    transition: background-position 240ms linear;
+    transition: background-position ${transitions.baseTiming * 2}ms ${transitions.timingFunction};
   }
 `;
 

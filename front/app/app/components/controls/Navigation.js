@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
-import {metrics, modularScale, colorList, shadows, gradients} from '../shared/ThemeData';
+import {modularScale, colorList, shadows, gradients, transitions} from '../shared/ThemeData';
 import { joinClasses, omit, removeNulls } from '../shared/utils';
 import {
   withBootStrap,
@@ -24,7 +24,7 @@ const navLinkStyle = css`
     background-position: 99% 99%;
     &:hover {
       background-position: 0 0;
-      transition: background-position 240ms linear, border-color 240ms linear;
+      transition: background-position ${transitions.timing} ${transitions.timingFunction}, border-color ${transitions.timing} ${transitions.timingFunction};
     }
     &.disabled:hover {
       background-color: #fff;
@@ -65,7 +65,7 @@ const navItemPillsStyle = css`
 
 const navItemStackedStyle = css`
   .nav-link {
-    padding-left: 0;
+    padding-left: ${modularScale.ms0};
     padding-top: ${modularScale.ms0};
     padding-bottom: ${modularScale.ms0};
     border-bottom: 3px solid ${colorList.grey3};

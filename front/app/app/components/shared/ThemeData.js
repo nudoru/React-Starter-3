@@ -99,16 +99,32 @@ export const colorList = {
   neutralColorLight: 'rgb(229, 229, 229)'
 };
 
+/*
+primary: $blue,
+        secondary: $gray-600,
+        success: $green,
+        info: $cyan,
+        warning: $yellow,
+        danger: $red,
+        light: $gray-100,
+        dark: $gray-800
+ */
+
 export const colors = {
-  primary  : colorList.red,
-  secondary: colorList.blue,
+  primary  : colorList.blue,
+  secondary: colorList.grey8,
   light    : 'rgb(229, 229, 229)',
+  lightTransp:'rgba(255,255,255,0.25)',
   neutral  : 'rgb(187, 187, 187)',
-  dark     : colorList.grey9,
+  dark     : colorList.grey10,
   text     : 'rgb(76, 76, 76)',
   headings : 'rgb(76, 76, 76)',
   link     : 'rgb(27, 191, 248)',
-  linkHover: 'rgb(27, 162, 226)'
+  linkHover: 'rgb(27, 162, 226)',
+  success  : colorList.successColor,
+  warning  : colorList.warningColor,
+  danger   : colorList.dangerColor,
+  info     : colorList.teal
 };
 
 export const fontStacks = {
@@ -157,7 +173,7 @@ export const shadows = {
     lg: '0 14px 28px rgba(0,0,0,0.12), 0 10px 10px rgba(0,0,0,0.12)',
     xl: '0 19px 38px rgba(0,0,0,0.15), 0 15px 12px rgba(0,0,0,0.12)'
   },
-  dropShadow  : {
+  dropShadow   : {
     xs: '0 1px 2px rgba(0,0,0,0.075)',
     sm: '0 2px 4px rgba(0,0,0,0.05), 2px 6px 8px -5px rgba(0,0,0,0.15)',
     m : '0 2px 4px rgba(0,0,0,0.05), 4px 8px 15px -7px rgba(0,0,0,0.1), 4px 8px 20px rgba(0,0,0,0.10)',
@@ -186,9 +202,9 @@ export const metrics = {
 };
 
 export const transitions = {
-  transition    : '.33s ease-out',
-  timingFunction: 'cubic-bezier(.42,0,.58,1)',
-  baseTimingMS  : 1000
+  baseTiming: 250,
+  timing    : '250ms',
+  timingFunction: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)'
 };
 
 export const grids = {};
