@@ -152,7 +152,7 @@ class Components extends React.Component {
           <div className="pb-5">
             <h4 className="pb-3">Cover Title (hover over)</h4>
             <StageArea>
-              <CoverTitle className='mr-3 paper-shadow-xl' width={150}>
+              <CoverTitle className='mr-3' width={150}>
                 <CoverTitleBackground className='morpheus_den'><p>Lorem Ipsum is
                   simply dummy text of the printing and typesetting industry.
                   Lorem Ipsum has been the industry's standard dummy text ever
@@ -174,7 +174,7 @@ class Components extends React.Component {
                   </CoverTitleText>
                 </CoverTitleBody>
               </CoverTitle>
-              <CoverTitle className='paper-shadow-xl'>
+              <CoverTitle>
                 <CoverTitleBackground className='ripe_malinka'>
                   <p>Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
@@ -202,11 +202,11 @@ class Components extends React.Component {
           <div className="pb-5">
             <h4 className="pb-3">Flip card</h4>
             <StageArea>
-              <Flip className='paper-shadow-xl mr-3' width={200} height={200}>
+              <Flip className='mr-3' width={200} height={200}>
                 <Face className='spring_warmth'><FlipFront/></Face>
                 <Face className='night_fade'><FlipBack/></Face>
               </Flip>
-              <Flip className='paper-shadow-xl' width={200} height={200}>
+              <Flip width={200} height={200}>
                 <Face className='heavy_rain'><FlipFront/></Face>
                 <Face className='tempting_azure'><FlipBack/></Face>
               </Flip>

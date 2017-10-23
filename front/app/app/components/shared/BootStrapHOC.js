@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import PropTypes from 'prop-types';
+import {css} from 'emotion';
 import { getNextId } from '../../utils/ElementIDCreator';
+import {shadows} from './ThemeData';
 
 export const bootStrapPropTypes = {
   __cid      : PropTypes.string,
@@ -151,7 +153,7 @@ export const buildClassName = (props, additional) => {
       return acc;
     }, [origionalRootCls])
     .concat(additional ? additional : null)
-    .concat(dropShadow.length ? `paper-shadow-${dropShadow}` : null)
+    .concat(dropShadow.length ? css`box-shadow: ${shadows.dropShadow[dropShadow]}` : null)
     .concat(className)
     .filter(i => !!i)
     .join(' ');

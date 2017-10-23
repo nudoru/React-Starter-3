@@ -147,7 +147,24 @@ export const shadows = {
   boxMedium    : '2px 2px 7px rgba(0,0,0,.2)',
   boxLarge     : '5px 5px 15px rgba(0,0,0,.2)',
   boxXLarge    : '5px 5px 30px rgba(0,0,0,.2)',
-  buttonPress  : 'inset 0px 2px 7px rgba(0,0,0,.2)'
+  buttonPress  : 'inset 0px 2px 7px rgba(0,0,0,.2)',
+  //https://codepen.io/sdthornton/pen/wBZdXq?q=shadow&limit=all&type=type-pens
+  // TODO keep or remove these?
+  paperShadow  : {
+    xs: '0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.12)',
+    sm: '0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.12)',
+    m : '0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.12)',
+    lg: '0 14px 28px rgba(0,0,0,0.12), 0 10px 10px rgba(0,0,0,0.12)',
+    xl: '0 19px 38px rgba(0,0,0,0.15), 0 15px 12px rgba(0,0,0,0.12)'
+  },
+  dropShadow  : {
+    xs: '0 1px 2px rgba(0,0,0,0.075)',
+    sm: '0 2px 4px rgba(0,0,0,0.05), 2px 6px 8px -5px rgba(0,0,0,0.15)',
+    m : '0 2px 4px rgba(0,0,0,0.05), 4px 8px 15px -7px rgba(0,0,0,0.1), 4px 8px 20px rgba(0,0,0,0.10)',
+    lg: '0 1px  6px  rgba(0, 0, 0, .1), 0 8px  8px  rgba(0, 0, 0, .05), 4px 23px 40px -15px rgba(0,0,0,0.15), 8px 30px 64px rgba(0, 0, 0, .1)',
+    xl: '0 1px  6px  rgba(0, 0, 0, .05), 0 8px  8px  rgba(0, 0, 0, .1), 0 16px 16px rgba(0, 0, 0, .1), 4px 32px 32px rgba(0, 0, 0, .05), 8px 50px 64px rgba(0, 0, 0, .15)'
+  }
+
 };
 
 export const gradients = {

@@ -31,3 +31,20 @@ export const Col = ({size, width, className = null, ...rest}) => {
     <div className={joinClasses(modifier.join('-'), className)} {...rest} />
   );
 };
+
+
+// Convenience component, wraps all children in a <Col> component
+export class RowAuto extends React.PureComponent {
+
+  render() {
+    const {children:originalChildren, className, ...rest} = this.props;
+
+    const children = React.Children.map(originalChildren, (child) => {
+      return <Col>{React.cloneElement(child)}</Col>;
+    });
+
+    return (
+      <div className={joinClasses('row', className)} {...rest}>{children}</div>
+    );
+  }
+}

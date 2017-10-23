@@ -20,7 +20,6 @@ export const FourtyFiveEffect = css`
   background-size: 250%;
   background-position: 99% 99%;
   &:hover, &:focus, &:active {
-    box-shadow: 0 0.4em 0.25em -0.2em rgba(0, 0, 0, 0.15);
     background-position: 0 0;
     transition: box-shadow 120ms linear, background-position 240ms linear;
   }

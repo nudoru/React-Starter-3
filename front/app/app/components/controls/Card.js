@@ -22,9 +22,11 @@ class BCard extends React.PureComponent {
   };
 
   render () {
-    const {children, ...rest} = this.props;
+    // Extracting className here so that styles are properly applied
+    const {children, className, ...rest} = this.props;
     const cleanedProps        = omit(bootStrapPropTypes, rest);
     const componentStyle      = css`
+      border: none;
       width: ${this.props.width};
     `;
 
