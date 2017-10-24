@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import { joinClasses, omit } from '../shared/utils';
-import { colorList, metrics } from '../shared/Theme';
+import {
+  colorList, colors, metrics, shadows,
+  transitions
+} from '../shared/Theme';
 import { flexBoxProps } from '../shared/FlexBoxProps';
 import {
   withBootStrap,
@@ -16,6 +19,14 @@ const componentStyle = props => css`
   width: ${props.width};
   overflow: hidden;
   border-radius: ${metrics.borderRadiusSmall};
+`;
+
+const interactiveStyle = css`
+  cursor: pointer;
+  transition: border ${transitions.timing} ${transitions.timingFunction}, box-shadow 250ms;
+  &:hover {
+    box-shadow: inset 0 0 30px 5px rgba(0,0,0,0.05), ${shadows.dropShadow.m};
+  }
 `;
 
 class BCard extends React.PureComponent {
@@ -35,7 +46,7 @@ class BCard extends React.PureComponent {
 
     return (
       <section
-        className={joinClasses(buildClassName(this.props), componentStyle(this.props))} {...cleanedProps}>
+        className={joinClasses(buildClassName(this.props), componentStyle(this.props), (this.props.onClick ? interactiveStyle : null))} {...cleanedProps}>
         {children}
       </section>
     );

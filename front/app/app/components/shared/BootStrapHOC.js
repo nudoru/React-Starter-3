@@ -79,6 +79,7 @@ const stylesMapping = {
   dark            : '${cls}-dark',
   lg              : '${cls}-lg',
   sm              : '${cls}-sm',
+  xs              : '${cls}-xs',
   btn             : {
     link : '${cls}-link',
     block: '${cls}-block'

@@ -4,6 +4,8 @@ This need to match any variables in any Sass files, especially in the Bootstrap
 variable overlay file ./sass/core/_bootstrap_over.scss
  */
 
+import {css} from 'emotion';
+
 export const colorList = {
   redLight1        : 'rgb(208,170,171)',
   redLight2        : 'rgb(207,131,131)',
@@ -219,4 +221,10 @@ export const tables = {};
 
 export const cards = {
   defaultWidth: '100%'
+};
+
+export const styles = {
+  gradientOverlayBars: css`background-image: ${gradients.bars};`,
+  gradientLightBars: css`background-image: linear-gradient(-45deg,#fff 0%,#eee 22%,#f6f6f6 22.01%,#fff 85%,#fafafa 85.01%,#fff 100%)`,
+  gradientDarkBars: css`background-color: ${colorList.blueDark}; background-image: ${gradients.bars};`
 };

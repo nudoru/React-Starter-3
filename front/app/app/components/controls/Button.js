@@ -165,7 +165,7 @@ const getRoundStyle = props => {
     return roundStyle(RoundLarge);
   }
   return roundStyle(RoundDefault);
-}
+};
 
 class BButton extends React.PureComponent {
 

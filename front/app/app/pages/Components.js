@@ -1,4 +1,6 @@
 import React from 'react';
+
+import {styles} from '../components/shared/Theme';
 import { ModuleContainer, Module } from './regions/Module';
 import {
   Card,
@@ -120,7 +122,7 @@ class Components extends React.Component {
   render () {
     return (
       <ModuleContainer>
-        <Module>
+        <Module className={styles.gradientDarkBars}>
           <Jumbotron><h1>Welcome to the components testing page</h1>
             <p className='lead'>I'm experimenting with a new component system.
               Focus is on: building on top of BootStrap 4, CSS-in-my-JS,
@@ -495,10 +497,10 @@ class Components extends React.Component {
             <GridFluid className='pb-5'>
               <RowAuto>
 
-                <Card dropShadow='xs' width={'200px'}>
+                <Card width={'200px'} onClick={this.handleClick}>
                   <CardBody>
                     <CardTitle>This is a card!</CardTitle>
-                    <CardText>Card! Card! Card! Card! </CardText>
+                    <CardText>This card has an onClick handler so it will show an effet on hover</CardText>
                     <CardLink href="http://www.google.com">Link
                       gggtextjjj</CardLink>
                     <CardLink href="http://www.google.com">Link
