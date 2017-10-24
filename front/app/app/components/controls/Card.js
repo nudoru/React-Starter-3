@@ -70,8 +70,8 @@ const footerStyle = css`
 const BCardFooter = props => <div
   className={joinClasses(buildClassName(props), containerStyle, footerStyle)}>{props.children}</div>;
 
-const BCardBody = props => <div
-  className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</div>;
+const BCardBody = props => <section
+  className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</section>;
 
 const titleStyle = css`
   color: ${colorList.grey10};

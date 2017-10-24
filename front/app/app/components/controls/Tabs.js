@@ -92,8 +92,8 @@ class BTabPanels extends React.PureComponent {
 
 class BTabPanel extends React.PureComponent {
   render() {
-    return <div
-      className={buildClassName(this.props)}>{this.props.children}</div>;
+    return <section
+      className={buildClassName(this.props)}>{this.props.children}</section>;
   }
 }
 
