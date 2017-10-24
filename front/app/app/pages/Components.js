@@ -58,6 +58,9 @@ import Link from '../components/controls/Link';
 
 import { Flip, Face } from '../components/controls/Flip';
 
+import FaRocket from 'react-icons/lib/fa/rocket';
+import {Icon} from '../components/controls/Icon';
+
 import { withLoading } from '../components/shared/IsLoadingHOC';
 
 import {
@@ -757,13 +760,22 @@ class Components extends React.Component {
           </div>
           <div className="pb-5">
             <h4 className="pb-3">Grid</h4>
-            <GridFluid>
+            <GridFluid className='mb-3'>
               <RowNG className="debug-container">
                 <Col>1</Col>
                 <Col className="debug-container">2</Col>
                 <Col className="debug-container">3</Col>
                 <Col className="debug-container">4</Col>
               </RowNG>
+            </GridFluid>
+            <h5>Use RowAuto for easy, even cols</h5>
+            <GridFluid>
+              <RowAuto>
+                <p>I'ma col!</p>
+                <p>I'ma col!</p>
+                <p>I'ma col!</p>
+                <p>I'ma col!</p>
+              </RowAuto>
             </GridFluid>
           </div>
 
@@ -791,6 +803,48 @@ class Components extends React.Component {
                   way</CardText>
               </CardBody>
             </LoadingCard>
+          </div>
+          <div className="pb-5">
+            <h4 className="pb-3">Icons</h4>
+            <p>Using react-icons</p>
+            <GridFluid className='pt-3'>
+              <RowAuto className='mb-5'>
+                <Icon xs>123</Icon>
+                <Icon sm>123</Icon>
+                <Icon>123</Icon>
+                <Icon lg>123</Icon>
+              </RowAuto>
+              <RowAuto className='mb-5'>
+                <Icon xs><FaRocket/></Icon>
+                <Icon sm><FaRocket/></Icon>
+                <Icon><FaRocket/></Icon>
+                <Icon lg><FaRocket/></Icon>
+                <Icon outline xs><FaRocket/></Icon>
+                <Icon outline sm><FaRocket/></Icon>
+                <Icon outline><FaRocket/></Icon>
+                <Icon outline lg><FaRocket/></Icon>
+              </RowAuto>
+              <RowAuto className='mb-5'>
+                <Icon primary><FaRocket/></Icon>
+                <Icon secondary><FaRocket/></Icon>
+                <Icon info><FaRocket/></Icon>
+                <Icon light><FaRocket/></Icon>
+                <Icon dark><FaRocket/></Icon>
+                <Icon success><FaRocket/></Icon>
+                <Icon warning><FaRocket/></Icon>
+                <Icon danger><FaRocket/></Icon>
+              </RowAuto>
+              <RowAuto className='mb-5'>
+                <Icon outline primary><FaRocket/></Icon>
+                <Icon outline secondary><FaRocket/></Icon>
+                <Icon outline info><FaRocket/></Icon>
+                <Icon outline light><FaRocket/></Icon>
+                <Icon outline dark><FaRocket/></Icon>
+                <Icon outline success><FaRocket/></Icon>
+                <Icon outline warning><FaRocket/></Icon>
+                <Icon outline danger><FaRocket/></Icon>
+              </RowAuto>
+            </GridFluid>
           </div>
           <div className="pb-5">
             <h4 className="pb-3">Links</h4>

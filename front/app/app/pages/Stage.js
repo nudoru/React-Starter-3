@@ -37,12 +37,16 @@ class Stage extends React.Component {
       <Module full>
         <GridFluid className='pt-3'>
           <RowAuto className='mb-5'>
+            <Icon xs>123</Icon>
+            <Icon sm>123</Icon>
+            <Icon>123</Icon>
+            <Icon lg>123</Icon>
+          </RowAuto>
+          <RowAuto className='mb-5'>
             <Icon xs><FaRocket/></Icon>
             <Icon sm><FaRocket/></Icon>
             <Icon><FaRocket/></Icon>
             <Icon lg><FaRocket/></Icon>
-          </RowAuto>
-          <RowAuto className='mb-5'>
             <Icon outline xs><FaRocket/></Icon>
             <Icon outline sm><FaRocket/></Icon>
             <Icon outline><FaRocket/></Icon>
