@@ -34,7 +34,7 @@ const navLinkStyle = css`
 
 const navTabsStyle = css`
   .nav-tabs {
-    border-bottom: ${metrics.accentBorderWidth} solid ${colorList.blue};
+    border-bottom: ${metrics.accentBorderWidth} solid ${colors.primary};
   }
 `;
 
@@ -45,28 +45,32 @@ const navItemTabsStyle = css`
       z-index: 1;
       &.active {
         color: #fff;
-        background-color: ${colorList.blue};
-        background-image: ${gradients.light};
-        border: 1px solid ${colorList.blue};
-        box-shadow: ${shadows.dropShadow.sm};
+        background-color: ${colors.primary};
+        border: 1px solid ${colors.primary};
         text-shadow: ${shadows.textDark};
       }
       &.active:hover {
-        border: 1px solid ${colorList.blue};
-        border-bottom: 1px solid ${colorList.blue};
+        background-color: ${colors.primary};
+        background-image: none;
+        border: 1px solid ${colors.primary};
+        border-bottom: 1px solid ${colors.primary};
       }
       &:hover {
         border: 1px solid ${colorList.grey3};
-        border-bottom: 1px solid ${colorList.blue};
+        border-bottom: 1px solid ${colors.primary};
       }
       &.disabled:hover {
-        border-bottom: 1px solid ${colorList.blue};
+        border-bottom: 1px solid ${colors.primary};
       }
     }
 `;
 
 const navItemPillsStyle = css`
+  .nav-link.active {
+    background-color: ${colors.primary};
+  }
   .nav-link.active:hover {
+    background-image: none;
   }
 `;
 
@@ -78,7 +82,7 @@ const navItemStackedStyle = css`
     border-bottom: ${metrics.accentBorderWidth} solid ${colorList.grey3};
     &.active {
       color: #000;
-      border-bottom: ${metrics.accentBorderWidth} solid ${colorList.blue};
+      border-bottom: ${metrics.accentBorderWidth} solid ${colors.primary};
     }
     &.disabled {
       border-bottom: ${metrics.accentBorderWidth} solid ${colorList.grey1};

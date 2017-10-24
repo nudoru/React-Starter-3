@@ -42,7 +42,7 @@ const chevronStyle = css`
 `;
 
 const chevronIconStyle = css`
-    fill: ${colorList.blue};
+    fill: ${colors.primary};
 `;
 
 const headerCompStyle = css`

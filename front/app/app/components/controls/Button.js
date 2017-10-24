@@ -34,6 +34,7 @@ const RoundLarge = '5.8rem';
 const makeButtonEffect = color => css`
   &:hover, &:focus, &:active {
     border: 1px solid ${darken(0.1, color)};
+    box-shadow: inset 0 1px 10px ${darken(0.15, color)};
   }
   background-image: linear-gradient(
     -45deg,
@@ -44,6 +45,10 @@ const makeButtonEffect = color => css`
 `;
 
 const makeOutlineButtonEffect = color => css`
+  &:hover, &:focus, &:active {
+    border: 1px solid ${color};
+    box-shadow: inset 0 1px 10px ${darken(0.1, color)};
+  }
   background-color: rgba(255,0,0,0);
   background-image: linear-gradient(
     -45deg,
@@ -65,7 +70,7 @@ const componentStyle = css`
     background-position: 99% 99%;
     &:hover, &:focus, &:active {
       background-position: 0 0;
-      transition: background-color ${transitions.timing} ${transitions.timingFunction}, border-color ${transitions.timing} ${transitions.timingFunction}, color ${transitions.timing} ${transitions.timingFunction}, background-position ${transitions.timing} ${transitions.timingFunction};
+      transition: background-color ${transitions.timing} ${transitions.timingFunction}, border ${transitions.timing} ${transitions.timingFunction}, color ${transitions.timing} ${transitions.timingFunction}, background-position ${transitions.timing} ${transitions.timingFunction}, box-shadow ${transitions.baseTiming*2}ms ${transitions.timingFunction};
     }
 `;
 
