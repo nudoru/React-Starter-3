@@ -111,20 +111,20 @@ primary: $blue,
  */
 
 export const colors = {
-  primary    : colorList.blue,
-  secondary  : colorList.grey8,
-  light      : 'rgb(229, 229, 229)',
-  lightTransp: 'rgba(255,255,255,0.25)',
-  neutral    : 'rgb(187, 187, 187)',
-  dark       : colorList.grey10,
-  text       : 'rgb(76, 76, 76)',
-  headings   : 'rgb(76, 76, 76)',
-  link       : 'rgb(27, 191, 248)',
-  linkHover  : 'rgb(27, 162, 226)',
-  success    : colorList.successColor,
-  warning    : colorList.warningColor,
-  danger     : colorList.dangerColor,
-  info       : colorList.teal,
+  primary          : colorList.blue,
+  secondary        : colorList.grey8,
+  light            : 'rgb(229, 229, 229)',
+  lightTransp      : 'rgba(255,255,255,0.25)',
+  neutral          : 'rgb(187, 187, 187)',
+  dark             : colorList.grey10,
+  text             : 'rgb(76, 76, 76)',
+  headings         : 'rgb(76, 76, 76)',
+  link             : 'rgb(27, 191, 248)',
+  linkHover        : 'rgb(27, 162, 226)',
+  success          : colorList.successColor,
+  warning          : colorList.warningColor,
+  danger           : colorList.dangerColor,
+  info             : colorList.teal,
   exposabeContentBg: colorList.grey0
 };
 
@@ -197,10 +197,10 @@ export const metrics = {
   borderRadiusSmall: '0px',
   borderRadius     : modularScale.ms0,
   fontSizeTiny     : modularScale['ms-1'],
-  fontSizeSmall    : modularScale.ms0,
-  fontSize         : modularScale.ms1,
-  fontSizeLarge    : modularScale.ms3,
-  accentBorderWidth     : '3px'
+  fontSizeSmall    : '0.8rem',
+  fontSize         : modularScale.ms0,
+  fontSizeLarge    : modularScale.ms2,
+  accentBorderWidth: '3px'
 };
 
 export const transitions = {

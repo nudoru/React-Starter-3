@@ -562,7 +562,7 @@ class Components extends React.Component {
 
           <div className="pb-5">
             <h4 className="pb-3">Basic table</h4>
-            <Table striped>
+            <Table striped hover >
               <TableCaption>List of users</TableCaption>
               <TableHead>
                 <tr>
@@ -621,6 +621,7 @@ class Components extends React.Component {
             </div>
             <div className="pb-2">
               <Button pill primary>Hiya</Button>
+              <Button pill outline sm primary>Hiya</Button>
               <Button round sm secondary>Hiya</Button>
               <Button round secondary>Hiya</Button>
               <Button round lg outline secondary>Hiya</Button>
