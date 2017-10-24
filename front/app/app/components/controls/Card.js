@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import { joinClasses, omit } from '../shared/utils';
-import { metrics } from '../shared/ThemeData';
+import { colorList, metrics } from '../shared/ThemeData';
 import { flexBoxProps } from '../shared/FlexBoxProps';
 import {
   withBootStrap,
@@ -10,6 +10,13 @@ import {
   bootStrapPropTypes
 } from '../shared/BootStrapHOC';
 import Link from './Link';
+
+const componentStyle = props => css`
+  border: none;
+  width: ${props.width};
+  overflow: hidden;
+  border-radius: ${metrics.borderRadiusSmall};
+`;
 
 class BCard extends React.PureComponent {
 
@@ -24,15 +31,11 @@ class BCard extends React.PureComponent {
   render () {
     // Extracting className here so that styles are properly applied
     const {children, className, ...rest} = this.props;
-    const cleanedProps        = omit(bootStrapPropTypes, rest);
-    const componentStyle      = css`
-      border: none;
-      width: ${this.props.width};
-    `;
+    const cleanedProps                   = omit(bootStrapPropTypes, rest);
 
     return (
       <section
-        className={joinClasses(buildClassName(this.props), componentStyle)} {...cleanedProps}>
+        className={joinClasses(buildClassName(this.props), componentStyle(this.props))} {...cleanedProps}>
         {children}
       </section>
     );
@@ -40,31 +43,61 @@ class BCard extends React.PureComponent {
 }
 
 const containerStyle = css`
-    padding-left: ${metrics.spacing};
-    padding-right: ${metrics.spacing};
+    padding-top: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
+    padding-bottom: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
+    padding-left: ${metrics.baseSpacing * 1.5}${metrics.baseSpacingUnit};
+    padding-right: ${metrics.baseSpacing * 1.5}${metrics.baseSpacingUnit};
   `;
+
+const headerStyle = css`
+  border: none;
+  background-color: rgba(0,0,0,0.05);
+`;
 
 const BCardHeader = props => {
   const {className, ...rest} = props;
   const cleanProps           = omit(bootStrapPropTypes, rest);
   return <div
-    className={joinClasses(buildClassName(props), containerStyle)} {...cleanProps} />;
+    className={joinClasses(buildClassName(props), containerStyle, headerStyle)} {...cleanProps} />;
 };
 
+const footerStyle = css`
+  text-align: center;
+  border: none;
+  background-color: rgba(0,0,0,0.05);
+`;
+
 const BCardFooter = props => <div
-  className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</div>;
+  className={joinClasses(buildClassName(props), containerStyle, footerStyle)}>{props.children}</div>;
 
 const BCardBody = props => <div
   className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</div>;
 
-const BCardTitle = props => <h4
-  className={buildClassName(props)}>{props.children}</h4>;
+const titleStyle = css`
+  color: ${colorList.grey10};
+  margin-bottom: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
+`;
 
-const BCardSubTitle = props => <h6
-  className={joinClasses(buildClassName(props), 'mb-2', 'text-muted')}>{props.children}</h6>;
+
+const BCardTitle = props => <h3
+  className={joinClasses(buildClassName(props), titleStyle)}>{props.children}</h3>;
+
+const subTitleStyle = css`
+  color: ${colorList.grey8};
+  text-transform: uppercase;
+  letter-spacing: -0.5;
+  line-height: 1.25rem;
+`;
+
+const BCardSubTitle = props => <p
+  className={joinClasses(buildClassName(props), subTitleStyle)}>{props.children}</p>;
+
+const textStyle = css`
+margin-top: ${metrics.baseSpacing*2}${metrics.baseSpacingUnit};
+`;
 
 const BCardText = props => <p
-  className={buildClassName(props)}>{props.children}</p>;
+  className={joinClasses(buildClassName(props), textStyle)}>{props.children}</p>;
 
 export const CardLink = ({className, ...rest}) => {
   let cleanedProps = omit(bootStrapPropTypes, rest);
@@ -87,17 +120,18 @@ export const CardText     = withBootStrap('card-text')(BCardText);
 
 export class CardXHeader extends React.PureComponent {
 
-  static defaultProps = {
-    height    : 'auto',
-    horizontal: flexBoxProps.center,
-    vertical  : flexBoxProps.middle,
-    textColor : '#fff'
-  };
   static propTypes    = {
     height    : PropTypes.string,
     horizontal: PropTypes.string,
     vertical  : PropTypes.string,
     textColor : PropTypes.string
+  };
+
+  static defaultProps = {
+    height    : 'auto',
+    horizontal: flexBoxProps.center,
+    vertical  : flexBoxProps.middle,
+    textColor : '#fff'
   };
 
   render () {

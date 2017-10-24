@@ -36,8 +36,21 @@ const componentStyle = css`
   .table tbody td {
     border-top: 1px solid ${colorList.grey2};
   }
+  
+
+  .table-striped tbody th {
+    border-top: none;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+  .table-striped tbody td {
+    border-top: none;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+  
   .table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0,0,0,0.05);
+    background-color: rgba(0,0,0,0.025);
   }
   .table-hover tbody tr { 
     transition: background-color ${transitions.baseTiming/2}ms ${transitions.timingFunction}, box-shadow ${transitions.baseTiming*2}ms ${transitions.timingFunction}

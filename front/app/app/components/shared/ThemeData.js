@@ -184,7 +184,9 @@ export const gradients = {
 
 export const metrics = {
   spacing          : modularScale.ms0,
-  borderRadiusSmall: '0px',
+  baseSpacing      : 1,
+  baseSpacingUnit  : 'rem',
+  borderRadiusSmall: '3px',
   borderRadius     : modularScale.ms0,
   fontSizeTiny     : modularScale['ms-1'],
   fontSizeSmall    : '0.8rem',
@@ -213,7 +215,7 @@ export const buttons = {
   paddingLR: modularScale.ms1
 };
 
-export const tables  = {};
+export const tables = {};
 
 export const cards = {
   defaultWidth: '100%'

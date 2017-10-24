@@ -31,33 +31,6 @@ const RoundSmall = '2.8rem';
 const RoundDefault = '4rem';
 const RoundLarge = '5.8rem';
 
-const makeButtonEffect = color => css`
-  &:hover, &:focus, &:active {
-    border: 1px solid ${darken(0.1, color)};
-    box-shadow: inset 0 1px 10px ${darken(0.15, color)};
-  }
-  background-image: linear-gradient(
-    -45deg,
-    transparent 50%,
-    ${darken(0.1, color)} 50.01%,
-    ${darken(0.1, color)} 100%
-  );
-`;
-
-const makeOutlineButtonEffect = color => css`
-  &:hover, &:focus, &:active {
-    border: 1px solid ${color};
-    box-shadow: inset 0 1px 10px ${darken(0.1, color)};
-  }
-  background-color: rgba(255,0,0,0);
-  background-image: linear-gradient(
-    -45deg,
-    transparent 50%,
-    ${color} 50.01%,
-    ${color} 100%
-  );
-`;
-
 const componentStyle = css`
     cursor: pointer;
     border-width: 0;
@@ -72,6 +45,33 @@ const componentStyle = css`
       background-position: 0 0;
       transition: background-color ${transitions.timing} ${transitions.timingFunction}, border ${transitions.timing} ${transitions.timingFunction}, color ${transitions.timing} ${transitions.timingFunction}, background-position ${transitions.timing} ${transitions.timingFunction}, box-shadow ${transitions.baseTiming*2}ms ${transitions.timingFunction};
     }
+`;
+
+const makeButtonEffect = color => css`
+  &:hover, &:focus, &:active {
+    border: 1px solid ${darken(0.1, color)};
+    box-shadow: inset 0 1px 10px ${darken(0.15, color)}, ${shadows.dropShadow.sm};
+  }
+  background-image: linear-gradient(
+    -45deg,
+    transparent 50%,
+    ${color} 50.01%,
+    ${darken(0.1, color)} 100%
+  );
+`;
+
+const makeOutlineButtonEffect = color => css`
+  &:hover, &:focus, &:active {
+    border: 1px solid ${color};
+    box-shadow: inset 0 1px 10px ${darken(0.1, color)}, ${shadows.dropShadow.sm};
+  }
+  background-color: rgba(255,0,0,0);
+  background-image: linear-gradient(
+    -45deg,
+    transparent 50%,
+    ${color} 50.01%,
+    ${darken(0.1, color)} 100%
+  );
 `;
 
 const linkStyle = css`

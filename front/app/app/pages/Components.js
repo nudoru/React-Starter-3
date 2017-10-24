@@ -492,14 +492,39 @@ class Components extends React.Component {
         <Module>
           <div className="pb-5">
             <h4 className="pb-3">Card</h4>
-            <GridFluid>
-              <Row>
-                <Col>
-                  <Card width='400px' dropShadow='xl'>
+            <GridFluid className='pb-5'>
+              <RowAuto>
+
+                <Card dropShadow='xs' width={'200px'}>
+                  <CardBody>
+                    <CardTitle>This is a card!</CardTitle>
+                    <CardText>Card! Card! Card! Card! </CardText>
+                    <CardLink href="http://www.google.com">Link
+                      gggtextjjj</CardLink>
+                    <CardLink href="http://www.google.com">Link
+                      text</CardLink>
+                  </CardBody>
+                </Card>
+
+                <Card dropShadow='lg'>
+                  <CardHeader>Header</CardHeader>
+                  <CardBody>
+                    <CardTitle>Lorem ipsum dolor sit amet</CardTitle>
+                    <CardSubTitle>Integer vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit amet</CardSubTitle>
+                    <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit amet, sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum varius. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis porta lobortis nisl, non blandit enim. </CardText>
+                    <CardLink href="http://www.google.com">Link
+                      text</CardLink>
+                  </CardBody>
+                  <CardFooter>
+                    <Button secondary outline>Second</Button>
+                    <Button primary>First</Button>
+                  </CardFooter>
+                </Card>
+
+                  <Card dropShadow='xl'>
                     <CardXHeader height='100px' horizontal='center'
                                  vertical='center' className='morpheus_den p-2'>
                       <h2>Cool header</h2></CardXHeader>
-                    <CardHeader>Header</CardHeader>
                     <CardBody>
                       <CardTitle>This is a card!</CardTitle>
                       <CardSubTitle>Subtitles are cool</CardSubTitle>
@@ -509,27 +534,12 @@ class Components extends React.Component {
                     </CardBody>
                     <CardFooter>Footer</CardFooter>
                   </Card>
-                </Col>
-                <Col>
-                  <Card>
-                    <CardBody>
-                      <CardTitle>This is a card!</CardTitle>
-                      <CardSubTitle>Subtitles are cool</CardSubTitle>
-                      <CardText>Card! Card! Card! Card! </CardText>
-                      <CardLink href="http://www.google.com">Link
-                        gggtextjjj</CardLink>
-                      <CardLink href="http://www.google.com">Link
-                        text</CardLink>
-                    </CardBody>
-                    <ListGroup flush>
-                      <ListGroupItem>Foo</ListGroupItem>
-                      <ListGroupItem>Bar</ListGroupItem>
-                    </ListGroup>
-                  </Card>
-                </Col>
-              </Row>
+
+
+
+              </RowAuto>
             </GridFluid>
-            <GridFluid className='pt-3'>
+            <GridFluid className='mt-5'>
               <RowAuto>
                   <Card dropShadow='xs'>
                     <CardBody>
@@ -562,6 +572,38 @@ class Components extends React.Component {
 
           <div className="pb-5">
             <h4 className="pb-3">Basic table</h4>
+            <Table>
+              <TableCaption>List of users</TableCaption>
+              <TableHead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Username</th>
+                </tr>
+              </TableHead>
+              <TableBody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </TableBody>
+            </Table>
+            <h4 className="pb-3">Options</h4>
             <Table striped hover >
               <TableCaption>List of users</TableCaption>
               <TableHead>
@@ -593,7 +635,6 @@ class Components extends React.Component {
                 </tr>
               </TableBody>
             </Table>
-
           </div>
 
           <div className="pb-5">

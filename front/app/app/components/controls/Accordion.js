@@ -12,6 +12,11 @@ import {
 import { Collapse } from '../shared/Collapse';
 import { Col, Row } from './Grid';
 import { TweenGroup } from '../shared/Animate';
+import { joinClasses } from '../shared/utils';
+
+const componentStyle = css`
+  border-radius: 0 !important;
+`;
 
 const headerStyle = css`
   cursor: pointer;
@@ -106,8 +111,7 @@ export class Accordion extends React.Component {
     });
 
     return (
-      <div className={className}>
-        <Card>
+        <Card className={joinClasses(componentStyle, className)}>
           <CardHeader className={headerStyle} onClick={this.toggle}>
             <Row>
               <Col className={chevronStyle}>
@@ -126,7 +130,6 @@ export class Accordion extends React.Component {
             </CardBody>
           </Collapse>
         </Card>
-      </div>
     );
   }
 }
