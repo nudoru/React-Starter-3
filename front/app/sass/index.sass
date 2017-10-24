@@ -1,25 +1,12 @@
 @import "vendor/bootstrap/bootstrap.scss" // CSS var overrides in /core/_bootstrap_over.scss
 @import "vendor/webgradients.scss"
+@import "./core/overpass"
 @import "./core/variables"
-@import "./core/base"
 @import "./core/helpers"
-
-// React mount point
-#app
-  min-height: 100vh
 
 // All custom styling for the application goes in this file
 @import "AppCustom"
 
-
 .debug-container
   border: 1px solid #f00
 // background-color: rgba(255,0,0,.25)
-
-.container-full
-  position: absolute
-  width: 100%
-  height: 100%
-
-.no-transition
-  transition: none !important
