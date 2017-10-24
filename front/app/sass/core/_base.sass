@@ -15,28 +15,6 @@ body
   min-height: 100vh
   background: #fff
 
-a
-  &:hover
-    text-decoration: underline
-
-a.no-underline
-  &:hover
-    text-decoration: none !important
-
-// TODO styles for smaller screens
-a.better
-  color: $link-color
-  outline: none
-  text-decoration: none
-  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff
-  background-image: none
-  &:active, &:hover
-    color: $link-color
-    background-image: linear-gradient(to top, transparent, transparent 2px, $link-color 2px, $link-color 3px, transparent 3px)
-    outline: none
-  &:focus
-    outline: dotted 1px
-
 svg:not(:root)
   overflow: hidden
 

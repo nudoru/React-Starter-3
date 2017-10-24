@@ -99,17 +99,7 @@ export const colorList = {
   neutralColorLight: 'rgb(229, 229, 229)'
 };
 
-/*
-primary: $blue,
-        secondary: $gray-600,
-        success: $green,
-        info: $cyan,
-        warning: $yellow,
-        danger: $red,
-        light: $gray-100,
-        dark: $gray-800
- */
-
+// These should align to what's listed in the bootstrap override scss file
 export const colors = {
   primary          : colorList.blue,
   secondary        : colorList.grey8,
@@ -119,8 +109,8 @@ export const colors = {
   dark             : colorList.grey10,
   text             : 'rgb(76, 76, 76)',
   headings         : 'rgb(76, 76, 76)',
-  link             : 'rgb(27, 191, 248)',
-  linkHover        : 'rgb(27, 162, 226)',
+  link             : colorList.blue,
+  linkHover        : colorList.blue,
   success          : colorList.successColor,
   warning          : colorList.warningColor,
   danger           : colorList.dangerColor,
@@ -222,6 +212,7 @@ export const buttons = {
   paddingTB: modularScale['ms-2'],
   paddingLR: modularScale.ms1
 };
+
 export const tables  = {};
 
 export const cards = {

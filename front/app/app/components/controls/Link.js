@@ -1,11 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {compose} from 'ramda';
-import {css} from 'emotion';
+import { compose } from 'ramda';
+import { css } from 'emotion';
+import { colors } from '../shared/ThemeData';
+import { joinClasses } from '../shared/utils';
 
 // Based on https://github.com/react-bootstrap/react-bootstrap/blob/master/src/SafeAnchor.js
 
 const isTrivial = href => !href || href.trim() === '#';
+
+const linkStyle            = css`
+  color: ${colors.link};
+  &:hover {
+    color: ${colors.linkHover};
+    text-decoration: underline;
+  }
+`;
+const linkNoUnderlineStyle = css`
+  &:hover {
+    text-decoration: none;
+  }
+`;
+const linkBetterStyle      = css`
+  color: ${colors.link};
+  outline: none;
+  text-decoration: none;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+  background-image: none;
+  &:active, &:hover {
+    color: ${colors.link};
+    background-image: linear-gradient(to top, transparent, transparent 2px, ${colors.link} 2px, ${colors.link} 3px, transparent 3px);
+    outline: none;
+    }
+  &:focus {
+    outline: dotted 1px;
+  }
+`;
 
 export default class Link extends React.PureComponent {
   static defaultProps = {
@@ -41,15 +71,15 @@ export default class Link extends React.PureComponent {
     }
   };
 
-  render() {
+  render () {
     const {onKeyDown = e => e, underline, better, className, ...rest} = this.props;
     let {ariaRole, tabIndex}                                          = this.props;
-    let cls                                                           = [className];
+    let cls                                                           = [linkStyle];
 
     if (better) {
-      cls.push('better');
+      cls.push(linkBetterStyle);
     } else if (!underline) {
-      cls.push('no-underline');
+      cls.push(linkNoUnderlineStyle);
     }
 
     if (isTrivial(this.props.href)) {
@@ -62,6 +92,10 @@ export default class Link extends React.PureComponent {
         `;
       cls.push(peNoneStyle);
       tabIndex = -1;
+    }
+
+    if (className) {
+      cls.push(className);
     }
 
     return (
