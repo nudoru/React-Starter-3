@@ -3,7 +3,7 @@ import hoistNonReactStatic from 'hoist-non-react-statics';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
 import { getNextId } from '../../utils/ElementIDCreator';
-import {shadows} from './ThemeData';
+import {shadows} from './Theme';
 
 export const bootStrapPropTypes = {
   __cid      : PropTypes.string,

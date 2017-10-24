@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'ramda';
 import { css } from 'emotion';
-import { colors } from '../shared/ThemeData';
+import { colors } from '../shared/Theme';
 import { joinClasses } from '../shared/utils';
 
 // Based on https://github.com/react-bootstrap/react-bootstrap/blob/master/src/SafeAnchor.js

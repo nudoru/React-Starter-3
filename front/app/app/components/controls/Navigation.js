@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
-import {modularScale, colorList, colors, shadows, gradients, transitions, metrics} from '../shared/ThemeData';
+import {modularScale, colorList, colors, shadows, gradients, transitions, metrics} from '../shared/Theme';
 import { joinClasses, omit } from '../shared/utils';
 import {
   withBootStrap,

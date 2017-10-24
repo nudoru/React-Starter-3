@@ -4,7 +4,7 @@ import { css } from 'emotion';
 import { buildClassName, withBootStrap } from '../shared/BootStrapHOC';
 import { Nav, NavItem } from './Navigation';
 import { Expando } from '../shared/Expando';
-import { colors, metrics } from '../shared/ThemeData';
+import { colors, metrics } from '../shared/Theme';
 
 class BTabs extends React.PureComponent {
   state = {activeIndex: 0};

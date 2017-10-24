@@ -1,6 +1,6 @@
 import React from 'react';
 import {css} from 'emotion';
-import { modularScale } from '../../components/shared/ThemeData';
+import { modularScale } from '../shared/Theme';
 import {joinClasses} from '../shared/utils';
 
 const componentStyle = css`

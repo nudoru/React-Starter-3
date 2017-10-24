@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import { joinClasses, omit } from '../shared/utils';
-import { colorList, metrics } from '../shared/ThemeData';
+import { colorList, metrics } from '../shared/Theme';
 import { flexBoxProps } from '../shared/FlexBoxProps';
 import {
   withBootStrap,

@@ -3,7 +3,7 @@ import { css } from 'emotion';
 import { buildClassName, withBootStrap } from '../shared/BootStrapHOC';
 import { joinClasses } from '../shared/utils';
 import { Container } from './Container';
-import {colorList, modularScale} from '../shared/ThemeData';
+import {colorList, modularScale} from '../shared/Theme';
 
 const componentStyle = css`
     background-color: ${colorList.grey1};

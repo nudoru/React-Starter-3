@@ -8,7 +8,7 @@ import {
   buildClassName,
   bootStrapPropTypes
 } from '../shared/BootStrapHOC';
-import { shadows, colors, transitions } from '../shared/ThemeData';
+import { shadows, colors, transitions } from '../shared/Theme';
 
 //    transform: translate(0, -0.1em);
 // transform 160ms ease,

@@ -7,7 +7,7 @@ import {
   bootStrapPropTypes
 } from '../shared/BootStrapHOC';
 import { joinClasses, omit } from '../shared/utils';
-import { colors, colorList, metrics, transitions } from '../shared/ThemeData';
+import { colors, colorList, metrics, transitions } from '../shared/Theme';
 
 const componentStyle = css`
   .table {

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {css} from 'emotion';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import PropTypes from 'prop-types';
-import {metrics} from './ThemeData';
+import {metrics} from './Theme';
 import {SpinnerDots} from './SpinnerDots';
 
 const LoadingView = ({message, ...rest}) => <div {...rest}><h6>{message}</h6>

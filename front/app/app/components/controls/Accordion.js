@@ -8,7 +8,7 @@ import {
   modularScale,
   colorList, shadows, transitions, metrics,
   colors
-} from '../shared/ThemeData';
+} from '../shared/Theme';
 import { Collapse } from '../shared/Collapse';
 import { Col, Row } from './Grid';
 import { TweenGroup } from '../shared/Animate';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
-import { modularScale } from '../../components/shared/ThemeData';
+import { modularScale } from '../../components/shared/Theme';
 import { Container } from '../../components/controls/Container';
 import { joinClasses } from '../../components/shared/utils';
 
