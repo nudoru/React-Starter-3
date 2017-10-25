@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {styles} from '../components/shared/Theme';
-import { ModuleContainer, Module } from './regions/Module';
+import { ModuleContainer, Module } from '../components/containers/Module';
 import {
   Card,
   CardBody,

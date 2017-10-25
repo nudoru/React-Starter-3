@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
-import { colorList } from '../../components/shared/Theme';
+import { colorList } from '../shared/Theme';
 
 const componentStyle = css`
   position: relative;

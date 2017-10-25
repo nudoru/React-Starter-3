@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {curry, compose} from 'ramda';
+import {colors} from './Theme';
 
 export const NOOP = () => {
 };
@@ -36,3 +37,9 @@ export const clamp = curry((min, max, val) => {
 });
 
 export const clamp01 = clamp(0,1);
+
+export const getBSColorFromProps = props => {
+  const colorskeys = ['primary', 'secondary', 'info', 'success', 'warning', 'danger', 'light', 'dark'];
+  const match      = Object.keys(props).filter(p => colorskeys.indexOf(p) >= 0)[0];
+  return match ? colors[match] : colors.primary;
+};

@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
-import { metrics } from '../../components/shared/Theme';
-import { Container } from '../../components/controls/Container';
+import { metrics } from '../shared/Theme';
+import { Container } from '../controls/Container';
 
 const componentStyle = css`
   position: relative;

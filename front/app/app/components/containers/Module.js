@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
-import { modularScale } from '../../components/shared/Theme';
-import { Container } from '../../components/controls/Container';
-import { joinClasses } from '../../components/shared/utils';
+import { metrics, modularScale, colorList } from '../shared/Theme';
+import { Container } from '../controls/Container';
+import { joinClasses } from '../shared/utils';
 
 //display: flex;
 //flex-direction: column;
@@ -65,3 +65,21 @@ export class Module extends React.PureComponent {
     );
   }
 }
+
+const titleStyle = css`
+  color: ${colorList.grey10};
+  margin-bottom: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
+`;
+
+export const ModuleTitle = props => <h3
+  className={titleStyle}>{props.children}</h3>;
+
+const subTitleStyle = css`
+  color: ${colorList.grey8};
+  text-transform: uppercase;
+  letter-spacing: -0.5;
+  line-height: 1.25rem;
+`;
+
+export const ModuleSubTitle = props => <p
+  className={subTitleStyle}>{props.children}</p>;

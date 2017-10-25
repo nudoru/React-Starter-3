@@ -1,14 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import { darken } from 'polished';
-import {
-  withBootStrap,
-  buildClassName,
-  bootStrapPropTypes
-} from '../shared/BootStrapHOC';
-import { joinClasses, omit } from '../shared/utils';
-import { colors, metrics, shadows } from '../shared/Theme';
+import { buildClassName, withBootStrap } from '../shared/BootStrapHOC';
+import { getBSColorFromProps, joinClasses } from '../shared/utils';
+import { shadows } from '../shared/Theme';
 
 // These match button round sizes
 const RoundXSmall  = 1.6;
@@ -65,7 +60,7 @@ const colorOutlineStyle = color => css`
 `;
 
 const getColorStyle = props => {
-  let color = getColor(props);
+  let color = getBSColorFromProps(props);
 
   if (props.outline) {
     return colorOutlineStyle(color);
@@ -73,11 +68,7 @@ const getColorStyle = props => {
   return colorFillStyle(color);
 };
 
-const getColor = props => {
-  const colorskeys = ['primary', 'secondary', 'info', 'success', 'warning', 'danger', 'light', 'dark'];
-  const match      = Object.keys(props).filter(p => colorskeys.indexOf(p) >= 0)[0];
-  return match ? colors[match] : colors.primary;
-};
+
 
 class BIcon extends React.PureComponent {
   static propTypes    = {};

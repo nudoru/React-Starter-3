@@ -2,10 +2,10 @@ import React from 'react';
 import { Either } from './utils/functional';
 import { resetId } from './utils/ElementIDCreator';
 import { AppRouter } from './config/AppRouter';
-import {ApplicationContainer} from './pages/regions/ApplicationContainer';
-import {Masthead} from './pages/regions/Masthead';
-import {Pagearea} from './pages/regions/Pagearea';
-import {Footer} from './pages/regions/Footer';
+import {ApplicationContainer} from './components/containers/ApplicationContainer';
+import {Masthead} from './components/containers/Masthead';
+import {Pagearea} from './components/containers/Pagearea';
+import {Footer} from './components/containers/Footer';
 import Link from './components/controls/Link';
 //import {
 //  getState, getStatePath, setState, listen,

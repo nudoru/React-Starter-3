@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
-import { Module, ModuleContainer } from './regions/Module';
+import { Module, ModuleContainer } from '../components/containers/Module';
 
 import FaRocket from 'react-icons/lib/fa/rocket';
 import {Icon} from '../components/controls/Icon';
