@@ -1,7 +1,12 @@
 import React from 'react';
 
-import {styles} from '../components/shared/Theme';
-import { ModuleContainer, Module } from '../components/containers/Module';
+import { styles } from '../components/shared/Theme';
+import {
+  ModuleContainer,
+  Module,
+  ModuleTitle,
+  ModuleSubTitle
+} from '../components/containers/Module';
 import {
   Card,
   CardBody,
@@ -59,7 +64,7 @@ import Link from '../components/controls/Link';
 import { Flip, Face } from '../components/controls/Flip';
 
 import FaRocket from 'react-icons/lib/fa/rocket';
-import {Icon} from '../components/controls/Icon';
+import { Icon } from '../components/controls/Icon';
 
 import { withLoading } from '../components/shared/IsLoadingHOC';
 
@@ -139,6 +144,8 @@ class Components extends React.Component {
           </Jumbotron>
         </Module>
         <Module className='risky_concrete'>
+          <ModuleTitle>Desktop interactive elements</ModuleTitle>
+          <ModuleSubTitle>Hover over each </ModuleSubTitle>
           <div className="pb-5">
             <h4 className="pb-3">Tilt Cover (hover over)</h4>
             <StageArea>
@@ -220,6 +227,7 @@ class Components extends React.Component {
           </div>
         </Module>
         <Module className='bg-white'>
+          <ModuleTitle>Content Reveal</ModuleTitle>
           <div className="pb-5">
             <h4 className="pb-3">Expando Tabs</h4>
             <Tabs>
@@ -324,7 +332,8 @@ class Components extends React.Component {
             <VTabs>
               <VTabList>
                 <VTab>Lorem ipsum dolor sit amet</VTab>
-                <VTab>Aliquam ac consequat tortor, at rutrum neque. Nam fermentum nulla eget
+                <VTab>Aliquam ac consequat tortor, at rutrum neque. Nam
+                  fermentum nulla eget
                   finibus imperdiet.</VTab>
                 <VTab>Three</VTab>
               </VTabList>
@@ -495,6 +504,7 @@ class Components extends React.Component {
           </div>
         </Module>
         <Module>
+          <ModuleTitle>Cards</ModuleTitle>
           <div className="pb-5">
             <h4 className="pb-3">Card</h4>
             <GridFluid className='pb-5'>
@@ -503,7 +513,8 @@ class Components extends React.Component {
                 <Card width={'200px'} onClick={this.handleClick}>
                   <CardBody>
                     <CardTitle>This is a card!</CardTitle>
-                    <CardText>This card has an onClick handler so it will show an effet on hover</CardText>
+                    <CardText>This card has an onClick handler so it will show
+                      an effet on hover</CardText>
                     <CardLink href="http://www.google.com">Link
                       gggtextjjj</CardLink>
                     <CardLink href="http://www.google.com">Link
@@ -515,8 +526,15 @@ class Components extends React.Component {
                   <CardHeader>Header</CardHeader>
                   <CardBody>
                     <CardTitle>Lorem ipsum dolor sit amet</CardTitle>
-                    <CardSubTitle>Integer vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit amet</CardSubTitle>
-                    <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae orci mi. Vestibulum tellus sem, tristique sed lacus sit amet, sollicitudin pharetra turpis. Ut sodales scelerisque urna bibendum varius. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis porta lobortis nisl, non blandit enim. </CardText>
+                    <CardSubTitle>Integer vitae orci mi. Vestibulum tellus sem,
+                      tristique sed lacus sit amet</CardSubTitle>
+                    <CardText>Lorem ipsum dolor sit amet, consectetur adipiscing
+                      elit. Integer vitae orci mi. Vestibulum tellus sem,
+                      tristique sed lacus sit amet, sollicitudin pharetra
+                      turpis. Ut sodales scelerisque urna bibendum varius.
+                      Vestibulum ante ipsum primis in faucibus orci luctus et
+                      ultrices posuere cubilia Curae; Duis porta lobortis nisl,
+                      non blandit enim. </CardText>
                     <CardLink href="http://www.google.com">Link
                       text</CardLink>
                   </CardBody>
@@ -526,55 +544,56 @@ class Components extends React.Component {
                   </CardFooter>
                 </Card>
 
-                  <Card dropShadow='xl'>
-                    <CardXHeader height='100px' horizontal='center'
-                                 vertical='center' className='morpheus_den p-2'>
-                      <h2>Cool header</h2></CardXHeader>
-                    <CardBody>
-                      <CardTitle>This is a card!</CardTitle>
-                      <CardSubTitle>Subtitles are cool</CardSubTitle>
-                      <CardText>Card! Card! Card! Card! </CardText>
-                      <CardLink href="http://www.google.com">Link
-                        text</CardLink>
-                    </CardBody>
-                    <CardFooter>Footer</CardFooter>
-                  </Card>
-
+                <Card dropShadow='xl'>
+                  <CardXHeader height='100px' horizontal='center'
+                               vertical='center' className='morpheus_den p-2'>
+                    <h2>Cool header</h2></CardXHeader>
+                  <CardBody>
+                    <CardTitle>This is a card!</CardTitle>
+                    <CardSubTitle>Subtitles are cool</CardSubTitle>
+                    <CardText>Card! Card! Card! Card! </CardText>
+                    <CardLink href="http://www.google.com">Link
+                      text</CardLink>
+                  </CardBody>
+                  <CardFooter>Footer</CardFooter>
+                </Card>
 
 
               </RowAuto>
             </GridFluid>
             <GridFluid className='mt-5'>
               <RowAuto>
-                  <Card dropShadow='xs'>
-                    <CardBody>
-                      <p>Shadow XS</p>
-                    </CardBody>
-                  </Card>
-                  <Card dropShadow='sm'>
-                    <CardBody>
-                      <p>Shadow SM</p>
-                    </CardBody>
-                  </Card>
-                  <Card dropShadow='m'>
-                    <CardBody>
-                      <p>Shadow M</p>
-                    </CardBody>
-                  </Card>
-                  <Card dropShadow='lg'>
-                    <CardBody>
-                      <p>Shadow LG</p>
-                    </CardBody>
-                  </Card>
-                  <Card dropShadow='xl'>
-                    <CardBody>
-                      <p>Shadow XL</p>
-                    </CardBody>
-                  </Card>
+                <Card dropShadow='xs'>
+                  <CardBody>
+                    <p>Shadow XS</p>
+                  </CardBody>
+                </Card>
+                <Card dropShadow='sm'>
+                  <CardBody>
+                    <p>Shadow SM</p>
+                  </CardBody>
+                </Card>
+                <Card dropShadow='m'>
+                  <CardBody>
+                    <p>Shadow M</p>
+                  </CardBody>
+                </Card>
+                <Card dropShadow='lg'>
+                  <CardBody>
+                    <p>Shadow LG</p>
+                  </CardBody>
+                </Card>
+                <Card dropShadow='xl'>
+                  <CardBody>
+                    <p>Shadow XL</p>
+                  </CardBody>
+                </Card>
               </RowAuto>
             </GridFluid>
           </div>
-
+        </Module>
+        <Module>
+          <ModuleTitle>Tables</ModuleTitle>
           <div className="pb-5">
             <h4 className="pb-3">Basic table</h4>
             <Table>
@@ -609,7 +628,7 @@ class Components extends React.Component {
               </TableBody>
             </Table>
             <h4 className="pb-3">Options</h4>
-            <Table striped hover >
+            <Table striped hover>
               <TableCaption>List of users</TableCaption>
               <TableHead>
                 <tr>
@@ -641,7 +660,9 @@ class Components extends React.Component {
               </TableBody>
             </Table>
           </div>
-
+        </Module>
+        <Module>
+          <ModuleTitle>Buttons and Navigation</ModuleTitle>
           <div className="pb-5">
             <h4 className="pb-3">Buttons</h4>
             <div className="pb-2">
@@ -778,7 +799,9 @@ class Components extends React.Component {
               </RowAuto>
             </GridFluid>
           </div>
-
+        </Module>
+        <Module>
+          <ModuleTitle>Other junk</ModuleTitle>
           <div className="pb-5">
             <h4 className="pb-3">Loading HOC</h4>
             <LoadingCard loading message='Fetching the data'>

@@ -5,8 +5,6 @@ import { metrics, modularScale, colorList } from '../shared/Theme';
 import { Container } from '../controls/Container';
 import { joinClasses } from '../shared/utils';
 
-//display: flex;
-//flex-direction: column;
 const containerComponentStyle = css`
   width: 100%;
   min-height: 100%;
@@ -26,13 +24,13 @@ const moduleComponentStyle = props => css`
 `;
 
 const contentContainerStyle = css`
-  padding-top: ${modularScale.ms3};
-  padding-bottom: ${modularScale.ms3};
+  padding-top: ${modularScale.ms4};
+  padding-bottom: ${modularScale.ms4};
 `;
 
 const flexContentContainerStyle = props => css`
   display: flex;
-  flex-direction: co;
+  flex-direction: column;
   align-items: ${props.middle ? 'center' : 'flex-start'};
   justify-content: ${props.center ? 'center' : 'flex-start'};
   flex: ${props.full ? 1 : 0};
@@ -68,18 +66,22 @@ export class Module extends React.PureComponent {
 
 const titleStyle = css`
   color: ${colorList.grey10};
-  margin-bottom: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
+  font-size: ${modularScale.ms3};
+  margin-bottom: ${modularScale.ms5};
+  text-align: center;
 `;
 
-export const ModuleTitle = props => <h3
-  className={titleStyle}>{props.children}</h3>;
+export const ModuleTitle = props => <h1
+  className={titleStyle}>{props.children}</h1>;
 
 const subTitleStyle = css`
   color: ${colorList.grey8};
-  text-transform: uppercase;
-  letter-spacing: -0.5;
   line-height: 1.25rem;
+  font-size: ${modularScale.ms0};
+  margin-top: -${modularScale.ms4};
+  margin-bottom: ${modularScale.ms5};
+  text-align: center;
 `;
 
-export const ModuleSubTitle = props => <p
-  className={subTitleStyle}>{props.children}</p>;
+export const ModuleSubTitle = props => <h2
+  className={subTitleStyle}>{props.children}</h2>;

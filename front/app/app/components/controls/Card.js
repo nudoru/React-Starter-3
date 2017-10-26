@@ -95,8 +95,6 @@ const BCardTitle = props => <h3
 
 const subTitleStyle = css`
   color: ${colorList.grey8};
-  text-transform: uppercase;
-  letter-spacing: -0.5;
   line-height: 1.25rem;
 `;
 
