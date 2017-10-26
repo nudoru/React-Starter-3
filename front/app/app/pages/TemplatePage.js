@@ -1,7 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css } from 'emotion';
+import {
+  Module, ModuleContainer,
+  ModuleTitle
+} from '../components/containers/Module';
+import { styles } from '../components/shared/Theme';
 
-class TemplatePage extends React.Component {
+export default class TemplatePage extends React.Component {
+  static propTypes = {};
+  static defaultProps = {};
+
   constructor(props) {
     super(props);
     this.state = {};
@@ -19,12 +28,12 @@ class TemplatePage extends React.Component {
     console.log('Template page, ', this.props);
   }
 
-  render() {
-    return (<h1>Template Page</h1>);
+  render () {
+    return <ModuleContainer>
+      <Module full>
+        <ModuleTitle>Template page</ModuleTitle>
+
+      </Module>
+    </ModuleContainer>;
   }
 }
-
-TemplatePage.defaultProps = {};
-TemplatePage.propTypes = {};
-
-export default TemplatePage;

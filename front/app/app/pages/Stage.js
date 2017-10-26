@@ -23,7 +23,7 @@ const componentStyle = css`
 `;
 
 
-class Stage extends React.Component {
+export  default class Stage extends React.Component {
 
   state = {expanded: true};
 
@@ -32,7 +32,6 @@ class Stage extends React.Component {
   };
 
   render () {
-    //className='full-window-cover-center risky_concrete'
     return <ModuleContainer>
       <Module full>
         <GridFluid className='pt-3'>
@@ -77,8 +76,3 @@ class Stage extends React.Component {
     </ModuleContainer>;
   }
 }
-
-Stage.defaultProps = {};
-Stage.propTypes    = {};
-
-export default Stage;

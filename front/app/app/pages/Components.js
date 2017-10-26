@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { styles } from '../components/shared/Theme';
+
 import {
   ModuleContainer,
   Module,
@@ -121,7 +121,7 @@ const FlipBack = (props) => {
 const StageArea = (props) => <div
   className='flex-full-center'>{props.children}</div>;
 
-class Components extends React.Component {
+export default class Components extends React.Component {
 
   handleClick = e => {
     console.log('You clicked on something!', e);
@@ -942,8 +942,3 @@ class Components extends React.Component {
     );
   }
 }
-
-Components.defaultProps = {};
-Components.propTypes    = {};
-
-export default Components;

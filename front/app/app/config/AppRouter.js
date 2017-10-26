@@ -4,6 +4,7 @@ import Components from '../pages/Components';
 import Animations from '../pages/Animations';
 import Styles from '../pages/Styles';
 import Stage from '../pages/Stage';
+import Forms from '../pages/Forms';
 
 const RouteMessage = ({children}) => <div><h1>{children}</h1></div>;
 
@@ -13,6 +14,7 @@ export const AppRouter = () =>
       <Route exact path="/" component={Components}/>
       <Route path="/a" component={Animations}/>
       <Route path="/s" component={Stage}/>
+      <Route path="/f" component={Forms}/>
       <Route path="/st" component={Styles}/>
       <Route path="/404" render={() => <RouteMessage>There&apos;s nothing
         here.</RouteMessage>}/>
