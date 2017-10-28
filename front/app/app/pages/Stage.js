@@ -1,19 +1,19 @@
 import React from 'react';
-import { css } from 'emotion';
-import { Module, ModuleContainer } from '../components/containers/Module';
+import {css} from 'emotion';
+import {Module, ModuleContainer} from '../components/containers/Module';
 
-import FaRocket from 'react-icons/lib/fa/rocket';
-import {Icon} from '../components/controls/Icon';
+import Button from '../components/controls/Button';
+import {Flip, Face} from '../components/controls/Flip';
 
-import {
-  Grid,
-  GridFluid,
-  Row,
-  RowNG,
-  RowAuto,
-  Col,
-  ColBreak
-} from '../components/controls/Grid';
+const FlipFront = props => <div className='p-3'>
+  <h1>Front!</h1>
+  <Button primary onClick={props.flip}>Flip me</Button>
+</div>;
+
+const FlipBack = props => <div className='p-3'>
+  <h1>Back!</h1>
+  <Button light outline onClick={props.flip}>Flip me</Button>
+</div>;
 
 const componentStyle = css`
   min-height: 100%;
@@ -23,7 +23,7 @@ const componentStyle = css`
 `;
 
 
-export  default class Stage extends React.Component {
+export default class Stage extends React.Component {
 
   state = {expanded: true};
 
@@ -31,48 +31,15 @@ export  default class Stage extends React.Component {
     this.setState((prevState, props) => ({open: !prevState.open}));
   };
 
-  render () {
-    return <ModuleContainer>
-      <Module full>
-        <GridFluid className='pt-3'>
-          <RowAuto className='mb-5'>
-            <Icon xs>123</Icon>
-            <Icon sm>123</Icon>
-            <Icon>123</Icon>
-            <Icon lg>123</Icon>
-          </RowAuto>
-          <RowAuto className='mb-5'>
-            <Icon xs><FaRocket/></Icon>
-            <Icon sm><FaRocket/></Icon>
-            <Icon><FaRocket/></Icon>
-            <Icon lg><FaRocket/></Icon>
-            <Icon outline xs><FaRocket/></Icon>
-            <Icon outline sm><FaRocket/></Icon>
-            <Icon outline><FaRocket/></Icon>
-            <Icon outline lg><FaRocket/></Icon>
-          </RowAuto>
-          <RowAuto className='mb-5'>
-            <Icon primary><FaRocket/></Icon>
-            <Icon secondary><FaRocket/></Icon>
-            <Icon info><FaRocket/></Icon>
-            <Icon light><FaRocket/></Icon>
-            <Icon dark><FaRocket/></Icon>
-            <Icon success><FaRocket/></Icon>
-            <Icon warning><FaRocket/></Icon>
-            <Icon danger><FaRocket/></Icon>
-          </RowAuto>
-          <RowAuto className='mb-5'>
-            <Icon outline primary><FaRocket/></Icon>
-            <Icon outline secondary><FaRocket/></Icon>
-            <Icon outline info><FaRocket/></Icon>
-            <Icon outline light><FaRocket/></Icon>
-            <Icon outline dark><FaRocket/></Icon>
-            <Icon outline success><FaRocket/></Icon>
-            <Icon outline warning><FaRocket/></Icon>
-            <Icon outline danger><FaRocket/></Icon>
-          </RowAuto>
-        </GridFluid>
-      </Module>
-    </ModuleContainer>;
+  render() {
+    return <div><Flip width={250} height={200}>
+      <Face className='spring_warmth'><FlipFront/></Face>
+      <Face className='night_fade'><FlipBack/></Face>
+    </Flip>
+      <Flip width={200} height={200}>
+        <Face className='heavy_rain'><FlipFront/></Face>
+        <Face className='tempting_azure'><FlipBack/></Face>
+      </Flip>
+    </div>;
   }
 }

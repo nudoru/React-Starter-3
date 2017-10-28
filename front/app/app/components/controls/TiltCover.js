@@ -4,6 +4,7 @@ import { TweenMax, Back, Expo } from 'gsap';
 import { css } from 'emotion';
 import { MouseOverElement } from '../shared/MouseMove';
 import { joinClasses } from '../shared/utils';
+import {ThreeDEl, ThreeDWrapper} from '../shared/ThreeD';
 
 /*
 This was ultimately inspired by Union's work on the Discovery Place site.
@@ -56,7 +57,7 @@ export class TiltCover extends React.PureComponent {
     const {children, className} = this.props;
 
     return (
-
+      <ThreeDWrapper>
       <MouseOverElement render={({x, y}) => {
         let mMidX = x - (this.props.width / 2), // - left of center + right of center
             mMidY = y - (this.props.height / 2), // - left of center + right of center
@@ -87,18 +88,18 @@ export class TiltCover extends React.PureComponent {
           transform : `translateX(${(x / this.props.width)}px) translateY(${(y / this.props.height)}px)`
         };
 
-        return (<div className='threedwrapper'>
-          <div
+        return (
+          <ThreeDEl
             style={containerDynamicStyle}
-            className={joinClasses('threedobject', containerStyle(this.props), className)}>
+            className={joinClasses(containerStyle(this.props), className)}>
             {children}
             <div style={shineDynamicStyle} className={shineContainerStyle(this.props)}
                  ref={shine => this.shineRef = shine}/>
-          </div>
-        </div>);
+          </ThreeDEl>
+        );
 
       }}/>
-
+      </ThreeDWrapper>
     );
   }
 }

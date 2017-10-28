@@ -1,6 +1,12 @@
-const CONTEXT_NAME = '__super_context__';
+import React from 'react';
+import PropTypes from 'prop-types';
+import {css} from 'emotion';
+import { withBootStrap, buildClassName, bootStrapPropTypes } from '../shared/BootStrapHOC';
+import {joinClasses, omit} from '../shared/utils';
 
-class MainClass extends Component {
+const CONTEXT_NAME = '__form_context__';
+
+export class Form extends React.PureComponent {
   static childContextTypes = {
     [CONTEXT_NAME]: PropTypes.object.isRequired
   };
@@ -10,24 +16,34 @@ class MainClass extends Component {
       [CONTEXT_NAME]: this
     };
   }
+
+  render() {
+    return <form>{this.props.children}</form>
+  }
+
 }
 
-class ChildClass extends Component {
+export class Field extends React.Component {
   static contextTypes = {
     [CONTEXT_NAME]: PropTypes.object.isRequired
   };
 
   constructor(props, context) {
     super(props, context);
-    // Put a reference to this component on the context so that it may be accessed 
+    // Put a reference to this component on the context so that it may be accessed
     // by the whole complex component
     context[CONTEXT_NAME].childClass = this;
   }
 
   componentWillUnmount() {
     //need to remove it from the context here
-    if (context[CONTEXT_NAME].childClass === this) {
-      context[CONTEXT_NAME].childClass = null;
+    if (this.context[CONTEXT_NAME].childClass === this) {
+      this.context[CONTEXT_NAME].childClass = null;
     }
   }
+
+  render() {
+    return <input defaultValue='Field!'/>
+  }
+
 }

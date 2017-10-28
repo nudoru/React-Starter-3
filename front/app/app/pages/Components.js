@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from 'emotion';
 import { styles } from '../components/shared/Theme';
 
 import {
@@ -104,22 +105,22 @@ import {
 
 const LoadingCard = withLoading(Card);
 
-const FlipFront = (props) => {
-  return (<div className='p-3'>
+const FlipFront = props => <div className='p-3'>
     <h1>Front!</h1>
     <Button primary onClick={props.flip}>Flip me</Button>
-  </div>);
-};
+  </div>;
 
-const FlipBack = (props) => {
-  return (<div className='p-3'>
+const FlipBack = props => <div className='p-3'>
     <h1>Back!</h1>
     <Button light outline onClick={props.flip}>Flip me</Button>
-  </div>);
-};
+  </div>;
 
-const StageArea = (props) => <div
-  className='flex-full-center'>{props.children}</div>;
+const styleFlexFullCenter = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
 
 export default class Components extends React.Component {
 
@@ -148,7 +149,7 @@ export default class Components extends React.Component {
           <ModuleSubTitle>Hover over each </ModuleSubTitle>
           <div className="pb-5">
             <h4 className="pb-3">Tilt Cover (hover over)</h4>
-            <StageArea>
+            <div className={styleFlexFullCenter}>
               <TiltCover className='mr-3 grown_early'>
                 <h1>Hover
                   over me!</h1>
@@ -160,11 +161,11 @@ export default class Components extends React.Component {
                          extent={100}><h1>Meee
                 three</h1>
               </TiltCover>
-            </StageArea>
+            </div>
           </div>
           <div className="pb-5">
             <h4 className="pb-3">Cover Title (hover over)</h4>
-            <StageArea>
+            <div className={styleFlexFullCenter}>
               <CoverTitle className='mr-3' width={150}>
                 <CoverTitleBackground className='morpheus_den'><p>Lorem Ipsum is
                   simply dummy text of the printing and typesetting industry.
@@ -210,12 +211,12 @@ export default class Components extends React.Component {
                   </CoverTitleText>
                 </CoverTitleBody>
               </CoverTitle>
-            </StageArea>
+            </div>
           </div>
           <div className="pb-5">
             <h4 className="pb-3">Flip card</h4>
-            <StageArea>
-              <Flip className='mr-3' width={200} height={200}>
+            <div className={styleFlexFullCenter}>
+              <Flip className='mr-3' width={250} height={200}>
                 <Face className='spring_warmth'><FlipFront/></Face>
                 <Face className='night_fade'><FlipBack/></Face>
               </Flip>
@@ -223,7 +224,7 @@ export default class Components extends React.Component {
                 <Face className='heavy_rain'><FlipFront/></Face>
                 <Face className='tempting_azure'><FlipBack/></Face>
               </Flip>
-            </StageArea>
+            </div>
           </div>
         </Module>
         <Module className='bg-white'>
