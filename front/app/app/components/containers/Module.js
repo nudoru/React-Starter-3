@@ -19,6 +19,7 @@ export const ModuleContainer = ({className, children}) =>
 
 const moduleComponentStyle = props => css`
   display: flex;
+  flex-direction: column;
   width: 100%;
   flex: ${props.full ? '1' : '0 1 auto'};
 `;

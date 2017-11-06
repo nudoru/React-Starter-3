@@ -4,6 +4,7 @@ import { modularScale } from '../shared/Theme';
 import {joinClasses} from '../shared/utils';
 
 const componentStyle = css`
+  display: block;
   padding-left: ${modularScale.ms0};
   padding-right: ${modularScale.ms0};
 `;

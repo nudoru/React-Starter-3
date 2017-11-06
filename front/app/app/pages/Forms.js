@@ -1,12 +1,12 @@
 import React from 'react';
-import { css } from 'emotion';
+import {css} from 'emotion';
 import {
   Module, ModuleContainer,
   ModuleTitle
 } from '../components/containers/Module';
-import { styles } from '../components/shared/Theme';
+import {styles} from '../components/shared/Theme';
 
-import {Form, Field} from '../components/forms/Form';
+import {Form, Field, FormGroup, Label, Hint} from '../components/forms/Form';
 import {Card, CardBody} from '../components/controls/Card';
 
 const componentStyle = css`
@@ -24,19 +24,40 @@ export default class Forms extends React.Component {
     console.log('You clicked on something!', e);
   };
 
-  render () {
+  _holaValidator = val => val === 'Hola!';
+
+  _onFormChange  = e => console.log('page, on form change', e);
+  _onFieldChange = e => console.log('page, on field change', e);
+
+  //onChange={this._onFieldChange}
+//onChange={this._onFormChange}
+
+  render() {
     return <ModuleContainer>
       <Module full>
         <ModuleTitle>Forms!</ModuleTitle>
-          <Card dropShadow='m'>
-            <CardBody>
+        <Card dropShadow='m' width='100%'>
+          <CardBody>
             <h4>Testing a form</h4>
             <hr/>
-            <Form>
-              <Field></Field>
+            <Form layout='horizontal'>
+              <FormGroup name='mygroup1'>
+                <Label>Label</Label>
+                <Field validator={this._holaValidator} defaultValue='Hola!'
+                       name='Testingfield' />
+                <Hint>This is a hint</Hint>
+              </FormGroup>
             </Form>
-            </CardBody>
-          </Card>
+            <hr/>
+            <Form >
+              <FormGroup>
+                <Label>Label</Label>
+                <Field validator={this._holaValidator} defaultValue='Hola!' name='Testingfield'/>
+                <Hint>This is a hint</Hint>
+              </FormGroup>
+            </Form>
+          </CardBody>
+        </Card>
       </Module>
     </ModuleContainer>;
   }
