@@ -1,0 +1,14 @@
+{
+    "webservice": {},
+    "setup": {
+        "title": "RS3",
+        "secondaryNav": [{
+            "label": "FAQ",
+            "link": "http://www.google.com"
+        }, {
+            "label": "Help or Feedback",
+            "link": "http://www.google.com"
+        }],
+        "interface": {}
+    }
+}
