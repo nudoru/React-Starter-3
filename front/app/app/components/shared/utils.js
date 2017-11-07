@@ -9,7 +9,9 @@ export const NOOP = () => {
 // Given props from a component, iterate over propTypes and matches in the props
 // Create clean props that are safe to attach to DOM node
 export const omit = (excludeKeys, props) => {
-  Object.keys(excludeKeys).forEach(p => {
+  let keys = Array.isArray(excludeKeys) ? excludeKeys : Object.keys(excludeKeys);
+
+  keys.forEach(p => {
     if (props.hasOwnProperty(p)) {
       delete props[p];
     }
@@ -19,8 +21,8 @@ export const omit = (excludeKeys, props) => {
 
 export const getDOMElements = a => a.map(ReactDOM.findDOMNode); //eslint-disable-line react/no-find-dom-node
 
-export const removeNulls = array => array.filter(i => !!i);
-export const joinStrings = delim => arry => arry.join(delim);
+export const removeNulls    = array => array.filter(i => !!i);
+export const joinStrings    = delim => arry => arry.join(delim);
 export const joinWithSpaces = joinStrings(' ');
 
 // This does something similar https://www.npmjs.com/package/classnames
@@ -36,7 +38,7 @@ export const clamp = curry((min, max, val) => {
   return val;
 });
 
-export const clamp01 = clamp(0,1);
+export const clamp01 = clamp(0, 1);
 
 export const getBSColorFromProps = props => {
   const colorskeys = ['primary', 'secondary', 'info', 'success', 'warning', 'danger', 'light', 'dark'];

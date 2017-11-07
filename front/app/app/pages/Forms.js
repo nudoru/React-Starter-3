@@ -52,7 +52,9 @@ export default class Forms extends React.Component {
             <Form >
               <FormGroup>
                 <Label>Label</Label>
+                <Field sm validator={this._holaValidator} defaultValue='Hola!' name='Testingfield'/>
                 <Field validator={this._holaValidator} defaultValue='Hola!' name='Testingfield'/>
+                <Field lg validator={this._holaValidator} defaultValue='Hola!' name='Testingfield'/>
                 <Hint>This is a hint</Hint>
               </FormGroup>
             </Form>

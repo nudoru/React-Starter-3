@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 import {css} from 'emotion';
 import {
   withBootStrap,
@@ -8,10 +9,12 @@ import {
 } from '../shared/BootStrapHOC';
 import {joinClasses, omit} from '../shared/utils';
 import {getNextId} from '../../utils/ElementIDCreator';
-import {colorList, metrics, modularScale} from "../shared/Theme";
+import {colorList, colors, metrics, modularScale} from "../shared/Theme";
 
 const defaultValidator = _ => true;
 const noop             = _ => null;
+
+//-------------------------------------------------------------------------------------------------------------------------
 
 // layout horizontal is form-inline class
 export class Form extends React.PureComponent {
@@ -63,7 +66,6 @@ export class Form extends React.PureComponent {
     }
   };
 
-  // TODO validation
   _handleBlur = e => {
     // console.log('Form on Blur', e);
     if (this.props.onBlur) {
@@ -73,7 +75,6 @@ export class Form extends React.PureComponent {
 
   // TODO validation
   _handleChange = e => {
-    console.log('Form on Change', e);
     if (this.props.onChange) {
       this.props.onChange(e);
     }
@@ -93,6 +94,8 @@ export class Form extends React.PureComponent {
   }
 
 }
+
+//-------------------------------------------------------------------------------------------------------------------------
 
 // BS adds -15px left/right margins
 const formGroupHorizontalStyle = css`
@@ -117,7 +120,7 @@ export class FormGroup extends React.Component {
   }
 
   render() {
-    const {children:originalChildren, className, name, ...rest} = this.props;
+    const {children: originalChildren, className, name, ...rest} = this.props;
 
     const children = React.Children.map(originalChildren, child => {
       return React.cloneElement(child, {
@@ -137,7 +140,12 @@ export class FormGroup extends React.Component {
   }
 }
 
-// Needs to use sizes: lg and sm
+//-------------------------------------------------------------------------------------------------------------------------
+
+const fieldErrorStyle = css`
+  border-color: ${colors.danger} !important;
+`;
+
 // readonly style - for disabled?
 // error style?
 export class Field extends React.Component {
@@ -165,7 +173,9 @@ export class Field extends React.Component {
 
   static defaultProps = {
     id       : `field_${getNextId()}`,
-    validator: defaultValidator
+    validator: defaultValidator,
+    disabled : false,
+    error    : false
   };
 
   static contextTypes = {
@@ -176,70 +186,84 @@ export class Field extends React.Component {
     layout      : PropTypes.string
   };
 
+  constructor(props, context) {
+    super(props, context);
+  }
+
+  state = {inputError: false};
+
   _handleFocus = e => {
-    // console.log('Field on Focus', e);
     if (this.props.onFocus) {
       this.props.onFocus(e);
     }
     this.context.handleFocus(e);
   };
 
-  // TODO validation
   _handleBlur = e => {
-    // console.log('Field on Blur', e);
     if (this.props.onBlur) {
       this.props.onBlur(e);
     }
     this.context.handleBlur(e);
   };
 
-  // TODO validation
   _handleChange = e => {
-    let val = this._getValue(e);
-    // console.log('Field on Change', val);
+    this._updateOnChange(this._getValue(e));
+  };
 
-    console.log('is valid?', this.props.validator(val));
+  _updateOnChange = debounce(controlValue => {
+    let validInput = this.props.validator(controlValue);
+    this.setState((prevState, props) => ({inputError: !validInput}));
 
     if (this.props.onChange) {
-      this.props.onChange(val);
+      this.props.onChange(controlValue);
     }
-    this.context.handleChange(val);
-  };
+    this.context.handleChange(controlValue);
+  }, 100);
+
+  _isError = _ => this.props.error || this.state.inputError;
 
   _getValue = e => e.target.value;
 
-  constructor(props, context) {
-    super(props, context);
-  }
 
   render() {
     const {children, className, ...rest} = this.props;
-    let baseClass                        = 'form-control';
+    let sizeClass                        = 'form-control';
 
     if (this.props.sm) {
-      baseClass += '-sm';
+      sizeClass += '-sm';
     } else if (this.props.lg) {
-      baseClass += '-lg';
+      sizeClass += '-lg';
     }
 
-    // TODO pass omit an array and omit will handle it
-    const cleanProps = omit({
-      required : null,
-      layout   : null,
-      label    : null,
-      hint     : null,
-      errorMsg : null,
-      validator: null,
-      sm       : null,
-      lg       : null
-    }, rest);
-    // console.log(this.props, 'field, props', cleanProps);
+    const cleanProps = omit([
+      'required',
+      'layout',
+      'label',
+      'hint',
+      'errorMsg',
+      'validator',
+      'sm',
+      'lg',
+      'error'
+    ], rest);
+
     return <input name={this.props.name || this.props.id}
-                  className={joinClasses(baseClass, className)} {...cleanProps}
+                  className={joinClasses(
+                    'form-control',
+                    sizeClass,
+                    (this._isError() ? fieldErrorStyle : null),
+                    className)}
                   onChange={this._handleChange} onFocus={this._handleFocus}
-                  onBlur={this._handleBlur}/>;
+                  onBlur={this._handleBlur}
+                  ref={control => this.controlRef = control}
+                  {...cleanProps}
+    />;
   }
 }
+
+
+//-------------------------------------------------------------------------------------------------------------------------
+
 
 const labelStyle = css`
   text-transform: uppercase;
@@ -249,6 +273,9 @@ const labelStyle = css`
 export const Label = ({name = '', className = null, children}) =>
   <label htmlFor={name}
          className={joinClasses(labelStyle, className)}>{children}</label>;
+
+
+//-------------------------------------------------------------------------------------------------------------------------
 
 
 const hintStyle = css`
