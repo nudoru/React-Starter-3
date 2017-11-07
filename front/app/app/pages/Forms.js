@@ -6,7 +6,7 @@ import {
 } from '../components/containers/Module';
 import {styles} from '../components/shared/Theme';
 
-import {Form, Field, FormGroup, Label, Hint} from '../components/forms/Form';
+import {Form, Input, FormGroup, Label, Hint} from '../components/forms/Form';
 import {Card, CardBody} from '../components/controls/Card';
 
 const componentStyle = css`
@@ -43,7 +43,7 @@ export default class Forms extends React.Component {
             <Form layout='horizontal'>
               <FormGroup name='mygroup1'>
                 <Label>Label</Label>
-                <Field validator={this._holaValidator} defaultValue='Hola!'
+                <Input validator={this._holaValidator} defaultValue='Hola!'
                        name='Testingfield' />
                 <Hint>This is a hint</Hint>
               </FormGroup>
@@ -52,9 +52,9 @@ export default class Forms extends React.Component {
             <Form >
               <FormGroup>
                 <Label>Label</Label>
-                <Field sm validator={this._holaValidator} defaultValue='Hola!' name='Testingfield'/>
-                <Field validator={this._holaValidator} defaultValue='Hola!' name='Testingfield'/>
-                <Field lg validator={this._holaValidator} defaultValue='Hola!' name='Testingfield'/>
+                <Input sm validator={this._holaValidator} defaultValue='Hola!' name='Testingfield'/>
+                <Input validator={this._holaValidator} defaultValue='Hola!' name='Testingfield'/>
+                <Input lg validator={this._holaValidator} defaultValue='Hola!' name='Testingfield'/>
                 <Hint>This is a hint</Hint>
               </FormGroup>
             </Form>

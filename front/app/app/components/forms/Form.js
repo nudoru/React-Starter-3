@@ -151,6 +151,7 @@ const fieldErrorStyle = css`
 export class Field extends React.Component {
 
   static propTypes = {
+    component   : PropTypes.object.isRequired,
     id          : PropTypes.string,
     name        : PropTypes.string,
     onFocus     : PropTypes.func,
@@ -226,8 +227,10 @@ export class Field extends React.Component {
 
 
   render() {
-    const {children, className, ...rest} = this.props;
+    const {component, children, className, ...rest} = this.props;
     let sizeClass                        = 'form-control';
+
+    console.log('Field component is a',component.type)
 
     if (this.props.sm) {
       sizeClass += '-sm';
@@ -247,20 +250,23 @@ export class Field extends React.Component {
       'error'
     ], rest);
 
-    return <input name={this.props.name || this.props.id}
-                  className={joinClasses(
-                    'form-control',
-                    sizeClass,
-                    (this._isError() ? fieldErrorStyle : null),
-                    className)}
-                  onChange={this._handleChange} onFocus={this._handleFocus}
-                  onBlur={this._handleBlur}
-                  ref={control => this.controlRef = control}
-                  {...cleanProps}
-    />;
+    return React.cloneElement(component, {
+      name     : this.props.name || this.props.id,
+      className: joinClasses(
+        'form-control',
+        sizeClass,
+        (this._isError() ? fieldErrorStyle : null),
+        className),
+      onChange : this._handleChange,
+      onFocus  : this._handleFocus,
+      onBlur   : this._handleBlur,
+      ref      : control => this.controlRef = control,
+      ...cleanProps
+    });
   }
 }
 
+export const Input = props => <Field component={<input/>} {...props}/>
 
 //-------------------------------------------------------------------------------------------------------------------------
 
