@@ -9,10 +9,141 @@ import {
 } from '../shared/BootStrapHOC';
 import {joinClasses, omit} from '../shared/utils';
 import {getNextId} from '../../utils/ElementIDCreator';
-import {colorList, colors, metrics, modularScale} from "../shared/Theme";
+import {colorList, colors, modularScale} from "../shared/Theme";
 
 const defaultValidator = _ => true;
 const noop             = _ => null;
+
+
+
+
+
+/*
+
+Components vs props ... ?
+
+add on at the front vs end? leading/training
+
+<Input>
+  <Label>Email address</Label>
+  <Hint>What's your email address</Hint>
+  <Error>Doesn't appear to be an email address...</Error>
+  <FAddOnGroup>
+    <AddOn>@</AddOn> // front
+    <AddOnButton>Go</AddOnButton>
+  </FAddOnGroup>
+  <RAddOnGroup>
+    <AddOn>.com</AddOn> // front
+    <AddOnButton>Submit</AddOnButton>
+  </RAddOnGroup>
+</Input>
+
+<div class="form-group">
+  <label for="exampleFormControlInput1">Email address</label>
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">@</span>
+    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+  <span class="input-group-btn">
+    <button class="btn btn-secondary" type="button">Go!</button>
+  </span>
+</div>
+
+
+
+
+
+Bootstrap docs ...
+
+Textual form controls—like <input>s, <select>s, and <textarea>s—are styled with the .form-control
+
+<div class="form-group">
+  <label for="exampleFormControlInput1">Email address</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+</div>
+
+//input-group-lg
+<div class="input-group">
+  <span class="input-group-addon" id="basic-addon1">@</span>
+  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+
+<div class="input-group">
+  <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
+  <span class="input-group-btn">
+    <button class="btn btn-secondary" type="button">Go!</button>
+  </span>
+</div>
+
+
+<div class="form-group">
+  <label for="exampleFormControlSelect1">Example select</label>
+  <select class="form-control" id="exampleFormControlSelect1">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+  </select>
+</div>
+
+
+<div class="form-group">
+  <label for="exampleFormControlSelect2">Example multiple select</label>
+  <select multiple class="custom-select form-control" id="exampleFormControlSelect2">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+  </select>
+</div>
+
+
+<div class="form-group">
+  <label for="exampleFormControlTextarea1">Example textarea</label>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+</div>
+
+Default checkboxes and radios are improved upon with the help of .form-check
+
+Group checkboxes or radios on the same horizontal row by adding .form-check-inline to any
+
+Each checkbox and radio is wrapped in a <label> for three reasons:
+  It provides a larger hit areas for checking the control.
+  It provides a helpful and semantic wrapper to help us replace the default <input>s.
+  It triggers the state of the <input> automatically, meaning no JavaScript is required.
+
+
+<div class="form-check">
+  <label class="form-check-label">
+    <input class="form-check-input" type="checkbox" value="">
+    Option one is this and that&mdash;be sure to include why it's great
+  </label>
+</div>
+
+
+
+
+<div class="form-check">
+  <label class="form-check-label">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+    Option one is this and that&mdash;be sure to include why it's great
+  </label>
+</div>
+<div class="form-check">
+  <label class="form-check-label">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+    Option two can be something else and selecting it will deselect option one
+  </label>
+</div>
+<div class="form-check disabled">
+  <label class="form-check-label">
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+    Option three is disabled
+  </label>
+</div>
+*/
+
+
+
+
 
 //-------------------------------------------------------------------------------------------------------------------------
 
@@ -101,11 +232,14 @@ export class Form extends React.PureComponent {
 const formGroupHorizontalStyle = css`
   margin-right: 0;
   margin-left: 0;
+  margin-bottom: ${modularScale.ms1};
+  width: 100%;
 `;
 
 export class FormGroup extends React.Component {
   static propTypes    = {
-    name: PropTypes.string
+    name: PropTypes.string,
+    layout: PropTypes.string
   };
   static defaultProps = {
     name: `formgroup_${getNextId()}`
@@ -128,12 +262,18 @@ export class FormGroup extends React.Component {
       });
     });
 
+    const isHorizontal = this.props.layout === 'horizontal' || this.context.layout === 'horizontal';
+
+    const cleanProps = omit([
+      'layout'
+    ], rest);
+
     return <div
       className={joinClasses('form-group',
-        (this.context.layout === 'horizontal' ? 'row' : null),
-        (this.context.layout === 'horizontal' ? formGroupHorizontalStyle : null),
+        (isHorizontal ? 'row' : null),
+        (isHorizontal ? formGroupHorizontalStyle : null),
         className)}
-      {...rest}
+      {...cleanProps}
     >
       {children}
     </div>;
@@ -142,9 +282,6 @@ export class FormGroup extends React.Component {
 
 //-------------------------------------------------------------------------------------------------------------------------
 
-const fieldErrorStyle = css`
-  border-color: ${colors.danger} !important;
-`;
 
 // readonly style - for disabled?
 // error style?
@@ -152,6 +289,7 @@ export class Field extends React.Component {
 
   static propTypes = {
     component   : PropTypes.object.isRequired,
+    type        : PropTypes.string.isRequired,
     id          : PropTypes.string,
     name        : PropTypes.string,
     onFocus     : PropTypes.func,
@@ -228,15 +366,21 @@ export class Field extends React.Component {
 
   render() {
     const {component, children, className, ...rest} = this.props;
-    let sizeClass                        = 'form-control';
+    let sizeClass                                   = 'form-control';
 
-    console.log('Field component is a',component.type)
+    console.log('Field component is a', component.type)
 
     if (this.props.sm) {
       sizeClass += '-sm';
     } else if (this.props.lg) {
       sizeClass += '-lg';
     }
+
+    const fieldClass = joinClasses(
+      'form-control',
+      sizeClass,
+      (this._isError() ? 'is-invalid' : null),
+      className);
 
     const cleanProps = omit([
       'required',
@@ -252,21 +396,48 @@ export class Field extends React.Component {
 
     return React.cloneElement(component, {
       name     : this.props.name || this.props.id,
-      className: joinClasses(
-        'form-control',
-        sizeClass,
-        (this._isError() ? fieldErrorStyle : null),
-        className),
+      className: fieldClass,
       onChange : this._handleChange,
       onFocus  : this._handleFocus,
       onBlur   : this._handleBlur,
       ref      : control => this.controlRef = control,
+      children,
       ...cleanProps
     });
   }
 }
 
-export const Input = props => <Field component={<input/>} {...props}/>
+export const Input = props => <Field component={<input/>} type='text' {...props}/>
+export const CheckBox = props => <Field component={<input/>} type='checkbox' {...props}/>
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+// will this work for check and radio groups?
+export class FieldGroup extends React.PureComponent {
+  static propTypes    = {
+    component: PropTypes.object.isRequired,
+    name     : PropTypes.string
+  };
+  static defaultProps = {
+    name: `fieldgroup_${getNextId()}`
+  };
+
+  render() {
+    const {component, children: originalChildren, ...rest} = this.props;
+
+    const children = React.Children.map(originalChildren, child => {
+      return React.cloneElement(child, {
+        name: name
+      });
+    });
+
+    return React.cloneElement(component, {
+      name: this.props.name,
+      children,
+      ...rest
+    });
+  }
+}
 
 //-------------------------------------------------------------------------------------------------------------------------
 
@@ -280,14 +451,11 @@ export const Label = ({name = '', className = null, children}) =>
   <label htmlFor={name}
          className={joinClasses(labelStyle, className)}>{children}</label>;
 
-
 //-------------------------------------------------------------------------------------------------------------------------
-
 
 const hintStyle = css`
   margin-bottom: 0;
   color: ${colorList.grey8};
-  padding-top:  ${modularScale['ms-2']};
 `;
 
 const hintHorizontalStyle = css`
@@ -309,10 +477,48 @@ export class Hint extends React.Component {
     const {children, className, ...rest} = this.props;
 
     return <p
-      className={joinClasses('small', hintStyle, (this.context.layout === 'horizontal' ? hintHorizontalStyle : null), className)}
+      className={joinClasses('small', 'form-text', hintStyle, (this.context.layout === 'horizontal' ? hintHorizontalStyle : null), className)}
       {...rest}
     >
       {children}
     </p>;
   }
 }
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+export const Error = (props) =>
+  <div className='invalid-feedback'>{props.children}</div> ;
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+/*
+
+<Input>
+  <Label>Email address</Label>
+  <Hint>What's your email address</Hint>
+  <Error>Doesn't appear to be an email address...</Error>
+  <FAddOnGroup>
+    <AddOn>@</AddOn> // front
+    <AddOnButton>Go</AddOnButton>
+  </FAddOnGroup>
+  <RAddOnGroup>
+    <AddOn>.com</AddOn> // front
+    <AddOnButton>Submit</AddOnButton>
+  </RAddOnGroup>
+</Input>
+
+
+<div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">@</span>
+    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+  <span class="input-group-btn">
+    <button class="btn btn-secondary" type="button">Go!</button>
+  </span>
+ */
+
+
+//-------------------------------------------------------------------------------------------------------------------------
+
+

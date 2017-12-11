@@ -3,7 +3,7 @@ const webpack           = require('webpack');
 const HTMLPlugin        = require('html-webpack-plugin');
 const CopyPlugin        = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const PurifyCSSPlugin   = require('purifycss-webpack-plugin');
+const PurifyCSSPlugin   = require('purifycss-webpack');
 
 const removeEmpty = array => array.filter(i => !!i);
 
@@ -62,12 +62,12 @@ module.exports = env => {
           exclude: resolve(__dirname, 'node_modules/'),
           options  : {
             plugins: [
+              "emotion",
               "transform-class-properties",
               "transform-object-rest-spread",
-              "transform-es2015-destructuring",
-              "emotion"
+              "transform-es2015-destructuring"
             ],
-            presets: removeEmpty(['es2015', 'react', isProd ? undefined : 'react-hmre']),
+            presets: removeEmpty(['env', 'react', isProd ? undefined : 'react-hmre']),
             compact: false,
             comments: false
           }
@@ -86,7 +86,7 @@ module.exports = env => {
       new ExtractTextPlugin({
         filename : 'style.css',
         allChunks: true,
-        disable  : false
+        disable  : !isProd
       }),
       //Disable for tests
       isTest ? null : new webpack.optimize.CommonsChunkPlugin({

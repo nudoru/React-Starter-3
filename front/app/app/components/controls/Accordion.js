@@ -41,7 +41,7 @@ const headerStyle = css`
   }
 `;
 
-const chevronStyle = css`
+const chevronColStyle = css`
   flex-grow: 0;
   padding-right: 0;
 `;
@@ -50,8 +50,8 @@ const chevronIconStyle = css`
     fill: ${colors.primary};
 `;
 
-const headerCompStyle = css`
-  padding-left: 5px;
+const headerColStyle = css`
+  padding-left: 0;
   user-select: none;
 `;
 
@@ -82,9 +82,9 @@ export class Accordion extends React.Component {
   };
 
   _showChevronTween = ({target}) => {
-    //y: '-3',
     return TweenMax.to(target, 0.75, {
       rotation: 90,
+      // y: '-3',
       ease    : Expo.easeOut
     });
   };
@@ -114,14 +114,14 @@ export class Accordion extends React.Component {
         <Card className={joinClasses(componentStyle, className)}>
           <CardHeader className={headerStyle} onClick={this.toggle}>
             <Row>
-              <Col className={chevronStyle}>
+              <Col className={chevronColStyle}>
                 <TweenGroup
                   tween={this.state.open ? this._showChevronTween : this._hideChevronTween}
                 >
                   <div ref = { chevron => this.chevronRef = chevron }><FaChevron className={chevronIconStyle}/></div>
                 </TweenGroup>
               </Col>
-              <Col className={headerCompStyle}>{titleComp}</Col>
+              <Col className={headerColStyle}>{titleComp}</Col>
             </Row>
           </CardHeader>
           <Collapse expand={this.state.open}>

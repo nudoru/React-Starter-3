@@ -13,6 +13,10 @@ export class ScrollWatch extends React.PureComponent {
     window.addEventListener('scroll', this.handleScroll);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
   handleScroll = e => {
     this.setState({
       x: window.scrollX,

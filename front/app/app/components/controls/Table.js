@@ -9,6 +9,8 @@ import {
 import { joinClasses, omit } from '../shared/utils';
 import { colors, colorList, metrics, transitions } from '../shared/Theme';
 
+//https://alistapart.com/article/web-typography-tables
+
 const componentStyle = css`
   .table {
     background-color: #fff;

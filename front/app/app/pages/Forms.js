@@ -6,7 +6,7 @@ import {
 } from '../components/containers/Module';
 import {styles} from '../components/shared/Theme';
 
-import {Form, Input, FormGroup, Label, Hint} from '../components/forms/Form';
+import {Form, Input, CheckBox, FormGroup, Label, Hint} from '../components/forms/Form';
 import {Card, CardBody} from '../components/controls/Card';
 
 const componentStyle = css`
@@ -32,20 +32,17 @@ export default class Forms extends React.Component {
   //onChange={this._onFieldChange}
 //onChange={this._onFormChange}
 
-  render() {
-    return <ModuleContainer>
-      <Module full>
-        <ModuleTitle>Forms!</ModuleTitle>
-        <Card dropShadow='m' width='100%'>
-          <CardBody>
-            <h4>Testing a form</h4>
-            <hr/>
-            <Form layout='horizontal'>
+  /*
+  <Form layout='horizontal'>
               <FormGroup name='mygroup1'>
                 <Label>Label</Label>
                 <Input validator={this._holaValidator} defaultValue='Hola!'
                        name='Testingfield' />
                 <Hint>This is a hint</Hint>
+              </FormGroup>
+              <FormGroup>
+                <Label>Do the thing?</Label>
+                <CheckBox name='Testingfield'/>
               </FormGroup>
             </Form>
             <hr/>
@@ -57,7 +54,22 @@ export default class Forms extends React.Component {
                 <Input lg validator={this._holaValidator} defaultValue='Hola!' name='Testingfield'/>
                 <Hint>This is a hint</Hint>
               </FormGroup>
+              <FormGroup  layout='horizontal'>
+                <Label>Do the thing?</Label>
+                <CheckBox name='Testingfield'/>
+              </FormGroup>
             </Form>
+   */
+
+  render() {
+    return <ModuleContainer>
+      <Module full>
+        <ModuleTitle>Forms!</ModuleTitle>
+        <Card dropShadow='m' width='100%'>
+          <CardBody>
+            <h4>Testing a form</h4>
+            <hr/>
+
           </CardBody>
         </Card>
       </Module>

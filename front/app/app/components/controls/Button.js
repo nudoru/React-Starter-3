@@ -10,9 +10,9 @@ import {
 } from '../shared/BootStrapHOC';
 import { shadows, colors, transitions } from '../shared/Theme';
 
-//    transform: translate(0, -0.1em);
+// transform: translate(0, -0.1em);
 // transform 160ms ease,
-//export const FourtyFiveEffect = css`
+// export const FourtyFiveEffect = css`
 //  background-image: linear-gradient(
 //    -45deg,
 //    transparent 50%,
@@ -25,7 +25,7 @@ import { shadows, colors, transitions } from '../shared/Theme';
 //    background-position: 0 0;
 //    transition: background-position 240ms linear;
 //  }
-//`;
+// `;
 
 const RoundSmall = '2.8rem';
 const RoundDefault = '4rem';

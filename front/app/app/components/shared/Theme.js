@@ -117,7 +117,7 @@ export const colors = {
   warning          : colorList.warningColor,
   danger           : colorList.dangerColor,
   info             : colorList.teal,
-  exposabeContentBg: colorList.grey0
+  exposabeContentBg: 'rgb(255,255,255)'
 };
 
 export const fontStacks = {
