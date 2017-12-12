@@ -51,7 +51,7 @@ const chevronIconStyle = css`
 `;
 
 const headerColStyle = css`
-  padding-left: 0;
+  padding-left: 5px;
   user-select: none;
 `;
 

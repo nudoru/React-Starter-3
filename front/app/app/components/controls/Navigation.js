@@ -76,6 +76,7 @@ const navItemPillsStyle = css`
 
 const navItemStackedStyle = css`
   .nav-link {
+    color: #f00 !important;
     padding-left: ${modularScale.ms0};
     padding-top: ${modularScale.ms0};
     padding-bottom: ${modularScale.ms0};
