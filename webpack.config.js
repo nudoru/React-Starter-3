@@ -85,29 +85,29 @@ module.exports = env => {
       ]),
       new ExtractTextPlugin({
         filename : 'style.css',
-        allChunks: true,
-        disable  : !isProd
+        allChunks: true
+        // disable  : !isProd
       }),
-      //Disable for tests
-      isTest ? null : new webpack.optimize.CommonsChunkPlugin({
-        name     : 'vendor',
-        minChunks: Infinity,
-        filename : '[name].[hash].js',
-      }),
-      !isProd ? null : new webpack.DefinePlugin({
+      isProd ? new webpack.DefinePlugin({
         'process.env': {NODE_ENV: '"production"'}
-      }),
-      !isProd ? null : new webpack.optimize.UglifyJsPlugin({
+      }) : null,
+      isProd ? new webpack.optimize.UglifyJsPlugin({
         mangle: false
-      }),
-      !isProd ? null : new PurifyCSSPlugin({
+      })  : null,
+      isProd ? new PurifyCSSPlugin({
         basePath     : __dirname,
         purifyOptions: {
           info  : true,
           minify: true
         }
-      }),
-      !isProd ? null : new webpack.optimize.OccurrenceOrderPlugin()
+      })  : null ,
+      isProd ? new webpack.optimize.OccurrenceOrderPlugin() : null
+      //Disable for tests
+      // isTest ? null : new webpack.optimize.CommonsChunkPlugin({
+      //   name     : 'vendor',
+      //   minChunks: Infinity,
+      //   filename : '[name].[hash].js',
+      // }),
     ])
   };
 };

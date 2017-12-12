@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import { joinClasses, omit } from '../shared/utils';
 import {
-  colorList, colors, metrics, shadows,
+  colorList, metrics, shadows,
   transitions
 } from '../shared/Theme';
 import { flexBoxProps } from '../shared/FlexBoxProps';
@@ -53,11 +53,12 @@ class BCard extends React.PureComponent {
   }
 }
 
+// padding-top: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
+// padding-bottom: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
+// padding-left: ${metrics.baseSpacing * 1.5}${metrics.baseSpacingUnit};
+// padding-right: ${metrics.baseSpacing * 1.5}${metrics.baseSpacingUnit};
 const containerStyle = css`
-    padding-top: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
-    padding-bottom: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
-    padding-left: ${metrics.baseSpacing * 1.5}${metrics.baseSpacingUnit};
-    padding-right: ${metrics.baseSpacing * 1.5}${metrics.baseSpacingUnit};
+    padding: ${metrics.spacing};
   `;
 
 const headerStyle = css`
@@ -84,9 +85,10 @@ const BCardFooter = props => <div
 const BCardBody = props => <section
   className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</section>;
 
+//  margin-bottom: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
 const titleStyle = css`
   color: ${colorList.grey10};
-  margin-bottom: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
+  margin-bottom: ${metrics.spacing};
 `;
 
 
@@ -101,8 +103,9 @@ const subTitleStyle = css`
 const BCardSubTitle = props => <p
   className={joinClasses(buildClassName(props), subTitleStyle)}>{props.children}</p>;
 
+//margin-top: ${metrics.baseSpacing*2}${metrics.baseSpacingUnit};
 const textStyle = css`
-margin-top: ${metrics.baseSpacing*2}${metrics.baseSpacingUnit};
+  margin-top: ${metrics.spacing};
 `;
 
 const BCardText = props => <p
