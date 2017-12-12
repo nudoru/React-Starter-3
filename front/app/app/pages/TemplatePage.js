@@ -7,7 +7,7 @@ import {
 } from '../components/containers/Module';
 import { styles } from '../components/shared/Theme';
 
-export default class TemplatePage extends React.Component {
+export default class TemplatePage extends React.PureComponent {
   static propTypes = {};
   static defaultProps = {};
 
