@@ -8,10 +8,10 @@ import {
 } from '../shared/Theme';
 import { flexBoxProps } from '../shared/FlexBoxProps';
 import {
-  withBootStrap,
+  withStyles,
   buildClassName,
   bootStrapPropTypes
-} from '../shared/BootStrapHOC';
+} from '../shared/StyleManager';
 import Link from './Link';
 
 const componentStyle = props => css`
@@ -118,13 +118,13 @@ export const CardLink = ({className, ...rest}) => {
     className={joinClasses('card-link', className)} {...cleanedProps}/>;
 };
 
-export const Card         = withBootStrap('card')(BCard);
-export const CardHeader   = withBootStrap('card-header')(BCardHeader);
-export const CardFooter   = withBootStrap('card-footer')(BCardFooter);
-export const CardBody     = withBootStrap('card-body')(BCardBody);
-export const CardTitle    = withBootStrap('card-title')(BCardTitle);
-export const CardSubTitle = withBootStrap('card-subtitle')(BCardSubTitle);
-export const CardText     = withBootStrap('card-text')(BCardText);
+export const Card         = withStyles('card')(BCard);
+export const CardHeader   = withStyles('card-header')(BCardHeader);
+export const CardFooter   = withStyles('card-footer')(BCardFooter);
+export const CardBody     = withStyles('card-body')(BCardBody);
+export const CardTitle    = withStyles('card-title')(BCardTitle);
+export const CardSubTitle = withStyles('card-subtitle')(BCardSubTitle);
+export const CardText     = withStyles('card-text')(BCardText);
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------

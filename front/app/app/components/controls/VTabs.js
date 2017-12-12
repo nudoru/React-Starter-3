@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
-import { buildClassName, withBootStrap } from '../shared/BootStrapHOC';
+import { buildClassName, withStyles } from '../shared/StyleManager';
 import { Nav, NavItem } from './Navigation';
 import { Expando } from '../shared/Expando';
 import { colors, metrics } from '../shared/Theme';
@@ -97,8 +97,8 @@ class BVTabPanel extends React.PureComponent {
   }
 }
 
-export const VTabs      = withBootStrap('')(BVTabs);
-export const VTabList   = withBootStrap('nav')(BVTabList);
-export const VTab       = withBootStrap('nav-item')(BVTab);
-export const VTabPanels = withBootStrap('')(BVTabPanels);
-export const VTabPanel  = withBootStrap('')(BVTabPanel);
+export const VTabs      = withStyles('')(BVTabs);
+export const VTabList   = withStyles('nav')(BVTabList);
+export const VTab       = withStyles('nav-item')(BVTab);
+export const VTabPanels = withStyles('')(BVTabPanels);
+export const VTabPanel  = withStyles('')(BVTabPanel);

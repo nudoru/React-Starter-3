@@ -1,5 +1,5 @@
 import React from 'react';
-import { withBootStrap, buildClassName } from '../shared/BootStrapHOC';
+import { withStyles, buildClassName } from '../shared/StyleManager';
 
 class BBadge extends React.PureComponent {
   render() {
@@ -9,4 +9,4 @@ class BBadge extends React.PureComponent {
   }
 }
 
-export const Badge =  withBootStrap('badge')(BBadge);
+export const Badge =  withStyles('badge')(BBadge);

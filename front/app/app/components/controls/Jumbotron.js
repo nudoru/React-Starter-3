@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
-import { buildClassName, withBootStrap } from '../shared/BootStrapHOC';
+import { buildClassName, withStyles } from '../shared/StyleManager';
 import { joinClasses } from '../shared/utils';
 import { Container } from './Container';
 import {colorList, modularScale} from '../shared/Theme';
@@ -21,4 +21,4 @@ class BJumbotron extends React.PureComponent {
   }
 }
 
-export const Jumbotron = withBootStrap('jumbotron')(BJumbotron);
+export const Jumbotron = withStyles('jumbotron')(BJumbotron);

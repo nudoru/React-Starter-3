@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
-import {buildClassName, withBootStrap} from '../shared/BootStrapHOC';
+import {buildClassName, withStyles} from '../shared/StyleManager';
 import {joinClasses} from '../shared/utils';
 
 const BBar = (props) =>
@@ -10,7 +10,7 @@ const BBar = (props) =>
        aria-valuenow={props.percent} aria-valuemin="0"
        aria-valuemax="100"></div>;
 
-const Bar = withBootStrap('progress-bar')(BBar);
+const Bar = withStyles('progress-bar')(BBar);
 
 const componentStyle = css`
   box-shadow: inset 0 2px 10px rgba(0,0,0,.05);

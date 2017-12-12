@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
 import { darken } from 'polished';
-import { buildClassName, withBootStrap } from '../shared/BootStrapHOC';
+import { buildClassName, withStyles } from '../shared/StyleManager';
 import { getBSColorFromProps, joinClasses } from '../shared/utils';
 import { shadows } from '../shared/Theme';
 
@@ -83,4 +83,4 @@ class BIcon extends React.PureComponent {
   }
 }
 
-export const Icon = withBootStrap('')(BIcon);
+export const Icon = withStyles('')(BIcon);

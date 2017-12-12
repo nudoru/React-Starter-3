@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import {
-  withBootStrap,
+  withStyles,
   buildClassName,
   bootStrapPropTypes
-} from '../shared/BootStrapHOC';
+} from '../shared/StyleManager';
 import { joinClasses, omit } from '../shared/utils';
 import { colors, colorList, metrics, transitions } from '../shared/Theme';
 
@@ -90,7 +90,7 @@ class BTable extends React.PureComponent {
   }
 }
 
-export const Table = withBootStrap('table')(BTable);
+export const Table = withStyles('table')(BTable);
 
 export const TableHead = ({children, ...rest}) =>
   <thead {...rest}>{children}</thead>;

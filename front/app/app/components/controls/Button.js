@@ -4,10 +4,10 @@ import {PropTypes} from 'prop-types';
 import {darken} from 'polished';
 import { omit, joinClasses } from '../shared/utils';
 import {
-  withBootStrap,
+  withStyles,
   buildClassName,
   bootStrapPropTypes
-} from '../shared/BootStrapHOC';
+} from '../shared/StyleManager';
 import { shadows, colors, transitions } from '../shared/Theme';
 
 // transform: translate(0, -0.1em);
@@ -222,4 +222,4 @@ class BButton extends React.PureComponent {
   }
 }
 
-export default withBootStrap('btn')(BButton);
+export default withStyles('btn')(BButton);

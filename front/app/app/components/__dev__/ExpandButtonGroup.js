@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withBootStrap, buildClassName } from '../shared/BootStrapHOC';
+import { withStyles, buildClassName } from '../shared/StyleManager';
 
 
 /**
@@ -21,7 +21,7 @@ class BExpandButtonGroup extends React.PureComponent {
   }
 }
 
-export const ExpandButtonGroup =  withBootStrap('')(BExpandButtonGroup);
+export const ExpandButtonGroup =  withStyles('')(BExpandButtonGroup);
 
 class BToggleButton extends React.PureComponent {
   render() {
@@ -31,4 +31,4 @@ class BToggleButton extends React.PureComponent {
   }
 }
 
-export const ToggleButton =  withBootStrap('')(BToggleButton);
+export const ToggleButton =  withStyles('')(BToggleButton);

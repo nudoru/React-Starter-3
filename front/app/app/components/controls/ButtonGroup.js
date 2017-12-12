@@ -1,6 +1,6 @@
 import React from 'react';
 import {joinClasses} from '../shared/utils';
-import { withBootStrap, buildClassName } from '../shared/BootStrapHOC';
+import { withStyles, buildClassName } from '../shared/StyleManager';
 
 export const ButtonToolBar = ({className, children}) =>
   <div role='toolbar' className={joinClasses('btn-toolbar',className)}>{children}</div>;
@@ -10,4 +10,4 @@ const BButtonGroup = ({children, ... rest}) => {
   return <div role='group' className={buildClassName(rest)}>{children}</div>;
 };
 
-export const ButtonGroup = withBootStrap('btn-group')(BButtonGroup);
+export const ButtonGroup = withStyles('btn-group')(BButtonGroup);

@@ -1,71 +1,68 @@
-import React, { Component } from 'react';
+import React from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
-import { getNextId } from '../../utils/ElementIDCreator';
+import {getNextId} from '../../utils/ElementIDCreator';
 import {shadows} from './Theme';
 
 export const bootStrapPropTypes = {
-  __cid      : PropTypes.string,
-  __ctype    : PropTypes.string,
-  bsClass    : PropTypes.string, // btn
-  bsClassAlt : PropTypes.string, // outline
-  ariaRole   : PropTypes.string,
-  active     : PropTypes.bool,
-  disabled   : PropTypes.bool,
-  primary    : PropTypes.bool,
-  secondary  : PropTypes.bool,
-  success    : PropTypes.bool,
-  danger     : PropTypes.bool,
-  warning    : PropTypes.bool,
-  info       : PropTypes.bool,
-  light      : PropTypes.bool,
-  dark       : PropTypes.bool,
-  outline    : PropTypes.bool,
-  link       : PropTypes.bool,
-  block      : PropTypes.bool,
-  vertical   : PropTypes.bool,
-  justified  : PropTypes.bool,
-  stacked    : PropTypes.bool,
-  center     : PropTypes.bool,
-  pullRight  : PropTypes.bool,
-  sm         : PropTypes.bool,
-  lg         : PropTypes.bool,
-  flush      : PropTypes.bool,
-  animated   : PropTypes.bool,
-  dismissible: PropTypes.bool,
-  dropShadow : PropTypes.string
+  __cid        : PropTypes.string,
+  __ctype      : PropTypes.string,
+  baseClassName: PropTypes.string, // btn
+  ariaRole     : PropTypes.string,
+  active       : PropTypes.bool,
+  disabled     : PropTypes.bool,
+  primary      : PropTypes.bool,
+  secondary    : PropTypes.bool,
+  success      : PropTypes.bool,
+  danger       : PropTypes.bool,
+  warning      : PropTypes.bool,
+  info         : PropTypes.bool,
+  light        : PropTypes.bool,
+  dark         : PropTypes.bool,
+  outline      : PropTypes.bool,
+  link         : PropTypes.bool,
+  block        : PropTypes.bool,
+  vertical     : PropTypes.bool,
+  justified    : PropTypes.bool,
+  stacked      : PropTypes.bool,
+  center       : PropTypes.bool,
+  pullRight    : PropTypes.bool,
+  sm           : PropTypes.bool,
+  lg           : PropTypes.bool,
+  flush        : PropTypes.bool,
+  animated     : PropTypes.bool,
+  dismissible  : PropTypes.bool,
+  dropShadow   : PropTypes.string
 };
 
-export const COMP_TYPE = 'bootstrappedcomp';
+export const COMP_TYPE = '@@__styledcomp__';
 
-// bsClass -> BootStrap CSS control class, btn, badge, etc.
-export const withBootStrap = (bsClass = null) => Comp => {
-  class Bootstrapped extends Component {
+// baseClassName -> BootStrap CSS control class, btn, badge, etc.
+export const withStyles = (baseClassName = null) => SrcComp => {
+  class StyledComponent extends React.PureComponent {
 
-    static WrappedComponent = Comp;
+    static WrappedComponent = SrcComp;
 
     static defaultProps = {
-      __ctype   : COMP_TYPE,
-      bsClass   : bsClass,
-      bsClassAlt: '',
-      dropShadow: ''
+      __ctype      : COMP_TYPE,
+      baseClassName: baseClassName
     };
 
     static propTypes = bootStrapPropTypes;
 
-    render () {
-      return <Comp __cid={getNextId()} {...this.props} />;
+    render() {
+      return <SrcComp __cid={getNextId()} {...this.props} />;
     }
   }
 
-  hoistNonReactStatic(Bootstrapped, Comp);
+  hoistNonReactStatic(StyledComponent, SrcComp);
 
-  return Bootstrapped;
+  return StyledComponent;
 };
 
 // TODO how can this work as a template literal?
-const stylesMapping = {
+const propsToCSSClassMap = {
   active          : 'active',
   disabled        : 'disabled',
   dismissible     : '${cls}-dismissible',
@@ -130,11 +127,11 @@ const stylesMapping = {
 export const buildClassName = (props, additional) => {
   let {
         className,
-        bsClass,
+        baseClassName,
         outline,
         dropShadow
       }                = props,
-      origionalRootCls = bsClass || null,
+      origionalRootCls = baseClassName || null,
       extendedRootCls  = origionalRootCls;
 
   if (outline) {
@@ -144,17 +141,17 @@ export const buildClassName = (props, additional) => {
   // TODO This should be using template literal
   return Object.keys(props)
     .reduce((acc, key) => {
-      if (stylesMapping.hasOwnProperty(origionalRootCls) && stylesMapping[origionalRootCls][key]) {
+      if (propsToCSSClassMap.hasOwnProperty(origionalRootCls) && propsToCSSClassMap[origionalRootCls][key]) {
         // Specific mapping for the component
-        acc.push(stylesMapping[origionalRootCls][key].replace(/\${cls}/, extendedRootCls));
-      } else if (stylesMapping[key]) {
+        acc.push(propsToCSSClassMap[origionalRootCls][key].replace(/\${cls}/, extendedRootCls));
+      } else if (propsToCSSClassMap[key]) {
         // General common mapping
-        acc.push(stylesMapping[key].replace(/\${cls}/, extendedRootCls));
+        acc.push(propsToCSSClassMap[key].replace(/\${cls}/, extendedRootCls));
       }
       return acc;
     }, [origionalRootCls])
     .concat(additional ? additional : null)
-    .concat(dropShadow.length ? css`box-shadow: ${shadows.dropShadow[dropShadow]}` : null)
+    .concat(dropShadow ? css`box-shadow: ${shadows.dropShadow[dropShadow]}` : null)
     .concat(className)
     .filter(i => !!i)
     .join(' ');

@@ -1,7 +1,7 @@
 import React from 'react';
 import {css} from 'emotion';
 import {joinClasses} from '../shared/utils';
-import { withBootStrap, buildClassName } from '../shared/BootStrapHOC';
+import { withStyles, buildClassName } from '../shared/StyleManager';
 
 const containerStyle = css``;
 
@@ -22,5 +22,5 @@ const BListGroupItem = props => {
   return <li className={joinClasses(buildClassName(props), componentStyle)}>{props.children}</li>;
 };
 
-export const ListGroup     = withBootStrap('list-group')(BListGroup);
-export const ListGroupItem = withBootStrap('list-group-item')(BListGroupItem);
+export const ListGroup     = withStyles('list-group')(BListGroup);
+export const ListGroupItem = withStyles('list-group-item')(BListGroupItem);

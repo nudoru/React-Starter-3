@@ -4,10 +4,10 @@ import {css} from 'emotion';
 import {modularScale, colorList, colors, shadows, gradients, transitions, metrics} from '../shared/Theme';
 import { joinClasses, omit } from '../shared/utils';
 import {
-  withBootStrap,
+  withStyles,
   buildClassName,
   bootStrapPropTypes
-} from '../shared/BootStrapHOC';
+} from '../shared/StyleManager';
 import Link from './Link';
 
 // TODO Aria https://getbootstrap.com/docs/4.0/components/navs/#regarding-accessibility
@@ -150,5 +150,5 @@ class BNavigationItem extends React.PureComponent {
   }
 }
 
-export const Nav     = withBootStrap('nav')(BNavigation);
-export const NavItem = withBootStrap('nav-item')(BNavigationItem);
+export const Nav     = withStyles('nav')(BNavigation);
+export const NavItem = withStyles('nav-item')(BNavigationItem);

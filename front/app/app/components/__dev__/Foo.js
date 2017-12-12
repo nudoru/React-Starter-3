@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { withBootStrap } from '../shared/BootStrapHOC';
+import { withStyles } from '../shared/StyleManager';
 
 // Theme passed via Loading Wrapper
 const ControlContainer = styled.div`
@@ -143,7 +143,7 @@ Foo.propTypes = {
   defaultValue: PropTypes.string,
   activeIndex: PropTypes.number,
   defaultActiveIndex: PropTypes.number,
-  bsClass: PropTypes.string, // btn
+  baseClassName: PropTypes.string, // btn
   bsStatus: PropTypes.string, // primary
   bsSize: PropTypes.string, // sm
   status: PropTypes.string, // Needed?
@@ -162,4 +162,4 @@ Foo.propTypes = {
   tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
-export default withBootStrap(Foo);
+export default withStyles(Foo);

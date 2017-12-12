@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import {css} from 'emotion';
 import {
-  withBootStrap,
+  withStyles,
   buildClassName,
   bootStrapPropTypes
-} from '../shared/BootStrapHOC';
+} from '../shared/StyleManager';
 import {joinClasses, omit} from '../shared/utils';
 import {getNextId} from '../../utils/ElementIDCreator';
 import {colorList, colors, modularScale} from "../shared/Theme";

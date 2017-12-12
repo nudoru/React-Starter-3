@@ -1,6 +1,6 @@
 import React from 'react';
 import {css} from 'emotion';
-import { withBootStrap, bootStrapPropTypes, buildClassName } from '../shared/BootStrapHOC';
+import { withStyles, bootStrapPropTypes, buildClassName } from '../shared/StyleManager';
 import {joinClasses, omit} from '../shared/utils';
 import Link from './Link';
 
@@ -16,7 +16,7 @@ class BAlert extends React.PureComponent {
   }
 }
 
-export const Alert =  withBootStrap('alert')(BAlert);
+export const Alert =  withStyles('alert')(BAlert);
 
 export const AlertHeading = props => <h4
   className='alert-heading'>{props.children}</h4>;
