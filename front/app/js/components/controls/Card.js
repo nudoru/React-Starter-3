@@ -12,7 +12,7 @@ import {
   createClassNameFromProps,
   styleComponentPropTypes
 } from './common/StyleManager';
-import Link from './Link';
+import Link from './Anchor';
 
 const componentStyle = props => css`
   border: none;

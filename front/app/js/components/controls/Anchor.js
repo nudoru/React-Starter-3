@@ -37,7 +37,7 @@ const linkBetterStyle      = css`
   }
 `;
 
-export default class Link extends React.PureComponent {
+export default class Anchor extends React.PureComponent {
   static defaultProps = {
     underline: true
   };

@@ -8,7 +8,7 @@ import {
   createClassNameFromProps,
   styleComponentPropTypes
 } from './common/StyleManager';
-import Link from './Link';
+import Link from './Anchor';
 
 // TODO Aria https://getbootstrap.com/docs/4.0/components/navs/#regarding-accessibility
 

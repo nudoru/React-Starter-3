@@ -36,8 +36,6 @@ export const styleComponentPropTypes = {
   dropShadow       : PropTypes.string
 };
 
-export const COMP_TYPE = '@@__styledcomp__';
-
 // componentCSSClass -> BootStrap CSS control class, btn, badge, etc.
 export const withStyles = (componentCSSClass = null) => SrcComp => {
   // This should NOT be a Pure since it may need to update on deep/context changes
@@ -46,7 +44,6 @@ export const withStyles = (componentCSSClass = null) => SrcComp => {
     static WrappedComponent = SrcComp;
 
     static defaultProps = {
-      __ctype          : COMP_TYPE,
       componentCSSClass: componentCSSClass
     };
 

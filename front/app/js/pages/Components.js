@@ -60,7 +60,7 @@ import {
   ButtonToolBar
 } from '../components/controls/ButtonGroup';
 
-import Link from '../components/controls/Link';
+import Link from '../components/controls/Anchor';
 
 import { Flip, Face } from '../components/controls/Flip';
 

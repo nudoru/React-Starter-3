@@ -6,7 +6,7 @@ import {ApplicationContainer} from './components/containers/ApplicationContainer
 import {Masthead} from './components/containers/Masthead';
 import {Pagearea} from './components/containers/Pagearea';
 import {Footer} from './components/containers/Footer';
-import Link from './components/controls/Link';
+import Link from './components/controls/Anchor';
 //import {
 //  getState, getStatePath, setState, listen,
 //  setStatePath

@@ -2,7 +2,7 @@ import React from 'react';
 import {css} from 'emotion';
 import { withStyles, styleComponentPropTypes, createClassNameFromProps } from './common/StyleManager';
 import {joinClasses, omit} from '../../utils/componentUtils';
-import Link from './Link';
+import Link from './Anchor';
 
 const componentStyle = css`
   border-left-width: 5px;

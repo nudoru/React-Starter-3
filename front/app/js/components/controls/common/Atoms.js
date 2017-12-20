@@ -5,9 +5,6 @@ import {colorList, colors, metrics, modularScale} from "../../../theme/Theme";
 // import { withBootStrap, createClassNameFromProps, styleComponentPropTypes } from '../shared/BootStrapHOC';
 import {joinClasses} from '../../../utils/componentUtils';
 
-// TODO
-// - merge ThreeD
-
 // -- Define Theme -------------------------------------------------------------
 // -- Define Theme -------------------------------------------------------------
 // -- Define Theme -------------------------------------------------------------
