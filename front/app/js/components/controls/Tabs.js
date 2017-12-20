@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
-import { buildClassName, withStyles } from './common/StyleManager';
+import { createClassNameFromProps, withStyles } from './common/StyleManager';
 import { Nav, NavItem } from './Navigation';
 import { Expando } from './containers/Expando';
 import { colors, metrics } from '../../theme/Theme';
@@ -27,7 +27,7 @@ class BTabs extends React.PureComponent {
 
   render() {
     return <div
-      className={buildClassName(this.props)}>{this.props.children}</div>;
+      className={createClassNameFromProps(this.props)}>{this.props.children}</div>;
   }
 }
 
@@ -39,8 +39,6 @@ class BTabList extends React.PureComponent {
 
   render() {
     const {activeIndex, onSelectTab} = this.context;
-
-    console.log('render tab list',activeIndex);
 
     const children = React.Children.map(this.props.children, (child, idx) => {
       return React.cloneElement(child, {
@@ -82,7 +80,7 @@ class BTabPanels extends React.PureComponent {
 
   render() {
     const {activeIndex} = this.context;
-    return <div className={buildClassName(this.props)}>
+    return <div className={createClassNameFromProps(this.props)}>
       <TabPanelContainer>
       <Expando>
         {this.props.children[activeIndex]}
@@ -95,7 +93,7 @@ class BTabPanels extends React.PureComponent {
 class BTabPanel extends React.PureComponent {
   render() {
     return <section
-      className={buildClassName(this.props)}>{this.props.children}</section>;
+      className={createClassNameFromProps(this.props)}>{this.props.children}</section>;
   }
 }
 

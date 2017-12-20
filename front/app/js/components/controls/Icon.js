@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'emotion';
 import { darken } from 'polished';
-import { buildClassName, withStyles } from './common/StyleManager';
+import { createClassNameFromProps, withStyles } from './common/StyleManager';
 import { getColorClassFromProps, joinClasses } from '../../utils/componentUtils';
 import { shadows } from '../../theme/Theme';
 
@@ -77,7 +77,7 @@ class BIcon extends React.PureComponent {
   render () {
     return (
       <div
-        className={joinClasses(getShapeStyle(this.props), getColorStyle(this.props), buildClassName(this.props))}>
+        className={joinClasses(getShapeStyle(this.props), getColorStyle(this.props), createClassNameFromProps(this.props))}>
         <span className={innerStyle}>{this.props.children}</span></div>
     );
   }

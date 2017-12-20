@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
-import { withStyles, buildClassName, bootStrapPropTypes } from '../controls/common/StyleManager';
+import { withStyles, createClassNameFromProps, styleComponentPropTypes } from '../controls/common/StyleManager';
 import {joinClasses, omit} from '../../utils/componentUtils';
 
 const CONTEXT_NAME = '__form_context__';

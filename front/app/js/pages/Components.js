@@ -67,7 +67,7 @@ import { Flip, Face } from '../components/controls/Flip';
 import FaRocket from 'react-icons/lib/fa/rocket';
 import { Icon } from '../components/controls/Icon';
 
-import { withLoading } from '../components/controls/common/IsLoadingHOC';
+import { withLoading } from '../components/controls/common/WithLoading';
 
 import {
   CoverTitle,

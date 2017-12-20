@@ -5,7 +5,7 @@ import debouce from 'lodash/debounce';
 
 // Initial implementation from https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce
 
-export class MouseOverElement extends React.PureComponent {
+export class MouseWatch extends React.PureComponent {
   static propTypes = {
     render: PropTypes.func.isRequired
   };

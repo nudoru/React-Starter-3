@@ -5,8 +5,8 @@ import {modularScale, colorList, colors, shadows, gradients, transitions, metric
 import { joinClasses, omit } from '../../utils/componentUtils';
 import {
   withStyles,
-  buildClassName,
-  bootStrapPropTypes
+  createClassNameFromProps,
+  styleComponentPropTypes
 } from './common/StyleManager';
 import Link from './Link';
 
@@ -110,7 +110,7 @@ class BNavigation extends React.PureComponent {
       });
     });
 
-    return (<nav role='navigation'><ul className={joinClasses(buildClassName(this.props),
+    return (<nav role='navigation'><ul className={joinClasses(createClassNameFromProps(this.props),
       (this.props.tabs ? navTabsStyle : null))}>{children}</ul></nav>);
   }
 }
@@ -126,10 +126,10 @@ class BNavigationItem extends React.PureComponent {
 
   render () {
     const {className, onClick, active, disabled, tabs, pills, stacked, ...rest} = this.props;
-    let cleanedProps = omit(bootStrapPropTypes, rest);
+    let cleanedProps = omit(styleComponentPropTypes, rest);
 
     return (
-      <li className={joinClasses(buildClassName(this.props),null)}>
+      <li className={joinClasses(createClassNameFromProps(this.props),null)}>
         <Link
           href="#"
           onClick={onClick}

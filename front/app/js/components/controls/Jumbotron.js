@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'emotion';
-import { buildClassName, withStyles } from './common/StyleManager';
+import { createClassNameFromProps, withStyles } from './common/StyleManager';
 import { joinClasses } from '../../utils/componentUtils';
 import { Container } from './containers/Container';
 import {colorList, modularScale} from '../../theme/Theme';
@@ -15,7 +15,7 @@ class BJumbotron extends React.PureComponent {
   render () {
     return (
       <div
-        className={joinClasses(buildClassName(this.props), componentStyle)}>
+        className={joinClasses(createClassNameFromProps(this.props), componentStyle)}>
         <Container>{this.props.children}</Container></div>
     );
   }

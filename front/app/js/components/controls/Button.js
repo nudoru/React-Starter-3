@@ -5,8 +5,8 @@ import {darken} from 'polished';
 import { omit, joinClasses } from '../../utils/componentUtils';
 import {
   withStyles,
-  buildClassName,
-  bootStrapPropTypes
+  createClassNameFromProps,
+  styleComponentPropTypes
 } from './common/StyleManager';
 import { shadows, colors, transitions } from '../../theme/Theme';
 
@@ -191,7 +191,7 @@ class BButton extends React.PureComponent {
 
   render () {
     let {type, tabIndex, ariaRole, ...rest} = this.props,
-        cleanedProps                        = omit(BButton.propTypes, omit(bootStrapPropTypes, rest));
+        cleanedProps                        = omit(BButton.propTypes, omit(styleComponentPropTypes, rest));
 
     type = type || 'button';
 
@@ -207,7 +207,7 @@ class BButton extends React.PureComponent {
         tabIndex={tabIndex}
         onClick={this.handleClick}
         className={joinClasses(
-          buildClassName(this.props),
+          createClassNameFromProps(this.props),
           componentStyle,
           (this.props.outline ? outlineStyle : normalStyle),
           (this.props.link ? linkStyle : null),

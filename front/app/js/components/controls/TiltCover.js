@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TweenMax, Back, Expo } from 'gsap';
 import { css } from 'emotion';
-import { MouseOverElement } from './common/MouseMove';
+import { MouseWatch } from './common/MouseWatch';
 import { joinClasses } from '../../utils/componentUtils';
 import {ThreeDEl, ThreeDWrapper} from './common/Atoms';
 
@@ -58,7 +58,7 @@ export class TiltCover extends React.PureComponent {
 
     return (
       <ThreeDWrapper>
-      <MouseOverElement render={({x, y}) => {
+      <MouseWatch render={({x, y}) => {
         let mMidX = x - (this.props.width / 2), // - left of center + right of center
             mMidY = y - (this.props.height / 2), // - left of center + right of center
             rotX  = 0,

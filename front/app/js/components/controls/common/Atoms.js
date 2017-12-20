@@ -2,7 +2,7 @@ import React from 'react';
 import styled, {css} from 'react-emotion';
 import {color, fontSize, space, width} from 'styled-system';
 import {colorList, colors, metrics, modularScale} from "../../../theme/Theme";
-// import { withBootStrap, buildClassName, bootStrapPropTypes } from '../shared/BootStrapHOC';
+// import { withBootStrap, createClassNameFromProps, styleComponentPropTypes } from '../shared/BootStrapHOC';
 import {joinClasses} from '../../../utils/componentUtils';
 
 // TODO

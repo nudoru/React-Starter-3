@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
-import {buildClassName, withStyles} from './common/StyleManager';
+import {createClassNameFromProps, withStyles} from './common/StyleManager';
 import {joinClasses} from '../../utils/componentUtils';
 
 const BBar = (props) =>
-  <div className={buildClassName(props)} role="progressbar"
+  <div className={createClassNameFromProps(props)} role="progressbar"
        style={{width: `${props.percent}%`, height: `${props.height}px`}}
        aria-valuenow={props.percent} aria-valuemin="0"
        aria-valuemax="100"></div>;

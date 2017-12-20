@@ -4,8 +4,8 @@ import debounce from 'lodash/debounce';
 import {css} from 'emotion';
 import {
   withStyles,
-  buildClassName,
-  bootStrapPropTypes
+  createClassNameFromProps,
+  styleComponentPropTypes
 } from '../common/StyleManager';
 import {joinClasses, omit} from '../../../utils/componentUtils';
 import {getNextId} from '../../../utils/ElementIDCreator';

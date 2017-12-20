@@ -5,63 +5,64 @@ import {css} from 'emotion';
 import {getNextId} from '../../../utils/ElementIDCreator';
 import {shadows} from '../../../theme/Theme';
 
-export const bootStrapPropTypes = {
-  __cid        : PropTypes.string,
-  __ctype      : PropTypes.string,
-  baseClassName: PropTypes.string, // btn
-  ariaRole     : PropTypes.string,
-  active       : PropTypes.bool,
-  disabled     : PropTypes.bool,
-  primary      : PropTypes.bool,
-  secondary    : PropTypes.bool,
-  success      : PropTypes.bool,
-  danger       : PropTypes.bool,
-  warning      : PropTypes.bool,
-  info         : PropTypes.bool,
-  light        : PropTypes.bool,
-  dark         : PropTypes.bool,
-  outline      : PropTypes.bool,
-  link         : PropTypes.bool,
-  block        : PropTypes.bool,
-  vertical     : PropTypes.bool,
-  justified    : PropTypes.bool,
-  stacked      : PropTypes.bool,
-  center       : PropTypes.bool,
-  pullRight    : PropTypes.bool,
-  sm           : PropTypes.bool,
-  lg           : PropTypes.bool,
-  flush        : PropTypes.bool,
-  animated     : PropTypes.bool,
-  dismissible  : PropTypes.bool,
-  dropShadow   : PropTypes.string
+export const styleComponentPropTypes = {
+  __cid            : PropTypes.string,
+  __ctype          : PropTypes.string,
+  componentCSSClass: PropTypes.string, // btn
+  ariaRole         : PropTypes.string,
+  active           : PropTypes.bool,
+  disabled         : PropTypes.bool,
+  primary          : PropTypes.bool,
+  secondary        : PropTypes.bool,
+  success          : PropTypes.bool,
+  danger           : PropTypes.bool,
+  warning          : PropTypes.bool,
+  info             : PropTypes.bool,
+  light            : PropTypes.bool,
+  dark             : PropTypes.bool,
+  outline          : PropTypes.bool,
+  link             : PropTypes.bool,
+  block            : PropTypes.bool,
+  vertical         : PropTypes.bool,
+  justified        : PropTypes.bool,
+  stacked          : PropTypes.bool,
+  center           : PropTypes.bool,
+  pullRight        : PropTypes.bool,
+  sm               : PropTypes.bool,
+  lg               : PropTypes.bool,
+  flush            : PropTypes.bool,
+  animated         : PropTypes.bool,
+  dismissible      : PropTypes.bool,
+  dropShadow       : PropTypes.string
 };
 
 export const COMP_TYPE = '@@__styledcomp__';
 
-// baseClassName -> BootStrap CSS control class, btn, badge, etc.
-export const withStyles = (baseClassName = null) => SrcComp => {
+// componentCSSClass -> BootStrap CSS control class, btn, badge, etc.
+export const withStyles = (componentCSSClass = null) => SrcComp => {
   // This should NOT be a Pure since it may need to update on deep/context changes
-  class StyledComponent extends React.Component {
+  class StyleComponent extends React.Component {
 
     static WrappedComponent = SrcComp;
 
     static defaultProps = {
-      __ctype      : COMP_TYPE,
-      baseClassName: baseClassName
+      __ctype          : COMP_TYPE,
+      componentCSSClass: componentCSSClass
     };
 
-    static propTypes = bootStrapPropTypes;
+    static propTypes = styleComponentPropTypes;
 
     render() {
       return <SrcComp __cid={getNextId()} {...this.props} />;
     }
   }
 
-  hoistNonReactStatic(StyledComponent, SrcComp);
+  hoistNonReactStatic(StyleComponent, SrcComp);
 
-  return StyledComponent;
+  return StyleComponent;
 };
 
+// Map prop values to CSS classes
 // TODO how can this work as a template literal?
 const propsToCSSClassMap = {
   active          : 'active',
@@ -125,14 +126,14 @@ const propsToCSSClassMap = {
   }
 };
 
-export const buildClassName = (props, additional) => {
+export const createClassNameFromProps = props => {
   let {
         className,
-        baseClassName,
+        componentCSSClass,
         outline,
         dropShadow
       }                = props,
-      origionalRootCls = baseClassName || null,
+      origionalRootCls = componentCSSClass || null,
       extendedRootCls  = origionalRootCls;
 
   if (outline) {
@@ -151,9 +152,8 @@ export const buildClassName = (props, additional) => {
       }
       return acc;
     }, [origionalRootCls])
-    .concat(additional ? additional : null)
     .concat(dropShadow ? css`box-shadow: ${shadows.dropShadow[dropShadow]}` : null)
     .concat(className)
-    .filter(i => !!i)
+    .filter(i => !!i) // remove any nulls
     .join(' ');
 };

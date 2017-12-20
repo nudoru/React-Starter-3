@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
-import { buildClassName, withStyles } from './common/StyleManager';
+import { createClassNameFromProps, withStyles } from './common/StyleManager';
 import { Nav, NavItem } from './Navigation';
 import { Expando } from './containers/Expando';
 import { colors, metrics } from '../../theme/Theme';
@@ -27,7 +27,7 @@ class BVTabs extends React.PureComponent {
   };
 
   render() {
-    return <RowNG className={buildClassName(this.props)}>{this.props.children}</RowNG>;
+    return <RowNG className={createClassNameFromProps(this.props)}>{this.props.children}</RowNG>;
   }
 }
 
@@ -80,7 +80,7 @@ class BVTabPanels extends React.PureComponent {
 
   render() {
     const {activeIndex} = this.context;
-    return <Col className={buildClassName(this.props)}>
+    return <Col className={createClassNameFromProps(this.props)}>
       <VTabPanelContainer>
       <Expando>
         {this.props.children[activeIndex]}
@@ -93,7 +93,7 @@ class BVTabPanels extends React.PureComponent {
 class BVTabPanel extends React.PureComponent {
   render() {
     return <div
-      className={buildClassName(this.props)}>{this.props.children}</div>;
+      className={createClassNameFromProps(this.props)}>{this.props.children}</div>;
   }
 }
 

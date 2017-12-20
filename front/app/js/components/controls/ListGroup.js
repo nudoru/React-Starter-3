@@ -1,12 +1,12 @@
 import React from 'react';
 import {css} from 'emotion';
 import {joinClasses} from '../../utils/componentUtils';
-import { withStyles, buildClassName } from './common/StyleManager';
+import { withStyles, createClassNameFromProps } from './common/StyleManager';
 
 const containerStyle = css``;
 
 const BListGroup = props => {
-  return <ul className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</ul>;
+  return <ul className={joinClasses(createClassNameFromProps(props), containerStyle)}>{props.children}</ul>;
 };
 
 const componentStyle = css`
@@ -19,7 +19,7 @@ const componentStyle = css`
 `;
 
 const BListGroupItem = props => {
-  return <li className={joinClasses(buildClassName(props), componentStyle)}>{props.children}</li>;
+  return <li className={joinClasses(createClassNameFromProps(props), componentStyle)}>{props.children}</li>;
 };
 
 export const ListGroup     = withStyles('list-group')(BListGroup);

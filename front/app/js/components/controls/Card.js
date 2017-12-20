@@ -9,8 +9,8 @@ import {
 import { flexBoxProps } from './common/FlexBoxProps';
 import {
   withStyles,
-  buildClassName,
-  bootStrapPropTypes
+  createClassNameFromProps,
+  styleComponentPropTypes
 } from './common/StyleManager';
 import Link from './Link';
 
@@ -42,11 +42,11 @@ class BCard extends React.PureComponent {
   render () {
     // Extracting className here so that styles are properly applied
     const {children, className, ...rest} = this.props;
-    const cleanedProps                   = omit(bootStrapPropTypes, rest);
+    const cleanedProps                   = omit(styleComponentPropTypes, rest);
 
     return (
       <section
-        className={joinClasses(buildClassName(this.props), componentStyle(this.props), (this.props.onClick ? interactiveStyle : null))} {...cleanedProps}>
+        className={joinClasses(createClassNameFromProps(this.props), componentStyle(this.props), (this.props.onClick ? interactiveStyle : null))} {...cleanedProps}>
         {children}
       </section>
     );
@@ -68,9 +68,9 @@ const headerStyle = css`
 
 const BCardHeader = props => {
   const {className, ...rest} = props;
-  const cleanProps           = omit(bootStrapPropTypes, rest);
+  const cleanProps           = omit(styleComponentPropTypes, rest);
   return <div
-    className={joinClasses(buildClassName(props), containerStyle, headerStyle)} {...cleanProps} />;
+    className={joinClasses(createClassNameFromProps(props), containerStyle, headerStyle)} {...cleanProps} />;
 };
 
 const footerStyle = css`
@@ -80,10 +80,10 @@ const footerStyle = css`
 `;
 
 const BCardFooter = props => <div
-  className={joinClasses(buildClassName(props), containerStyle, footerStyle)}>{props.children}</div>;
+  className={joinClasses(createClassNameFromProps(props), containerStyle, footerStyle)}>{props.children}</div>;
 
 const BCardBody = props => <section
-  className={joinClasses(buildClassName(props), containerStyle)}>{props.children}</section>;
+  className={joinClasses(createClassNameFromProps(props), containerStyle)}>{props.children}</section>;
 
 //  margin-bottom: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
 const titleStyle = css`
@@ -93,7 +93,7 @@ const titleStyle = css`
 
 
 const BCardTitle = props => <h3
-  className={joinClasses(buildClassName(props), titleStyle)}>{props.children}</h3>;
+  className={joinClasses(createClassNameFromProps(props), titleStyle)}>{props.children}</h3>;
 
 const subTitleStyle = css`
   color: ${colorList.grey8};
@@ -101,7 +101,7 @@ const subTitleStyle = css`
 `;
 
 const BCardSubTitle = props => <p
-  className={joinClasses(buildClassName(props), subTitleStyle)}>{props.children}</p>;
+  className={joinClasses(createClassNameFromProps(props), subTitleStyle)}>{props.children}</p>;
 
 //margin-top: ${metrics.baseSpacing*2}${metrics.baseSpacingUnit};
 const textStyle = css`
@@ -109,10 +109,10 @@ const textStyle = css`
 `;
 
 const BCardText = props => <p
-  className={joinClasses(buildClassName(props), textStyle)}>{props.children}</p>;
+  className={joinClasses(createClassNameFromProps(props), textStyle)}>{props.children}</p>;
 
 export const CardLink = ({className, ...rest}) => {
-  let cleanedProps = omit(bootStrapPropTypes, rest);
+  let cleanedProps = omit(styleComponentPropTypes, rest);
 
   return <Link
     className={joinClasses('card-link', className)} {...cleanedProps}/>;

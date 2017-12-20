@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import {
   withStyles,
-  buildClassName,
-  bootStrapPropTypes
+  createClassNameFromProps,
+  styleComponentPropTypes
 } from './common/StyleManager';
 import { joinClasses, omit } from '../../utils/componentUtils';
 import { colors, colorList, metrics, transitions } from '../../theme/Theme';
@@ -85,7 +85,7 @@ class BTable extends React.PureComponent {
   render () {
     return (
       <table
-        className={joinClasses(buildClassName(this.props), componentStyle)}>{this.props.children}</table>
+        className={joinClasses(createClassNameFromProps(this.props), componentStyle)}>{this.props.children}</table>
     );
   }
 }
