@@ -5,8 +5,6 @@ import {colorList, colors, metrics, modularScale} from "../../../theme/Theme";
 // import { withBootStrap, buildClassName, bootStrapPropTypes } from '../shared/BootStrapHOC';
 import {joinClasses} from '../../../utils/componentUtils';
 
-require('../../../theme/GlobalStyles');
-
 // TODO
 // - merge ThreeD
 

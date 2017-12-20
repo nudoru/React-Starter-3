@@ -9,7 +9,6 @@ const LoadingMessage = () => <h1>Please wait ...</h1>;
 
 const ErrorMessage = () => <h1>There was a problem loading the configuration.</h1>;
 
-
 class Bootstrap extends React.Component {
 
   constructor () {

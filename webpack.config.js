@@ -15,7 +15,7 @@ module.exports = env => {
   return {
 
     entry  : {
-      app   : resolve(__dirname, 'front', 'js', 'index.js'),
+      app   : resolve(__dirname, 'front', 'app', 'index.js'),
       vendor: ['react', 'react-dom', 'react-router-dom', 'ramda', 'gsap']
     },
     output : {
