@@ -58,7 +58,7 @@ class BCard extends React.PureComponent {
 // padding-left: ${metrics.baseSpacing * 1.5}${metrics.baseSpacingUnit};
 // padding-right: ${metrics.baseSpacing * 1.5}${metrics.baseSpacingUnit};
 const containerStyle = css`
-    padding: ${metrics.spacing};
+    padding: ${metrics.spacing[3]}rem;
   `;
 
 const headerStyle = css`
@@ -88,7 +88,7 @@ const BCardBody = props => <section
 //  margin-bottom: ${metrics.baseSpacing}${metrics.baseSpacingUnit};
 const titleStyle = css`
   color: ${colorList.grey10};
-  margin-bottom: ${metrics.spacing};
+  margin-bottom: ${metrics.spacing[3]}rem;
 `;
 
 
@@ -105,7 +105,7 @@ const BCardSubTitle = props => <p
 
 //margin-top: ${metrics.baseSpacing*2}${metrics.baseSpacingUnit};
 const textStyle = css`
-  margin-top: ${metrics.spacing};
+  margin-top: ${metrics.spacing[3]}rem;
 `;
 
 const BCardText = props => <p

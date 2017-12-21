@@ -8,7 +8,7 @@ import {
   createClassNameFromProps,
   styleComponentPropTypes
 } from './common/StyleManager';
-import { shadows, colors, transitions } from '../../theme/Theme';
+import { shadows, colors, transitions, navigation } from '../../theme/Theme';
 
 // transform: translate(0, -0.1em);
 // transform 160ms ease,
@@ -32,9 +32,9 @@ const RoundDefault = '4rem';
 const RoundLarge = '5.8rem';
 
 const componentStyle = css`
+    ${navigation.labelFont};
     cursor: pointer;
     border-width: 0;
-    text-transform: uppercase;
     text-shadow: ${shadows.textDark};
     &:disabled {
       cursor: not-allowed;

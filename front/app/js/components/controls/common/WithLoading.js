@@ -16,7 +16,7 @@ const ErrorView   = ({message, ...rest}) => <div {...rest}><h6>{message}</h6>
 const componentStyle = css`
   width: 100%;
   height: 100%;
-  padding: ${metrics.spacing};
+  padding: ${metrics.spacing[3]}rem;
   background: rgba(0, 0, 0, .05);
   text-align: center;
 `;

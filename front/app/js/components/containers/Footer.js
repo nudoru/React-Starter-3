@@ -7,8 +7,8 @@ const componentStyle = css`
   position: relative;
   display: flex;
   background-color: ${colorList.grey8};
-  padding-top: ${metrics.spacing};
-  padding-bottom: ${metrics.spacing};
+  padding-top: ${metrics.spacing[3]}rem;
+  padding-bottom: ${metrics.spacing[3]}rem;
   color: #fff !important;
 `;
 

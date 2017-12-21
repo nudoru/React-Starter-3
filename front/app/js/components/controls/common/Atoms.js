@@ -14,8 +14,6 @@ import {joinClasses} from '../../../utils/componentUtils';
 // -- Redefine Elements and Globals --------------------------------------------
 // -- Redefine Elements and Globals --------------------------------------------
 
-
-
 // CONTENT styles vs COMPONENT / CONTROL styles
 // LG, default (m) and sm styles
 

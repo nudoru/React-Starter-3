@@ -68,7 +68,7 @@ class BTab extends React.PureComponent {
 
 const tabPanelContainerStyle = css`
   background-color: ${colors.exposabeContentBg};
-  padding: ${metrics.spacing};
+  padding: ${metrics.spacing[3]}rem;
 `;
 
 const TabPanelContainer = (props) => <div  className={tabPanelContainerStyle} {...props}/>;

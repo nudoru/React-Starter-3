@@ -1,66 +1,66 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'emotion';
-import {modularScale, colorList, colors, shadows, gradients, transitions, metrics} from '../../theme/Theme';
-import { joinClasses, omit } from '../../utils/componentUtils';
 import {
-  withStyles,
-  createClassNameFromProps,
-  styleComponentPropTypes
+  colorList, colors, metrics, modularScale, navigation, shadows,
+  transitions
+} from '../../theme/Theme';
+import {joinClasses, omit} from '../../utils/componentUtils';
+import {
+  createClassNameFromProps, styleComponentPropTypes,
+  withStyles
 } from './common/StyleManager';
 import Link from './Anchor';
 
 // TODO Aria https://getbootstrap.com/docs/4.0/components/navs/#regarding-accessibility
 
 const navLinkStyle = css`
-  .nav-link {
-    background-image: linear-gradient(
-      -45deg,
-      transparent 50%,
-      ${colors.exposabeContentBg} 50.01%,
-      ${colors.exposabeContentBg} 100%
-    );
-    background-size: 250%;
-    background-position: 99% 99%;
-    &:hover {
-      background-position: 0 0;
-      transition: background-position ${transitions.timing} ${transitions.timingFunction}, border ${transitions.timing} ${transitions.timingFunction};
-    }
-    &.disabled:hover {
-      background-color: #fff;
-    }
+  ${navigation.labelFont};
+  background-image: linear-gradient(
+    -45deg,
+    transparent 50%,
+    ${colors.primary} 50.01%,
+    ${colors.primary} 100%
+  );
+  background-size: 250%;
+  background-position: 99% 99%;
+  transition: background-position ${transitions.timing} ${transitions.timingFunction}, color ${transitions.timing} ${transitions.timingFunction};
+  &.active {
+    font-weight: 600;
+  }
+  &:hover {
+    color: #fff;
+    background-position: 0 0;
+    transition: background-position ${transitions.timing} ${transitions.timingFunction}, color ${transitions.timing} ${transitions.timingFunction};
+  }
+  &.disabled:hover {
+    background-color: #fff;
   }
 `;
 
 const navTabsStyle = css`
-  .nav-tabs {
-    border-bottom: ${metrics.accentBorderWidth} solid ${colors.primary};
-  }
+  border-bottom: ${metrics.accentBorderWidth} solid ${colors.primary};
 `;
 
 const navItemTabsStyle = css`
+    margin-bottom: -${metrics.accentBorderWidth} !important;
     .nav-link {
+      ${navigation.labelFont};
       padding-top: ${modularScale['ms-1']};
       padding-bottom: ${modularScale['ms-1']};
-      z-index: 1;
+      border: none !important;
       &.active {
         color: #fff;
         background-color: ${colors.primary};
-        border: 1px solid ${colors.primary};
         text-shadow: ${shadows.textDark};
       }
       &.active:hover {
         background-color: ${colors.primary};
         background-image: none;
-        border: 1px solid ${colors.primary};
-        border-bottom: 1px solid ${colors.primary};
       }
       &:hover {
-        border: 1px solid ${colorList.grey3};
-        border-bottom: 1px solid ${colors.primary};
       }
       &.disabled:hover {
-        border-bottom: 1px solid ${colors.primary};
       }
     }
 `;
@@ -74,9 +74,10 @@ const navItemPillsStyle = css`
   }
 `;
 
+// Copy tabs styles
+// Border bottoms not showing due to overrides
 const navItemStackedStyle = css`
   .nav-link {
-    color: #f00 !important;
     padding-left: ${modularScale.ms0};
     padding-top: ${modularScale.ms0};
     padding-bottom: ${modularScale.ms0};
@@ -84,6 +85,9 @@ const navItemStackedStyle = css`
     &.active {
       color: #000;
       border-bottom: ${metrics.accentBorderWidth} solid ${colors.primary};
+    }
+    &:hover.active {
+      color: #fff;
     }
     &.disabled {
       border-bottom: ${metrics.accentBorderWidth} solid ${colorList.grey1};
@@ -95,23 +99,25 @@ class BNavigation extends React.PureComponent {
   static defaultProps = {};
 
   static propTypes = {
-    tabs : PropTypes.bool,
-    pills: PropTypes.bool,
-    fill : PropTypes.bool,
-    stacked : PropTypes.bool
+    tabs   : PropTypes.bool,
+    pills  : PropTypes.bool,
+    fill   : PropTypes.bool,
+    stacked: PropTypes.bool
   };
 
-  render () {
+  render() {
     const children = React.Children.map(this.props.children, (child, idx) => {
       return React.cloneElement(child, {
-        tabs : this.props.tabs,
-        pills: this.props.pills,
+        tabs   : this.props.tabs,
+        pills  : this.props.pills,
         stacked: this.props.stacked
       });
     });
 
-    return (<nav role='navigation'><ul className={joinClasses(createClassNameFromProps(this.props),
-      (this.props.tabs ? navTabsStyle : null))}>{children}</ul></nav>);
+    return (<nav role='navigation'>
+      <ul className={joinClasses(createClassNameFromProps(this.props),
+        (this.props.tabs ? navTabsStyle : null))}>{children}</ul>
+    </nav>);
   }
 }
 
@@ -119,17 +125,21 @@ class BNavigationItem extends React.PureComponent {
   static defaultProps = {};
 
   static propTypes = {
-    tabs : PropTypes.bool,
-    pills: PropTypes.bool,
-    stacked : PropTypes.bool
+    tabs   : PropTypes.bool,
+    pills  : PropTypes.bool,
+    stacked: PropTypes.bool
   };
 
-  render () {
+  render() {
     const {className, onClick, active, disabled, tabs, pills, stacked, ...rest} = this.props;
-    let cleanedProps = omit(styleComponentPropTypes, rest);
+    let cleanedProps                                                            = omit(styleComponentPropTypes, rest);
 
     return (
-      <li className={joinClasses(createClassNameFromProps(this.props),null)}>
+      <li className={joinClasses(createClassNameFromProps(this.props),
+        (tabs ? navItemTabsStyle : null),
+        (pills ? navItemPillsStyle : null),
+        (stacked ? navItemStackedStyle : null)
+      )}>
         <Link
           href="#"
           onClick={onClick}
@@ -139,10 +149,7 @@ class BNavigationItem extends React.PureComponent {
             (active ? 'active' : null),
             (disabled ? 'disabled' : null),
             navLinkStyle,
-            (tabs ? navItemTabsStyle : null),
-            (pills ? navItemPillsStyle : null),
-            (stacked ? navItemStackedStyle : null),
-            (className ? className : null) )}
+            (className ? className : null))}
           {...cleanedProps}
         />
       </li>

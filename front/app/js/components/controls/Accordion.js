@@ -35,6 +35,7 @@ const headerStyle = css`
   background-size: 250%;
   background-position: 99% 99%;
   z-index: 1;
+  transition: background-position ${transitions.baseTiming * 2}ms ${transitions.timingFunction};
   &:hover {
     background-position: 0 0;
     transition: background-position ${transitions.baseTiming * 2}ms ${transitions.timingFunction};

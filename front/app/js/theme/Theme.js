@@ -203,9 +203,12 @@ export const gradients = {
   solidDark: 'linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,.1))'
 };
 
+// 16px = 1rem, modular scale 0 entry
+const BASE_MEASURE = 1;
+
 export const metrics = {
-  spacing          : modularScale.ms0,
-  baseSpacing      : 1,
+  spacing          : [BASE_MEASURE * 0.25, BASE_MEASURE * 0.5, BASE_MEASURE * 0.75, BASE_MEASURE, BASE_MEASURE * 1.25, BASE_MEASURE * 1.5, BASE_MEASURE * 2, BASE_MEASURE * 3],
+  baseSpacing      : BASE_MEASURE,
   baseSpacingUnit  : 'rem',
   borderRadiusSmall: '3px',
   borderRadius     : modularScale.ms0,
@@ -231,9 +234,11 @@ export const forms = {
   borderError: `1px solid ${colorList.dangerColor}`
 };
 
-export const buttons = {
+export const navigation = {
   paddingTB: modularScale['ms-2'],
-  paddingLR: modularScale.ms1
+  paddingLR: modularScale.ms1,
+  // Button large isn't working
+  labelFont: css`font-size: 1rem; font-weight: 400; text-transform: uppercase;`
 };
 
 export const tables = {};
@@ -244,6 +249,6 @@ export const cards = {
 
 export const styles = {
   gradientOverlayBars: css`background-image: ${gradients.bars};`,
-  gradientLightBars: css`background-image: linear-gradient(-45deg,#fff 0%,#eee 22%,#f6f6f6 22.01%,#fff 85%,#fafafa 85.01%,#fff 100%)`,
-  gradientDarkBars: css`background-color: ${colorList.blueDark}; background-image: ${gradients.bars};`
+  gradientLightBars  : css`background-image: linear-gradient(-45deg,#fff 0%,#eee 22%,#f6f6f6 22.01%,#fff 85%,#fafafa 85.01%,#fff 100%)`,
+  gradientDarkBars   : css`background-color: ${colorList.blueDark}; background-image: ${gradients.bars};`
 };
