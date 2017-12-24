@@ -5,7 +5,7 @@ import { createClassNameFromProps, withStyles } from './common/StyleManager';
 import { Nav, NavItem } from './Navigation';
 import { Expando } from './containers/Expando';
 import { colors, metrics } from '../../theme/Theme';
-import { Col, RowNG } from './containers/Grid';
+import { FlexCol, FlexRowNG } from './containers/FlexGrid';
 
 class BVTabs extends React.PureComponent {
   state = {activeIndex: 0};
@@ -27,7 +27,7 @@ class BVTabs extends React.PureComponent {
   };
 
   render() {
-    return <RowNG className={createClassNameFromProps(this.props)}>{this.props.children}</RowNG>;
+    return <FlexRowNG className={createClassNameFromProps(this.props)}>{this.props.children}</FlexRowNG>;
   }
 }
 
@@ -47,7 +47,7 @@ class BVTabList extends React.PureComponent {
       });
     });
 
-    return <Col width={3}><Nav stacked>{children}</Nav></Col>;
+    return <FlexCol width={3}><Nav stacked>{children}</Nav></FlexCol>;
   }
 }
 
@@ -80,13 +80,13 @@ class BVTabPanels extends React.PureComponent {
 
   render() {
     const {activeIndex} = this.context;
-    return <Col className={createClassNameFromProps(this.props)}>
+    return <FlexCol className={createClassNameFromProps(this.props)}>
       <VTabPanelContainer>
       <Expando>
         {this.props.children[activeIndex]}
       </Expando>
       </VTabPanelContainer>
-    </Col>;
+    </FlexCol>;
   }
 }
 

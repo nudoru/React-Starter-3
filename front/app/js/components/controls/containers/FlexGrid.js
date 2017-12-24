@@ -2,19 +2,19 @@ import React from 'react';
 import { joinClasses } from '../../../utils/componentUtils';
 import { Container, ContainerFluid } from './Container';
 
-export const Grid      = ({children, ...rest}) =>
+export const FlexGrid      = ({children, ...rest}) =>
   <Container {...rest}>{children}</Container>;
-export const GridFluid = ({children, ...rest}) =>
+export const FlexGridFluid = ({children, ...rest}) =>
   <ContainerFluid {...rest}>{children}</ContainerFluid>;
 
-export const Row      = ({children, ...rest}) => <div
+export const FlexRow      = ({children, ...rest}) => <div
   className={joinClasses('row', rest.className)}>{children}</div>;
-export const RowNG    = ({children, ...rest}) => <div
+export const FlexRowNG    = ({children, ...rest}) => <div
   className={joinClasses('row no-gutters', rest.className)}>{children}</div>;
-export const ColBreak = ({children, ...rest}) => <div
+export const FlexColBreak = ({children, ...rest}) => <div
   className='w-100'>{children}</div>;
 
-export const Col = ({size, width, className = null, ...rest}) => {
+export const FlexCol = ({size, width, className = null, ...rest}) => {
   let modifier = ['col'];
 
   if (size && !width) {
@@ -34,13 +34,13 @@ export const Col = ({size, width, className = null, ...rest}) => {
 
 
 // Convenience component, wraps all children in a <Col> component
-export class RowAuto extends React.PureComponent {
+export class FlexRowAuto extends React.PureComponent {
 
   render() {
     const {children:originalChildren, className, ...rest} = this.props;
 
     const children = React.Children.map(originalChildren, (child) => {
-      return <Col>{React.cloneElement(child)}</Col>;
+      return <FlexCol>{React.cloneElement(child)}</FlexCol>;
     });
 
     return (

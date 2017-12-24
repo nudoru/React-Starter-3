@@ -21,14 +21,14 @@ import {
 } from '../components/controls/Card';
 
 import {
-  Grid,
-  GridFluid,
-  Row,
-  RowAuto,
-  RowNG,
-  Col,
-  ColBreak
-} from '../components/controls/containers/Grid';
+  FlexGrid,
+  FlexGridFluid,
+  FlexRow,
+  FlexRowAuto,
+  FlexRowNG,
+  FlexCol,
+  FlexColBreak
+} from '../components/controls/containers/FlexGrid';
 
 import {
   ListGroup,
@@ -508,8 +508,8 @@ export default class Components extends React.Component {
           <ModuleTitle>Cards</ModuleTitle>
           <div className="pb-5">
             <h4 className="pb-3">Card</h4>
-            <GridFluid className='pb-5'>
-              <RowAuto>
+            <FlexGridFluid className='pb-5'>
+              <FlexRowAuto>
 
                 <Card width={'200px'} onClick={this.handleClick}>
                   <CardBody>
@@ -560,10 +560,10 @@ export default class Components extends React.Component {
                 </Card>
 
 
-              </RowAuto>
-            </GridFluid>
-            <GridFluid className='mt-5'>
-              <RowAuto>
+              </FlexRowAuto>
+            </FlexGridFluid>
+            <FlexGridFluid className='mt-5'>
+              <FlexRowAuto>
                 <Card dropShadow='xs'>
                   <CardBody>
                     <p>Shadow XS</p>
@@ -589,8 +589,8 @@ export default class Components extends React.Component {
                     <p>Shadow XL</p>
                   </CardBody>
                 </Card>
-              </RowAuto>
-            </GridFluid>
+              </FlexRowAuto>
+            </FlexGridFluid>
           </div>
         </Module>
         <Module>
@@ -782,23 +782,23 @@ export default class Components extends React.Component {
           </div>
           <div className="pb-5">
             <h4 className="pb-3">Grid</h4>
-            <GridFluid className='mb-3'>
-              <RowNG className="debug-container">
-                <Col>1</Col>
-                <Col className="debug-container">2</Col>
-                <Col className="debug-container">3</Col>
-                <Col className="debug-container">4</Col>
-              </RowNG>
-            </GridFluid>
+            <FlexGridFluid className='mb-3'>
+              <FlexRowNG className="debug-container">
+                <FlexCol>1</FlexCol>
+                <FlexCol className="debug-container">2</FlexCol>
+                <FlexCol className="debug-container">3</FlexCol>
+                <FlexCol className="debug-container">4</FlexCol>
+              </FlexRowNG>
+            </FlexGridFluid>
             <h5>Use RowAuto for easy, even cols</h5>
-            <GridFluid>
-              <RowAuto>
+            <FlexGridFluid>
+              <FlexRowAuto>
                 <p>I'ma col!</p>
                 <p>I'ma col!</p>
                 <p>I'ma col!</p>
                 <p>I'ma col!</p>
-              </RowAuto>
-            </GridFluid>
+              </FlexRowAuto>
+            </FlexGridFluid>
           </div>
         </Module>
         <Module>
@@ -831,14 +831,14 @@ export default class Components extends React.Component {
           <div className="pb-5">
             <h4 className="pb-3">Icons</h4>
             <p>Using react-icons</p>
-            <GridFluid className='pt-3'>
-              <RowAuto className='mb-5'>
+            <FlexGridFluid className='pt-3'>
+              <FlexRowAuto className='mb-5'>
                 <Icon xs>123</Icon>
                 <Icon sm>123</Icon>
                 <Icon>123</Icon>
                 <Icon lg>123</Icon>
-              </RowAuto>
-              <RowAuto className='mb-5'>
+              </FlexRowAuto>
+              <FlexRowAuto className='mb-5'>
                 <Icon xs><FaRocket/></Icon>
                 <Icon sm><FaRocket/></Icon>
                 <Icon><FaRocket/></Icon>
@@ -847,8 +847,8 @@ export default class Components extends React.Component {
                 <Icon outline sm><FaRocket/></Icon>
                 <Icon outline><FaRocket/></Icon>
                 <Icon outline lg><FaRocket/></Icon>
-              </RowAuto>
-              <RowAuto className='mb-5'>
+              </FlexRowAuto>
+              <FlexRowAuto className='mb-5'>
                 <Icon primary><FaRocket/></Icon>
                 <Icon secondary><FaRocket/></Icon>
                 <Icon info><FaRocket/></Icon>
@@ -857,8 +857,8 @@ export default class Components extends React.Component {
                 <Icon success><FaRocket/></Icon>
                 <Icon warning><FaRocket/></Icon>
                 <Icon danger><FaRocket/></Icon>
-              </RowAuto>
-              <RowAuto className='mb-5'>
+              </FlexRowAuto>
+              <FlexRowAuto className='mb-5'>
                 <Icon outline primary><FaRocket/></Icon>
                 <Icon outline secondary><FaRocket/></Icon>
                 <Icon outline info><FaRocket/></Icon>
@@ -867,8 +867,8 @@ export default class Components extends React.Component {
                 <Icon outline success><FaRocket/></Icon>
                 <Icon outline warning><FaRocket/></Icon>
                 <Icon outline danger><FaRocket/></Icon>
-              </RowAuto>
-            </GridFluid>
+              </FlexRowAuto>
+            </FlexGridFluid>
           </div>
           <div className="pb-5">
             <h4 className="pb-3">Links</h4>

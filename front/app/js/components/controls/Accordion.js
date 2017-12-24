@@ -10,7 +10,7 @@ import {
   colors
 } from '../../theme/Theme';
 import { Collapse } from './containers/Collapse';
-import { Col, Row } from './containers/Grid';
+import { FlexCol, FlexRow } from './containers/FlexGrid';
 import { TweenGroup } from './common/Animate';
 import { joinClasses } from '../../utils/componentUtils';
 
@@ -114,16 +114,16 @@ export class Accordion extends React.Component {
     return (
         <Card className={joinClasses(componentStyle, className)}>
           <CardHeader className={headerStyle} onClick={this.toggle}>
-            <Row>
-              <Col className={chevronColStyle}>
+            <FlexRow>
+              <FlexCol className={chevronColStyle}>
                 <TweenGroup
                   tween={this.state.open ? this._showChevronTween : this._hideChevronTween}
                 >
                   <div ref = { chevron => this.chevronRef = chevron }><FaChevron className={chevronIconStyle}/></div>
                 </TweenGroup>
-              </Col>
-              <Col className={headerColStyle}>{titleComp}</Col>
-            </Row>
+              </FlexCol>
+              <FlexCol className={headerColStyle}>{titleComp}</FlexCol>
+            </FlexRow>
           </CardHeader>
           <Collapse expand={this.state.open}>
             <CardBody className={contentContainerStyle}>
