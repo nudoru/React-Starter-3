@@ -601,6 +601,38 @@ export default class Components extends React.Component {
               <TableCaption>List of users</TableCaption>
               <TableHead>
                 <tr>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Username</th>
+                  <th scope="col" className="text-right">Numbers</th>
+                </tr>
+              </TableHead>
+              <TableBody>
+                <tr>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td className="text-right">123</td>
+                </tr>
+                <tr>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                  <td className="text-right">12.3</td>
+                </tr>
+                <tr>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                  <td className="text-right">1.23</td>
+                </tr>
+              </TableBody>
+            </Table>
+            <h4 className="pb-3">Borders</h4>
+            <Table bordered>
+              <TableCaption>List of users</TableCaption>
+              <TableHead>
+                <tr>
                   <th scope="col">#</th>
                   <th scope="col">First Name</th>
                   <th scope="col">Last Name</th>
@@ -628,8 +660,40 @@ export default class Components extends React.Component {
                 </tr>
               </TableBody>
             </Table>
-            <h4 className="pb-3">Options</h4>
-            <Table striped hover>
+            <h4 className="pb-3">Stripes</h4>
+            <Table striped>
+              <TableCaption>List of users</TableCaption>
+              <TableHead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Username</th>
+                </tr>
+              </TableHead>
+              <TableBody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </TableBody>
+            </Table>
+            <h4 className="pb-3">Bordered, striped and Hover</h4>
+            <Table bordered striped hover>
               <TableCaption>List of users</TableCaption>
               <TableHead>
                 <tr>

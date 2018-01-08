@@ -241,7 +241,13 @@ export const navigation = {
   labelFont: css`font-size: 1rem; font-weight: 400; text-transform: uppercase;`
 };
 
-export const tables = {};
+export const tables = {
+  borderColor: colorList.grey8,
+  rowBorderColor: colorList.grey4,
+  headerColor: colorList.blueDark,
+  captionColor: colorList.blueDark,
+  zebraRowColor: 'rgba(0,0,0,0.025)'
+};
 
 export const cards = {
   defaultWidth: '100%'

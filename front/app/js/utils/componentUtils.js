@@ -26,8 +26,8 @@ export const removeNulls    = array => array.filter(i => !!i);
 export const joinStrings    = delim => arry => arry.join(delim);
 export const joinWithSpaces = joinStrings(' ');
 
-// export const joinClasses = (...classes) => compose(joinWithSpaces, removeNulls)([...classes]);
-export const joinClasses = (...classes) => cx([...classes].reverse());
+export const joinClasses = (...classes) => compose(joinWithSpaces, removeNulls)([...classes]);
+// export const joinClasses = (...classes) => cx([...classes].reverse());
 
 export const clamp = curry((min, max, val) => {
   if (val < min) {
